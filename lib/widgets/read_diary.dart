@@ -1,10 +1,14 @@
+import 'package:capstone/widgets/diary_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/models/diary.dart';
 
-class ReadScreen extends StatelessWidget {
-  const ReadScreen({super.key,required this.todayDairy});
+
+
+class ReadDairy extends StatelessWidget {
+  const ReadDairy({super.key,required this.todayDairy});
 
   final Diary todayDairy;
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class ReadScreen extends StatelessWidget {
           child: ListView(children: [
             const SizedBox(height: 100,),
             Text(todayDairy.formattedDate,style: const TextStyle(fontSize: 30,),textAlign: TextAlign.center,),
-            Text(todayDairy.text),
+            DiaryTextField(todayDairy: todayDairy),
           ]),
         ),
       ),
