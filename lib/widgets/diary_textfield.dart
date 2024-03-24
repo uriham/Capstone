@@ -14,13 +14,18 @@ class DiaryTextField extends StatefulWidget {
 
 class _DiaryTextFieldState extends State<DiaryTextField> {
   TextEditingController? _textController;
-
+  
   @override
   void initState() {
     _textController = TextEditingController(text: widget.todayDairy.text);
     super.initState();
   }
-
+  
+  @override
+  void dispose() {
+    _textController?.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return TextField(
