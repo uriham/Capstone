@@ -1,11 +1,12 @@
 import 'package:capstone/models/diary.dart';
 import 'package:flutter/material.dart';
-
+import 'package:capstone/data/diarys.dart';
 
 class DiaryTextField extends StatefulWidget {
-  const DiaryTextField({super.key,required this.todayDiary});
+  const DiaryTextField({super.key, required this.todayDiary,required this.onPressed});
 
   final Diary todayDiary;
+  final void Function() onPressed;
 
   @override
   State<DiaryTextField> createState() {
@@ -15,6 +16,7 @@ class DiaryTextField extends StatefulWidget {
 
 class _DiaryTextFieldState extends State<DiaryTextField> {
   final _textController = TextEditingController();
+  final Diary todayDiary = allDiarys[0];
 
   @override
   void initState() {
@@ -30,6 +32,7 @@ class _DiaryTextFieldState extends State<DiaryTextField> {
 
   @override
   Widget build(BuildContext context) {
+    print(allDiarys[0].text);
     return Column(
       children: [
         TextField(
@@ -40,12 +43,17 @@ class _DiaryTextFieldState extends State<DiaryTextField> {
           ),
         ),
         ElevatedButton(
-            onPressed: () {
-              setState(() {
-                widget.todayDiary.text = _textController.text;
-              });
-            },
-            child: const Text('수정')),
+          onPressed: () {
+            
+            setState(() {
+              todayDiary.text = _textController.text;
+              widget.onPressed();
+            });
+           
+          },
+          child: const Text('수정'),
+        ),
+        
       ],
     );
   }
