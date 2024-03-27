@@ -21,9 +21,35 @@ class App extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: theme,
+      theme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor:
+              const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
+          appBarTheme: const AppBarTheme().copyWith(
+            backgroundColor:
+                const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
+          ),
+          cardTheme: CardTheme().copyWith(
+            color: const Color.fromARGB(1, 255, 255, 255),
+          )),
       home: const StartScreen(),
     );
   }
 
 }
+/*void main() {
+  runApp(
+    MaterialApp(
+      theme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor:
+              const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
+          appBarTheme: const AppBarTheme().copyWith(
+            backgroundColor:
+                const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
+          ),
+          cardTheme: CardTheme().copyWith(
+            color: const Color.fromARGB(1, 255, 255, 255),
+          )),
+      home: const StartScreen(),
+    ),
+  );
+}*/ 
