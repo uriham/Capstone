@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:capstone/models/diary.dart';
 
 class ReadDiaryScreen extends StatelessWidget {
-  const ReadDiaryScreen({super.key, required this.todayDiary,required this.onPressed});
+  const ReadDiaryScreen(
+      {super.key, required this.todayDiary, required this.onPressed});
 
   final Diary todayDiary;
   final void Function() onPressed;
-
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +31,14 @@ class ReadDiaryScreen extends StatelessWidget {
             todayDiary.formattedDate,
             style: const TextStyle(
               fontSize: 30,
+              color: Colors.white,
             ),
             textAlign: TextAlign.center,
           ),
-          DiaryTextField(todayDiary: todayDiary,onPressed: onPressed,),
+          DiaryTextField(
+            todayDiary: todayDiary,
+            onPressed: onPressed,
+          ),
         ]),
       ),
     );

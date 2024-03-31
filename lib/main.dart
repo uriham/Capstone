@@ -3,15 +3,17 @@ import 'package:capstone/screens/start_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final theme = ThemeData.dark().copyWith(
-  scaffoldBackgroundColor:
-      const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
+  scaffoldBackgroundColor: const Color.fromARGB(255, 0, 0, 0),
   appBarTheme: const AppBarTheme().copyWith(
-    backgroundColor: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
+    backgroundColor: const Color.fromARGB(255, 0, 0, 0),
   ),
-  cardTheme: CardTheme().copyWith(
+  cardTheme: const CardTheme().copyWith(
     color: const Color.fromARGB(1, 255, 255, 255),
   ),
   textTheme: GoogleFonts.latoTextTheme(),
+  // bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+  //   backgroundColor: Color.fromARGB(255, 0, 0, 0),
+  // ),
 );
 void main() {
   runApp(const App());
