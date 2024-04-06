@@ -18,26 +18,29 @@ class _StartScreenState extends State<PaletteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Container(
-          width: 100,
-          height: 100,
-          color: Colors.red,
-        ),
-        Container(
-          width: 100,
-          height: 100,
-          color: Colors.green,
-        ),
-        Container(
-          width: 100,
-          height: 100,
-          color: Colors.blue,
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(18.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            width: 100,
+            height: 100,
+            color: Colors.red,
+          ),
+          Container(
+            width: 100,
+            height: 100,
+            color: Colors.green,
+          ),
+          Container(
+            width: 100,
+            height: 100,
+            color: Colors.blue,
+          ),
+        ],
+      ),
     );
   }
 }

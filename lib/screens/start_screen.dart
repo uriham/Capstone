@@ -1,7 +1,5 @@
-import 'package:capstone/screens/mybook_screen.dart';
-import 'package:capstone/screens/palette_screen.dart';
+
 import 'package:flutter/material.dart';
-import 'package:capstone/screens/calendar.dart';
 import 'package:capstone/screens/read_diary_screen.dart';
 import 'package:capstone/widgets/diary_show.dart';
 import 'package:capstone/data/diarys.dart';
@@ -23,47 +21,50 @@ class _StartScreenState extends State<StartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const SizedBox(height: 80), // 위쪽 여백 추가
-          const Text(
-            '안녕하세요 \nUser님',
-            style: TextStyle(fontSize: 39, color: Colors.white),
-          ),
-          const SizedBox(height: 130),
-          const Text(
-            '오늘의 기록',
-            style: TextStyle(fontSize: 20, color: Colors.white),
-          ),
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(color: Colors.white)),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (ctx) => ReadDiaryScreen(
-                        todayDiary: todayDiary,
-                        onPressed: _changedDiary,
+    return  Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const SizedBox(height: 80), // 위쪽 여백 추가
+            const Text(
+              '안녕하세요 \nUser님',
+              style: TextStyle(fontSize: 39, color: Colors.white),
+            ),
+            const SizedBox(height: 130),
+            const Text(
+              '  오늘의 기록',
+              style: TextStyle(fontSize: 20, color: Colors.white),
+            ),
+            const SizedBox(height: 5,),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: Colors.white)),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (ctx) => ReadDiaryScreen(
+                          todayDiary: todayDiary,
+                          onPressed: _changedDiary,
+                        ),
                       ),
+                    );
+                  },
+                  child: Card(
+                    child: DiaryShow(
+                      todayDiary: todayDiary,
                     ),
-                  );
-                },
-                child: Card(
-                  child: DiaryShow(
-                    todayDiary: todayDiary,
                   ),
                 ),
               ),
             ),
-          ),
-        ],
-      );}}
+          ],
+        ),
+    );}}
       /*
       bottomNavigationBar: BottomAppBar(
         //height: 70,

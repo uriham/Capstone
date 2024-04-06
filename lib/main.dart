@@ -13,6 +13,7 @@ final theme = ThemeData.dark().copyWith(
   cardTheme: const CardTheme().copyWith(
     color: const Color.fromARGB(1, 255, 255, 255),
   ),
+  textTheme: GoogleFonts.latoTextTheme(),
 );
 void main() {
   runApp(const ProviderScope(child: App()));
