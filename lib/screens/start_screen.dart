@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:capstone/screens/mybook_screen.dart';
 import 'package:capstone/screens/palette_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:capstone/screens/calendar.dart';
 import 'package:capstone/screens/read_diary.dart';
-import 'package:capstone/models/diary.dart';
+
 import 'package:capstone/widgets/diary_show.dart';
 import 'package:capstone/data/diarys.dart';
 
@@ -89,7 +89,7 @@ class _StartScreenState extends State<StartScreen> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (ctx) => const MybookScreen()),
+                  MaterialPageRoute(builder: (ctx) => const MyBookScreen()),
                 );
               },
             ),

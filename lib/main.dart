@@ -29,3 +29,15 @@ class App extends StatelessWidget {
     );
   }
 }
+
+class BookItem {
+  final String urlImage;
+  final String date;
+  final String title;
+
+  const BookItem({
+    required this.urlImage,
+    required this.date,
+    required this.title,
+  });
+}

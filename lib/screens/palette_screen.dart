@@ -6,11 +6,11 @@ class PaletteScreen extends StatefulWidget {
 
   @override
   State<PaletteScreen> createState() {
-    return _StartScreenState();
+    return _PaletteScreenState();
   }
 }
 
-class _StartScreenState extends State<PaletteScreen> {
+class _PaletteScreenState extends State<PaletteScreen> {
   final todayDiary = allDiarys[0];
   void _palette() {
     setState(() {});
