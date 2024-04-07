@@ -1,11 +1,8 @@
+import 'package:capstone/providers/diary_provider.dart';
 import 'package:capstone/screens/mybook_screen.dart';
 import 'package:capstone/screens/palette_screen.dart';
 import 'package:capstone/screens/start_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:capstone/screens/calendar.dart';
-import 'package:capstone/screens/read_diary_screen.dart';
-import 'package:capstone/widgets/diary_show.dart';
-import 'package:capstone/data/diarys.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TapScreen extends ConsumerStatefulWidget {
@@ -28,7 +25,9 @@ class _TapScreenState extends ConsumerState<TapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Widget activePage = StartScreen();
+    final allDiary = ref.watch(diaryProvider);
+
+    Widget activePage = StartScreen(todayDiary :allDiary[0]);
     var activePageTitle = 'Dairy';
 
     if (_selectedPageIndex == 0) {

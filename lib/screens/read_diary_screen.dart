@@ -4,10 +4,10 @@ import 'package:capstone/models/diary.dart';
 
 class ReadDiaryScreen extends StatelessWidget {
   const ReadDiaryScreen(
-      {super.key, required this.todayDiary, required this.onPressed});
+      {super.key, required this.todayDiary});
 
   final Diary todayDiary;
-  final void Function() onPressed;
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class ReadDiaryScreen extends StatelessWidget {
           ),
           DiaryTextField(
             todayDiary: todayDiary,
-            onPressed: onPressed,
+
           ),
         ]),
       ),

@@ -2,22 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:capstone/screens/read_diary_screen.dart';
 import 'package:capstone/widgets/diary_show.dart';
-import 'package:capstone/data/diarys.dart';
+import 'package:capstone/models/diary.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:capstone/providers/diary_provider.dart';
 
-class StartScreen extends StatefulWidget {
-  const StartScreen({super.key});
+class StartScreen extends StatelessWidget {
+  const StartScreen({super.key,required this.todayDiary});
 
-  @override
-  State<StartScreen> createState() {
-    return _StartScreenState();
-  }
-}
-
-class _StartScreenState extends State<StartScreen> {
-  final todayDiary = allDiarys[0];
-  void _changedDiary() {
-    setState(() {});
-  }
+  final Diary todayDiary;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +41,6 @@ class _StartScreenState extends State<StartScreen> {
                       MaterialPageRoute(
                         builder: (ctx) => ReadDiaryScreen(
                           todayDiary: todayDiary,
-                          onPressed: _changedDiary,
                         ),
                       ),
                     );
