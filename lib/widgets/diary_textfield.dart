@@ -1,42 +1,23 @@
 import 'package:capstone/models/diary.dart';
+import 'package:capstone/providers/diary_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/data/diarys.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DiaryTextField extends StatefulWidget {
-  const DiaryTextField({super.key, required this.todayDiary,required this.onPressed});
+class DiaryTextField extends ConsumerWidget {
+  DiaryTextField({super.key, required this.todayDiary,});
 
   final Diary todayDiary;
-  final void Function() onPressed;
+  final TextEditingController _textEditingController = TextEditingController();
+
 
   @override
-  State<DiaryTextField> createState() {
-    return _DiaryTextFieldState();
-  }
-}
-
-class _DiaryTextFieldState extends State<DiaryTextField> {
-  final _textController = TextEditingController();
-  final Diary todayDiary = allDiarys[0];
-
-  @override
-  void initState() {
-    super.initState();
-    _textController.text = widget.todayDiary.text;
-  }
-
-  @override
-  void dispose() {
-    _textController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    print(allDiarys[0].text);
+  Widget build(BuildContext context,WidgetRef ref) {
+    _textEditingController.text = todayDiary.text;
     return Column(
       children: [
         TextField(
-          controller: _textController,
+          controller: _textEditingController,
           maxLines: null,
           decoration: const InputDecoration(
             border: InputBorder.none,
@@ -44,12 +25,7 @@ class _DiaryTextFieldState extends State<DiaryTextField> {
         ),
         ElevatedButton(
           onPressed: () {
-            
-            setState(() {
-              todayDiary.text = _textController.text;
-              widget.onPressed();
-            });
-           
+              ref.read(diaryProvider.notifier).editTodayDiary(_textEditingController.text);
           },
           child: const Text('수정'),
         ),

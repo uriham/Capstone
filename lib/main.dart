@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:capstone/screens/start_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:capstone/screens/tab.dart';
@@ -25,7 +24,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      home: TapScreen(),
+      home: const TapScreen(),
     );
   }
 }
