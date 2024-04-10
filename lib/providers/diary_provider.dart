@@ -10,7 +10,7 @@ class DiaryNotifier extends StateNotifier<List<Diary>>{
   void addDiary(Diary diary){
     state = [...state, diary];
   }
-  /// remove도 추가..
+
   void editTodayDiary(String inputText){
     state = [Diary(date: now, text: inputText), ...state.skip(1)];
   }
