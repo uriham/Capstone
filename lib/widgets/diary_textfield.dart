@@ -15,7 +15,7 @@ class DiaryTextField extends ConsumerWidget {
   final Diary todayDiary;
   final TextEditingController _textEditingController = TextEditingController();
 
-  Future _openai() async {
+  Future<String> _openai(String question) async {
     OpenAI.apiKey = Env.apiKey;
     final systemMessage = OpenAIChatCompletionChoiceMessageModel(
       content: [
@@ -30,7 +30,7 @@ class DiaryTextField extends ConsumerWidget {
     final userMessage = OpenAIChatCompletionChoiceMessageModel(
       content: [
         OpenAIChatCompletionChoiceMessageContentItemModel.text(
-          "The sky is blue. Squirrels ran and dogs crawled around.",
+          question,
         ),
       ],
       role: OpenAIChatMessageRole.user,
@@ -52,10 +52,8 @@ class DiaryTextField extends ConsumerWidget {
       maxTokens: 500,
     );
 
-    print(chatCompletion.choices.first.message); // ...
-    print(chatCompletion.systemFingerprint); // ...
-    print(chatCompletion.usage.promptTokens); // ...
-    print(chatCompletion.id);
+    return chatCompletion.choices.first.message.content![0].toString();
+
   }
 
   @override
@@ -84,16 +82,17 @@ class DiaryTextField extends ConsumerWidget {
                     actions: <Widget>[
                       ElevatedButton(
                         child: const Text('Okay'),
-                        onPressed: () {
-                          //_openai();
+                        onPressed: () async{
+
                           Navigator.of(context).pop();
                           // 오늘의 일기 수정 및 오늘의 책에 내용 추가
                           ref
                               .read(diaryProvider.notifier)
                               .editTodayDiary(_textEditingController.text);
+                          final a = await _openai(_textEditingController.text);
                           ref
                               .read(bookProvider.notifier)
-                              .addBook(_textEditingController.text);
+                              .addBook(a);
                         },
                       ),
                       TextButton(
