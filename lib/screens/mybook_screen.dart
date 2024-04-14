@@ -1,46 +1,51 @@
+import 'package:capstone/providers/book_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:capstone/widgets/diary_show.dart';
-import 'package:capstone/data/diarys.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MybookScreen extends StatefulWidget {
+class MybookScreen extends ConsumerWidget {
   const MybookScreen({super.key});
 
   @override
-  State<MybookScreen> createState() {
-    return _StartScreenState();
-  }
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final todayDiary = ref.watch(bookProvider);
+    Widget content = const Text('oh there is not book here', style: TextStyle(color: Colors.white),);
 
-class _StartScreenState extends State<MybookScreen> {
-  final todayDiary = allDiarys[0];
-  void _myDiary() {
-    setState(() {});
-  }
+    if (todayDiary.isNotEmpty) {
+      content = Text(todayDiary[0],style: TextStyle(color: Colors.white,));
+    }
 
-  @override
-  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        SizedBox(height: 80), // 위쪽 여백 추가
+        const SizedBox(height: 80), // 위쪽 여백 추가
         Expanded(
           child: Container(
-            margin: EdgeInsets.fromLTRB(80, 0, 80, 0),
+            margin: const EdgeInsets.fromLTRB(80, 0, 80, 0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               border: Border.all(color: Colors.white),
             ),
-            child: GestureDetector(
+            child: InkWell(
               onTap: () {},
               child: Card(
-                child: DiaryShow(
-                  todayDiary: todayDiary,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    // decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(15),
+                    //     border: Border.all(color: Colors.white)),
+                    child: Column(
+                      children: [
+                        content,
+                      ],
+                    ),
+                  ),
                 ), //여기 바꿔야함
               ),
             ),
           ),
         ),
-        SizedBox(height: 80),
+        const SizedBox(height: 80),
       ],
     );
   }

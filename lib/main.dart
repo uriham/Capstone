@@ -23,13 +23,8 @@ final theme = ThemeData.dark().copyWith(
 
 
 void main() async{
-  /*
- 
-*/
-
-
-
   runApp(const ProviderScope(child: App()));
+
 }
 
 class App extends StatelessWidget {

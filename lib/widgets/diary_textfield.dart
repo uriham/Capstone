@@ -1,4 +1,5 @@
 import 'package:capstone/models/diary.dart';
+import 'package:capstone/providers/book_provider.dart';
 import 'package:capstone/providers/diary_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,7 +13,6 @@ class DiaryTextField extends ConsumerWidget {
   });
 
   final Diary todayDiary;
-  var chatText = '-------Loading-------';
   final TextEditingController _textEditingController = TextEditingController();
 
   Future _openai() async {
@@ -20,7 +20,7 @@ class DiaryTextField extends ConsumerWidget {
     final systemMessage = OpenAIChatCompletionChoiceMessageModel(
       content: [
         OpenAIChatCompletionChoiceMessageContentItemModel.text(
-          "한국말로 대답해",
+          "Please describe it as beautifully as possible",
         ),
       ],
       role: OpenAIChatMessageRole.assistant,
@@ -30,7 +30,7 @@ class DiaryTextField extends ConsumerWidget {
     final userMessage = OpenAIChatCompletionChoiceMessageModel(
       content: [
         OpenAIChatCompletionChoiceMessageContentItemModel.text(
-          "안녕 오늘의 기분은 어때?",
+          "The sky is blue. Squirrels ran and dogs crawled around.",
         ),
       ],
       role: OpenAIChatMessageRole.user,
@@ -51,6 +51,7 @@ class DiaryTextField extends ConsumerWidget {
       temperature: 0.2,
       maxTokens: 500,
     );
+
     print(chatCompletion.choices.first.message); // ...
     print(chatCompletion.systemFingerprint); // ...
     print(chatCompletion.usage.promptTokens); // ...
@@ -78,17 +79,21 @@ class DiaryTextField extends ConsumerWidget {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: Text('Dialog Title'),
-                    content: Text('This is the content of the dialog.'),
+                    title: const Text('변환'),
+                    content: const Text('정말로 변환하시겠습니까?'),
                     actions: <Widget>[
                       ElevatedButton(
-                        child: Text('Okay'),
+                        child: const Text('Okay'),
                         onPressed: () {
-                          _openai();
+                          //_openai();
                           Navigator.of(context).pop();
-                          var a = ref
+                          // 오늘의 일기 수정 및 오늘의 책에 내용 추가
+                          ref
                               .read(diaryProvider.notifier)
                               .editTodayDiary(_textEditingController.text);
+                          ref
+                              .read(bookProvider.notifier)
+                              .addBook(_textEditingController.text);
                         },
                       ),
                       TextButton(
