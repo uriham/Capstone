@@ -3,9 +3,9 @@ import 'package:capstone/screens/start_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final theme = ThemeData.dark().copyWith(
-  scaffoldBackgroundColor: const Color.fromARGB(255, 0, 0, 0),
+  scaffoldBackgroundColor: const Color.fromARGB(255, 30, 30, 30),
   appBarTheme: const AppBarTheme().copyWith(
-    backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+    backgroundColor: const Color.fromARGB(255, 30, 30, 30),
   ),
   cardTheme: const CardTheme().copyWith(
     color: const Color.fromARGB(1, 255, 255, 255),
@@ -28,16 +28,4 @@ class App extends StatelessWidget {
       home: const StartScreen(),
     );
   }
-}
-
-class BookItem {
-  final String urlImage;
-  final String date;
-  final String title;
-
-  const BookItem({
-    required this.urlImage,
-    required this.date,
-    required this.title,
-  });
 }
