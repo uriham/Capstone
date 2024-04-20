@@ -1,5 +1,79 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:palette_generator/palette_generator.dart';
+
+class PhotoHero extends StatelessWidget {
+  const PhotoHero({
+    super.key,
+    required this.photo,
+    this.onTap,
+    required this.width,
+    required this.height,
+  });
+
+  final String photo;
+  final VoidCallback? onTap;
+  final double width;
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      //width: width,
+      height: height,
+      child: Hero(
+        tag: photo,
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onTap,
+            child: Image.asset(
+              photo,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TitleHero extends StatelessWidget {
+  const TitleHero({
+    super.key,
+    required this.title,
+    this.onTap,
+    // required this.width,
+    // required this.height,
+  });
+
+  final String title;
+  final VoidCallback? onTap;
+  // final double width;
+  // final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        //width: width,
+        //height: height,
+        child: Hero(
+      tag: title,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          child: Text(
+            title,
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    ));
+  }
+}
 
 class Book {
   final String urlImage;
@@ -53,6 +127,8 @@ class _BookCardState extends State<BookCard> {
 
   @override
   Widget build(BuildContext context) {
+    timeDilation = 3.0;
+
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
@@ -94,11 +170,60 @@ class _BookCardState extends State<BookCard> {
                 // ),
                 ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  child: Image.asset(
-                    widget.book.urlImage,
-                    fit: BoxFit.cover,
-                    width: 247,
-                    height: 350,
+                  child: PhotoHero(
+                    photo: widget.book.urlImage,
+                    width: 250.0,
+                    height: 356.0,
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute<void>(
+                        builder: (context) {
+                          return Scaffold(
+                            //appBar: AppBar(),
+                            body: Container(
+                              // Set background to blue to emphasize that it's a new route.
+                              color: Color.fromARGB(255, 30, 30, 30),
+                              padding: const EdgeInsets.all(16),
+                              alignment: Alignment.topCenter,
+                              child: Stack(
+                                children: [
+                                  PhotoHero(
+                                    photo: widget.book.urlImage,
+                                    width: 400.0,
+                                    height: 500.0,
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: TitleHero(
+                                      title: widget.book.title,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            bottomNavigationBar: BottomAppBar(
+                              shape: CircularNotchedRectangle(),
+                              color: Color.fromARGB(120, 94, 94, 94),
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    icon: const Icon(Icons.menu),
+                                    onPressed: () {},
+                                  ),
+                                  const Spacer(),
+                                  IconButton(
+                                    icon: const Icon(Icons.settings),
+                                    onPressed: () {},
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ));
+                    },
                   ),
                 ),
               ],

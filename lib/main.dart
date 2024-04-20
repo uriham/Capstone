@@ -16,6 +16,11 @@ final theme = ThemeData.dark().copyWith(
   // ),
 );
 void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // WidgetsBinding.instance.addPostFrameCallback((_) {
+  //   timeDilation = 5.0; // 또는 원하는 값
+  // });
+
   runApp(const App());
 }
 

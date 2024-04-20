@@ -25,87 +25,130 @@ class _StartScreenState extends State<StartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Diary'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.calendar_today),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (ctx) => const CalendarWidget()),
-              );
-            },
-          )
-        ],
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const SizedBox(height: 80), // 위쪽 여백 추가
-          const Text(
-            '안녕하세요 \nUser님',
-            style: TextStyle(fontSize: 39, color: Colors.white),
-          ),
-          const SizedBox(height: 130),
-          const Text(
-            '오늘의 기록',
-            style: TextStyle(fontSize: 20, color: Colors.white),
-          ),
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(color: Colors.white)),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (ctx) => ReadDiaryScreen(
-                        todayDiary: todayDiary,
-                        onPressed: _changedDiary,
-                      ),
-                    ),
-                  );
-                },
-                child: Card(
-                  child: DiaryShow(
-                    todayDiary: todayDiary,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomAppBar(
-        //height: 70,
-        child: Row(
-          children: [
+        appBar: AppBar(
+          title: const Text('Diary'),
+          actions: [
             IconButton(
-              icon: const Icon(Icons.menu_book),
+              icon: const Icon(Icons.calendar_today),
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (ctx) => MyBookScreen()),
-                );
-              },
-            ),
-            const Spacer(),
-            IconButton(
-              icon: const Icon(Icons.palette),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (ctx) => const PaletteScreen()),
+                  MaterialPageRoute(builder: (ctx) => const CalendarWidget()),
                 );
               },
             )
           ],
         ),
-      ),
-    );
+        body: Container(
+          margin: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SizedBox(height: 80), // 위쪽 여백 추가
+              const Text(
+                '안녕하세요 \nUser님',
+                style: TextStyle(fontSize: 39, color: Colors.white),
+              ),
+              const SizedBox(height: 130),
+              const Text(
+                '오늘의 기록',
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(26, 255, 255, 255),
+                    borderRadius: BorderRadius.circular(15),
+                    //border: Border.all(color: Colors.white),
+                  ),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (ctx) => ReadDiaryScreen(
+                            todayDiary: todayDiary,
+                            onPressed: _changedDiary,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      child: DiaryShow(
+                        todayDiary: todayDiary,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 20.0),
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.menu_book),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (ctx) => MyBookScreen()),
+                        );
+                      },
+                    ),
+                    const Spacer(),
+                    IconButton(
+                      icon: const Icon(Icons.palette),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (ctx) => const PaletteScreen()),
+                        );
+                      },
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        )
+
+        // floatingActionButton: FloatingActionButton(
+        //     onPressed: () {
+        //       Navigator.push(
+        //         context,
+        //         MaterialPageRoute(builder: (ctx) => MyBookScreen()),
+        //       );
+        //     },
+        //     child: const Icon(Icons.menu_book, color: Colors.white)),
+
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        // bottomNavigationBar: BottomAppBar(
+        //   color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.0),
+        //   //height: 70,
+        //   child: Row(
+        //     children: [
+        //       IconButton(
+        //         icon: const Icon(Icons.menu_book),
+        //         onPressed: () {
+        //           Navigator.push(
+        //             context,
+        //             MaterialPageRoute(builder: (ctx) => MyBookScreen()),
+        //           );
+        //         },
+        //       ),
+        //       const Spacer(),
+        //       IconButton(
+        //         icon: const Icon(Icons.palette),
+        //         onPressed: () {
+        //           Navigator.push(
+        //             context,
+        //             MaterialPageRoute(builder: (ctx) => const PaletteScreen()),
+        //           );
+        //         },
+        //       )
+        //     ],
+        //   ),
+        // ),
+        );
   }
 }
