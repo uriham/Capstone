@@ -8,10 +8,20 @@ class MybookScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final todayDiary = ref.watch(bookProvider);
-    Widget content = const Text('oh there is not book here', style: TextStyle(color: Colors.white),);
+    final bookList = ref.watch(bookProvider);
+    Widget content = const Text(
+      'oh there is not book here',
+      style: TextStyle(color: Colors.white),
+    );
 
     if (todayDiary.isNotEmpty) {
-      content = Text(todayDiary[0],style: TextStyle(color: Colors.white,));
+      content = Column(children: [
+        Text(bookList[0].text,
+            style: const TextStyle(
+              color: Colors.white,
+            )),
+        Image.network(bookList[0].url)
+      ]);
     }
 
     return Column(

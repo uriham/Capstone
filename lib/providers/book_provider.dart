@@ -1,16 +1,17 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:capstone/models/book.dart';
 
-class BookNotifier extends StateNotifier<List<String>> {
+class BookNotifier extends StateNotifier<List<Book>> {
   BookNotifier() : super([]);
 
-  void addBook(String text) {
+  void addBook(String text, String url, DateTime date) {
     {
-      state = [text,...state ];
+      state = [Book(date: date, text: text, url: url),...state ];
     }
   }
 }
 
 final bookProvider =
-    StateNotifierProvider<BookNotifier, List<String>>((ref) {
+    StateNotifierProvider<BookNotifier, List<Book>>((ref) {
   return BookNotifier();
 });

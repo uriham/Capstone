@@ -4,7 +4,8 @@ import 'package:capstone/providers/diary_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:capstone/env.dart';
-import 'package:dart_openai/dart_openai.dart';
+import 'package:langchain/langchain.dart';
+import 'package:langchain_openai/langchain_openai.dart';
 
 class DiaryTextField extends ConsumerWidget {
   DiaryTextField({
@@ -15,45 +16,51 @@ class DiaryTextField extends ConsumerWidget {
   final Diary todayDiary;
   final TextEditingController _textEditingController = TextEditingController();
 
-  Future<String> _openai(String question) async {
-    OpenAI.apiKey = Env.apiKey;
-    final systemMessage = OpenAIChatCompletionChoiceMessageModel(
-      content: [
-        OpenAIChatCompletionChoiceMessageContentItemModel.text(
-          "Please describe it as beautifully as possible",
-        ),
-      ],
-      role: OpenAIChatMessageRole.assistant,
+  Future<String> _example2() async {
+    final openaiApiKey = Env.apiKey;
+    final llm = ChatOpenAI(
+      apiKey: openaiApiKey,
+      defaultOptions: const ChatOpenAIOptions(
+        model: 'gpt-4-turbo-preview',
+        temperature: 0,
+      ),
     );
-
-    // the user message that will be sent to the request.
-    final userMessage = OpenAIChatCompletionChoiceMessageModel(
-      content: [
-        OpenAIChatCompletionChoiceMessageContentItemModel.text(
-          question,
-        ),
-      ],
-      role: OpenAIChatMessageRole.user,
-    );
-
-// all messages to be sent.
-    final requestMessages = [
-      systemMessage,
-      userMessage,
+    final tools = <BaseTool>[
+      OpenAIDallETool(
+        apiKey: openaiApiKey,
+      ),
     ];
-
-// the actual request.
-    OpenAIChatCompletionModel chatCompletion =
-        await OpenAI.instance.chat.create(
-      model: "gpt-3.5-turbo-1106",
-      seed: 6,
-      messages: requestMessages,
-      temperature: 0.2,
-      maxTokens: 500,
+    final agent = OpenAIFunctionsAgent.fromLLMAndTools(llm: llm, tools: tools);
+    final executor = AgentExecutor(agent: agent);
+    final res = await executor.run(
+      'windows'
+      'Return ONLY the URL of the image. Do not add any explanation.',
     );
+    return res.toString();
+  }
 
-    return chatCompletion.choices.first.message.content![0].toString();
+  Future<String> _openai(String question) async {
+    final openaiApiKey = Env.apiKey;
+    const template =
+        'You are a cat that watch me.';
+    final systemMessagePrompt =
+        SystemChatMessagePromptTemplate.fromTemplate(template);
+    const humanTemplate = '{text}';
+    final humanMessagePrompt =
+        HumanChatMessagePromptTemplate.fromTemplate(humanTemplate);
+    final chatPrompt = ChatPromptTemplate.fromPromptMessages(
+        [systemMessagePrompt, humanMessagePrompt]);
+    final model = ChatOpenAI(
+        apiKey: openaiApiKey,
+        defaultOptions: const ChatOpenAIOptions(model: 'gpt-4-turbo-preview'));
+    const outputParser = StringOutputParser();
 
+    final chain = chatPrompt | model | outputParser;
+
+    final res = await chain.invoke({
+      'text': question
+    });
+    return res.toString();
   }
 
   @override
@@ -82,17 +89,17 @@ class DiaryTextField extends ConsumerWidget {
                     actions: <Widget>[
                       ElevatedButton(
                         child: const Text('Okay'),
-                        onPressed: () async{
-
+                        onPressed: () async {
                           Navigator.of(context).pop();
                           // 오늘의 일기 수정 및 오늘의 책에 내용 추가
-                          ref
-                              .read(diaryProvider.notifier)
-                              .editTodayDiary(_textEditingController.text);
-                          final a = await _openai(_textEditingController.text);
+                          ref.read(diaryProvider.notifier).editTodayDiary(
+                              _textEditingController
+                                  .text); //datetime을 제대로 넣어야 한다.
+                          final a = await _example2(); // url 획득
+                          final b = await _openai(_textEditingController.text);
                           ref
                               .read(bookProvider.notifier)
-                              .addBook(a);
+                              .addBook(b, a, todayDiary.date);
                         },
                       ),
                       TextButton(
