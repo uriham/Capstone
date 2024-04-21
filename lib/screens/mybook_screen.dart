@@ -62,7 +62,7 @@ class TitleHero extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: onTap,
+          onTap: (){},
           child: Text(
             title,
             style: TextStyle(
@@ -93,7 +93,7 @@ class BookCard extends StatefulWidget {
   const BookCard({super.key, required this.book});
 
   @override
-  _BookCardState createState() => _BookCardState();
+  State<BookCard> createState() => _BookCardState();
 }
 
 class _BookCardState extends State<BookCard> {
