@@ -39,6 +39,10 @@ dependencies:
   intl: ^0.19.0
   google_fonts: ^6.2.1
   flutter_riverpod: ^2.5.1
+  langchain_openai: ^0.4.1
+  langchain: ^0.4.2
+  envied: ^0.5.4+1
+  dart_openai: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -50,6 +54,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  envied_generator: ^0.5.4+1
+  build_runner: ^2.4.9
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

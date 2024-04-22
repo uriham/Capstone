@@ -37,7 +37,6 @@ class ReadDiaryScreen extends StatelessWidget {
           ),
           DiaryTextField(
             todayDiary: todayDiary,
-
           ),
         ]),
       ),

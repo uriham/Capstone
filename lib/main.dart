@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:capstone/screens/tab.dart';
 
+
+
+
 final theme = ThemeData.dark().copyWith(
   scaffoldBackgroundColor:
       const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
@@ -14,8 +17,13 @@ final theme = ThemeData.dark().copyWith(
   ),
   textTheme: GoogleFonts.latoTextTheme(),
 );
-void main() {
+
+
+
+
+void main() async{
   runApp(const ProviderScope(child: App()));
+
 }
 
 class App extends StatelessWidget {

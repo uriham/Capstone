@@ -8,9 +8,9 @@ class DiaryNotifier extends StateNotifier<List<Diary>>{
   DiaryNotifier() : super(allDiarys);
 
   void addDiary(Diary diary){
-    state = [...state, diary];
+    state = [diary, ...state ];
   }
-  /// remove도 추가..
+
   void editTodayDiary(String inputText){
     state = [Diary(date: now, text: inputText), ...state.skip(1)];
   }

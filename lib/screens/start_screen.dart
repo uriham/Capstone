@@ -34,7 +34,7 @@ class StartScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     border: Border.all(color: Colors.white)),
-                child: GestureDetector(
+                child: InkWell(
                   onTap: () {
                     Navigator.push(
                       context,

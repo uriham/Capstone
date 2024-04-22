@@ -22,7 +22,7 @@ class _TapScreenState extends ConsumerState<TapScreen> {
       _selectedPageIndex = index;
     });
   }
-
+  
   @override
   Widget build(BuildContext context) {
     final allDiary = ref.watch(diaryProvider);
@@ -37,7 +37,7 @@ class _TapScreenState extends ConsumerState<TapScreen> {
 
     if (_selectedPageIndex == 2) {
       activePageTitle = 'Palette';
-      activePage = PaletteScreen();
+      activePage = const PaletteScreen();
     }
 
     return Scaffold(
