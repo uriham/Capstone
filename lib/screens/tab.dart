@@ -32,7 +32,7 @@ class _TapScreenState extends ConsumerState<TapScreen> {
 
     if (_selectedPageIndex == 0) {
       activePageTitle = 'My Book';
-      activePage = MybookScreen();
+      activePage = const MybookScreen();
     }
 
     if (_selectedPageIndex == 2) {

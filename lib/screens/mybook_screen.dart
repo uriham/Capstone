@@ -7,15 +7,18 @@ class MybookScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final todayDiary = ref.watch(bookProvider);
+    //final todayDiary = ref.watch(bookProvider);
     final bookList = ref.watch(bookProvider);
-    Widget content = const Text(
-      'oh there is not book here',
-      style: TextStyle(color: Colors.white),
+
+    Widget content = const Center(
+      child: Text(
+        'oh there is not book here',
+        style: TextStyle(color: Colors.white),
+      ),
     );
 
-    if (todayDiary.isNotEmpty) {
-      content = Column(children: [
+    if (bookList.isNotEmpty) {
+      content = ListView(children: [
         Text(bookList[0].text,
             style: const TextStyle(
               color: Colors.white,
@@ -38,19 +41,8 @@ class MybookScreen extends ConsumerWidget {
             child: InkWell(
               onTap: () {},
               child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    // decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(15),
-                    //     border: Border.all(color: Colors.white)),
-                    child: Column(
-                      children: [
-                        content,
-                      ],
-                    ),
-                  ),
-                ), //여기 바꿔야함
+                child:
+                    Padding(padding: const EdgeInsets.all(8.0), child: content),
               ),
             ),
           ),

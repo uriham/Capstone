@@ -6,18 +6,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:capstone/env.dart';
 import 'package:langchain/langchain.dart';
 import 'package:langchain_openai/langchain_openai.dart';
+import 'package:capstone/data/prompts.dart';
 
-class DiaryTextField extends ConsumerWidget {
-  DiaryTextField({
-    super.key,
-    required this.todayDiary,
-  });
+class DiaryTextField extends ConsumerStatefulWidget {
+  const DiaryTextField({super.key, required this.todayDiary});
 
   final Diary todayDiary;
-  final TextEditingController _textEditingController = TextEditingController();
 
-  Future<String> _example2() async {
+  @override
+  ConsumerState<DiaryTextField> createState() {
+    return _DiaryTextFieldState();
+  }
+}
+
+class _DiaryTextFieldState extends ConsumerState<DiaryTextField> {
+  late TextEditingController _textEditingController;
+
+  Future<String> _coverImageUrl(String input) async {
     final openaiApiKey = Env.apiKey;
+
     final llm = ChatOpenAI(
       apiKey: openaiApiKey,
       defaultOptions: const ChatOpenAIOptions(
@@ -25,24 +32,32 @@ class DiaryTextField extends ConsumerWidget {
         temperature: 0,
       ),
     );
+
+    final template = exSysmessage;
+    final systemMessagePrompt =
+        SystemChatMessagePromptTemplate.fromTemplate(template);
+    const humanTemplate = '{text}';
+    final humanMessagePrompt =
+        HumanChatMessagePromptTemplate.fromTemplate(humanTemplate);
+    final chatPrompt = ChatPromptTemplate.fromPromptMessages(
+        [systemMessagePrompt, humanMessagePrompt]);
+
     final tools = <BaseTool>[
       OpenAIDallETool(
         apiKey: openaiApiKey,
       ),
     ];
-    final agent = OpenAIFunctionsAgent.fromLLMAndTools(llm: llm, tools: tools);
+    final agent = OpenAIFunctionsAgent.fromLLMAndTools(
+        llm: llm, tools: tools, systemChatMessage: systemMessagePrompt);
     final executor = AgentExecutor(agent: agent);
-    final res = await executor.run(
-      'windows'
-      'Return ONLY the URL of the image. Do not add any explanation.',
-    );
-    return res.toString();
+    final res = await executor.run(input);
+    print(res.toString());
+    return res;
   }
 
-  Future<String> _openai(String question) async {
+  Future<String> _makeBook(String question) async {
     final openaiApiKey = Env.apiKey;
-    const template =
-        'You are a cat that watch me.';
+    const template = 'make a story funny';
     final systemMessagePrompt =
         SystemChatMessagePromptTemplate.fromTemplate(template);
     const humanTemplate = '{text}';
@@ -57,15 +72,25 @@ class DiaryTextField extends ConsumerWidget {
 
     final chain = chatPrompt | model | outputParser;
 
-    final res = await chain.invoke({
-      'text': question
-    });
+    final res = await chain.invoke({'text': question});
     return res.toString();
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    _textEditingController.text = todayDiary.text;
+  void initState() {
+    super.initState();
+    _textEditingController = TextEditingController();
+    _textEditingController.text = widget.todayDiary.text;
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
@@ -91,15 +116,20 @@ class DiaryTextField extends ConsumerWidget {
                         child: const Text('Okay'),
                         onPressed: () async {
                           Navigator.of(context).pop();
-                          // 오늘의 일기 수정 및 오늘의 책에 내용 추가
-                          ref.read(diaryProvider.notifier).editTodayDiary(
-                              _textEditingController
-                                  .text); //datetime을 제대로 넣어야 한다.
-                          final a = await _example2(); // url 획득
-                          final b = await _openai(_textEditingController.text);
+                          ref
+                              .read(diaryProvider.notifier)
+                              .editTodayDiary(_textEditingController.text);
+                          
+                          final url = await _coverImageUrl(
+                              _textEditingController.text); // url 획득
+
+                          final text =
+                              await _makeBook(_textEditingController.text);
                           ref
                               .read(bookProvider.notifier)
-                              .addBook(b, a, todayDiary.date);
+                              .addBook(text, url, widget.todayDiary.date);
+                          print('done');
+                          
                         },
                       ),
                       TextButton(
