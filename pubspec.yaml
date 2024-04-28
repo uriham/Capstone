@@ -43,6 +43,7 @@ dependencies:
   langchain: ^0.4.2
   envied: ^0.5.4+1
   dart_openai: ^5.1.0
+  palette_generator: ^0.3.3+3
 
 dev_dependencies:
   flutter_test:

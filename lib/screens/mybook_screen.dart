@@ -1,54 +1,111 @@
-import 'package:capstone/providers/book_provider.dart';
+import 'package:capstone/screens/read_book.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:palette_generator/palette_generator.dart';
+import 'package:capstone/providers/book_provider.dart';
+import 'package:capstone/widgets/photo_hero.dart';
+// PhotoHero 클래스
 
-class MybookScreen extends ConsumerWidget {
+// MybookScreen 클래스
+class MybookScreen extends ConsumerStatefulWidget {
   const MybookScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    //final todayDiary = ref.watch(bookProvider);
+  ConsumerState<MybookScreen> createState() => _MybookScreenState();
+}
+
+class _MybookScreenState extends ConsumerState<MybookScreen> {
+  late PaletteGenerator _paletteGenerator;
+  Color _backgroundColor = Colors.grey; // 기본 배경색
+  List<Color> _gradientColors = [Colors.grey, Colors.grey]; // 그라데이션 색상
+
+  @override
+  void initState() {
+    super.initState();
+    //_generatePalette();
+  }
+
+  Future<void> _generatePalette() async {
+    final bookList = ref.watch(bookProvider);
+    if (bookList.isNotEmpty) {
+      final imageProvider = NetworkImage(bookList[0].url);
+      _paletteGenerator =
+          await PaletteGenerator.fromImageProvider(imageProvider);
+      final dominantColor =
+          _paletteGenerator.dominantColor?.color ?? Colors.grey;
+      final lightVibrantColor =
+          _paletteGenerator.lightVibrantColor?.color ?? Colors.white;
+      setState(() {
+        _backgroundColor = dominantColor;
+        _gradientColors = [dominantColor, lightVibrantColor]; // 그라데이션 색상
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final bookList = ref.watch(bookProvider);
 
-    Widget content = const Center(
-      child: Text(
-        'oh there is not book here',
-        style: TextStyle(color: Colors.white),
-      ),
-    );
-
-    if (bookList.isNotEmpty) {
-      content = ListView(children: [
-        Text(bookList[0].text,
-            style: const TextStyle(
-              color: Colors.white,
-            )),
-        Image.network(bookList[0].url)
-      ]);
+    if (bookList.isEmpty) {
+      return const Center(
+        child: Text(
+          'Oh, there is no book here',
+          style: TextStyle(color: Colors.white),
+        ),
+      );
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        const SizedBox(height: 80), // 위쪽 여백 추가
-        Expanded(
-          child: Container(
-            margin: const EdgeInsets.fromLTRB(80, 0, 80, 0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              border: Border.all(color: Colors.white),
-            ),
-            child: InkWell(
-              onTap: () {},
-              child: Card(
-                child:
-                    Padding(padding: const EdgeInsets.all(8.0), child: content),
-              ),
-            ),
+    final book = bookList[0];
+
+    return Scaffold(
+      appBar: AppBar(),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: RadialGradient(
+            center: Alignment.center, // 중심점
+            radius: 1, // 반경
+            colors: _gradientColors, // 그라데이션 색상
           ),
         ),
-        const SizedBox(height: 80),
-      ],
+        alignment: Alignment.center,
+        child: PhotoHero(
+          photo: book.url,
+          width: 300,
+          height: 400,
+          borderRadius: 20,
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (ctx) {
+                return ReadBookScreen(book: book);
+              }),
+            );
+          },
+        ),
+      ),
     );
+    ;
   }
 }
+
+/*Scaffold(
+                      appBar: AppBar(),
+                      body: Container(
+                        decoration: BoxDecoration(
+                          gradient: RadialGradient(
+                            center: Alignment.center, // 중심점
+                            radius: 1, // 반경
+                            colors: _gradientColors, // 그라데이션 색상
+                          ),
+                        ),
+                        alignment: Alignment.center,
+                        child: PhotoHero(
+                          photo: book.url,
+                          width: 300,
+                          height: 400,
+                          borderRadius: 20,
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ),
+                    );*/
