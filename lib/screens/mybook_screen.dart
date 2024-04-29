@@ -73,7 +73,8 @@ class _MybookScreenState extends ConsumerState<MybookScreen> {
           width: 300,
           height: 400,
           borderRadius: 20,
-          onTap: () {
+          onTap: () async{
+            await _generatePalette();
             Navigator.of(context).push(
               MaterialPageRoute(builder: (ctx) {
                 return ReadBookScreen(book: book);
