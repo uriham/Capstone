@@ -47,44 +47,41 @@ class _MybookScreenState extends ConsumerState<MybookScreen> {
     final bookList = ref.watch(bookProvider);
 
     if (bookList.isEmpty) {
-      return const Center(
-        child: Text(
-          'Oh, there is no book here',
-          style: TextStyle(color: Colors.white),
+      return Scaffold(
+        appBar: AppBar(title: const Text('My Book'),backgroundColor: Colors.transparent,),
+        body: const Center(
+          child: Text(
+            'Oh, there is no book here',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
       );
     }
-
     final book = bookList[0];
-
-    return Scaffold(
-      appBar: AppBar(),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: RadialGradient(
-            center: Alignment.center, // 중심점
-            radius: 1, // 반경
-            colors: _gradientColors, // 그라데이션 색상
-          ),
-        ),
-        alignment: Alignment.center,
-        child: PhotoHero(
-          photo: book.url,
-          width: 300,
-          height: 400,
-          borderRadius: 20,
-          onTap: () async{
-            await _generatePalette();
-            Navigator.of(context).push(
-              MaterialPageRoute(builder: (ctx) {
-                return ReadBookScreen(book: book);
-              }),
-            );
-          },
+    return Scaffold(appBar: AppBar(backgroundColor: Colors.transparent), body:  Container(
+      decoration: BoxDecoration(
+        gradient: RadialGradient(
+          center: Alignment.center, // 중심점
+          radius: 1, // 반경
+          colors: _gradientColors, // 그라데이션 색상
         ),
       ),
-    );
-    ;
+      alignment: Alignment.center,
+      child: PhotoHero(
+        photo: book.url,
+        width: 300,
+        height: 400,
+        borderRadius: 20,
+        onTap: () async {
+          await _generatePalette();
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (ctx) {
+              return ReadBookScreen(book: book);
+            }),
+          );
+        },
+      ),
+    ),);
   }
 }
 

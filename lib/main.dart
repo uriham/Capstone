@@ -8,7 +8,7 @@ import 'package:capstone/screens/tab.dart';
 
 final theme = ThemeData.dark().copyWith(
   scaffoldBackgroundColor:
-      const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
+      Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),
   appBarTheme: const AppBarTheme().copyWith(
     backgroundColor: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
   ),
