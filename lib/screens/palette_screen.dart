@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:capstone/screens/palette_screen_next.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,97 +23,140 @@ class PaletteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
+        // Stack으로 Group39569를 글상자 아래에 배치
         children: [
-          // 첫 번째 불투명한 글상자 (이미지 포함)
-          Center(
-            child: Container(
-              width: 350,
-              height: 550,
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.7), // 반투명한 배경색
-                borderRadius: BorderRadius.circular(15), // 모서리 둥글게
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(15)), // 상단 모서리 둥글게
-                    child: Image.asset(
-                      'assets/images/miaomao.png', // 글상자 안의 이미지
-                      width: 350,
-                      fit: BoxFit.cover, // 글상자를 채우도록
-                    ),
-                  ),
-                ],
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/background.png'),
+                fit: BoxFit.cover,
               ),
             ),
-          ),
-
-          // 두 번째 글상자 (상단에 그라데이션, 연한 검정색 배경)
-          Positioned(
-            top: 350, // 수직 위치
-            left: 0,
-            right: 0, // 수평 중앙 정렬
-            child: Center(
-              child: Container(
-                width: 350,
-                height: 400,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15), // 모서리 둥글게
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter, // 그라데이션 시작점
-                    end: Alignment(0.0, 0.1), // 10분의 1 지점에서 끝
-                    colors: [
-                      Colors.black.withOpacity(0.7), // 상단에서 시작
-                      Colors.transparent, // 10분의 1 지점에서 투명
-                    ],
-                    stops: const [0.0, 1.0], // 그라데이션 분포
-                  ),
-                  color: Colors.black.withOpacity(0.3), // 그라데이션 이후 연한 검정색
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center, // 수직 중앙 정렬
-                  children: [
-                    const Text(
-                      "먀오마아의 은밀한 취미생활", // 텍스트 수정
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        // 텍스트 중앙 정렬
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 16, top: 50),
+                  child: Row(
+                    children: [
+                      Text(
+                        'PRISM',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: 'KoPubWorldDotum_Pro',
+                          fontWeight: FontWeight.w700,
+                          height: 0,
+                        ),
                       ),
-                      textAlign: TextAlign.center,
+                    ],
+                  ),
+                ),
+                SizedBox(height: 50),
+                Expanded(
+                  child: Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '다른 시선으로\n나를 발견해보세요',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 24, color: Colors.white),
+                        ),
+                        SizedBox(height: 60),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => palette_screen_next(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            width: 360,
+                            height: 600,
+                            decoration: BoxDecoration(
+                              color: Colors.black.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(15),
+                                  ),
+                                  child: Image.asset(
+                                    'assets/images/miaomao.png',
+                                    width: 300,
+                                    height: 350,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                  child: Container(
+                                    child: Text(
+                                      '고양이',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontFamily: 'KoPubWorldDotum_Pro',
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  // 두 번째 텍스트 상자
+                                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                  child: Container(
+                                      child: Text(
+                                    '먀오마아의 은밀한 취미생활',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                      fontFamily: 'KoPubWorldDotum_Pro',
+                                      fontWeight: FontWeight.w700,
+                                      height: 0,
+                                    ),
+                                  )),
+                                ),
+                                Padding(
+                                  // 네 번째 텍스트 상자
+                                  padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                                  child: Container(
+                                    // 배경색 검은색
+                                    child: Text(
+                                      '"먀오마아"는 주인의 일기를 훔쳐보는 고양이이다. 먀오마아는 퉁명스럽고 귀찮음이 많지만 주인이 잠든 새벽에 주인의 일기를 보며 주인을 관찰하는 것이 취미이다. 본능에 충실한 고양이로서, 인간들의 심리, 생각, 고정관념에 대해서 이해와 공감을 하지 못하지만 주인을 향한 애정은 확실하다.\n',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 11,
+                                        fontFamily: 'KoPubWorldDotum_Pro',
+                                        fontWeight: FontWeight.w300,
+                                        height: 0,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
-
-          // 화면 상단 중앙에 텍스트 배치
+          // Group39569를 글상자 아래에 겹치게 배치
           Positioned(
-            top: 40,
+            top: 800, // 적절한 위치에 겹치도록
             left: 0,
-            right: 0, // 수평 중앙 정렬
-            child: Center(
-              child: Text(
-                "다른 시선으로\n새로운 나를 발견해보세요!",
-                textAlign: TextAlign.center, // 텍스트 중앙 정렬
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-
-          // Group39569()를 화면 하단에 배치
-          Positioned(
-            bottom: -60,
-            left: 0,
-            right: 0, // 수평 중앙 정렬
-            child: const Group39569(),
+            right: 0,
+            child: Group39569(), // Group39569 배치
           ),
         ],
       ),
@@ -120,7 +164,6 @@ class PaletteScreen extends StatelessWidget {
   }
 }
 
-// 컬러 블록을 위한 사용자 정의 위젯
 class Group39569 extends StatelessWidget {
   const Group39569({superkey});
 
