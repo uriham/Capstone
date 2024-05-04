@@ -3,27 +3,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:capstone/screens/tab.dart';
 
-
-
-
 final theme = ThemeData.dark().copyWith(
-  scaffoldBackgroundColor:
-      const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
-  appBarTheme: const AppBarTheme().copyWith(
-    backgroundColor: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
-  ),
+  //scaffoldBackgroundColor: const Color.fromARGB(1, 14, 14, 14),
+  // appBarTheme: const AppBarTheme().copyWith(
+  //   backgroundColor: const Color.fromARGB(1, 14, 14, 14).withOpacity(0.2),
+  // ),
   cardTheme: const CardTheme().copyWith(
     color: const Color.fromARGB(1, 255, 255, 255),
   ),
   textTheme: GoogleFonts.latoTextTheme(),
 );
 
-
-
-
-void main() async{
+void main() async {
   runApp(const ProviderScope(child: App()));
-
 }
 
 class App extends StatelessWidget {

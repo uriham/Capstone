@@ -44,6 +44,7 @@ dependencies:
   envied: ^0.5.4+1
   dart_openai: ^5.1.0
   palette_generator: ^0.3.3+3
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,14 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/StarryNight.jpg
+    - assets/images/D_generate button.svg
+    - assets/images/D_Mybook_ic.svg
+    - assets/images/D_PRISM_ic.svg
+    - assets/images/example.png
+    - assets/images/E_R_PDF_ic.svg
+    - assets/images/E_R_Share_ic.svg
+    - assets/images/R_Bookmark0_ic.svg
+    - assets/images/R_Bookmark1_ic.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
