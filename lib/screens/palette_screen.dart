@@ -147,7 +147,7 @@ class _PaletteScreenState extends State<PaletteScreen> {
 }
 
 class Group39569 extends StatelessWidget {
-  final double currentPage; // 'double' 타입
+  final double currentPage;
 
   const Group39569({required this.currentPage, super.key});
 
@@ -157,42 +157,36 @@ class Group39569 extends StatelessWidget {
       height: 165,
       child: Stack(
         children: [
-          _animatedColorCard(
-            left: _calculateLeft(0, currentPage),
-            top: _calculateTop(0, currentPage),
-            color: Color(0xFFF4298B),
-          ),
-          _animatedColorCard(
-            left: _calculateLeft(1, currentPage),
-            top: _calculateTop(1, currentPage),
-            color: Color(0xFF4069CD),
-          ),
-          _animatedColorCard(
-            left: _calculateLeft(2, currentPage),
-            top: _calculateTop(2, currentPage),
-            color: Color(0xFF3CB8D5),
-          ),
-          _animatedColorCard(
-            left: _calculateLeft(3, currentPage),
-            top: _calculateTop(3, currentPage),
-            color: Color(0xFF0CF5AE),
-          ),
-          _animatedColorCard(
-            left: _calculateLeft(4, currentPage),
-            top: _calculateTop(4, currentPage),
-            color: Color(0xFFC6F50C),
-          ),
-          _animatedColorCard(
-            left: _calculateLeft(5, currentPage),
-            top: _calculateTop(5, currentPage),
-            color: Color.fromARGB(255, 237, 238, 235),
-          ),
+          for (double i = 0; i < 6; i++)
+            _animatedColorCard(
+              left: _calculateLeft(i, currentPage),
+              top: _calculateTop(i, currentPage),
+              color: _getColorForIndex(i),
+            ),
         ],
       ),
     );
   }
 
-  // 부드러운 애니메이션을 위해 'AnimatedPositioned' 사용
+  Color _getColorForIndex(double index) {
+    switch (index) {
+      case 0:
+        return Color(0xFFF4298B);
+      case 1:
+        return Color(0xFF4069CD);
+      case 2:
+        return Color(0xFF3CB8D5);
+      case 3:
+        return Color(0xFF0CF5AE);
+      case 4:
+        return Color(0xFFC6F50C);
+      case 5:
+        return Color.fromARGB(255, 237, 238, 235);
+      default:
+        return Colors.grey;
+    }
+  }
+
   Widget _animatedColorCard({
     required double left,
     required double top,
@@ -215,18 +209,38 @@ class Group39569 extends StatelessWidget {
     );
   }
 
-  // 각 카드의 왼쪽 위치를 'currentPage'에 따라 계산
   double _calculateLeft(double index, double currentPage) {
-    double baseLeft = 85 * index; // 각 카드의 기본 위치
+    double baseLeft = 85 * index;
     return baseLeft;
   }
 
-  // 각 카드의 위쪽 위치를 'currentPage'에 따라 계산
-  double _calculateTop(int index, double currentPage) {
-    if (index == currentPage.floor()) {
-      return 18; // 현재 페이지인 경우
+  double _calculateTop(double index, double currentPage) {
+    // 애니메이션 효과를 위한 간격을 계산하여 부드러운 이동을 제공합니다.
+    double diff = (currentPage - index).abs();
+    if (diff < 1) {
+      return 18 + 12 * diff; // 부드럽게 상하 이동
     } else {
-      return 30; // 다른 페이지인 경우
+      return 30; // 다른 경우
     }
+  }
+}
+
+class CustomCard extends StatelessWidget {
+  final VoidCallback onTap;
+
+  CustomCard({required this.onTap, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Colors.black),
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
   }
 }
