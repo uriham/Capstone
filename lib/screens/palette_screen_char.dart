@@ -23,7 +23,7 @@ class CustomCard_myao extends StatelessWidget {
                 top: Radius.circular(15),
               ),
               child: Image.asset(
-                'assets/images/miaomao.png',
+                'assets/images/Myao_mao.png',
                 width: 300,
                 height: 350,
                 fit: BoxFit.cover,

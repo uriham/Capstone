@@ -12,16 +12,38 @@ class palette_screen_next_miao extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // 상단 360x318 크기의 이미지
+            // 상단 360x318 크기의 이미지에 '뒤로가기' 버튼을 겹치게 배치
             SizedBox(
               height: 318,
-              child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/miaomao.png'), // 상단 이미지
-                    fit: BoxFit.cover,
+              child: Stack(
+                children: [
+                  // 이미지 배치
+                  Positioned.fill(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/Myao_mao.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  // 좌측 상단에 이미지 기반 '뒤로가기' 버튼 배치
+                  Positioned(
+                    top: 30,
+                    left: 10,
+                    child: IconButton(
+                      icon: Image.asset(
+                        'assets/images/Pi_back_ic.png', // 원하는 이미지 사용
+                        width: 30, // 원하는 크기 조정
+                        height: 30,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context); // 이전 화면으로 돌아감
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
             // 나머지 부분을 검은색 배경으로 설정
@@ -260,16 +282,38 @@ class palette_screen_next_mmung extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // 상단 360x318 크기의 이미지
+            // 상단 360x318 크기의 이미지에 '뒤로가기' 버튼을 겹치게 배치
             SizedBox(
               height: 318,
-              child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/kimmung_2.png'), // 상단 이미지
-                    fit: BoxFit.cover,
+              child: Stack(
+                children: [
+                  // 이미지 배치
+                  Positioned.fill(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/kimmung_2.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  // 좌측 상단에 이미지 기반 '뒤로가기' 버튼 배치
+                  Positioned(
+                    top: 30,
+                    left: 10,
+                    child: IconButton(
+                      icon: Image.asset(
+                        'assets/images/Pi_back_ic.png', // 원하는 이미지 사용
+                        width: 30, // 원하는 크기 조정
+                        height: 30,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context); // 이전 화면으로 돌아감
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
             // 나머지 부분을 검은색 배경으로 설정
@@ -482,7 +526,7 @@ class palette_screen_next_mmung extends StatelessWidget {
 }
 
 class palette_screen_next_yang extends StatelessWidget {
-  const palette_screen_next_yang({super.key});
+  const palette_screen_next_yang({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -493,16 +537,38 @@ class palette_screen_next_yang extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // 상단 360x318 크기의 이미지
+            // 상단 360x318 크기의 이미지에 '뒤로가기' 버튼을 겹치게 배치
             SizedBox(
               height: 318,
-              child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/Yangkee_2.png'), // 상단 이미지
-                    fit: BoxFit.cover,
+              child: Stack(
+                children: [
+                  // 이미지 배치
+                  Positioned.fill(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/Yangkee_2.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  // 좌측 상단에 이미지 기반 '뒤로가기' 버튼 배치
+                  Positioned(
+                    top: 30,
+                    left: 10,
+                    child: IconButton(
+                      icon: Image.asset(
+                        'assets/images/Pi_back_ic.png', // 원하는 이미지 사용
+                        width: 30, // 원하는 크기 조정
+                        height: 30,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context); // 이전 화면으로 돌아감
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
             // 나머지 부분을 검은색 배경으로 설정

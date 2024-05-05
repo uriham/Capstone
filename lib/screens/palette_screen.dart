@@ -183,9 +183,9 @@ class Group39569 extends StatelessWidget {
             color: Color(0xFFC6F50C),
           ),
           _animatedColorCard(
-            left: _calculateLeft(4, currentPage),
-            top: _calculateTop(4, currentPage),
-            color: Color(0xFFC6F50C),
+            left: _calculateLeft(5, currentPage),
+            top: _calculateTop(5, currentPage),
+            color: Color.fromARGB(255, 237, 238, 235),
           ),
         ],
       ),
