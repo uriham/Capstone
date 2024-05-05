@@ -74,10 +74,16 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/StarryNight.jpg
+    - assets/images/Yangkee_2.png
+
     - assets/images/kimmung_2.png
+    
     - assets/images/R_Location_circle.png
     - assets/images/Pi_Relationship_ig.png
     - assets/images/Myao-maa_profile.png
+    - assets/images/Kimmung_profile.png
+    - assets/images/yangkee_profile.png
+
     - assets/images/miaomao.png
     - assets/images/miaomao1.png
     - assets/images/miaomao2.png

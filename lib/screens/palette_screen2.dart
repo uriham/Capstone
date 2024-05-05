@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:capstone/screens/palette_screen_next.dart';
+import 'package:capstone/screens/palette_screen_char.dart';
 
 void main() {
   runApp(const MyApp());
@@ -68,7 +69,8 @@ class PaletteScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => palette_screen_next(),
+                                builder: (context) =>
+                                    palette_screen_next_miao(),
                               ),
                             );
                           },
@@ -173,88 +175,6 @@ class Group39569 extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class CustomCard2 extends StatelessWidget {
-  final VoidCallback onTap; // 클릭 이벤트
-  const CustomCard2({super.key, required this.onTap}); // 생성자
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap, // 클릭 이벤트로 이동
-      child: Container(
-        width: 360,
-        height: 600,
-        decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.5),
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(15),
-              ),
-              child: Image.asset(
-                'assets/images/kimmung_2.png',
-                width: 300,
-                height: 350,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-              child: Container(
-                child: Text(
-                  '고양이',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                    fontFamily: 'KoPubWorldDotum_Pro',
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-              child: Container(
-                child: Text(
-                  '먀오마아의 은밀한 취미생활',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontFamily: 'KoPubWorldDotum_Pro',
-                    fontWeight: FontWeight.w700,
-                    height: 0,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              // 네 번째 텍스트 상자
-              padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
-              child: Container(
-                // 배경색 검은색
-                child: Text(
-                  '"먀오마아"는 주인의 일기를 훔쳐보는 고양이이다. 먀오마아는 퉁명스럽고 귀찮음이 많지만 주인이 잠든 새벽에 주인의 일기를 보며 주인을 관찰하는 것이 취미이다. 본능에 충실한 고양이로서, 인간들의 심리, 생각, 고정관념에 대해서 이해와 공감을 하지 못하지만 주인을 향한 애정은 확실하다.\n',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 11,
-                    fontFamily: 'KoPubWorldDotum_Pro',
-                    fontWeight: FontWeight.w300,
-                    height: 0,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
