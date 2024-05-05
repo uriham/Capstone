@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:capstone/providers/diary_provider.dart';
+import 'package:capstone/screens/bookcover_screen.dart';
 
 import 'package:capstone/screens/start_screen.dart';
 import 'package:capstone/widgets/my_bottom_appbar.dart';
@@ -32,10 +33,16 @@ class TapScreen extends ConsumerWidget {
         todayDiary: allDiary[0],
       ),
       floatingActionButton: Transform.translate(
-        offset: const Offset(0,8),
+        offset: const Offset(0, 8),
         child: IconButton(
-          icon: SvgPicture.asset('assets/images/D_generate_button.svg'),
-          onPressed: () {},
+          icon: SvgPicture.asset('assets/images/D_generate_button.svg',height: 72,),
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (ctx) {
+                return BookCoverScreen();
+              }),
+            );
+          },
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
