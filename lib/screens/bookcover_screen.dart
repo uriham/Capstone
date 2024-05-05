@@ -1,10 +1,33 @@
+import 'package:capstone/screens/bookcover_completed_screen.dart';
 import 'package:capstone/widgets/bookcover_button.dart';
 import 'package:flutter/material.dart';
 
-class BookCoverScreen extends StatelessWidget {
+class BookCoverScreen extends StatefulWidget {
   const BookCoverScreen({super.key});
-  
+
   @override
+  State<StatefulWidget> createState() {
+    return _BookCoverScreenState();
+  }
+}
+
+class _BookCoverScreenState extends State<BookCoverScreen> {
+  final _titleController = TextEditingController();
+  final _keywordController = TextEditingController();
+
+  void _goCompleteScreen() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+      return BookCoverComplete(keyword: _titleController.text);
+    }));
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _keywordController.dispose();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -81,7 +104,10 @@ class BookCoverScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(13),
                   ),
                 ),
-                child: TextField(),
+                child: TextField(
+                  style: const TextStyle(color: Colors.white),
+                  controller: _titleController,
+                ),
               ),
               const SizedBox(
                 height: 40,
@@ -100,12 +126,15 @@ class BookCoverScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(13),
                   ),
                 ),
-                child: TextField(),
+                child: TextField(
+                  style: const TextStyle(color: Colors.white),
+                  controller: _keywordController,
+                ),
               ),
               const SizedBox(
                 height: 150,
               ),
-              const BookCoverButton(),
+              BookCoverButton(onTap: _goCompleteScreen,),
             ],
           ),
         ),
