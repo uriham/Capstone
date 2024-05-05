@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class CustomCard extends StatelessWidget {
+class CustomCard_myao extends StatelessWidget {
   final VoidCallback onTap; // 클릭 이벤트
-  const CustomCard({super.key, required this.onTap}); // 생성자
+  const CustomCard_myao({super.key, required this.onTap}); // 생성자
 
   @override
   Widget build(BuildContext context) {
@@ -82,9 +82,9 @@ class CustomCard extends StatelessWidget {
   }
 }
 
-class CustomCard2 extends StatelessWidget {
+class CustomCard_mmung extends StatelessWidget {
   final VoidCallback onTap; // 클릭 이벤트
-  const CustomCard2({super.key, required this.onTap}); // 생성자
+  const CustomCard_mmung({super.key, required this.onTap}); // 생성자
 
   @override
   Widget build(BuildContext context) {
@@ -164,9 +164,91 @@ class CustomCard2 extends StatelessWidget {
   }
 }
 
-class CustomCard3 extends StatelessWidget {
+class CustomCard_yang extends StatelessWidget {
   final VoidCallback onTap; // 클릭 이벤트
-  const CustomCard3({super.key, required this.onTap}); // 생성자
+  const CustomCard_yang({super.key, required this.onTap}); // 생성자
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap, // 클릭 이벤트로 이동
+      child: Container(
+        width: 360,
+        height: 600,
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.5),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(15),
+              ),
+              child: Image.asset(
+                'assets/images/Yangkee_2.png',
+                width: 300,
+                height: 350,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+              child: Container(
+                child: Text(
+                  '양아치',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontFamily: 'KoPubWorldDotum_Pro',
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: Container(
+                child: Text(
+                  '귀여운 것은 곧 사랑이다',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontFamily: 'KoPubWorldDotum_Pro',
+                    fontWeight: FontWeight.w700,
+                    height: 0,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              // 네 번째 텍스트 상자
+              padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+              child: Container(
+                // 배경색 검은색
+                child: Text(
+                  '손뜨개를 좋아하는 양키. 아무도 자신이 손뜨개질을 좋아하는 지 모른다. 같이 손뜨개질을 하는 친구 빼고. 입이 험하고 행동이 거칠지만 귀여운 것을 좋아하는 순수한 소년이다. 친구에게 거칠게 입막음을 하지만 친구의 이야기를 잘 들어주며 그의 단순한 생각회로로 도움을 줄 때도 있다 ',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 11,
+                    fontFamily: 'KoPubWorldDotum_Pro',
+                    fontWeight: FontWeight.w300,
+                    height: 0,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CustomCard_poet extends StatelessWidget {
+  final VoidCallback onTap; // 클릭 이벤트
+  const CustomCard_poet({super.key, required this.onTap}); // 생성자
 
   @override
   Widget build(BuildContext context) {

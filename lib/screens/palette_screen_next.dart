@@ -728,3 +728,251 @@ class palette_screen_next_yang extends StatelessWidget {
     );
   }
 }
+
+class palette_screen_next_poet extends StatelessWidget {
+  const palette_screen_next_poet({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData.dark(),
+      home: Scaffold(
+        backgroundColor: Colors.black, // 전체 배경색을 검은색으로 설정
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // 상단 360x318 크기의 이미지
+            SizedBox(
+              height: 318,
+              child: Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/Yangkee_2.png'), // 상단 이미지
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            // 나머지 부분을 검은색 배경으로 설정
+            Expanded(
+              child: Column(
+                // 텍스트 상자 4개를 Column으로 배치
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    // 첫 번째 텍스트 상자
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: Container(
+                        color: Colors.black, // 배경색 검은색
+                        child: Text(
+                          '양아치',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontFamily: 'KoPubWorldDotum_Pro',
+                            fontWeight: FontWeight.w700,
+                            height: 0,
+                          ),
+                        )),
+                  ),
+                  Padding(
+                    // 두 번째 텍스트 상자
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: Container(
+                        color: Colors.black,
+                        child: Text(
+                          '귀여운 것은 곧 사랑이다',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 22,
+                            fontFamily: 'KoPubWorldDotum_Pro',
+                            fontWeight: FontWeight.w700,
+                            height: 0,
+                          ),
+                        )),
+                  ),
+                  Padding(
+                    // 세 번째 텍스트 상자
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: Container(
+                        color: Colors.black,
+                        child: Text(
+                          '#대학생 #심리 #배움 #깨달음',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                            fontFamily: 'KoPubWorldDotum_Pro',
+                            fontWeight: FontWeight.w300,
+                            height: 0,
+                          ),
+                        )),
+                  ),
+                  Padding(
+                    // 네 번째 텍스트 상자
+                    padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                    child: Container(
+                      color: Colors.black, // 배경색 검은색
+                      child: Text(
+                        '손뜨개를 좋아하는 양키. 아무도 자신이 손뜨개질을 좋아하는 지 모른다. 같이 손뜨개질을 하는 친구 빼고. 입이 험하고 행동이 거칠지만 귀여운 것을 좋아하는 순수한 소년이다. 친구에게 거칠게 입막음을 하지만 친구의 이야기를 잘 들어주며 그의 단순한 생각회로로 도움을 줄 때도 있다 \n',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 11,
+                          fontFamily: 'KoPubWorldDotum_Pro',
+                          fontWeight: FontWeight.w300,
+                          height: 0,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: Container(
+                        color: Colors.black,
+                        child: Text(
+                          '관계',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontFamily: 'KoPubWorldDotum_Pro',
+                            fontWeight: FontWeight.w700,
+                            height: 0,
+                          ),
+                        )),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          children: [
+                            Container(
+                              width: 80,
+                              height: 80,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/yangkee_profile.png'),
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              '양키', // 이미지 아래 텍스트 추가
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        // 이미지 간의 간격 줄이기
+                        SizedBox(width: 5),
+                        // 두 번째 이미지
+                        Container(
+                          width: 60,
+                          height: 7,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                  'assets/images/Pi_Relationship_ig.png'),
+                              fit: BoxFit.contain, // 이미지가 잘리지 않도록
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 5), // 이미지 간의 간격 최소화
+                        // 세 번째 이미지
+
+                        Column(
+                          children: [
+                            Container(
+                              width: 80,
+                              height: 80,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/R_Location_circle.png'),
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              '손뜨개질 동아리 친구', // 이미지 아래 텍스트 추가
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: Container(
+                        color: Colors.black,
+                        child: Text(
+                          '예시',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontFamily: 'KoPubWorldDotum_Pro',
+                            fontWeight: FontWeight.w700,
+                            height: 0,
+                          ),
+                        )),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                    child: Container(
+                      width: 340,
+                      height: 187,
+                      color: Color(0xFF1A1A1A),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10), // 내부 패딩
+                        child: Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text:
+                                    '"오늘 병원에 다녀왔다. 큰 병이 있어 간 것은 아니였고 건강검진 차 다녀온 것이다."\n\n',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 11,
+                                  fontFamily: 'KoPubWorldBatang_Pro',
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                              TextSpan(
+                                text:
+                                    '양키 : 야, 너 병원 갔다 왔다며? 왠 병원?\n\n나 : 단순히 건강검진 다녀온 거야.\n\n양키 : 뭐어어? 건강검진??...음 그래 건강은 일찍이 챙겨야지. 근데 너 면상이 왜 이렇게 어둡냐.\n\n',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontFamily: 'KoPubWorldDotum_Pro',
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                            ],
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
