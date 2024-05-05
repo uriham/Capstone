@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:capstone/screens/palette_screen_next.dart';
-import 'package:capstone/screens/palette_screen_next2.dart';
 import 'package:capstone/screens/palette_screen_char.dart';
 
 void main() {
