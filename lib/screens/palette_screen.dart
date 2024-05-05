@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:capstone/screens/palette_screen_next.dart';
+import 'package:capstone/screens/palette_screen_next2.dart';
+import 'palette_screen2.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +25,6 @@ class PaletteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        // Stack으로 Group39569를 글상자 아래에 배치
         children: [
           Container(
             decoration: BoxDecoration(
@@ -35,36 +36,36 @@ class PaletteScreen extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 16, top: 50),
+                  padding: const EdgeInsets.only(left: 16, top: 30),
                   child: Row(
                     children: [
                       Text(
                         'PRISM',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: 'KoPubWorldDotum_Pro',
-                          fontWeight: FontWeight.w700,
-                          height: 0,
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 50),
+                // 문구를 PRISM 아래로 이동
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 50, 0, 70),
+                  child: Text(
+                    '다른 시선으로\n나를 발견해보세요!', // 중앙 정렬 및 새 위치
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 24, color: Colors.white),
+                  ),
+                ),
                 Expanded(
-                  child: Center(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '다른 시선으로\n나를 발견해보세요',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 24, color: Colors.white),
-                        ),
-                        SizedBox(height: 60),
-                        GestureDetector(
+                  child: PageView(
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: 30), // 좌우 간격
+                        child: CustomCard(
                           onTap: () {
                             Navigator.push(
                               context,
@@ -73,90 +74,33 @@ class PaletteScreen extends StatelessWidget {
                               ),
                             );
                           },
-                          child: Container(
-                            width: 360,
-                            height: 600,
-                            decoration: BoxDecoration(
-                              color: Colors.black.withOpacity(0.5),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(15),
-                                  ),
-                                  child: Image.asset(
-                                    'assets/images/miaomao.png',
-                                    width: 300,
-                                    height: 350,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                                  child: Container(
-                                    child: Text(
-                                      '고양이',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                        fontFamily: 'KoPubWorldDotum_Pro',
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  // 두 번째 텍스트 상자
-                                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                  child: Container(
-                                      child: Text(
-                                    '먀오마아의 은밀한 취미생활',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 22,
-                                      fontFamily: 'KoPubWorldDotum_Pro',
-                                      fontWeight: FontWeight.w700,
-                                      height: 0,
-                                    ),
-                                  )),
-                                ),
-                                Padding(
-                                  // 네 번째 텍스트 상자
-                                  padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
-                                  child: Container(
-                                    // 배경색 검은색
-                                    child: Text(
-                                      '"먀오마아"는 주인의 일기를 훔쳐보는 고양이이다. 먀오마아는 퉁명스럽고 귀찮음이 많지만 주인이 잠든 새벽에 주인의 일기를 보며 주인을 관찰하는 것이 취미이다. 본능에 충실한 고양이로서, 인간들의 심리, 생각, 고정관념에 대해서 이해와 공감을 하지 못하지만 주인을 향한 애정은 확실하다.\n',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 11,
-                                        fontFamily: 'KoPubWorldDotum_Pro',
-                                        fontWeight: FontWeight.w300,
-                                        height: 0,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                         ),
-                      ],
-                    ),
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: 30), // 좌우 간격
+                        child: CustomCard2(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => palette_screen_next2(),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
-          // Group39569를 글상자 아래에 겹치게 배치
           Positioned(
-            top: 800, // 적절한 위치에 겹치도록
+            top: 800,
             left: 0,
             right: 0,
-            child: Group39569(), // Group39569 배치
+            child: Group39569(),
           ),
         ],
       ),
@@ -245,6 +189,88 @@ class Group39569 extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class CustomCard extends StatelessWidget {
+  final VoidCallback onTap; // 클릭 이벤트
+  const CustomCard({super.key, required this.onTap}); // 생성자
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap, // 클릭 이벤트로 이동
+      child: Container(
+        width: 360,
+        height: 600,
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.5),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(15),
+              ),
+              child: Image.asset(
+                'assets/images/miaomao.png',
+                width: 300,
+                height: 350,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+              child: Container(
+                child: Text(
+                  '고양이',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontFamily: 'KoPubWorldDotum_Pro',
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: Container(
+                child: Text(
+                  '먀오마아의 은밀한 취미생활',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontFamily: 'KoPubWorldDotum_Pro',
+                    fontWeight: FontWeight.w700,
+                    height: 0,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              // 네 번째 텍스트 상자
+              padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+              child: Container(
+                // 배경색 검은색
+                child: Text(
+                  '"먀오마아"는 주인의 일기를 훔쳐보는 고양이이다. 먀오마아는 퉁명스럽고 귀찮음이 많지만 주인이 잠든 새벽에 주인의 일기를 보며 주인을 관찰하는 것이 취미이다. 본능에 충실한 고양이로서, 인간들의 심리, 생각, 고정관념에 대해서 이해와 공감을 하지 못하지만 주인을 향한 애정은 확실하다.\n',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 11,
+                    fontFamily: 'KoPubWorldDotum_Pro',
+                    fontWeight: FontWeight.w300,
+                    height: 0,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
