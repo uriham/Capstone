@@ -119,17 +119,19 @@ class _DiaryTextFieldState extends ConsumerState<DiaryTextField> {
                           ref
                               .read(diaryProvider.notifier)
                               .editTodayDiary(_textEditingController.text);
-                          
+
                           final url = await _coverImageUrl(
                               _textEditingController.text); // url 획득
 
                           final text =
                               await _makeBook(_textEditingController.text);
-                          ref
-                              .read(bookProvider.notifier)
-                              .addBook(text, url, widget.todayDiary.date);
+
+                          final title =
+                              await _makeBook(_textEditingController.text);
+                          ref.read(bookProvider.notifier).addBook(
+                              text, url, widget.todayDiary.date, title);
+
                           print('done');
-                          
                         },
                       ),
                       TextButton(

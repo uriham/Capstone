@@ -88,9 +88,14 @@ flutter:
     - assets/images/miaomao2.png
     - assets/images/background.png
     - assets/images/D_bar.svg
-    - assets/images/D_generate_button.svg
     - assets/images/D_Mybook_ic.svg
     - assets/images/D_PRISM_ic.svg
+    - assets/images/D_generate button.svg
+    - assets/images/example.png
+    - assets/images/E_R_PDF_ic.svg
+    - assets/images/E_R_Share_ic.svg
+    - assets/images/R_Bookmark0_ic.svg
+    - assets/images/R_Bookmark1_ic.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
