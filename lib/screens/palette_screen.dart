@@ -224,23 +224,3 @@ class Group39569 extends StatelessWidget {
     }
   }
 }
-
-class CustomCard extends StatelessWidget {
-  final VoidCallback onTap;
-
-  CustomCard({required this.onTap, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: Colors.black),
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-    );
-  }
-}
