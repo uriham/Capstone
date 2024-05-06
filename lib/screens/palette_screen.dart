@@ -1,176 +1,144 @@
 import 'package:flutter/material.dart';
+import 'package:capstone/screens/palette_screen_next.dart';
+import 'package:capstone/screens/palette_screen_char.dart';
 
 void main() {
-  runApp(const PaletteScreen());
+  runApp(const MyApp());
 }
 
-class PaletteScreen extends StatelessWidget {
-  const PaletteScreen({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return 
-      Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          title: TitleMyDiary(), // 좌측 상단에 "PRISM"
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  '다른 시선으로\n새로운 나를 발견해보세요!',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontFamily: 'KoPubWorldDotum_Pro',
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                SizedBox(height: 10),
-                GestureDetector(
-                  onTap: () {
-                    // 이미지 클릭 시 애니메이션과 함께 페이지 전환
-                    Navigator.of(context).push(
-                      PageRouteBuilder(
-                        transitionDuration:
-                            Duration(milliseconds: 500), // 트랜지션 시간
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            FullScreenImage(),
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          // 페이드 효과 애니메이션
-                          return FadeTransition(
-                            opacity: animation,
-                            child: child,
-                          );
-                        },
-                      ),
-                    );
-                  },
-                  child: Image.asset(
-                    'assets/images/miaomao2.png',
-                    width: 250,
-                    height: 500,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Group39569(),
-                SizedBox(height: 20),
-              ],
-            ),
-          ),
-        ),
-      );
-    
-  }
-}
-
-class FullScreenImage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black, // 전체 화면을 검은색으로 설정
-      body: Center(
-        child: Image.asset(
-          'assets/images/miaomao1.png', // 전체 화면에 표시할 이미지
-          fit: BoxFit.contain, // 이미지가 화면에 맞게 조정되도록
-        ),
-      ),
+    return const MaterialApp(
+      home: PaletteScreen(),
     );
   }
 }
 
-class Group39569 extends StatelessWidget {
+class PaletteScreen extends StatefulWidget {
+  const PaletteScreen({super.key});
+
+  @override
+  _PaletteScreenState createState() => _PaletteScreenState();
+}
+
+class _PaletteScreenState extends State<PaletteScreen> {
+  late PageController _pageController; // PageController 초기화
+  double currentPage = 0.0; // 'double' 타입으로 초기화
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+    _pageController.addListener(() {
+      setState(() {
+        currentPage = _pageController.page ?? 0.0; // 'page'는 'double'
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.only(bottom: 16),
-      child: Column(
+    return Scaffold(
+      body: Stack(
         children: [
           Container(
-            width: 445,
-            height: 165,
-            child: Stack(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/background.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Column(
               children: [
-                Positioned(
-                  left: 0,
-                  top: 23,
-                  child: Container(
-                    width: 105,
-                    height: 142,
-                    decoration: ShapeDecoration(
-                      color: Color(0xFFF4298B),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(11),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16, top: 30),
+                  child: Row(
+                    children: [
+                      Text(
+                        'PRISM',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
-                Positioned(
-                  left: 85,
-                  top: 0,
-                  child: Container(
-                    width: 105,
-                    height: 142,
-                    decoration: ShapeDecoration(
-                      color: Color(0xFF4069CD),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(11),
-                      ),
-                    ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 50, 0, 70),
+                  child: Text(
+                    '다른 시선으로\n나를 발견해보세요!',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 24, color: Colors.white),
                   ),
                 ),
-                Positioned(
-                  left: 170,
-                  top: 23,
-                  child: Container(
-                    width: 105,
-                    height: 142,
-                    decoration: ShapeDecoration(
-                      color: Color(0xFF3CB8D5),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(11),
+                Expanded(
+                  child: PageView(
+                    controller: _pageController,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: CustomCard_myao(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    palette_screen_next_miao(),
+                              ),
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 255,
-                  top: 23,
-                  child: Container(
-                    width: 105,
-                    height: 142,
-                    decoration: ShapeDecoration(
-                      color: Color(0xFF0CF5AE),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(11),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: CustomCard_mmung(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    palette_screen_next_mmung(),
+                              ),
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 340,
-                  top: 23,
-                  child: Container(
-                    width: 105,
-                    height: 142,
-                    decoration: ShapeDecoration(
-                      color: Color(0xFFC6F50C),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(11),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: CustomCard_yang(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    palette_screen_next_yang(),
+                              ),
+                            );
+                          },
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ],
             ),
+          ),
+          Positioned(
+            top: 800,
+            left: 0,
+            right: 0,
+            child: Group39569(currentPage: currentPage),
           ),
         ],
       ),
@@ -178,17 +146,99 @@ class Group39569 extends StatelessWidget {
   }
 }
 
-class TitleMyDiary extends StatelessWidget {
+class Group39569 extends StatelessWidget {
+  final double currentPage;
+
+  const Group39569({required this.currentPage, super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text(
-        'PRISM',
-        style: TextStyle(
+      height: 165,
+      child: Stack(
+        children: [
+          for (double i = 0; i < 6; i++)
+            _animatedColorCard(
+              left: _calculateLeft(i, currentPage),
+              top: _calculateTop(i, currentPage),
+              color: _getColorForIndex(i),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Color _getColorForIndex(double index) {
+    switch (index) {
+      case 0:
+        return Color(0xFFF4298B);
+      case 1:
+        return Color(0xFF4069CD);
+      case 2:
+        return Color(0xFF3CB8D5);
+      case 3:
+        return Color(0xFF0CF5AE);
+      case 4:
+        return Color(0xFFC6F50C);
+      case 5:
+        return Color.fromARGB(255, 237, 238, 235);
+      default:
+        return Colors.grey;
+    }
+  }
+
+  Widget _animatedColorCard({
+    required double left,
+    required double top,
+    required Color color,
+  }) {
+    return AnimatedPositioned(
+      duration: Duration(milliseconds: 200),
+      left: left,
+      top: top,
+      child: Container(
+        width: 105,
+        height: 142,
+        decoration: ShapeDecoration(
+          color: color,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(11),
+          ),
+        ),
+      ),
+    );
+  }
+
+  double _calculateLeft(double index, double currentPage) {
+    double baseLeft = 85 * index;
+    return baseLeft;
+  }
+
+  double _calculateTop(double index, double currentPage) {
+    // 애니메이션 효과를 위한 간격을 계산하여 부드러운 이동을 제공합니다.
+    double diff = (currentPage - index).abs();
+    if (diff < 1) {
+      return 18 + 12 * diff; // 부드럽게 상하 이동
+    } else {
+      return 30; // 다른 경우
+    }
+  }
+}
+
+class CustomCard extends StatelessWidget {
+  final VoidCallback onTap;
+
+  CustomCard({required this.onTap, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
           color: Colors.white,
-          fontSize: 18,
-          fontFamily: 'KoPubWorldDotum_Pro',
-          fontWeight: FontWeight.w700,
+          border: Border.all(color: Colors.black),
+          borderRadius: BorderRadius.circular(10),
         ),
       ),
     );
