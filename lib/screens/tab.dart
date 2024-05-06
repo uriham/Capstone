@@ -16,6 +16,7 @@ class TapScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final allDiary = ref.watch(diaryProvider);
+     
 
     return Scaffold(
       appBar: AppBar(
@@ -35,7 +36,7 @@ class TapScreen extends ConsumerWidget {
       floatingActionButton: Transform.translate(
         offset: const Offset(0, 8),
         child: IconButton(
-          icon: SvgPicture.asset('assets/images/D_generate_button.svg',height: 72,),
+          icon: SvgPicture.asset('assets/images/D_generate_button.svg',height: 86.46,width: 86.46,),
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(builder: (ctx) {
