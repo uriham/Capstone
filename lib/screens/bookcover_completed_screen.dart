@@ -7,7 +7,7 @@ import 'package:capstone/data/prompts.dart';
 class BookCoverComplete extends StatefulWidget{
   const BookCoverComplete({super.key,required this.keyword});
 
-  final keyword;
+  final String keyword;
 
   @override
   State<BookCoverComplete> createState() {

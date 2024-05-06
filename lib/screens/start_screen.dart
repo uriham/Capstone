@@ -32,7 +32,7 @@ class StartScreen extends StatelessWidget {
           const SizedBox(height: 100),
           Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
               SvgPicture.asset(
