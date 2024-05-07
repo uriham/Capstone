@@ -1,12 +1,9 @@
-import 'dart:ui';
-
+import 'package:capstone/data/diarys.dart';
 import 'package:capstone/providers/diary_provider.dart';
 import 'package:capstone/screens/bookcover_screen.dart';
-
 import 'package:capstone/screens/start_screen.dart';
 import 'package:capstone/widgets/my_bottom_appbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -40,7 +37,7 @@ class TapScreen extends ConsumerWidget {
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(builder: (ctx) {
-                return BookCoverScreen();
+                return BookCoverScreen(todayDiary: allDiarys[0],);
               }),
             );
           },

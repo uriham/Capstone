@@ -22,6 +22,11 @@ class DiaryTextField extends ConsumerStatefulWidget {
 class _DiaryTextFieldState extends ConsumerState<DiaryTextField> {
   late TextEditingController _textEditingController;
 
+  void _saveDiary() {
+    Navigator.of(context).pop();
+    ref.read(diaryProvider.notifier).editTodayDiary(_textEditingController.text);
+  }
+
   Future<String> _coverImageUrl(String input) async {
     final openaiApiKey = Env.apiKey;
 
@@ -113,26 +118,8 @@ class _DiaryTextFieldState extends ConsumerState<DiaryTextField> {
                     content: const Text('정말로 변환하시겠습니까?'),
                     actions: <Widget>[
                       ElevatedButton(
+                        onPressed: _saveDiary,
                         child: const Text('Okay'),
-                        onPressed: () async {
-                          Navigator.of(context).pop();
-                          ref
-                              .read(diaryProvider.notifier)
-                              .editTodayDiary(_textEditingController.text);
-
-                          final url = await _coverImageUrl(
-                              _textEditingController.text); // url 획득
-
-                          final text =
-                              await _makeBook(_textEditingController.text);
-
-                          final title =
-                              await _makeBook(_textEditingController.text);
-                          ref.read(bookProvider.notifier).addBook(
-                              text, url, widget.todayDiary.date, title);
-
-                          print('done');
-                        },
                       ),
                       TextButton(
                         child: const Text('Close'),

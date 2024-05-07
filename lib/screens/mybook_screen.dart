@@ -113,7 +113,7 @@ class _BookCardState extends ConsumerState<BookCard> {
 
   @override
   Widget build(BuildContext context) {
-    timeDilation = 5.0;
+    //timeDilation = 5.0;
 
     return Container(
       decoration: BoxDecoration(
@@ -200,69 +200,36 @@ class MybookScreen extends StatelessWidget {
     ];
 
     if (bookList.isEmpty) {
-      return Scaffold(
-        appBar: AppBar(title: const Text('My Book'),backgroundColor: Colors.transparent,),
-        body: const Center(
-          child: Text(
-            'Oh, there is no book here',
-            style: TextStyle(color: Colors.white),
-          ),
+      return const Center(
+        child: Text(
+          'Oh, there is no book here',
+          style: TextStyle(color: Colors.white),
         ),
       );
     }
 
-    final book = bookList[0];
+    //final book = bookList[0];
 
     return Scaffold(
-      appBar: AppBar(),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: RadialGradient(
-            center: Alignment.center, // 중심점
-            radius: 1, // 반경
-            colors: _gradientColors, // 그라데이션 색상
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text(
+          "My Book",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontFamily: 'KoPubWorldDotum_Pro',
           ),
         ),
-        alignment: Alignment.center,
-        child: PhotoHero(
-          photo: book.url,
-          width: 300,
-          height: 400,
-          borderRadius: 20,
-          onTap: () async{
-            await _generatePalette();
-            Navigator.of(context).push(
-              MaterialPageRoute(builder: (ctx) {
-                return ReadBookScreen(book: book);
-              }),
-            );
-          },
-        ),
+        backgroundColor: Colors.transparent,
       ),
+      body: PageView.builder(
+          itemCount: bookList.length,
+          itemBuilder: (context, index) {
+            final book = bookList[index];
+            return BookCard(book: book);
+          }),
+      bottomNavigationBar: MyBottomAppBar(),
     );
-    ;
   }
 }
-
-/*Scaffold(
-                      appBar: AppBar(),
-                      body: Container(
-                        decoration: BoxDecoration(
-                          gradient: RadialGradient(
-                            center: Alignment.center, // 중심점
-                            radius: 1, // 반경
-                            colors: _gradientColors, // 그라데이션 색상
-                          ),
-                        ),
-                        alignment: Alignment.center,
-                        child: PhotoHero(
-                          photo: book.url,
-                          width: 300,
-                          height: 400,
-                          borderRadius: 20,
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ),
-                    );*/

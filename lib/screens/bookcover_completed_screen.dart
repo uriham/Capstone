@@ -1,23 +1,29 @@
+import 'package:capstone/models/diary.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/env.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:langchain/langchain.dart';
 import 'package:langchain_openai/langchain_openai.dart';
 import 'package:capstone/data/prompts.dart';
+import 'package:capstone/providers/book_provider.dart';
 
-class BookCoverComplete extends StatefulWidget{
-  const BookCoverComplete({super.key,required this.keyword});
+class BookCoverComplete extends ConsumerStatefulWidget{
+  const BookCoverComplete({super.key,required this.title,required this.keyword, required this.todayDiary});
 
+  final String title;
   final String keyword;
+  final Diary todayDiary;
 
   @override
-  State<BookCoverComplete> createState() {
+  ConsumerState<BookCoverComplete> createState() {
     return _BookCoverScreenState();
   }
 }
   
-class _BookCoverScreenState extends State<BookCoverComplete>{
+class _BookCoverScreenState extends ConsumerState<BookCoverComplete>{
 
-  late Future<String> bookurl;
+  late Future<String> bookUrl;
+  late Future<String> bookText;
 
   Future<String> _coverImageUrl(String input) async {
     final openaiApiKey = Env.apiKey;
@@ -76,16 +82,20 @@ class _BookCoverScreenState extends State<BookCoverComplete>{
   @override
   void initState() {
     super.initState();
-    bookurl = _coverImageUrl(widget.keyword);
+    //bookUrl = _coverImageUrl(widget.keyword);
+    //bookText = _makeBook(widget.todayDiary.text);
   }
 
   @override
   Widget build(BuildContext context) {
+
+    //ref.read(bookProvider.notifier).addBook(bookText, bookUrl, widget.todayDiary.date, widget.title );
+
     return  DefaultTextStyle(
       style: Theme.of(context).textTheme.displayMedium!,
       textAlign: TextAlign.center,
       child: FutureBuilder<String>(
-        future: bookurl, // a previously-obtained Future<String> or null
+        future: bookUrl, // a previously-obtained Future<String> or null
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
           List<Widget> children;
           if (snapshot.connectionState==ConnectionState.done) {

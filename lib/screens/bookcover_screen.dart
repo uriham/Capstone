@@ -1,9 +1,12 @@
+import 'package:capstone/models/diary.dart';
 import 'package:capstone/screens/bookcover_completed_screen.dart';
 import 'package:capstone/widgets/bookcover_button.dart';
 import 'package:flutter/material.dart';
 
 class BookCoverScreen extends StatefulWidget {
-  const BookCoverScreen({super.key});
+  const BookCoverScreen({super.key, required this.todayDiary});
+
+  final Diary todayDiary;
 
   @override
   State<StatefulWidget> createState() {
@@ -17,7 +20,7 @@ class _BookCoverScreenState extends State<BookCoverScreen> {
 
   void _goCompleteScreen() {
     Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-      return BookCoverComplete(keyword: _titleController.text);
+      return BookCoverComplete(title: _titleController.text,keyword : _keywordController.text, todayDiary: widget.todayDiary,);
     }));
   }
 
