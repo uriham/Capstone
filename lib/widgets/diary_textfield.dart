@@ -14,12 +14,12 @@ class DiaryTextField extends ConsumerStatefulWidget {
   final Diary todayDiary;
 
   @override
-  ConsumerState<DiaryTextField> createState() {
-    return _DiaryTextFieldState();
+  DiaryTextFieldState createState() {
+    return DiaryTextFieldState();
   }
 }
 
-class _DiaryTextFieldState extends ConsumerState<DiaryTextField> {
+class DiaryTextFieldState extends ConsumerState<DiaryTextField> {
   late TextEditingController _textEditingController;
 
   void _saveDiary() {
