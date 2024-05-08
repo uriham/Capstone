@@ -318,9 +318,10 @@ class palette_screen_next_mmung extends StatelessWidget {
     return PaletteScreen(
       imagePath: 'assets/images/kimmung_2.png',
       title: '먀오마아의 은밀한 취미생활',
-      category: '대학생',
-      description: '먀오마아는 주인의 일기를 훔쳐보는 고양이이다.', // 필수 매개변수 추가
+      category: '고양이',
       tagLine: '#고양이 #퉁명 #츤데레 #내편',
+      description:
+          '"먀오마아"는 주인의 일기를 훔쳐보는 고양이이다. 먀오마아는 퉁명스럽고 귀찮음이 많지만 주인이 잠든 새벽에 주인의 일기를 보며 주인을 관찰하는 것이 취미이다. 본능에 충실한 고양이로서, 인간들의 심리, 생각, 고정관념에 대해서 이해와 공감을 하지 못하지만 주인을 향한 애정은 확실하다.\n',
       exampleTitle: '예시',
       exampleTextSpans: [
         TextSpan(
@@ -346,12 +347,18 @@ class palette_screen_next_mmung extends StatelessWidget {
       ],
       relationImages: [
         RelationImage(
-          imagePath: 'assets/images/Myao-maa_profile.png',
+          imagePath: 'assets/images/Kimmung_profile.png',
           label: '먀오마아',
+        ),
+        SizedBox(
+          width: 8,
         ),
         RelationImage(
           imagePath: 'assets/images/Pi_Relationship_ig.png',
           label: '',
+        ),
+        SizedBox(
+          width: 8,
         ),
         RelationImage(
           imagePath: 'assets/images/R_Location_circle.png',
@@ -366,11 +373,12 @@ class palette_screen_next_yang extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PaletteScreen(
-      imagePath: 'assets/images/Myao_mao.png',
+      imagePath: 'assets/images/Yangkee_2.png',
       title: '먀오마아의 은밀한 취미생활',
-      category: '양아치',
-      description: '먀오마아는 주인의 일기를 훔쳐보는 고양이이다.', // 필수 매개변수 추가
+      category: '고양이',
       tagLine: '#고양이 #퉁명 #츤데레 #내편',
+      description:
+          '"먀오마아"는 주인의 일기를 훔쳐보는 고양이이다. 먀오마아는 퉁명스럽고 귀찮음이 많지만 주인이 잠든 새벽에 주인의 일기를 보며 주인을 관찰하는 것이 취미이다. 본능에 충실한 고양이로서, 인간들의 심리, 생각, 고정관념에 대해서 이해와 공감을 하지 못하지만 주인을 향한 애정은 확실하다.\n',
       exampleTitle: '예시',
       exampleTextSpans: [
         TextSpan(
@@ -396,12 +404,18 @@ class palette_screen_next_yang extends StatelessWidget {
       ],
       relationImages: [
         RelationImage(
-          imagePath: 'assets/images/Myao-maa_profile.png',
+          imagePath: 'assets/images/yangkee_profile.png',
           label: '먀오마아',
+        ),
+        SizedBox(
+          width: 8,
         ),
         RelationImage(
           imagePath: 'assets/images/Pi_Relationship_ig.png',
           label: '',
+        ),
+        SizedBox(
+          width: 8,
         ),
         RelationImage(
           imagePath: 'assets/images/R_Location_circle.png',
