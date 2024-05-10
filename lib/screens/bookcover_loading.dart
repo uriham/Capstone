@@ -10,11 +10,9 @@ import 'package:capstone/providers/book_provider.dart';
 class BookCoverComplete extends ConsumerStatefulWidget {
   const BookCoverComplete(
       {super.key,
-      required this.title,
       required this.keyword,
       required this.todayDiary});
 
-  final String title;
   final String keyword;
   final Diary todayDiary;
 
@@ -46,7 +44,7 @@ class BookCoverCompleteState extends ConsumerState<BookCoverComplete> {
 
     final urlsystemMessagePrompt =
         SystemChatMessagePromptTemplate.fromTemplate(urlTemplate);
-    
+
     final humanMessagePrompt =
         HumanChatMessagePromptTemplate.fromTemplate(humanTemplate);
 
@@ -74,8 +72,8 @@ class BookCoverCompleteState extends ConsumerState<BookCoverComplete> {
     final url = await executor.run(keyword);
     final text = await chain.invoke({'text': content});
     print('url');
-    
-    return [url,text.toString()];
+
+    return [url, text.toString()];
   }
 
   Future<String> _maketext(String question) async {
@@ -90,7 +88,7 @@ class BookCoverCompleteState extends ConsumerState<BookCoverComplete> {
         [booksystemMessagePrompt, humanMessagePrompt]);
     final model = ChatOpenAI(
         apiKey: openaiApiKey,
-        defaultOptions: const ChatOpenAIOptions(model: 'gpt-4-turbo-preview'));
+        defaultOptions: const ChatOpenAIOptions(model: 'gpt-3.5-turbo'));
     const outputParser = StringOutputParser();
 
     final chain = chatPrompt | model | outputParser;
@@ -119,17 +117,20 @@ class BookCoverCompleteState extends ConsumerState<BookCoverComplete> {
           if (snapshot.connectionState == ConnectionState.done) {
             //String bookUrl = snapshot.data![0];
             //String bookText = snapshot.data![1];
-            
+
             children = <Widget>[
               const Icon(
                 Icons.check_circle_outline,
                 color: Colors.green,
                 size: 60,
               ),
-              Image.network(snapshot.data![0]),
-              Text(snapshot.data![1]),
+              //Image.network(snapshot.data![0]),
+              //Text(snapshot.data![1]),
               //child: Text('Result: ${snapshot.data}'),
             ];
+            Future.delayed(Duration(seconds: 2), () {
+              Navigator.of(context).pop(snapshot.data);
+            });
             //ref.read(bookProvider.notifier).addBook(bookText, bookUrl, widget.todayDiary.date, widget.title);
           } else if (snapshot.hasError) {
             children = <Widget>[
@@ -158,7 +159,6 @@ class BookCoverCompleteState extends ConsumerState<BookCoverComplete> {
           }
           return Center(
             child: ListView(
-              
               children: children,
             ),
           );

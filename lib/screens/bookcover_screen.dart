@@ -1,28 +1,43 @@
 import 'package:capstone/models/diary.dart';
-import 'package:capstone/screens/bookcover_completed_screen.dart';
+import 'package:capstone/screens/bookcover_loading.dart';
+import 'package:capstone/providers/book_provider.dart';
 import 'package:capstone/widgets/bookcover_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BookCoverScreen extends StatefulWidget {
+class BookCoverScreen extends ConsumerStatefulWidget {
   const BookCoverScreen({super.key, required this.todayDiary});
 
   final Diary todayDiary;
 
   @override
-  State<StatefulWidget> createState() {
+  ConsumerState<BookCoverScreen> createState() {
     return _BookCoverScreenState();
   }
 }
 
-class _BookCoverScreenState extends State<BookCoverScreen> {
+class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
   final _titleController = TextEditingController();
   final _keywordController = TextEditingController();
+  List<String> bookInfo = [];
+  bool isGenerated = false;
+  String bookTitle = '';
 
-  void _goCompleteScreen() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-      return BookCoverComplete(title: _titleController.text,keyword : _keywordController.text, todayDiary: widget.todayDiary,);
+  void _goCompleteScreen() async {
+    bookTitle = _titleController.text;
+    final booklist = await Navigator.of(context)
+        .push<List<String>>(MaterialPageRoute(builder: (ctx) {
+      return BookCoverComplete(
+        keyword: _keywordController.text,
+        todayDiary: widget.todayDiary,
+      );
     }));
+    setState(() {
+      bookInfo = booklist ?? ['awd', 'awds'];
+      isGenerated = true;
+    });
   }
+  void _bookprovider(){}
 
   @override
   void dispose() {
@@ -32,6 +47,115 @@ class _BookCoverScreenState extends State<BookCoverScreen> {
   }
 
   Widget build(BuildContext context) {
+    // isGenerated에 따라 bodyContent 바뀜
+    Widget bodyContent = Column(
+      children: [
+        const SizedBox(
+          height: 130,
+        ),
+        const Text(
+          '원하시는 그림을 요청해보세요!\nAi가 그려드립니다',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Color(0xFFFF2287),
+            fontSize: 22,
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w600,
+            height: 0,
+            letterSpacing: 1,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          '자세하게 작성할수록 더 나은 표지가 생성됩니다',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white.withOpacity(0.5),
+            fontSize: 11,
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w600,
+            height: 0,
+            letterSpacing: 0.32,
+          ),
+        ),
+        const SizedBox(
+          height: 80,
+        ),
+        const Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            '책 제목',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 13,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w600,
+              height: 0,
+              letterSpacing: 0.52,
+            ),
+          ),
+        ),
+        Container(
+          width: double.infinity,
+          height: 37,
+          padding: const EdgeInsets.only(bottom: 0.21),
+          decoration: ShapeDecoration(
+            color: const Color(0x19D9D9D9),
+            shape: RoundedRectangleBorder(
+              side: BorderSide(
+                width: 1,
+                color: Colors.white.withOpacity(0.800000011920929),
+              ),
+              borderRadius: BorderRadius.circular(13),
+            ),
+          ),
+          child: TextField(
+            style: const TextStyle(color: Colors.white),
+            controller: _titleController,
+          ),
+        ),
+        const SizedBox(
+          height: 40,
+        ),
+        Container(
+          width: double.infinity,
+          height: 190,
+          padding: const EdgeInsets.only(bottom: 1.07),
+          decoration: ShapeDecoration(
+            color: const Color(0x19D9D9D9),
+            shape: RoundedRectangleBorder(
+              side: BorderSide(
+                width: 1,
+                color: Colors.white.withOpacity(0.800000011920929),
+              ),
+              borderRadius: BorderRadius.circular(13),
+            ),
+          ),
+          child: TextField(
+            style: const TextStyle(color: Colors.white),
+            controller: _keywordController,
+          ),
+        ),
+        const SizedBox(
+          height: 150,
+        ),
+      ],
+    );
+
+    if (isGenerated == true) {
+      bodyContent = Container(
+        width: 268,
+        height: 383,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(bookInfo[0]),
+            fit: BoxFit.fill,
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -47,97 +171,11 @@ class _BookCoverScreenState extends State<BookCoverScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(
-                height: 130,
+              bodyContent, // 주력 내용을 전달함
+              BookCoverButton(
+                onTap: isGenerated? (){ref.read(bookProvider.notifier).addBook(bookInfo[1], bookInfo[0], widget.todayDiary.date, bookTitle);}:_goCompleteScreen,
+                buttonText: isGenerated ? '완성' : '그려내기~',
               ),
-              const Text(
-                '원하시는 그림을 요청해보세요!\nAi가 그려드립니다',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color(0xFFFF2287),
-                  fontSize: 22,
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w600,
-                  height: 0,
-                  letterSpacing: 1,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                '자세하게 작성할수록 더 나은 표지가 생성됩니다',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white.withOpacity(0.5),
-                  fontSize: 11,
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w600,
-                  height: 0,
-                  letterSpacing: 0.32,
-                ),
-              ),
-              const SizedBox(
-                height: 80,
-              ),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  '책 제목',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 13,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w600,
-                    height: 0,
-                    letterSpacing: 0.52,
-                  ),
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                height: 37,
-                padding: const EdgeInsets.only(bottom: 0.21),
-                decoration: ShapeDecoration(
-                  color: Color(0x19D9D9D9),
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      width: 1,
-                      color: Colors.white.withOpacity(0.800000011920929),
-                    ),
-                    borderRadius: BorderRadius.circular(13),
-                  ),
-                ),
-                child: TextField(
-                  style: const TextStyle(color: Colors.white),
-                  controller: _titleController,
-                ),
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              Container(
-                width: double.infinity,
-                height: 190,
-                padding: const EdgeInsets.only(bottom: 1.07),
-                decoration: ShapeDecoration(
-                  color: const Color(0x19D9D9D9),
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      width: 1,
-                      color: Colors.white.withOpacity(0.800000011920929),
-                    ),
-                    borderRadius: BorderRadius.circular(13),
-                  ),
-                ),
-                child: TextField(
-                  style: const TextStyle(color: Colors.white),
-                  controller: _keywordController,
-                ),
-              ),
-              const SizedBox(
-                height: 150,
-              ),
-              BookCoverButton(onTap: _goCompleteScreen,),
             ],
           ),
         ),
