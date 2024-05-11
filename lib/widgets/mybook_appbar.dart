@@ -26,7 +26,7 @@ class _MyAppBarState extends State<MyAppBar> {
       child: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text('Book Title'),
+        title: const Text('Book Title'),
         actions: <Widget>[
           IconButton(
               onPressed: () {

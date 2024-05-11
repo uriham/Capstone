@@ -4,6 +4,7 @@ import 'package:capstone/providers/book_provider.dart';
 import 'package:capstone/widgets/bookcover_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:capstone/screens/mybook_screen.dart';
 
 class BookCoverScreen extends ConsumerStatefulWidget {
   const BookCoverScreen({super.key, required this.todayDiary});
@@ -37,7 +38,10 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
       isGenerated = true;
     });
   }
-  void _bookprovider(){}
+  void _bookprovider(){
+    ref.read(bookProvider.notifier).addBook(bookInfo[1], bookInfo[0], widget.todayDiary.date, bookTitle);
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx){return const MybookScreen();}));
+  }
 
   @override
   void dispose() {
@@ -173,7 +177,7 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
             children: [
               bodyContent, // 주력 내용을 전달함
               BookCoverButton(
-                onTap: isGenerated? (){ref.read(bookProvider.notifier).addBook(bookInfo[1], bookInfo[0], widget.todayDiary.date, bookTitle);}:_goCompleteScreen,
+                onTap: isGenerated? _bookprovider:_goCompleteScreen,
                 buttonText: isGenerated ? '완성' : '그려내기~',
               ),
             ],

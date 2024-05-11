@@ -7,7 +7,7 @@ import 'package:capstone/widgets/mybook_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:palette_generator/palette_generator.dart';
-//import 'package:capstone/providers/book_provider.dart';
+import 'package:capstone/providers/book_provider.dart';
 import 'package:capstone/widgets/photo_hero.dart';
 import 'package:capstone/models/book.dart';
 import 'package:flutter/scheduler.dart';
@@ -34,7 +34,7 @@ class PhotoHero extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             onTap: onTap,
-            child: Image.asset(
+            child: Image.network(
               photo,
               fit: BoxFit.cover,
             ),
@@ -123,7 +123,7 @@ class _BookCardState extends ConsumerState<BookCard> {
           colors: [
             //Colors.white,
             _containerColor.withOpacity(1.0),
-            Color.fromARGB(70, 30, 30, 30),
+            const Color.fromARGB(70, 30, 30, 30),
           ],
         ),
       ),
@@ -131,7 +131,7 @@ class _BookCardState extends ConsumerState<BookCard> {
         margin: const EdgeInsets.fromLTRB(90, 128, 90, 80),
         child: Column(
           children: [
-            Container(
+            SizedBox(
               width: 288,
               height: 383,
               child: ClipRRect(
@@ -165,13 +165,16 @@ class _BookCardState extends ConsumerState<BookCard> {
   }
 }
 
-// MybookScreen 클래스
-class MybookScreen extends StatelessWidget {
+class MybookScreen extends ConsumerWidget {
   const MybookScreen({super.key});
+  
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+
+    final bookList = ref.watch(bookProvider);
     //final bookList = ref.watch(bookProvider);
+    /*
     List<Book> bookList = [
       Book(
           url: 'assets/images/StarryNight.jpg',
@@ -198,6 +201,7 @@ class MybookScreen extends StatelessWidget {
           아침 식사를 하고 난 후, 나는 학교에 가기 위해 집을 나섰다.
           학교까지 가는 길은 단풍잎으로 가득..'''),
     ];
+    */
 
     if (bookList.isEmpty) {
       return const Center(

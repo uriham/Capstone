@@ -71,7 +71,7 @@ class BookCoverCompleteState extends ConsumerState<BookCoverComplete> {
     final executor = AgentExecutor(agent: agent);
     final url = await executor.run(keyword);
     final text = await chain.invoke({'text': content});
-    print('url');
+    print(url);
 
     return [url, text.toString()];
   }
