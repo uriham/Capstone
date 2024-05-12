@@ -7,7 +7,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
 }
 
 class PaletteScreen extends StatefulWidget {
-  const PaletteScreen({super.key});
+  const PaletteScreen({Key? key}) : super(key: key);
 
   @override
   _PaletteScreenState createState() => _PaletteScreenState();
@@ -47,27 +47,35 @@ class _PaletteScreenState extends State<PaletteScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Stack(
         children: [
           Container(
+            width: size.width,
+            height: size.height,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/background.png'),
-                fit: BoxFit.cover,
+                fit: BoxFit.cover, // 화면을 완전히 채우도록 설정
               ),
             ),
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 16, top: 30),
+                  padding: EdgeInsets.only(
+                    left: size.width * 0.05,
+                    top: size.height * 0.04,
+                  ),
                   child: Row(
                     children: [
                       Text(
                         'PRISM',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 28,
+                          fontSize: size.width * 0.08,
+                          fontFamily: 'KoPubWorldDotum_Pro',
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -75,11 +83,20 @@ class _PaletteScreenState extends State<PaletteScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 50, 0, 70),
+                  padding: EdgeInsets.fromLTRB(
+                    0,
+                    size.height * 0.05,
+                    0,
+                    size.height * 0.1,
+                  ),
                   child: Text(
                     '다른 시선으로\n나를 발견해보세요!',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 24, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: size.width * 0.065,
+                      fontFamily: 'KoPubWorldDotum_Pro',
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 Expanded(
@@ -87,7 +104,9 @@ class _PaletteScreenState extends State<PaletteScreen> {
                     controller: _pageController,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: size.width * 0.14,
+                        ),
                         child: CustomCard_myao(
                           onTap: () {
                             Navigator.push(
@@ -101,7 +120,9 @@ class _PaletteScreenState extends State<PaletteScreen> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: size.width * 0.14,
+                        ),
                         child: CustomCard_mmung(
                           onTap: () {
                             Navigator.push(
@@ -115,7 +136,9 @@ class _PaletteScreenState extends State<PaletteScreen> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: size.width * 0.14,
+                        ),
                         child: CustomCard_yang(
                           onTap: () {
                             Navigator.push(
@@ -135,10 +158,10 @@ class _PaletteScreenState extends State<PaletteScreen> {
             ),
           ),
           Positioned(
-            top: 800,
+            top: size.height * 0.9,
             left: 0,
             right: 0,
-            child: Group39569(currentPage: currentPage),
+            child: Group39569(currentPage: currentPage, size: size),
           ),
         ],
       ),
@@ -148,19 +171,24 @@ class _PaletteScreenState extends State<PaletteScreen> {
 
 class Group39569 extends StatelessWidget {
   final double currentPage;
+  final Size size;
 
-  const Group39569({required this.currentPage, super.key});
+  const Group39569({
+    required this.currentPage,
+    required this.size,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 165,
+      height: size.height * 0.2,
       child: Stack(
         children: [
           for (double i = 0; i < 6; i++)
             _animatedColorCard(
-              left: _calculateLeft(i, currentPage),
-              top: _calculateTop(i, currentPage),
+              left: _calculateLeft(i),
+              top: _calculateTop(i),
               color: _getColorForIndex(i),
             ),
         ],
@@ -197,30 +225,29 @@ class Group39569 extends StatelessWidget {
       left: left,
       top: top,
       child: Container(
-        width: 105,
-        height: 142,
+        width: size.width * 0.28,
+        height: size.height * 0.15,
         decoration: ShapeDecoration(
           color: color,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(11),
+            borderRadius: BorderRadius.circular(size.width * 0.04),
           ),
         ),
       ),
     );
   }
 
-  double _calculateLeft(double index, double currentPage) {
-    double baseLeft = 85 * index;
+  double _calculateLeft(double index) {
+    double baseLeft = size.width * 0.25 * index;
     return baseLeft;
   }
 
-  double _calculateTop(double index, double currentPage) {
-    // 애니메이션 효과를 위한 간격을 계산하여 부드러운 이동을 제공합니다.
+  double _calculateTop(double index) {
     double diff = (currentPage - index).abs();
     if (diff < 1) {
-      return 18 + 12 * diff; // 부드럽게 상하 이동
+      return size.height * 0.036 + size.height * 0.024 * diff;
     } else {
-      return 30; // 다른 경우
+      return size.height * 0.06;
     }
   }
 }
