@@ -2,14 +2,15 @@ import 'package:intl/intl.dart';
 
 final formatter = DateFormat.yMMMd();
 
-
 class Book {
   Book({
+    required this.title,
     required this.text,
     required this.url, //이미지 URL
     required this.date,
   });
 
+  final String title;
   final String text;
   final String url;
   final DateTime date;

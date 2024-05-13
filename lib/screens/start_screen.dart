@@ -1,15 +1,13 @@
+import 'package:capstone/screens/add_book.dart';
 import 'package:flutter/material.dart';
-import 'package:capstone/screens/read_diary_screen.dart';
-import 'package:capstone/widgets/diary_show.dart';
+import 'package:capstone/widgets/diary_card.dart';
 import 'package:capstone/models/diary.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:capstone/providers/diary_provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key, required this.todayDiary});
 
-  final Diary todayDiary;
+  final List<Diary> todayDiary;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +27,29 @@ class StartScreen extends StatelessWidget {
               height: 0,
             ),
           ),
-          const SizedBox(height: 100),
+          const SizedBox(height: 50),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+                return const AddBookScreen();
+              }));
+            },
+            child: Container(
+              width: double.infinity,
+              height: 93,
+              decoration: ShapeDecoration(
+                color: Colors.white.withOpacity(0.10000000149011612),
+                shape: RoundedRectangleBorder(
+                  side: const BorderSide(width: 1, color: Color(0xFF414141)),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+              child: const Icon(Icons.add),
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
           Row(
             children: [
               const SizedBox(
@@ -50,33 +70,12 @@ class StartScreen extends StatelessWidget {
             height: 5,
           ),
           Expanded(
-            child: Container(
-              width: 329,
-              height: 93,
-              padding: const EdgeInsets.only(bottom: 0.52),
-              decoration: ShapeDecoration(
-                color:
-                    const Color.fromARGB(255, 255, 255, 255).withOpacity(0.1),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-              ),
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (ctx) => ReadDiaryScreen(
-                        todayDiary: todayDiary,
-                      ),
-                    ),
-                  );
-                },
-                child: DiaryShow(
-                  todayDiary: todayDiary,
-                ),
-              ),
-            ),
-          ),
+              child: ListView.builder(
+            itemBuilder: (context, index) {
+              return DiaryCard(todayDiary: todayDiary[index]);
+            },
+            itemCount: todayDiary.length,
+          )),
 
           const SizedBox(
             height: 40,

@@ -14,66 +14,17 @@ class DiaryTextField extends ConsumerStatefulWidget {
   final Diary todayDiary;
 
   @override
-  ConsumerState<DiaryTextField> createState() {
-    return _DiaryTextFieldState();
+  DiaryTextFieldState createState() {
+    return DiaryTextFieldState();
   }
 }
 
-class _DiaryTextFieldState extends ConsumerState<DiaryTextField> {
+class DiaryTextFieldState extends ConsumerState<DiaryTextField> {
   late TextEditingController _textEditingController;
 
-  Future<String> _coverImageUrl(String input) async {
-    final openaiApiKey = Env.apiKey;
-
-    final llm = ChatOpenAI(
-      apiKey: openaiApiKey,
-      defaultOptions: const ChatOpenAIOptions(
-        model: 'gpt-4-turbo-preview',
-        temperature: 0,
-      ),
-    );
-
-    final template = exSysmessage;
-    final systemMessagePrompt =
-        SystemChatMessagePromptTemplate.fromTemplate(template);
-    const humanTemplate = '{text}';
-    final humanMessagePrompt =
-        HumanChatMessagePromptTemplate.fromTemplate(humanTemplate);
-    final chatPrompt = ChatPromptTemplate.fromPromptMessages(
-        [systemMessagePrompt, humanMessagePrompt]);
-
-    final tools = <BaseTool>[
-      OpenAIDallETool(
-        apiKey: openaiApiKey,
-      ),
-    ];
-    final agent = OpenAIFunctionsAgent.fromLLMAndTools(
-        llm: llm, tools: tools, systemChatMessage: systemMessagePrompt);
-    final executor = AgentExecutor(agent: agent);
-    final res = await executor.run(input);
-    print(res.toString());
-    return res;
-  }
-
-  Future<String> _makeBook(String question) async {
-    final openaiApiKey = Env.apiKey;
-    const template = 'make a story funny';
-    final systemMessagePrompt =
-        SystemChatMessagePromptTemplate.fromTemplate(template);
-    const humanTemplate = '{text}';
-    final humanMessagePrompt =
-        HumanChatMessagePromptTemplate.fromTemplate(humanTemplate);
-    final chatPrompt = ChatPromptTemplate.fromPromptMessages(
-        [systemMessagePrompt, humanMessagePrompt]);
-    final model = ChatOpenAI(
-        apiKey: openaiApiKey,
-        defaultOptions: const ChatOpenAIOptions(model: 'gpt-4-turbo-preview'));
-    const outputParser = StringOutputParser();
-
-    final chain = chatPrompt | model | outputParser;
-
-    final res = await chain.invoke({'text': question});
-    return res.toString();
+  void _saveDiary() {
+    Navigator.of(context).pop();
+    ref.read(diaryProvider.notifier).editTodayDiary(_textEditingController.text);
   }
 
   @override
@@ -113,24 +64,8 @@ class _DiaryTextFieldState extends ConsumerState<DiaryTextField> {
                     content: const Text('정말로 변환하시겠습니까?'),
                     actions: <Widget>[
                       ElevatedButton(
+                        onPressed: _saveDiary,
                         child: const Text('Okay'),
-                        onPressed: () async {
-                          Navigator.of(context).pop();
-                          ref
-                              .read(diaryProvider.notifier)
-                              .editTodayDiary(_textEditingController.text);
-                          
-                          final url = await _coverImageUrl(
-                              _textEditingController.text); // url 획득
-
-                          final text =
-                              await _makeBook(_textEditingController.text);
-                          ref
-                              .read(bookProvider.notifier)
-                              .addBook(text, url, widget.todayDiary.date);
-                          print('done');
-                          
-                        },
                       ),
                       TextButton(
                         child: const Text('Close'),
