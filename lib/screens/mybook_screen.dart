@@ -1,7 +1,6 @@
 import 'package:capstone/main.dart';
 import 'package:capstone/models/diary.dart';
 import 'package:capstone/screens/mybook_read.dart';
-import 'package:capstone/screens/read_book.dart';
 import 'package:capstone/widgets/my_bottom_appbar.dart';
 import 'package:capstone/widgets/mybook_appbar.dart';
 import 'package:flutter/material.dart';
@@ -10,40 +9,8 @@ import 'package:palette_generator/palette_generator.dart';
 import 'package:capstone/providers/book_provider.dart';
 import 'package:capstone/widgets/photo_hero.dart';
 import 'package:capstone/models/book.dart';
-import 'package:flutter/scheduler.dart';
 
-// PhotoHero 클래스 (book 클릭하면 사진 확대되며 화면 차지)
-class PhotoHero extends StatelessWidget {
-  const PhotoHero({
-    super.key,
-    required this.photo,
-    this.onTap,
-    //required this.width,
-  });
 
-  final String photo;
-  final VoidCallback? onTap;
-  //final double width;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      child: Hero(
-        tag: photo,
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            onTap: onTap,
-            child: Image.network(
-              photo,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 // TitleHero 클래스 (book 누르면 타이틀 밑으로 이동)
 class TitleHero extends StatelessWidget {
@@ -94,7 +61,7 @@ class BookCard extends ConsumerStatefulWidget {
 
 class _BookCardState extends ConsumerState<BookCard> {
   late PaletteGenerator _paletteGenerator;
-  Color _containerColor = Colors.white;
+  Color _containerColor = const Color.fromARGB(255, 216, 72, 72);
 
   @override
   void initState() {
@@ -104,7 +71,7 @@ class _BookCardState extends ConsumerState<BookCard> {
 
   // book 이미지 색상 인식
   Future<void> _generatePalette() async {
-    final imageProvider = AssetImage(widget.book.url);
+    final imageProvider = NetworkImage(widget.book.url);
     _paletteGenerator = await PaletteGenerator.fromImageProvider(imageProvider);
     setState(() {
       _containerColor = _paletteGenerator.dominantColor!.color;

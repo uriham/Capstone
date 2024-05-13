@@ -3,6 +3,7 @@ import 'package:capstone/models/book.dart';
 import 'package:capstone/widgets/mybook_settingbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:capstone/widgets/photo_hero.dart';
 
 class BookReaderPage extends StatelessWidget {
   final Book book;
