@@ -105,7 +105,6 @@ class BookCoverCompleteState extends ConsumerState<BookCoverComplete> {
 
   @override
   Widget build(BuildContext context) {
-    //ref.read(bookProvider.notifier).addBook(bookText, bookUrl, widget.todayDiary.date, widget.title );
 
     return DefaultTextStyle(
       style: Theme.of(context).textTheme.displayMedium!,

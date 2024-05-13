@@ -27,60 +27,6 @@ class DiaryTextFieldState extends ConsumerState<DiaryTextField> {
     ref.read(diaryProvider.notifier).editTodayDiary(_textEditingController.text);
   }
 
-  Future<String> _coverImageUrl(String input) async {
-    final openaiApiKey = Env.apiKey;
-
-    final llm = ChatOpenAI(
-      apiKey: openaiApiKey,
-      defaultOptions: const ChatOpenAIOptions(
-        model: 'gpt-4-turbo-preview',
-        temperature: 0,
-      ),
-    );
-
-    final template = exSysmessage;
-    final systemMessagePrompt =
-        SystemChatMessagePromptTemplate.fromTemplate(template);
-    const humanTemplate = '{text}';
-    final humanMessagePrompt =
-        HumanChatMessagePromptTemplate.fromTemplate(humanTemplate);
-    final chatPrompt = ChatPromptTemplate.fromPromptMessages(
-        [systemMessagePrompt, humanMessagePrompt]);
-
-    final tools = <BaseTool>[
-      OpenAIDallETool(
-        apiKey: openaiApiKey,
-      ),
-    ];
-    final agent = OpenAIFunctionsAgent.fromLLMAndTools(
-        llm: llm, tools: tools, systemChatMessage: systemMessagePrompt);
-    final executor = AgentExecutor(agent: agent);
-    final res = await executor.run(input);
-    print(res.toString());
-    return res;
-  }
-
-  Future<String> _makeBook(String question) async {
-    final openaiApiKey = Env.apiKey;
-    const template = 'make a story funny';
-    final systemMessagePrompt =
-        SystemChatMessagePromptTemplate.fromTemplate(template);
-    const humanTemplate = '{text}';
-    final humanMessagePrompt =
-        HumanChatMessagePromptTemplate.fromTemplate(humanTemplate);
-    final chatPrompt = ChatPromptTemplate.fromPromptMessages(
-        [systemMessagePrompt, humanMessagePrompt]);
-    final model = ChatOpenAI(
-        apiKey: openaiApiKey,
-        defaultOptions: const ChatOpenAIOptions(model: 'gpt-4-turbo-preview'));
-    const outputParser = StringOutputParser();
-
-    final chain = chatPrompt | model | outputParser;
-
-    final res = await chain.invoke({'text': question});
-    return res.toString();
-  }
-
   @override
   void initState() {
     super.initState();

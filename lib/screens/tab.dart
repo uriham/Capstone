@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+
 class TapScreen extends ConsumerWidget {
   const TapScreen({super.key});
 
@@ -14,7 +15,6 @@ class TapScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final allDiary = ref.watch(diaryProvider);
      
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -28,9 +28,9 @@ class TapScreen extends ConsumerWidget {
         backgroundColor: Colors.transparent,
       ),
       body: StartScreen(
-        todayDiary: allDiary[0],
+        todayDiary: allDiary,
       ),
-      floatingActionButton: Transform.translate(
+      floatingActionButton: Transform.translate(    // Generate버튼 있는 곳
         offset: const Offset(0, 8),
         child: IconButton(
           icon: SvgPicture.asset('assets/images/D_generate_button.svg',height: 86.46,width: 86.46,),

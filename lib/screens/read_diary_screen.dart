@@ -20,6 +20,8 @@ class ReadDiaryScreen extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
+        title: Text(formatter.format(DateTime.now())),
+        backgroundColor: Colors.transparent,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -43,3 +45,4 @@ class ReadDiaryScreen extends StatelessWidget {
     );
   }
 }
+
