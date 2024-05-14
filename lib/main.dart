@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prism_test/screens/mybook_cover.dart';
 import 'package:prism_test/screens/mybook_screen.dart';
 import 'package:prism_test/models/book_example.dart';
 
@@ -18,7 +19,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      home: MybookScreen(),
+      home: CharCoverScreen(),
+      //home: MybookScreen(),
     );
   }
 }

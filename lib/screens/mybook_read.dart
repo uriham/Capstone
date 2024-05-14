@@ -134,18 +134,19 @@ class _BookReadState extends State<BookReaderPage> {
                   PopupMenuButton(
                     icon: const Icon(Icons.more_vert),
                     itemBuilder: (BuildContext context) => [
-                      PopupMenuItem(
-                        child: ListTile(
-                          leading: SvgPicture.asset(
-                              'assets/images/E_R_Full screen_ic.svg'),
-                          title: Text('전체 화면'),
-                        ),
-                      ),
-                      PopupMenuItem(
-                        child: ListTile(
-                            leading: SvgPicture.asset(
-                                'assets/images/E_R_PDF_ic.svg'),
-                            title: Text('PDF로 내보내기')),
+                      // PopupMenuItem(
+                      //   child: ListTile(
+                      //     leading: SvgPicture.asset(
+                      //         'assets/images/E_R_Full screen_ic.svg'),
+                      //     title: Text('전체 화면'),
+                      //   ),
+                      // ),
+                      PopupMenuItem<String>(
+                        child: Container(
+                            color: Colors.transparent,
+                            // leading: SvgPicture.asset(
+                            //     'assets/images/E_R_PDF_ic.svg'),
+                            child: Text('PDF로 내보내기')),
                       ),
                       PopupMenuItem(
                         child: ListTile(

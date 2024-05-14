@@ -79,6 +79,11 @@ flutter:
     - assets/images/E_R_PDF_ic.svg
     - assets/images/E_R_Share_ic.svg
     - assets/images/E_R_Full screen_ic.svg
+    - assets/images/myao.png
+    - assets/images/chap1.svg
+    - assets/images/chap2.svg
+    - assets/images/chapter1.png
+    - assets/images/chapter2.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
