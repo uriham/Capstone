@@ -14,11 +14,12 @@ class AddBookScreen extends ConsumerStatefulWidget {
 }
 
 class _AddBookScreenState extends ConsumerState<AddBookScreen> {
-
-  final _textController=  TextEditingController();
+  final _textController = TextEditingController();
 
   void _saveDiary() {
-    ref.read(diaryProvider.notifier).addDiary(Diary(date: DateTime.now(),text: _textController.text));
+    ref
+        .read(diaryProvider.notifier)
+        .addDiary(Diary(date: DateTime.now(), text: _textController.text));
     Navigator.of(context).pop();
     Navigator.of(context).pop();
   }
@@ -56,8 +57,16 @@ class _AddBookScreenState extends ConsumerState<AddBookScreen> {
             ),
             textAlign: TextAlign.center,
           ),
-          TextField(controller: _textController,),
-          const SizedBox(height: 10,),
+          TextField(
+            controller: _textController,
+            style: const TextStyle(color: Colors.white),
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
           ElevatedButton(
             onPressed: () {
               showDialog(
@@ -68,7 +77,7 @@ class _AddBookScreenState extends ConsumerState<AddBookScreen> {
                     content: const Text('정말로 변환하시겠습니까?'),
                     actions: <Widget>[
                       ElevatedButton(
-                        onPressed:_saveDiary,
+                        onPressed: _saveDiary,
                         child: const Text('Okay'),
                       ),
                       TextButton(

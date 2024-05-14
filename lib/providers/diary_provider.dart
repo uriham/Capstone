@@ -4,19 +4,23 @@ import 'package:capstone/models/diary.dart';
 
 DateTime now = DateTime.now();
 
-class DiaryNotifier extends StateNotifier<List<Diary>>{
+class DiaryNotifier extends StateNotifier<List<Diary>> {
   DiaryNotifier() : super(allDiarys);
 
-  void addDiary(Diary diary){
-    state = [diary, ...state ];
+  void addDiary(Diary diary) {
+    state = [diary, ...state];
   }
 
-  void editTodayDiary(String inputText){
-    state = [Diary(date: now, text: inputText), ...state.skip(1)];
+  void editTodayDiary(String inputText, int index, DateTime time) {
+    var newValue = Diary(date: time, text: inputText);
+    state = [
+      ...state.take(index),
+      newValue,
+      ...state.skip(index + 1),
+    ];
   }
-
 }
 
-final diaryProvider = StateNotifierProvider<DiaryNotifier,List<Diary>>((ref){
+final diaryProvider = StateNotifierProvider<DiaryNotifier, List<Diary>>((ref) {
   return DiaryNotifier();
 });

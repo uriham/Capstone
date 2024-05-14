@@ -9,7 +9,7 @@ List<Diary> allDiarys = [
           "#날씨"),
   Diary(
       date: DateTime(now.year, now.month, now.day - 1),
-      text: "This is the example of yesterdays diary"),
+      text: "This is the example of yesterdays diarydsfsdfdsfds"),
   Diary(
       date: DateTime(now.year, now.month, now.day - 2),
       text: "This is the example of yesterdays diary"),
