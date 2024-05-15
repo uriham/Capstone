@@ -117,6 +117,9 @@ class _PaletteScreenState extends State<PaletteScreen> {
                               ),
                             );
                           },
+                          onCharacterSelected: () {
+                            //방식 결정해서 여기 추가
+                          },
                         ),
                       ),
                       Padding(
@@ -133,6 +136,9 @@ class _PaletteScreenState extends State<PaletteScreen> {
                               ),
                             );
                           },
+                          onCharacterSelected: () {
+                            //방식 결정해서 여기 추가
+                          },
                         ),
                       ),
                       Padding(
@@ -148,6 +154,9 @@ class _PaletteScreenState extends State<PaletteScreen> {
                                     palette_screen_next_yang(),
                               ),
                             );
+                          },
+                          onCharacterSelected: () {
+                            //방식 결정해서 여기 추가
                           },
                         ),
                       ),

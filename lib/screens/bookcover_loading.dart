@@ -7,6 +7,35 @@ import 'package:langchain_openai/langchain_openai.dart';
 import 'package:capstone/data/prompts.dart';
 import 'package:capstone/providers/book_provider.dart';
 import 'dart:async';
+import 'dart:ui' as ui;
+
+class MyPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    // 그라데이션 페인트 생성
+    final Paint paint = Paint()
+      ..shader = ui.Gradient.linear(
+        Offset(0, 0),
+        Offset(size.width, size.height),
+        [Colors.purpleAccent, Colors.purple],
+      );
+
+    // 사다리꼴 모양 그리기
+    final path = Path()
+      ..moveTo(size.width, 0)
+      ..lineTo(size.width, size.height)
+      ..lineTo(0, size.height)
+      ..close();
+
+    // 캔버스에 모양 그리기
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
+  }
+}
 
 class BookCoverComplete extends ConsumerStatefulWidget {
   const BookCoverComplete({
@@ -158,7 +187,7 @@ class BookCoverCompleteState extends ConsumerState<BookCoverComplete> {
                   fit: BoxFit.cover,
                 ),
                 Positioned(
-                  top: 100, // 상단에 위치
+                  top: 180,
                   left: MediaQuery.of(context).size.width / 2 - 146, // 가운데 정렬
                   child: Container(
                     width: 292,
@@ -203,8 +232,8 @@ class BookCoverCompleteState extends ConsumerState<BookCoverComplete> {
                                     fontSize: 20,
                                   ),
                                 ),
-                                SizedBox(width: 8), // 텍스트와 화살표 사이 간격 설정
-                                _ArrowRotationAnimation(), // 화살표 회전 애니메이션 추가
+                                SizedBox(width: 8),
+                                _ArrowRotationAnimation(),
                               ],
                             ),
                           ),
@@ -213,8 +242,16 @@ class BookCoverCompleteState extends ConsumerState<BookCoverComplete> {
                     ),
                   ),
                 ),
+                Positioned(
+                  top: 160, // 텍스트 상자 위에 위치하도록 조정
+                  left: MediaQuery.of(context).size.width / 2 - 200, // 가운데 정렬
+                  child: CustomPaint(
+                    size: Size(400, 480),
+                    painter: ShapePainter(),
+                  ),
+                ),
                 Center(
-                  child: _LoadingText(), // 로딩 텍스트 위젯 추가
+                  child: _LoadingText(),
                 ),
               ],
             );
@@ -222,6 +259,36 @@ class BookCoverCompleteState extends ConsumerState<BookCoverComplete> {
         },
       ),
     );
+  }
+}
+
+class ShapePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint paint = Paint()
+      ..shader = LinearGradient(
+        begin: Alignment(0, -1.0), // 시작점을 위로 이동
+        end: Alignment(0, 1.0), // 끝점을 아래로 이동
+        colors: [
+          Colors.transparent,
+          Colors.purple.withOpacity(0.5),
+          Colors.transparent
+        ],
+      ).createShader(Rect.fromLTWH(0, 0, size.width, size.height));
+
+    final Path path = Path()
+      ..moveTo(size.width * 0.2, 0) // 왼쪽 위
+      ..lineTo(size.width * 0.8, 0) // 오른쪽 위
+      ..lineTo(size.width, size.height) // 오른쪽 아래
+      ..lineTo(0, size.height) // 왼쪽 아래
+      ..close();
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
   }
 }
 
@@ -238,9 +305,9 @@ class _ArrowRotationAnimationState extends State<_ArrowRotationAnimation>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: Duration(seconds: 2), // 회전 애니메이션의 지속 시간
+      duration: Duration(seconds: 2),
       vsync: this,
-    )..repeat(); // 애니메이션을 반복합니다.
+    )..repeat();
   }
 
   @override
@@ -282,7 +349,7 @@ class _LoadingTextState extends State<_LoadingText> {
   }
 
   void _startTimer() {
-    Timer.periodic(Duration(seconds: 6), (timer) {
+    Timer.periodic(Duration(seconds: 7), (timer) {
       setState(() {
         _index = (_index + 1) % _loadingTexts.length;
       });
@@ -292,7 +359,7 @@ class _LoadingTextState extends State<_LoadingText> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 36.0),
+      padding: EdgeInsets.symmetric(horizontal: 71.0),
       child: Text(
         _loadingTexts[_index],
         style: TextStyle(
