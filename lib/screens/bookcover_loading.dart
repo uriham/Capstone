@@ -7,22 +7,22 @@ import 'package:langchain_openai/langchain_openai.dart';
 import 'package:capstone/data/prompts.dart';
 import 'package:capstone/providers/book_provider.dart';
 
-class BookCoverComplete extends ConsumerStatefulWidget {
-  const BookCoverComplete(
+class BookCoverLoading extends ConsumerStatefulWidget {
+  const BookCoverLoading(
       {super.key,
       required this.keyword,
-      required this.todayDiary});
+      required this.selectedDiary});
 
   final String keyword;
-  final Diary todayDiary;
+  final Diary selectedDiary;
 
   @override
-  BookCoverCompleteState createState() {
-    return BookCoverCompleteState();
+  BookCoverLoadingState createState() {
+    return BookCoverLoadingState();
   }
 }
 
-class BookCoverCompleteState extends ConsumerState<BookCoverComplete> {
+class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
   late Future<List<String>> bookList;
   late Future<String> bookUrl;
   late Future<String> bookText;
@@ -40,7 +40,7 @@ class BookCoverCompleteState extends ConsumerState<BookCoverComplete> {
 
     final urlTemplate = exSysmessage;
     const humanTemplate = '{text}';
-    const booktemplate = 'make a story funny';
+    const booktemplate = 'summarize text';
 
     final urlsystemMessagePrompt =
         SystemChatMessagePromptTemplate.fromTemplate(urlTemplate);
@@ -78,7 +78,7 @@ class BookCoverCompleteState extends ConsumerState<BookCoverComplete> {
 
   Future<String> _maketext(String question) async {
     final openaiApiKey = Env.apiKey;
-    const booktemplate = 'make a story funny';
+    const booktemplate = 'summarize text';
     final booksystemMessagePrompt =
         SystemChatMessagePromptTemplate.fromTemplate(booktemplate);
     const humanTemplate = '{text}';
@@ -100,7 +100,7 @@ class BookCoverCompleteState extends ConsumerState<BookCoverComplete> {
   @override
   void initState() {
     super.initState();
-    bookList = _makeBook(widget.keyword, widget.todayDiary.text);
+    bookList = _makeBook(widget.keyword, widget.selectedDiary.text);
   }
 
   @override
@@ -130,7 +130,7 @@ class BookCoverCompleteState extends ConsumerState<BookCoverComplete> {
             Future.delayed(Duration(seconds: 2), () {
               Navigator.of(context).pop(snapshot.data);
             });
-            //ref.read(bookProvider.notifier).addBook(bookText, bookUrl, widget.todayDiary.date, widget.title);
+            //ref.read(bookProvider.notifier).addBook(bookText, bookUrl, widget.selectedDiary.date, widget.title);
           } else if (snapshot.hasError) {
             children = <Widget>[
               const Icon(

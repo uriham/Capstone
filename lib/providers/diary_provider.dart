@@ -12,7 +12,7 @@ class DiaryNotifier extends StateNotifier<List<Diary>> {
   }
 
   void editTodayDiary(String inputText, int index, DateTime time) {
-    var newValue = Diary(date: time, text: inputText);
+    var newValue = Diary(date: time, text: inputText,isUsed: false);
     state = [
       ...state.take(index),
       newValue,

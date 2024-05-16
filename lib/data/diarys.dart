@@ -10,6 +10,7 @@ List<Diary> allDiarys = [
   Diary(
       date: DateTime(now.year, now.month, now.day - 1),
       text: "This is the example of yesterdays diarydsfsdfdsfds"),
+      
   Diary(
       date: DateTime(now.year, now.month, now.day - 2),
       text: "This is the example of yesterdays diary"),

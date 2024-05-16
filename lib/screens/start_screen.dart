@@ -1,20 +1,21 @@
+import 'package:capstone/providers/selected_diary_provider.dart';
 import 'package:capstone/screens/add_book.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/widgets/diary_card.dart';
 import 'package:capstone/models/diary.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class StartScreen extends StatefulWidget {
+class StartScreen extends ConsumerStatefulWidget {
   const StartScreen({super.key, required this.todayDiary});
 
   final List<Diary> todayDiary;
 
-
   @override
-  State<StartScreen> createState() => _StartScreenState();
+  ConsumerState<StartScreen> createState() => _StartScreenState();
 }
 
-class _StartScreenState extends State<StartScreen> {
+class _StartScreenState extends ConsumerState<StartScreen> {
   bool _isLongTaped = false;
 
   @override
@@ -80,9 +81,20 @@ class _StartScreenState extends State<StartScreen> {
           Expanded(
               child: ListView.builder(
             itemBuilder: (context, index) {
-              return GestureDetector(child: DiaryCard(todayDiary: widget.todayDiary[index],index: index,isLongTaped: _isLongTaped,),onLongPress: (){setState(() {
-                _isLongTaped = !_isLongTaped;
-              });},);
+              return GestureDetector(
+                child: DiaryCard(
+                  todayDiary: widget.todayDiary[index],
+                  index: index,
+                  isLongTaped: _isLongTaped,
+                ),
+                onLongPress: () {
+                  setState(() {
+                    ref.read(selectedDiarysProvider.notifier).deleterAllDiary();
+                    _isLongTaped = !_isLongTaped;
+                    ref.read(selectedDiarysProvider.notifier).printState();
+                  });
+                },
+              );
             },
             itemCount: widget.todayDiary.length,
           )),

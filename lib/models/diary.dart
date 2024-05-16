@@ -1,5 +1,4 @@
 
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 final formatter = DateFormat.yMMMd();
@@ -8,10 +7,12 @@ class Diary {
   Diary({
     required this.date,
     required this.text,
+    this.isUsed=false
   });
 
   final String text;
   final DateTime date;
+  bool isUsed;
 
   String get formattedDate {
     return formatter.format(date);

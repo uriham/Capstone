@@ -5,11 +5,12 @@ import 'package:capstone/widgets/bookcover_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:capstone/screens/mybook_screen.dart';
+import 'package:capstone/screens/tab.dart';
 
 class BookCoverScreen extends ConsumerStatefulWidget {
-  const BookCoverScreen({super.key, required this.todayDiary});
+  const BookCoverScreen({super.key, required this.selectedDiary});
 
-  final Diary todayDiary;
+  final Diary selectedDiary;
 
   @override
   ConsumerState<BookCoverScreen> createState() {
@@ -28,9 +29,9 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
     bookTitle = _titleController.text;
     final booklist = await Navigator.of(context)
         .push<List<String>>(MaterialPageRoute(builder: (ctx) {
-      return BookCoverComplete(
+      return BookCoverLoading(
         keyword: _keywordController.text,
-        todayDiary: widget.todayDiary,
+        selectedDiary: widget.selectedDiary,
       );
     }));
     setState(() {
@@ -38,9 +39,13 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
       isGenerated = true;
     });
   }
-  void _bookprovider(){
-    ref.read(bookProvider.notifier).addBook(bookInfo[1], bookInfo[0], widget.todayDiary.date, bookTitle);
-    Navigator.of(context).push(MaterialPageRoute(builder: (ctx){return const MybookScreen();}));
+
+  void _bookprovider() {
+    ref.read(bookProvider.notifier).addBook(
+        bookInfo[1], bookInfo[0], widget.selectedDiary.date, bookTitle);
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+      return const MybookScreen();
+    }));
   }
 
   @override
@@ -162,6 +167,18 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          Spacer(),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context)
+                  .pushReplacement(MaterialPageRoute(builder: (ctx) {
+                return const TapScreen();
+              }));
+            },
+            child: const Icon(Icons.close, color: Colors.white),
+          )
+        ],
         backgroundColor: Colors.transparent,
         title: const Text(
           'Book Cover',
@@ -177,7 +194,7 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
             children: [
               bodyContent, // 주력 내용을 전달함
               BookCoverButton(
-                onTap: isGenerated? _bookprovider:_goCompleteScreen,
+                onTap: isGenerated ? _bookprovider : _goCompleteScreen,
                 buttonText: isGenerated ? '완성' : '그려내기~',
               ),
             ],
