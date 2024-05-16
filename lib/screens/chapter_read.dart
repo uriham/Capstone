@@ -1,15 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:prism_test/models/chapter.dart';
 import 'package:prism_test/models/character.dart';
-import 'package:prism_test/screens/mybook_screen.dart';
 import 'package:prism_test/widgets/mybook_settingbar.dart';
 import 'package:prism_test/models/photo_hero.dart';
 import 'package:prism_test/models/title_hero.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
-import 'package:prism_test/models/book.dart';
 import 'package:scroll_wheel_date_picker/scroll_wheel_date_picker.dart';
 
 class ChapReaderPage extends StatefulWidget {

@@ -46,15 +46,10 @@ class _BookCardState extends State<BookCard> {
       // height: 458,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(50)),
-        // border: Border.all(
-        //   color: Colors.white,
-        //   width: 1.0,
-        // ),
-        // gradient: LinearGradient(
-        //   colors: [_containerColor, Colors.transparent],
-        //   begin: Alignment(1.0, 0.5),
-        //   end: Alignment(0.0, 0.5),
-        // ),
+        border: Border.all(
+          color: Colors.white,
+          width: 1.0,
+        ),
         gradient: RadialGradient(
           colors: [Colors.transparent, _containerColor],
           center: Alignment.center,

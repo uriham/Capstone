@@ -54,7 +54,7 @@ class CharCoverScreen extends StatelessWidget {
             children: [
               SizedBox(
                 //width: MediaQuery.of(context).size.width * 0.9,
-                height: MediaQuery.of(context).size.height * 0.75,
+                height: MediaQuery.of(context).size.height * 0.8,
                 child: PageView.builder(
                     controller: controller,
                     itemCount: charList.length,

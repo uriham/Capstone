@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prism_test/models/book_card.dart';
-import 'package:prism_test/models/book_example.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:prism_test/models/char_book.dart';
 import 'package:prism_test/models/character.dart';
 import 'package:prism_test/models/chapter_cover.dart';
@@ -16,14 +15,14 @@ class ChapCoverScreen extends StatefulWidget {
 }
 
 class _ChapCoverScreenState extends State<ChapCoverScreen> {
-  final controller = PageController(viewportFraction: 0.7, keepPage: true);
+  final controller = PageController(viewportFraction: 0.6, keepPage: true);
   var _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     //final bookList = ref.watch(bookProvider);
 
-    if (bookList.isEmpty) {
+    if (widget.char.chapters.isEmpty) {
       return const Center(
         child: Text(
           'Oh, there is no book here',
@@ -34,68 +33,82 @@ class _ChapCoverScreenState extends State<ChapCoverScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        //automaticallyImplyLeading: false,
-        title: Center(
-          child: Text(
-            widget.char.name,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontFamily: 'KoPubWorldDotum_Pro',
-            ),
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: SvgPicture.asset('assets/images/C_E_back_ic.svg'),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text(
+          widget.char.name,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontFamily: 'KoPubWorldDotum_Pro',
           ),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: widget.char.color,
       ),
       // body: Container(
       //   color: Colors.blue,
       // ),
       body: Container(
         decoration: BoxDecoration(
-          color: widget.char.color,
-        ),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.8,
-                child: PageView.builder(
-                    onPageChanged: (index) {
-                      setState(() {
-                        _selectedIndex = index;
-                      });
-                    },
-                    controller: controller,
-                    itemCount: widget.char.chapters.length,
-                    itemBuilder: (context, index) {
-                      final chapPage = widget.char.chapters[index];
-                      var _scale = _selectedIndex == index ? 1.0 : 0.8;
-                      //return ChapterBook(chap: chapPage);
-                      return TweenAnimationBuilder(
-                          tween: Tween(begin: _scale, end: _scale),
-                          duration: const Duration(milliseconds: 200),
-                          child: ChapterBook(chap: chapPage),
-                          builder: (context, value, child) {
-                            return Transform.scale(
-                              scale: value,
-                              child: child,
-                            );
-                          });
-                    }),
-              ),
-              SmoothPageIndicator(
-                controller: controller,
-                count: bookList.length,
-                effect: const ScrollingDotsEffect(
-                  dotHeight: 10,
-                  dotWidth: 10,
-                  activeDotColor: Colors.white,
-                  //dotColor: Color.fromARGB(1, 217, 217, 217),
-                  spacing: 8,
-                ),
-              )
-            ],
+          //color: widget.char.color,
+          //color: Color.fromARGB(255, 48, 70, 102)
+          gradient: RadialGradient(
+            colors: [Colors.white.withOpacity(0.1), widget.char.color],
+            stops: [0.1, 1.0],
+            center: Alignment.center,
+            radius: 0.55,
+            focalRadius: 0.7,
           ),
+          // border: Border.all(
+          //   color: Colors.white,
+          //   width: 1.0,
+          // ),
+        ),
+        child: Column(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.8,
+              child: PageView.builder(
+                  onPageChanged: (index) {
+                    setState(() {
+                      _selectedIndex = index;
+                    });
+                  },
+                  controller: controller,
+                  itemCount: widget.char.chapters.length,
+                  itemBuilder: (context, index) {
+                    final chapPage = widget.char.chapters[index];
+                    var _scale = _selectedIndex == index ? 1.2 : 1.0;
+                    //return ChapterBook(chap: chapPage);
+                    return TweenAnimationBuilder(
+                        tween: Tween(begin: _scale, end: _scale),
+                        duration: const Duration(milliseconds: 200),
+                        child: ChapterBook(chap: chapPage),
+                        builder: (context, value, child) {
+                          return Transform.scale(
+                            scale: value,
+                            child: child,
+                          );
+                        });
+                  }),
+            ),
+            SmoothPageIndicator(
+              controller: controller,
+              count: widget.char.chapters.length,
+              effect: const ScrollingDotsEffect(
+                dotHeight: 10,
+                dotWidth: 10,
+                activeDotColor: Colors.white,
+                //dotColor: Color.fromARGB(1, 217, 217, 217),
+                spacing: 8,
+              ),
+            )
+          ],
         ),
       ),
     );

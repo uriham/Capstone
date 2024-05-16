@@ -31,12 +31,13 @@ class Chapter {
 
 List<Character> charList = [
   Character(
-      char_img: 'assets/images/myao.png',
+      //char_img: 'assets/images/char_myao.svg',
+      char_img: 'assets/images/char_myao.png',
       name: 'MyaoMah',
-      alpha: 1,
-      red: 64,
-      green: 105,
-      blue: 205,
+      alpha: 255,
+      red: 48,
+      green: 70,
+      blue: 102,
       chapters: [
         Chapter(
           ch_img: 'assets/images/chapter1.png',
@@ -64,9 +65,10 @@ List<Character> charList = [
         ),
       ]),
   Character(
-      char_img: 'assets/images/myao.png',
-      name: 'student',
-      alpha: 1,
+      //char_img: 'assets/images/char_mung.svg',
+      char_img: 'assets/images/char_mung.png',
+      name: 'Kim-Mung',
+      alpha: 255,
       red: 60,
       green: 184,
       blue: 213,
@@ -78,9 +80,10 @@ List<Character> charList = [
         ),
       ]),
   Character(
-      char_img: 'assets/images/myao.png',
-      name: 'gang',
-      alpha: 1,
+      //char_img: 'assets/images/char_yangkee.svg',
+      char_img: 'assets/images/char_yangkee.png',
+      name: 'Yangkee',
+      alpha: 255,
       red: 244,
       green: 41,
       blue: 139,
@@ -91,46 +94,37 @@ List<Character> charList = [
           text: '',
         ),
       ]),
-  // Character(
-  //     char_img: 'assets/images/myao.png',
-  //     name: 'Pooh',
-  //     alpha: 1,
-  //     red: 12,
-  //     green: 245,
-  //     blue: 174,
-  //     chapters: [
-  //       Chapter(
-  //         ch_img: 'ch_img',
-  //         title: 'Chapter 1',
-  //         text: '',
-  //       ),
-  //     ]),
-  // Character(
-  //     char_img: 'assets/images/myao.png',
-  //     name: 'LeeSang',
-  //     alpha: 1,
-  //     red: 240,
-  //     green: 240,
-  //     blue: 238,
-  //     chapters: [
-  //       Chapter(
-  //         ch_img: 'ch_img',
-  //         title: 'Chapter 1',
-  //         text: '',
-  //       ),
-  //     ]),
-  // Character(
-  //     char_img: 'assets/images/myao.png',
-  //     name: 'Henry',
-  //     alpha: 1,
-  //     red: 13,
-  //     green: 92,
-  //     blue: 64,
-  //     chapters: [
-  //       Chapter(
-  //         ch_img: 'ch_img',
-  //         title: 'Chapter 1',
-  //         text: '',
-  //       ),
-  //     ]),
+  Character(
+      //char_img: 'assets/images/char_pooh.svg',
+      char_img: 'assets/images/char_pooh.png',
+      name: 'Pooh',
+      alpha: 255,
+      red: 12,
+      green: 245,
+      blue: 174,
+      chapters: [
+        Chapter(
+          ch_img: 'assets/images/chapter2.png',
+          title: 'Chapter 1',
+          text: '',
+        ),
+      ]),
+  Character(
+      //char_img: 'assets/images/char_leesang.svg',
+      char_img: 'assets/images/char_leesang.png',
+      name: 'LeeSang',
+      alpha: 255,
+      red: 240,
+      green: 240,
+      blue: 238,
+      chapters: []),
+  Character(
+      //char_img: 'assets/images/char_henry.svg',
+      char_img: 'assets/images/char_henry.png',
+      name: 'Henry',
+      alpha: 255,
+      red: 13,
+      green: 92,
+      blue: 64,
+      chapters: []),
 ];

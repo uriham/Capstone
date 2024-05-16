@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 // PhotoHero 클래스 (book 클릭하면 사진 확대되며 화면 차지)
 class PhotoHero extends StatelessWidget {

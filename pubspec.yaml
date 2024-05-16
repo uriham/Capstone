@@ -84,6 +84,19 @@ flutter:
     - assets/images/chap2.svg
     - assets/images/chapter1.png
     - assets/images/chapter2.png
+    - assets/images/char_myao.svg
+    - assets/images/char_mung.svg
+    - assets/images/char_yangkee.svg
+    - assets/images/char_pooh.svg
+    - assets/images/char_leesang.svg
+    - assets/images/char_henry.svg
+    - assets/images/char_myao.png
+    - assets/images/char_mung.png
+    - assets/images/char_yangkee.png
+    - assets/images/char_pooh.png
+    - assets/images/char_leesang.png
+    - assets/images/char_henry.png
+    - assets/images/C_E_back_ic.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
