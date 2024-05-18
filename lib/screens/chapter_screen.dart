@@ -58,7 +58,7 @@ class _ChapCoverScreenState extends State<ChapCoverScreen> {
           //color: widget.char.color,
           //color: Color.fromARGB(255, 48, 70, 102)
           gradient: RadialGradient(
-            colors: [Colors.white.withOpacity(0.1), widget.char.color],
+            colors: [Colors.white, widget.char.color],
             stops: [0.1, 1.0],
             center: Alignment.center,
             radius: 0.55,
