@@ -1,4 +1,5 @@
 import 'package:capstone/models/diary.dart';
+import 'package:capstone/providers/diary_provider.dart';
 import 'package:capstone/screens/bookcover_loading.dart';
 import 'package:capstone/providers/book_provider.dart';
 import 'package:capstone/widgets/bookcover_button.dart';
@@ -8,10 +9,10 @@ import 'package:capstone/screens/mybook_screen.dart';
 import 'package:capstone/screens/tab.dart';
 
 class BookCoverScreen extends ConsumerStatefulWidget {
-  const BookCoverScreen({super.key, required this.selectedDiary});
+  const BookCoverScreen({super.key, required this.selectedDiary,required this.indexList});
 
   final Diary selectedDiary;
-
+  final List<int> indexList;
   @override
   ConsumerState<BookCoverScreen> createState() {
     return _BookCoverScreenState();
@@ -25,8 +26,15 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
   bool isGenerated = false;
   String bookTitle = '';
 
+  
+
   void _goCompleteScreen() async {
+    for (int i in widget.indexList)
+    {
+      ref.read(diaryProvider.notifier).useDiary(i);
+    }
     bookTitle = _titleController.text;
+
     final booklist = await Navigator.of(context)
         .push<List<String>>(MaterialPageRoute(builder: (ctx) {
       return BookCoverLoading(
@@ -43,9 +51,17 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
   void _bookprovider() {
     ref.read(bookProvider.notifier).addBook(
         bookInfo[1], bookInfo[0], widget.selectedDiary.date, bookTitle);
+        /*
     Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
       return const MybookScreen();
-    }));
+    }
+    ));
+    */
+    Navigator.of(context).pushAndRemoveUntil(
+  MaterialPageRoute(builder: (context) => const MybookScreen()),
+  (route) => route.isFirst,
+);
+
   }
 
   @override
@@ -56,6 +72,7 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
   }
 
   Widget build(BuildContext context) {
+    final allDiary = ref.watch(diaryProvider);
     // isGenerated에 따라 bodyContent 바뀜
     Widget bodyContent = Column(
       children: [

@@ -127,7 +127,7 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
               //Text(snapshot.data![1]),
               //child: Text('Result: ${snapshot.data}'),
             ];
-            Future.delayed(Duration(seconds: 2), () {
+            Future.delayed(Duration(seconds: 1), () {
               Navigator.of(context).pop(snapshot.data);
             });
             //ref.read(bookProvider.notifier).addBook(bookText, bookUrl, widget.selectedDiary.date, widget.title);

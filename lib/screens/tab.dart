@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:capstone/models/diary.dart';
+import 'package:langchain/langchain.dart';
 
 class TapScreen extends ConsumerWidget {
   const TapScreen({super.key});
@@ -18,7 +19,7 @@ class TapScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        actions: [],
+        actions: const[Text('Diary',style: TextStyle(fontSize: 20),) ,Spacer(), Icon(Icons.circle),SizedBox(width: 10,)],
         title: const Text(
           "Diary",
           style: TextStyle(
@@ -42,6 +43,12 @@ class TapScreen extends ConsumerWidget {
             width: 86.46,
           ),
           onPressed: () {
+            final List<int> indexList = [];
+            for (Diary diary in selectedDiary){
+              indexList.add(allDiary.indexOf(diary));
+              //ref.read(diaryProvider.notifier).editTodayDiary(diary.text,a, diary.date,true);
+            }
+
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (ctx) {
                 Diary combinedDiary = selectedDiary.reduce((diary1, diary2) {
@@ -50,6 +57,7 @@ class TapScreen extends ConsumerWidget {
                       text: '${diary1.text} \n +${diary2.text}');
                 });
                 return BookCoverScreen(
+                  indexList: indexList,
                   selectedDiary: combinedDiary,
                 );
               }),

@@ -15,7 +15,7 @@ final theme = ThemeData.dark().copyWith(
   textTheme: GoogleFonts.latoTextTheme(),
 );
 
-void main() async {
+void main() {
   runApp(const ProviderScope(child: App()));
 }
 
@@ -24,6 +24,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {"/first": (context) => const TapScreen(),},
       theme: theme,
       home: const TapScreen(),
     );

@@ -35,8 +35,9 @@ class _DiaryListTileState extends ConsumerState<DiaryListTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      
       enabled: !widget.todayDiary.isUsed,
-      trailing: widget.isLongTaped
+      trailing: widget.isLongTaped && !widget.todayDiary.isUsed
           ? Checkbox(
               value: _isChecked,
               onChanged: (bool? check) {

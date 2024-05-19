@@ -21,5 +21,9 @@ class Diary {
   String getDayofMonth() {
     return date.day.toString();
   }
+
+  void useDiary(){
+    isUsed = !isUsed;
+  }
   //get을 사용하는 것은 보안의 위험 때문인가? var를 사용해서 다른 변수에 저장하기 귀찮아서?
 }

@@ -23,7 +23,7 @@ class _ReadDiaryScreenState extends ConsumerState<ReadDiaryScreen> {
   void _saveDiary() {
     ref
         .read(diaryProvider.notifier)
-        .editTodayDiary(_textEditingController.text, widget.index,widget.todayDiary.date);
+        .editTodayDiary(_textEditingController.text, widget.index,widget.todayDiary.date,false);
     Navigator.of(context).pop();
     Navigator.of(context).pop();
   }

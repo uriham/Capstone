@@ -9,7 +9,7 @@ class SelectedDiarysNotifier extends StateNotifier<List<Diary>> {
     final diaryIsSelected = state.contains(diary);
 
     if (diaryIsSelected) {
-      state = state.where((m) => m.text != diary.text).toList();
+      state = state.where((m) => m.date != diary.date).toList();
       //return false;
     } else {
       state = [...state, diary];
