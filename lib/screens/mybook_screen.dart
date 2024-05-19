@@ -2,7 +2,7 @@ import 'package:capstone/main.dart';
 import 'package:capstone/models/diary.dart';
 import 'package:capstone/screens/mybook_read.dart';
 import 'package:capstone/widgets/my_bottom_appbar.dart';
-import 'package:capstone/widgets/mybook_appbar.dart';
+import 'package:capstone/screens/tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:palette_generator/palette_generator.dart';
@@ -181,26 +181,34 @@ class MybookScreen extends ConsumerWidget {
 
     //final book = bookList[0];
 
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text(
-          "My Book",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            fontFamily: 'KoPubWorldDotum_Pro',
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        if(didPop) return;
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>const TapScreen()));
+        print('ji');
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Text(
+            "My Book",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontFamily: 'KoPubWorldDotum_Pro',
+            ),
           ),
+          backgroundColor: Colors.transparent,
         ),
-        backgroundColor: Colors.transparent,
+        body: PageView.builder(
+            itemCount: bookList.length,
+            itemBuilder: (context, index) {
+              final book = bookList[index];
+              return BookCard(book: book);
+            }),
+        bottomNavigationBar: MyBottomAppBar(),
       ),
-      body: PageView.builder(
-          itemCount: bookList.length,
-          itemBuilder: (context, index) {
-            final book = bookList[index];
-            return BookCard(book: book);
-          }),
-      bottomNavigationBar: MyBottomAppBar(),
     );
   }
 }

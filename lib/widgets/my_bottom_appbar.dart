@@ -14,7 +14,7 @@ class MyBottomAppBar extends StatelessWidget{
           children: [
             InkWell(
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) {
                   return const MybookScreen();
                 }));
               },

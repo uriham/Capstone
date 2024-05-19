@@ -29,10 +29,7 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
   
 
   void _goCompleteScreen() async {
-    for (int i in widget.indexList)
-    {
-      ref.read(diaryProvider.notifier).useDiary(i);
-    }
+    
     bookTitle = _titleController.text;
 
     final booklist = await Navigator.of(context)
@@ -49,6 +46,10 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
   }
 
   void _bookprovider() {
+    for (int i in widget.indexList)
+    {
+      ref.read(diaryProvider.notifier).useDiary(i);
+    }
     ref.read(bookProvider.notifier).addBook(
         bookInfo[1], bookInfo[0], widget.selectedDiary.date, bookTitle);
         /*
@@ -57,9 +58,9 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
     }
     ));
     */
-    Navigator.of(context).pushAndRemoveUntil(
+    Navigator.of(context).pushReplacement(
   MaterialPageRoute(builder: (context) => const MybookScreen()),
-  (route) => route.isFirst,
+  
 );
 
   }
@@ -186,6 +187,8 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
       appBar: AppBar(
         actions: [
           Spacer(),
+          isGenerated?const SizedBox()
+          :
           TextButton(
             onPressed: () {
               Navigator.of(context)
