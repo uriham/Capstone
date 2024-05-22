@@ -1,43 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-class BookSettingBar extends StatefulWidget implements PreferredSizeWidget {
-  const BookSettingBar({super.key});
-  static bool isVisible = true; // 앱 바의 현재 가시성 상태를 나타냅니다.
 
-  static void toggleVisibility() {
-    isVisible = !isVisible;
-  }
+class BookSettingBar extends StatelessWidget {
+  const BookSettingBar(
+      {super.key,
+      required this.contentBoxVisibility,
+      required this.controlBoxVisibility,
+      required this.settingBoxVisibility});
 
-  @override
-  _BookBarState createState() => _BookBarState();
+  static bool isVisible = true;
+  final void Function() contentBoxVisibility;
+  final void Function() controlBoxVisibility;
+  final void Function() settingBoxVisibility;
 
-  @override
-  Size get preferredSize => Size(345, 47);
-}
+  // static void toggleVisibility() {
+  //   isVisible = !isVisible;
+  // }
 
-class _BookBarState extends State<BookSettingBar> {
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      // width: 345,
-      // height: 65,
-      visible: BookSettingBar.isVisible,
-      child: Stack(
-        children: [
-          Positioned(
-            child: Container(
-              //width: 100, // Width of the container
-              //height: 50, // Height of the container
-              decoration: ShapeDecoration(
-                color: Color(0xFF5D5D5D),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
+    return Stack(
+      children: [
+        Positioned(
+          child: Container(
+            width: 390, // Width of the container
+            height: 50, // Height of the container
+            decoration: ShapeDecoration(
+              color: Color(0xFF5D5D5D),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25),
               ),
             ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  onPressed: contentBoxVisibility,
+                  icon: SvgPicture.asset('assets/images/R_Content_ic.svg'),
+                ),
+                IconButton(
+                    onPressed:controlBoxVisibility,
+                    icon: SvgPicture.asset('assets/images/R_Control_ic.svg')),
+                IconButton(
+                    onPressed:settingBoxVisibility,
+                    icon: SvgPicture.asset('assets/images/R_setting_ic.svg')),
+              ],
+            ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

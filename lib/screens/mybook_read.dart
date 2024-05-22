@@ -94,11 +94,12 @@ class BookReaderPage extends StatelessWidget {
               ),
             )
           ]),
+          /*
           Positioned(
             left: 8,
             bottom: 19,
             child: BookSettingBar(),
-          )
+          )*/
         ],
       ),
     );
