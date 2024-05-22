@@ -1,24 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:prism_test/models/character.dart';
+import 'package:intl/intl.dart';
+import 'package:prism_test/models/diary.dart';
+import 'package:prism_test/screens/mydiary_edit.dart';
 import 'package:prism_test/widgets/mybook_settingbar.dart';
-import 'package:prism_test/models/photo_hero.dart';
-import 'package:prism_test/models/title_hero.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
 import 'package:scroll_wheel_date_picker/scroll_wheel_date_picker.dart';
 
-class ChapReaderPage extends StatefulWidget {
-  final Chapter chap;
+class DiaryReadPage extends StatefulWidget {
+  final Diary diary;
 
-  const ChapReaderPage({super.key, required this.chap});
+  const DiaryReadPage({super.key, required this.diary});
 
   @override
-  _BookReadState createState() => _BookReadState();
+  _DiaryReadState createState() => _DiaryReadState();
 }
 
-class _BookReadState extends State<ChapReaderPage> {
+class _DiaryReadState extends State<DiaryReadPage> {
+  String get formattedDate {
+    return DateFormat('yyyy.MM.dd').format(widget.diary.date);
+  }
+
   static bool isCheck = false;
   bool _isReadSetBarVisible = false;
   bool _isContentBoxVisible = false;
@@ -116,106 +120,78 @@ class _BookReadState extends State<ChapReaderPage> {
         });
       },
       child: Scaffold(
+        appBar: AppBar(
+          title: Text(formattedDate, style: TextStyle(color: _textColor)),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  setState(() {
+                    isCheck = !isCheck;
+                  });
+                },
+                icon: isCheck
+                    ? SvgPicture.asset("assets/images/R_Bookmark0_ic.svg")
+                    : SvgPicture.asset("assets/images/R_Bookmark1_ic.svg")),
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DiaryEditPage(diary: widget.diary)),
+                );
+              },
+              icon: SvgPicture.asset("assets/images/R_Editmode_ic.svg"),
+            ),
+            PopupMenuButton(
+              icon: const Icon(Icons.more_vert),
+              itemBuilder: (BuildContext context) => [
+                PopupMenuItem<String>(
+                  child: Container(
+                      color: Colors.transparent,
+                      // leading: SvgPicture.asset(
+                      //     'assets/images/E_R_PDF_ic.svg'),
+                      child: Text('PDF로 내보내기')),
+                ),
+                PopupMenuItem(
+                  child: ListTile(
+                      leading:
+                          SvgPicture.asset('assets/images/E_R_Share_ic.svg'),
+                      title: Text('공유하기')),
+                ),
+              ],
+              onSelected: (value) {},
+            )
+          ],
+          backgroundColor: Colors.transparent,
+        ),
         body: Stack(
           children: [
-            CustomScrollView(slivers: <Widget>[
-              SliverAppBar(
-                pinned: true,
-                snap: false,
-                floating: false,
-                expandedHeight: 620,
-                elevation: 0,
-                flexibleSpace: ShaderMask(
-                  // 이미지 하단 밑 그라데이션
-                  shaderCallback: (Rect bound) {
-                    return LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.white,
-                        Colors.transparent,
-                      ],
-                      stops: [0.70, 1.0],
-                    ).createShader(bound);
-                  },
-                  blendMode: BlendMode.dstIn,
-                  child: FlexibleSpaceBar(
-                    //title: Text(book.title),
-                    background: PhotoHero(
-                      photo: widget.chap.ch_img,
-                    ),
-                  ),
-                ),
-                actions: [
-                  IconButton(
-                      onPressed: () {
-                        setState(() {
-                          isCheck = !isCheck;
-                        });
-                      },
-                      icon: isCheck
-                          ? SvgPicture.asset("assets/images/R_Bookmark0_ic.svg")
-                          : SvgPicture.asset(
-                              "assets/images/R_Bookmark1_ic.svg")),
-                  PopupMenuButton(
-                    icon: const Icon(Icons.more_vert),
-                    itemBuilder: (BuildContext context) => [
-                      // PopupMenuItem(
-                      //   child: ListTile(
-                      //     leading: SvgPicture.asset(
-                      //         'assets/images/E_R_Full screen_ic.svg'),
-                      //     title: Text('전체 화면'),
-                      //   ),
-                      // ),
-                      PopupMenuItem<String>(
-                        child: Container(
-                            color: Colors.transparent,
-                            // leading: SvgPicture.asset(
-                            //     'assets/images/E_R_PDF_ic.svg'),
-                            child: Text('PDF로 내보내기')),
+            Container(
+              color: _backgroundColor,
+              child: SingleChildScrollView(
+                  padding: EdgeInsets.all(16.0),
+                  child: (Column(
+                    children: [
+                      SizedBox(
+                        height: 280,
                       ),
-                      PopupMenuItem(
-                        child: ListTile(
-                            leading: SvgPicture.asset(
-                                'assets/images/E_R_Share_ic.svg'),
-                            title: Text('공유하기')),
+                      Text(
+                        formattedDate,
+                        style: TextStyle(
+                          fontSize: 29,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                    ],
-                    onSelected: (value) {},
-                  )
-                ],
-              ),
-              SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    SizedBox(height: 50),
-                    TitleHero(
-                      title: widget.chap.title,
-                      size: 18.0,
-                    ),
-                    SizedBox(height: 300),
-                    // Center(
-                    //   child: Text(widget.book.date.toString(),
-                    //       style: TextStyle(color: Colors.white, fontSize: 22)),
-                    // ),
-                    // SizedBox(height: 70),
-                    Container(
-                      //alignment: Alignment.topLeft,
-                      padding: EdgeInsets.only(left: 25, right: 25),
-                      alignment: Alignment.topLeft,
-                      child: Text(widget.chap.text,
+                      SizedBox(height: 47),
+                      Text(widget.diary.text,
                           style: TextStyle(
-                            color: _textColor,
                             fontSize: _fontSize,
+                            color: _textColor,
                             height: _fontHeight,
-                          )),
-                      color: _backgroundColor,
-                    ),
-                    SizedBox(height: 100),
-                  ],
-                ),
-              )
-            ]),
+                          ))
+                    ],
+                  ))),
+            ),
 
             // 하단 설정창
             Visibility(

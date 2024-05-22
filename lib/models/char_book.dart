@@ -20,7 +20,7 @@ class CharCover extends StatefulWidget {
 }
 
 class _CharCoverState extends State<CharCover> {
-  final chapController = PageController(viewportFraction: 1.0, keepPage: true);
+  //final chapController = PageController(viewportFraction: 1.0, keepPage: true);
 
   bool _animate = false;
   double _opacity = 0.0;

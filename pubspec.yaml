@@ -42,6 +42,8 @@ dependencies:
   intl: ^0.19.0
   smooth_page_indicator: ^1.1.0
   scroll_wheel_date_picker: ^0.0.1+1
+  provider: ^6.1.2
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:
@@ -97,6 +99,15 @@ flutter:
     - assets/images/char_leesang.png
     - assets/images/char_henry.png
     - assets/images/C_E_back_ic.svg
+    - assets/images/RM_black.svg
+    - assets/images/RM_gray.svg
+    - assets/images/RM_light green.svg
+    - assets/images/RM_pink.svg
+    - assets/images/RM_skin color.svg
+    - assets/images/RM_white.svg
+    - assets/images/RM_ganadara.svg
+    - assets/images/R_Editmode_ic.svg
+    - assets/images/E_Readmode_ic.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
