@@ -1,11 +1,13 @@
+import 'package:capstone/models/chapter.dart';
 import 'package:capstone/models/diary.dart';
+import 'package:capstone/providers/character_provider.dart';
 import 'package:capstone/providers/diary_provider.dart';
 import 'package:capstone/screens/bookcover_loading.dart';
 import 'package:capstone/providers/book_provider.dart';
 import 'package:capstone/widgets/bookcover_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:capstone/screens/mybook_screen.dart';
+import 'package:capstone/screens/character_cover.dart';
 import 'package:capstone/screens/tab.dart';
 
 class BookCoverScreen extends ConsumerStatefulWidget {
@@ -40,7 +42,7 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
       );
     }));
     setState(() {
-      bookInfo = booklist ?? ['awd', 'awds'];
+      bookInfo = booklist ?? ['awd', 'awds']; //bookinfo는 appi통신으로 가져온 url과 text이다. 0 이 url, 1이 text
       isGenerated = true;
     });
   }
@@ -48,10 +50,13 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
   void _bookprovider() {
     for (int i in widget.indexList)
     {
-      ref.read(diaryProvider.notifier).useDiary(i);
+      ref.read(diaryProvider.notifier).useDiary(i); //diary사용함 뜨게 만듦
     }
+    ref.read(characterProvider.notifier).addChapter('MyaoMah', Chapter(chImg: bookInfo[0], title: bookTitle, text: bookInfo[1]));
+    /*
     ref.read(bookProvider.notifier).addBook(
         bookInfo[1], bookInfo[0], widget.selectedDiary.date, bookTitle);
+        */
         /*
     Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
       return const MybookScreen();
@@ -59,7 +64,7 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
     ));
     */
     Navigator.of(context).pushReplacement(
-  MaterialPageRoute(builder: (context) => const MybookScreen()),
+  MaterialPageRoute(builder: (context) => const CharCoverScreen()),
   
 );
 
@@ -186,7 +191,7 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          Spacer(),
+          const Spacer(),
           isGenerated?const SizedBox()
           :
           TextButton(

@@ -5,6 +5,7 @@ class BookCoverButton extends StatelessWidget {
 
   final void Function() onTap;
   final String buttonText;
+  
   @override
   Widget build(BuildContext context) {
     return InkWell(

@@ -2,7 +2,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:capstone/screens/chapter_read.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/widgets/photo_hero.dart';
-import 'package:capstone/models/character.dart';
+import 'package:capstone/models/chapter.dart';
 
 // Book 클래스
 class ChapterCoverCard extends StatelessWidget {

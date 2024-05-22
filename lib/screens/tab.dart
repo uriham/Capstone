@@ -68,7 +68,7 @@ class TapScreen extends ConsumerWidget {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: MyBottomAppBar(),
+      bottomNavigationBar: const MyBottomAppBar(),
     );
   }
 }

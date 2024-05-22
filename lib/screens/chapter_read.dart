@@ -7,7 +7,7 @@ import 'package:capstone/widgets/photo_hero.dart';
 import 'package:capstone/widgets/title_hero.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
-import 'package:scroll_wheel_date_picker/scroll_wheel_date_picker.dart';
+import 'package:capstone/models/chapter.dart';
 
 class ChapReaderPage extends StatefulWidget {
   final Chapter chap;
@@ -15,7 +15,7 @@ class ChapReaderPage extends StatefulWidget {
   const ChapReaderPage({super.key, required this.chap});
 
   @override
-  _BookReadState createState() => _BookReadState();
+  State<ChapReaderPage> createState() => _BookReadState();
 }
 
 class _BookReadState extends State<ChapReaderPage> {
@@ -91,7 +91,7 @@ class _BookReadState extends State<ChapReaderPage> {
         body: Stack(
           children: [
             CustomScrollView(
-              physics: const BouncingScrollPhysics(),
+              //physics: const BouncingScrollPhysics(),
               slivers: <Widget>[
               SliverAppBar(
                 pinned: _fined,
@@ -143,13 +143,13 @@ class _BookReadState extends State<ChapReaderPage> {
                             color: Colors.transparent,
                             // leading: SvgPicture.asset(
                             //     'assets/images/E_R_PDF_ic.svg'),
-                            child: Text('PDF로 내보내기')),
+                            child: const Text('PDF로 내보내기')),
                       ),
                       PopupMenuItem(
                         child: ListTile(
                             leading: SvgPicture.asset(
                                 'assets/images/E_R_Share_ic.svg'),
-                            title: Text('공유하기')),
+                            title: const Text('공유하기')),
                       ),
                     ],
                     onSelected: (value) {},
@@ -206,7 +206,7 @@ class _BookReadState extends State<ChapReaderPage> {
                 bottom: 0, // Height of the container
                 left: 0,
                 child: Container(
-                  padding: EdgeInsets.only(top: 15),
+                  padding: const EdgeInsets.only(top: 15),
                   width: MediaQuery.of(context).size.width,
                   height: 256,
                   decoration: const BoxDecoration(
@@ -222,42 +222,42 @@ class _BookReadState extends State<ChapReaderPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            padding: EdgeInsets.only(
+                            padding: const EdgeInsets.only(
                               left: 20,
                             ),
                             width: 130,
                             alignment: Alignment.centerLeft,
-                            child: Text(
+                            child: const Text(
                               '글꼴',
                               style: TextStyle(fontSize: 15),
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.chevron_left),
+                            icon: const Icon(Icons.chevron_left),
                             onPressed: () {},
                           ),
                           Container(
                             width: 150,
                             decoration: BoxDecoration(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(50.0)),
-                                color: Color.fromARGB(118, 109, 109, 109),
+                                    const BorderRadius.all(Radius.circular(50.0)),
+                                color: const Color.fromARGB(118, 109, 109, 109),
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.black.withOpacity(0.7),
                                     spreadRadius: -10,
                                     blurRadius: 5,
-                                    offset: Offset(0, 7),
+                                    offset: const Offset(0, 7),
                                   )
                                 ]),
                             alignment: Alignment.center,
                             child: Text(
                               '$_fontStyle',
-                              style: TextStyle(fontSize: 16),
+                              style: const TextStyle(fontSize: 16),
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.chevron_right),
+                            icon: const Icon(Icons.chevron_right),
                             onPressed: () {},
                           ),
                         ],

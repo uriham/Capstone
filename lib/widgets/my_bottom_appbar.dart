@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:capstone/screens/mybook_screen.dart';
+import 'package:capstone/screens/character_cover.dart';
 import 'package:capstone/screens/palette_screen.dart';
 
 class MyBottomAppBar extends StatelessWidget{
+  const MyBottomAppBar({super.key});
+
+
   @override
   Widget build(BuildContext context) {
     return  BottomAppBar(
@@ -15,7 +18,7 @@ class MyBottomAppBar extends StatelessWidget{
             InkWell(
               onTap: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) {
-                  return const MybookScreen();
+                  return const CharCoverScreen();
                 }));
               },
               child: SvgPicture.asset(

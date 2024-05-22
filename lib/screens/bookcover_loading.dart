@@ -346,9 +346,14 @@ class _LoadingTextState extends State<_LoadingText> {
   @override
   void initState() {
     super.initState();
-    _startTimer();
+    //_startTimer();
   }
-
+  @override
+  void dispose() {
+    
+    super.dispose();
+  }
+/*
   void _startTimer() {
     Timer.periodic(Duration(seconds: 7), (timer) {
       setState(() {
@@ -356,14 +361,14 @@ class _LoadingTextState extends State<_LoadingText> {
       });
     });
   }
-
+*/
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 71.0),
+      padding: const EdgeInsets.symmetric(horizontal: 71.0),
       child: Text(
         _loadingTexts[_index],
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 18,
           fontFamily: 'KoPubWorldBatang_Pro',
           fontWeight: FontWeight.w300,
