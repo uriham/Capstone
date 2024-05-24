@@ -11,7 +11,11 @@ import 'package:capstone/screens/character_cover.dart';
 import 'package:capstone/screens/tab.dart';
 
 class BookCoverScreen extends ConsumerStatefulWidget {
-  const BookCoverScreen({super.key, required this.selectedDiary,required this.indexList,required this.nowFilter});
+  const BookCoverScreen(
+      {super.key,
+      required this.selectedDiary,
+      required this.indexList,
+      required this.nowFilter});
 
   final Diary selectedDiary;
   final List<int> indexList;
@@ -30,10 +34,7 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
   bool isGenerated = false;
   String bookTitle = '';
 
-  
-
   void _goCompleteScreen() async {
-    
     bookTitle = _titleController.text;
 
     final booklist = await Navigator.of(context)
@@ -44,32 +45,34 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
       );
     }));
     setState(() {
-      bookInfo = booklist ?? ['awd', 'awds']; //bookinfo는 appi통신으로 가져온 url과 text이다. 0 이 url, 1이 text
+      bookInfo = booklist ??
+          [
+            'awd',
+            'awds'
+          ]; //bookinfo는 appi통신으로 가져온 url과 text이다. 0 이 url, 1이 text
       isGenerated = true;
     });
   }
 
   void _bookprovider() {
-    for (int i in widget.indexList)
-    {
+    for (int i in widget.indexList) {
       ref.read(diaryProvider.notifier).useDiary(i); //diary사용함 뜨게 만듦
     }
-    ref.read(bookProvider.notifier).addChapter(widget.nowFilter, Chapter(chImg: bookInfo[0], title: bookTitle, text: bookInfo[1]));
+    ref.read(bookProvider.notifier).addChapter(widget.nowFilter,
+        Chapter(chImg: bookInfo[0], title: bookTitle, text: bookInfo[1]));
     /*
     ref.read(bookProvider.notifier).addBook(
         bookInfo[1], bookInfo[0], widget.selectedDiary.date, bookTitle);
         */
-        /*
+    /*
     Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
       return const MybookScreen();
     }
     ));
     */
     Navigator.of(context).pushReplacement(
-  MaterialPageRoute(builder: (context) => const CharCoverScreen()),
-  
-);
-
+      MaterialPageRoute(builder: (context) => const CharCoverScreen()),
+    );
   }
 
   @override
@@ -178,15 +181,23 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
     );
 
     if (isGenerated == true) {
-      bodyContent = Container(
-        width: 268,
-        height: 383,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(bookInfo[0]),
-            fit: BoxFit.fill,
+      bodyContent = Column(
+        children: [
+          const SizedBox(
+            height: 100,
           ),
-        ),
+          Container(
+            width: 268,
+            height: 420,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+              image: DecorationImage(
+                image: NetworkImage(bookInfo[0]),
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
+        ],
       );
     }
 
@@ -194,17 +205,17 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
       appBar: AppBar(
         actions: [
           const Spacer(),
-          isGenerated?const SizedBox()
-          :
-          TextButton(
-            onPressed: () {
-              Navigator.of(context)
-                  .pushReplacement(MaterialPageRoute(builder: (ctx) {
-                return const TabScreen();
-              }));
-            },
-            child: const Icon(Icons.close, color: Colors.white),
-          )
+          isGenerated
+              ? const SizedBox()
+              : TextButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushReplacement(MaterialPageRoute(builder: (ctx) {
+                      return const TabScreen();
+                    }));
+                  },
+                  child: const Icon(Icons.close, color: Colors.white),
+                )
         ],
         backgroundColor: Colors.transparent,
         title: const Text(
@@ -220,13 +231,13 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               bodyContent, // 주력 내용을 전달함
-              BookCoverButton(
-                onTap: isGenerated ? _bookprovider : _goCompleteScreen,
-                buttonText: isGenerated ? '완성' : '그려내기~',
-              ),
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BookCoverButton(
+        onTap: isGenerated ? _bookprovider : _goCompleteScreen,
+        buttonText: isGenerated ? '완성' : '그려내기~',
       ),
     );
   }
