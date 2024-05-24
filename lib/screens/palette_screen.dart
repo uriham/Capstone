@@ -1,6 +1,8 @@
+import 'package:capstone/providers/filter_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/screens/palette_screen_next.dart';
 import 'package:capstone/screens/palette_screen_char.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,14 +19,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class PaletteScreen extends StatefulWidget {
+class PaletteScreen extends ConsumerStatefulWidget {
   const PaletteScreen({Key? key}) : super(key: key);
 
   @override
-  _PaletteScreenState createState() => _PaletteScreenState();
+  ConsumerState<PaletteScreen> createState() => _PaletteScreenState();
 }
 
-class _PaletteScreenState extends State<PaletteScreen> {
+class _PaletteScreenState extends ConsumerState<PaletteScreen> {
   late PageController _pageController; // PageController 초기화
   double currentPage = 0.0; // 'double' 타입으로 초기화
 
@@ -45,6 +47,10 @@ class _PaletteScreenState extends State<PaletteScreen> {
     super.dispose();
   }
 
+  void changeFilter(Filter filter){
+    ref.read(filterProvider.notifier).setFilter(filter);
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -55,7 +61,7 @@ class _PaletteScreenState extends State<PaletteScreen> {
           Container(
             width: size.width,
             height: size.height,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover, // 화면을 완전히 채우도록 설정
@@ -117,9 +123,7 @@ class _PaletteScreenState extends State<PaletteScreen> {
                               ),
                             );
                           },
-                          onCharacterSelected: () {
-                            //방식 결정해서 여기 추가
-                          },
+                          onCharacterSelected:(){changeFilter(Filter.myaomah);} ,
                         ),
                       ),
                       Padding(
@@ -137,7 +141,7 @@ class _PaletteScreenState extends State<PaletteScreen> {
                             );
                           },
                           onCharacterSelected: () {
-                            //방식 결정해서 여기 추가
+                            changeFilter(Filter.kimmunng);
                           },
                         ),
                       ),
@@ -156,7 +160,7 @@ class _PaletteScreenState extends State<PaletteScreen> {
                             );
                           },
                           onCharacterSelected: () {
-                            //방식 결정해서 여기 추가
+                            changeFilter(Filter.yangkee);
                           },
                         ),
                       ),
@@ -177,6 +181,9 @@ class _PaletteScreenState extends State<PaletteScreen> {
     );
   }
 }
+
+
+/// 밑의 카드 부분 구현
 
 class Group39569 extends StatelessWidget {
   final double currentPage;
@@ -230,7 +237,7 @@ class Group39569 extends StatelessWidget {
     required Color color,
   }) {
     return AnimatedPositioned(
-      duration: Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 200),
       left: left,
       top: top,
       child: Container(

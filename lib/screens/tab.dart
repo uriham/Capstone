@@ -1,4 +1,5 @@
 import 'package:capstone/providers/diary_provider.dart';
+import 'package:capstone/providers/filter_provider.dart';
 import 'package:capstone/providers/selected_diary_provider.dart';
 import 'package:capstone/screens/bookcover_screen.dart';
 import 'package:capstone/screens/start_screen.dart';
@@ -9,13 +10,23 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:capstone/models/diary.dart';
 import 'package:langchain/langchain.dart';
 
-class TapScreen extends ConsumerWidget {
-  const TapScreen({super.key});
+class TabScreen extends ConsumerStatefulWidget{
+  const TabScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<TabScreen> createState() {
+    return _TapScreenState();
+  }
+}
+
+class _TapScreenState extends ConsumerState<TabScreen> {
+  
+
+  @override
+  Widget build(BuildContext context) {
     final allDiary = ref.watch(diaryProvider);
     final selectedDiary = ref.watch(selectedDiarysProvider);
+    final selectedFilter = ref.watch(filterProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -32,6 +43,7 @@ class TapScreen extends ConsumerWidget {
       ),
       body: StartScreen(
         todayDiary: allDiary,
+        nowFilter: selectedFilter,
       ),
       floatingActionButton: Transform.translate(
         // Generate버튼 있는 곳
@@ -59,6 +71,7 @@ class TapScreen extends ConsumerWidget {
                 return BookCoverScreen(
                   indexList: indexList,
                   selectedDiary: combinedDiary,
+                  nowFilter: selectedFilter,
                 );
               }),
             );

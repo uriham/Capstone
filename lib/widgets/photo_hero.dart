@@ -23,9 +23,9 @@ class PhotoHero extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             onTap: onTap,
-            child: Image.asset(
+            child: Image.network(
               photo,
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
             ),
           ),
         ),

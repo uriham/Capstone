@@ -171,6 +171,7 @@ class CustomCard_myao extends StatefulWidget {
 
   // 기본값 설정
   const CustomCard_myao({
+    super.key,
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/Myao_mao.png',
@@ -182,7 +183,7 @@ class CustomCard_myao extends StatefulWidget {
   });
 
   @override
-  _CustomCard_myaoState createState() => _CustomCard_myaoState();
+  State<CustomCard_myao> createState() => _CustomCard_myaoState();
 }
 
 class _CustomCard_myaoState extends State<CustomCard_myao> {

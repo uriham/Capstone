@@ -1,4 +1,4 @@
-import 'package:capstone/providers/character_provider.dart';
+import 'package:capstone/providers/book_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/widgets/char_cover_card.dart';
 import 'package:capstone/screens/tab.dart';
@@ -27,13 +27,13 @@ class _CharCoverScreenState extends ConsumerState<CharCoverScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final characterList = ref.watch(characterProvider);
+    final characterList = ref.watch(bookProvider);
 
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
         if(didPop) return;
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>const TapScreen()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>const TabScreen()));
         print('ji');
       },
       child: Scaffold(

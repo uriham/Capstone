@@ -1,9 +1,9 @@
 import 'package:capstone/models/chapter.dart';
 import 'package:capstone/models/diary.dart';
-import 'package:capstone/providers/character_provider.dart';
+import 'package:capstone/providers/book_provider.dart';
 import 'package:capstone/providers/diary_provider.dart';
 import 'package:capstone/screens/bookcover_loading.dart';
-import 'package:capstone/providers/book_provider.dart';
+import 'package:capstone/providers/filter_provider.dart';
 import 'package:capstone/widgets/bookcover_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,10 +11,12 @@ import 'package:capstone/screens/character_cover.dart';
 import 'package:capstone/screens/tab.dart';
 
 class BookCoverScreen extends ConsumerStatefulWidget {
-  const BookCoverScreen({super.key, required this.selectedDiary,required this.indexList});
+  const BookCoverScreen({super.key, required this.selectedDiary,required this.indexList,required this.nowFilter});
 
   final Diary selectedDiary;
   final List<int> indexList;
+  final Filter nowFilter;
+
   @override
   ConsumerState<BookCoverScreen> createState() {
     return _BookCoverScreenState();
@@ -52,7 +54,7 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
     {
       ref.read(diaryProvider.notifier).useDiary(i); //diary사용함 뜨게 만듦
     }
-    ref.read(characterProvider.notifier).addChapter('MyaoMah', Chapter(chImg: bookInfo[0], title: bookTitle, text: bookInfo[1]));
+    ref.read(bookProvider.notifier).addChapter(widget.nowFilter, Chapter(chImg: bookInfo[0], title: bookTitle, text: bookInfo[1]));
     /*
     ref.read(bookProvider.notifier).addBook(
         bookInfo[1], bookInfo[0], widget.selectedDiary.date, bookTitle);
@@ -198,7 +200,7 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
             onPressed: () {
               Navigator.of(context)
                   .pushReplacement(MaterialPageRoute(builder: (ctx) {
-                return const TapScreen();
+                return const TabScreen();
               }));
             },
             child: const Icon(Icons.close, color: Colors.white),

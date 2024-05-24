@@ -2,18 +2,18 @@ import 'package:capstone/models/character.dart';
 import 'package:capstone/models/chapter.dart';
 
 
-List<Character> charList = [
+List<Character> bookList = [
   Character(
       //charImg: 'assets/images/char_myao.svg',
       charImg: 'assets/images/char_myao.png',
-      name: 'MyaoMah',
+      name: 'myaomah',
       alpha: 255,
       red: 48,
       green: 70,
       blue: 102,
       chapters: [
         Chapter(
-          chImg: 'assets/images/chapter1.png',
+          chImg: 'https://picsum.photos/250?image=9',
           title: 'Chapter 1',
           text:
               '''어느 늦가을 아침, 햇살은 창가를 스쳐 지나 내 방을 은은하게 비추었다. 나는 이불 속에서 꿈속 세상을 맴돌다가 새소리에 눈을 떴다. 아직 잠을 더 청하며 이불 속에 머무르고 싶었지만, 어쩔 수 없이 일어나야겠다는 생각이 들었다.
@@ -32,7 +32,7 @@ List<Character> charList = [
 드디어 숙제를 끝내고 잠자리에 들었다. 오늘 하루는 꽤 피곤했지만,''',
         ),
         Chapter(
-          chImg: 'assets/images/chapter2.png',
+          chImg: 'https://picsum.photos/250?image=9',
           title: 'Chapter 2',
           text: '',
         ),
@@ -40,14 +40,14 @@ List<Character> charList = [
   Character(
       //charImg: 'assets/images/char_mung.svg',
       charImg: 'assets/images/char_mung.png',
-      name: 'Kim-Mung',
+      name: 'kimmunng',
       alpha: 255,
       red: 60,
       green: 184,
       blue: 213,
       chapters: [
         Chapter(
-          chImg: 'assets/images/chapter1.png',
+          chImg: 'https://picsum.photos/250?image=9',
           title: 'Chapter 1',
           text: '',
         ),
@@ -55,14 +55,14 @@ List<Character> charList = [
   Character(
       //charImg: 'assets/images/char_yangkee.svg',
       charImg: 'assets/images/char_yangkee.png',
-      name: 'Yangkee',
+      name: 'yangkee',
       alpha: 255,
       red: 244,
       green: 41,
       blue: 139,
       chapters: [
         Chapter(
-          chImg: 'assets/images/chapter2.png',
+          chImg: 'https://picsum.photos/250?image=9',
           title: 'Chapter 2',
           text: '',
         ),
@@ -70,14 +70,14 @@ List<Character> charList = [
   Character(
       //charImg: 'assets/images/char_pooh.svg',
       charImg: 'assets/images/char_pooh.png',
-      name: 'Pooh',
+      name: 'pooh',
       alpha: 255,
       red: 12,
       green: 245,
       blue: 174,
       chapters: [
         Chapter(
-          chImg: 'assets/images/chapter2.png',
+          chImg: 'https://picsum.photos/250?image=9',
           title: 'Chapter 1',
           text: '',
         ),
@@ -85,7 +85,7 @@ List<Character> charList = [
   Character(
       //charImg: 'assets/images/char_leesang.svg',
       charImg: 'assets/images/char_leesang.png',
-      name: 'LeeSang',
+      name: 'leesang',
       alpha: 255,
       red: 240,
       green: 240,
@@ -94,7 +94,7 @@ List<Character> charList = [
   Character(
       //charImg: 'assets/images/char_henry.svg',
       charImg: 'assets/images/char_henry.png',
-      name: 'Henry',
+      name: 'henry',
       alpha: 255,
       red: 13,
       green: 92,

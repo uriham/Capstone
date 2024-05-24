@@ -5,11 +5,13 @@ import 'package:capstone/widgets/diary_card.dart';
 import 'package:capstone/models/diary.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:capstone/providers/filter_provider.dart';
 
 class StartScreen extends ConsumerStatefulWidget {
-  const StartScreen({super.key, required this.todayDiary});
+  const StartScreen({super.key, required this.todayDiary,required this.nowFilter});
 
   final List<Diary> todayDiary;
+  final Filter nowFilter;
 
   @override
   ConsumerState<StartScreen> createState() => _StartScreenState();

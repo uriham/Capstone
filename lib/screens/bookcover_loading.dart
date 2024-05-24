@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:langchain/langchain.dart';
 import 'package:langchain_openai/langchain_openai.dart';
 import 'package:capstone/data/prompts.dart';
-import 'package:capstone/providers/book_provider.dart';
 import 'dart:async';
 import 'dart:ui' as ui;
 
