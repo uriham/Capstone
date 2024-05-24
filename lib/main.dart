@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:capstone/screens/tab.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 final theme = ThemeData.dark().copyWith(
   scaffoldBackgroundColor:
@@ -16,7 +17,8 @@ final theme = ThemeData.dark().copyWith(
 );
 
 void main() {
-  runApp(const ProviderScope(child: App()));
+  initializeDateFormatting('ko_KR').then((_) => runApp(const ProviderScope(child: App())));
+  ;
 }
 
 class App extends StatelessWidget {

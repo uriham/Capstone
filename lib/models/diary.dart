@@ -2,6 +2,7 @@
 import 'package:intl/intl.dart';
 
 final formatter = DateFormat('yyyy.MM.dd');
+final dayOfWeek = DateFormat('E요일', 'ko_KR');
 
 class Diary {
   Diary({
@@ -17,8 +18,16 @@ class Diary {
   String get formattedDate {
     return formatter.format(date);
   }
+  
+  String get koreanDay {
+    return dayOfWeek.format(date);
+  }
 
-  String getDayofMonth() {
+  String get month {
+    return date.month.toString();
+  }
+
+  String get day { // 
     return date.day.toString();
   }
 

@@ -109,13 +109,24 @@ class _StartScreenState extends ConsumerState<StartScreen> {
                   child: Column(
                     children: [
                       if (!sameDate)
-                        Align(
-                          child: Text(
-                            diary.formattedDate,
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 25),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                diary.day,
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 25),
+                              ),
+                              Text(
+                                diary.koreanDay,
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 12),
+                                    
+                              ),
+                            ],
                           ),
-                          alignment: Alignment.centerLeft,
                         ),
                       DiaryCard(
                         todayDiary: widget.diaryList[index],

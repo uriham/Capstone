@@ -73,7 +73,7 @@ class _DiaryListTileState extends ConsumerState<DiaryListTile> {
             },
       title: Align(
         alignment: Alignment.centerLeft,
-        child: Text(widget.todayDiary.text,
+        child: Text(widget.todayDiary.text,maxLines: 3,
             style: const TextStyle(fontSize: 18, color: Colors.white)),
       ),
     );
