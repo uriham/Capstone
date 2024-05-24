@@ -7,10 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:capstone/models/diary.dart';
-import 'package:langchain/langchain.dart';
+import 'package:capstone/screens/myprofile_screen.dart';
+import 'package:capstone/screens/profile_setting.dart';
+import 'package:capstone/screens/tutorial_screen.dart';
 
 class TapScreen extends ConsumerWidget {
-  const TapScreen({super.key});
+  final String userName;
+  final String? selectedImage; // 선택된 이미지를 옵셔널로 변경
+
+  const TapScreen({
+    Key? key,
+    required this.userName,
+    this.selectedImage, // 선택된 이미지를 옵셔널로 변경
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,7 +28,29 @@ class TapScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        actions: const[Text('Diary',style: TextStyle(fontSize: 20),) ,Spacer(), Icon(Icons.circle),SizedBox(width: 10,)],
+        actions: [
+          Spacer(), // 우측 정렬을 위한 Spacer 추가
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+                return Profile(
+                  userName: userName,
+                  // 선택된 이미지 전달
+                );
+              }));
+            },
+            child: Row(
+              children: const [
+                Text(
+                  'Diary',
+                  style: TextStyle(fontSize: 20),
+                ),
+                SizedBox(width: 10),
+                Icon(Icons.circle),
+              ],
+            ),
+          ),
+        ],
         title: const Text(
           "Diary",
           style: TextStyle(
@@ -32,9 +63,10 @@ class TapScreen extends ConsumerWidget {
       ),
       body: StartScreen(
         todayDiary: allDiary,
+        userName: userName, // 사용자 이름을 StartScreen으로 전달
       ),
       floatingActionButton: Transform.translate(
-        // Generate버튼 있는 곳
+        // Generate 버튼 있는 곳
         offset: const Offset(0, 8),
         child: IconButton(
           icon: SvgPicture.asset(
@@ -44,21 +76,22 @@ class TapScreen extends ConsumerWidget {
           ),
           onPressed: () {
             final List<int> indexList = [];
-            for (Diary diary in selectedDiary){
+            for (Diary diary in selectedDiary) {
               indexList.add(allDiary.indexOf(diary));
-              //ref.read(diaryProvider.notifier).editTodayDiary(diary.text,a, diary.date,true);
             }
 
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (ctx) {
                 Diary combinedDiary = selectedDiary.reduce((diary1, diary2) {
                   return Diary(
-                      date: diary1.date,
-                      text: '${diary1.text} \n +${diary2.text}');
+                    date: diary1.date,
+                    text: '${diary1.text} \n${diary2.text}',
+                  );
                 });
                 return BookCoverScreen(
                   indexList: indexList,
                   selectedDiary: combinedDiary,
+                  userName: userName,
                 );
               }),
             );

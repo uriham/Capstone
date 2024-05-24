@@ -10,8 +10,6 @@ import 'package:capstone/providers/book_provider.dart';
 import 'package:capstone/widgets/photo_hero.dart';
 import 'package:capstone/models/book.dart';
 
-
-
 // TitleHero 클래스 (book 누르면 타이틀 밑으로 이동)
 class TitleHero extends StatelessWidget {
   const TitleHero({
@@ -133,12 +131,12 @@ class _BookCardState extends ConsumerState<BookCard> {
 }
 
 class MybookScreen extends ConsumerWidget {
-  const MybookScreen({super.key});
-  
+  final String userName;
+
+  const MybookScreen({Key? key, required this.userName}) : super(key: key);
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
-
+  Widget build(BuildContext context, WidgetRef ref) {
     final bookList = ref.watch(bookProvider);
     //final bookList = ref.watch(bookProvider);
     /*
@@ -184,8 +182,13 @@ class MybookScreen extends ConsumerWidget {
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
-        if(didPop) return;
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>const TapScreen()));
+        if (didPop) return;
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (ctx) => const TapScreen(
+                      userName: AutofillHints.username,
+                    )));
         print('ji');
       },
       child: Scaffold(

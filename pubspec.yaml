@@ -49,6 +49,8 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   scroll_date_picker: ^3.8.0
   scroll_wheel_date_picker: ^0.0.2
+  image_picker: ^0.8.4+4 
+  provider: ^5.0.0
 
 dev_dependencies:
   flutter_test:

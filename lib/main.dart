@@ -1,13 +1,12 @@
+import 'package:capstone/screens/tutorial_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:capstone/screens/tab.dart';
 
 final theme = ThemeData.dark().copyWith(
-  scaffoldBackgroundColor:
-      Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),
+  scaffoldBackgroundColor: Colors.black,
   appBarTheme: const AppBarTheme().copyWith(
-    backgroundColor: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.2),
+    backgroundColor: Colors.black,
   ),
   cardTheme: const CardTheme().copyWith(
     color: const Color.fromARGB(1, 255, 255, 255),
@@ -15,18 +14,18 @@ final theme = ThemeData.dark().copyWith(
   textTheme: GoogleFonts.latoTextTheme(),
 );
 
-void main() {
+void main() async {
   runApp(const ProviderScope(child: App()));
 }
 
 class App extends StatelessWidget {
-  const App({super.key});
+  const App({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {"/first": (context) => const TapScreen(),},
       theme: theme,
-      home: const TapScreen(),
+      home: const TutorialScreen(),
     );
   }
 }
