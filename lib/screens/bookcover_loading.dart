@@ -39,9 +39,7 @@ class MyPainter extends CustomPainter {
 
 class BookCoverLoading extends ConsumerStatefulWidget {
   const BookCoverLoading(
-      {super.key,
-      required this.keyword,
-      required this.selectedDiary});
+      {super.key, required this.keyword, required this.selectedDiary});
 
   final String keyword;
   final Diary selectedDiary;
@@ -346,15 +344,6 @@ class _LoadingTextState extends State<_LoadingText> {
   @override
   void initState() {
     super.initState();
-    _startTimer();
-  }
-
-  void _startTimer() {
-    Timer.periodic(Duration(seconds: 7), (timer) {
-      setState(() {
-        _index = (_index + 1) % _loadingTexts.length;
-      });
-    });
   }
 
   @override
