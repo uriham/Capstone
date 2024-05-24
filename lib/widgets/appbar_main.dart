@@ -9,10 +9,6 @@ class MainAppBar extends StatelessWidget {
     return Container(
       width: 250,
       height: 110,
-      decoration: BoxDecoration(
-          border: Border.all(
-        color: Colors.transparent,
-      )),
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -23,7 +19,7 @@ class MainAppBar extends StatelessWidget {
               height: 48,
               margin: EdgeInsets.only(bottom: 0),
               decoration: BoxDecoration(
-                color: Colors.black,
+                color: Colors.transparent,
                 borderRadius: BorderRadius.circular(30.0),
                 boxShadow: [
                   BoxShadow(
