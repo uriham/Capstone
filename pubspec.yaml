@@ -109,6 +109,8 @@ flutter:
     - assets/images/char_pooh.png
     - assets/images/char_yangkee.png
     - assets/images/C_E_back_ic.svg
+    - assets/images/E_R_M_Kebab Menu_ic.svg
+    - assets/images/R_Editmode_ic.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

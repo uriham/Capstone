@@ -34,7 +34,6 @@ class _CharCoverScreenState extends ConsumerState<CharCoverScreen> {
       onPopInvoked: (didPop) {
         if(didPop) return;
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>const TabScreen()));
-        print('ji');
       },
       child: Scaffold(
         appBar: AppBar(

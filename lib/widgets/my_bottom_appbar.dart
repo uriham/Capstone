@@ -35,7 +35,6 @@ class MyBottomAppBar extends StatelessWidget{
               },
               child: SvgPicture.asset(
                 'assets/images/D_PRISM_ic.svg',
-                width: 20,
                 height: 70,
               ),
             ),

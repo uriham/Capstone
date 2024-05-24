@@ -47,11 +47,6 @@ class _TapScreenState extends ConsumerState<TabScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: const [
-          Text(
-            'Diary',
-            style: TextStyle(fontSize: 20),
-          ),
-          Spacer(),
           Icon(Icons.circle),
           SizedBox(
             width: 10,
@@ -61,7 +56,7 @@ class _TapScreenState extends ConsumerState<TabScreen> {
           "Diary",
           style: TextStyle(
             color: Colors.white,
-            fontSize: 18,
+            fontSize: 20,
             fontFamily: 'KoPubWorldDotum_Pro',
           ),
         ),
