@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:prism_test/screens/mybook_cover.dart';
-import 'package:prism_test/screens/mybook_screen.dart';
-import 'package:prism_test/models/book_example.dart';
+import 'package:prism_test/screens/start_screen.dart';
+// import 'package:prism_test/screens/mybook_cover.dart';
+// import 'package:prism_test/screens/mybook_screen.dart';
+// import 'package:prism_test/models/book_example.dart';
 
 final theme = ThemeData.dark().copyWith(
   cardTheme: const CardTheme().copyWith(
@@ -19,7 +20,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      home: CharCoverScreen(),
+      home: StartScreen(),
+      //home: CharCoverScreen(),
       //home: MybookScreen(),
     );
   }

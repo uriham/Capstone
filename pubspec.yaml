@@ -108,6 +108,10 @@ flutter:
     - assets/images/RM_ganadara.svg
     - assets/images/R_Editmode_ic.svg
     - assets/images/E_Readmode_ic.svg
+    - assets/images/M_bar.svg
+    - assets/images/D_generate button.svg
+    - assets/images/D_mybook.svg
+    - assets/images/D_prism.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

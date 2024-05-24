@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prism_test/models/chapter_cover.dart';
 import 'package:prism_test/screens/chapter_screen.dart';
-import 'package:prism_test/screens/mybook_read.dart';
 import 'package:flutter/material.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:prism_test/models/photo_hero.dart';
