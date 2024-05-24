@@ -35,7 +35,6 @@ class _DiaryListTileState extends ConsumerState<DiaryListTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      
       enabled: !widget.todayDiary.isUsed,
       trailing: widget.isLongTaped && !widget.todayDiary.isUsed
           ? Checkbox(
@@ -50,8 +49,7 @@ class _DiaryListTileState extends ConsumerState<DiaryListTile> {
                 });
               })
           : null,
-      title: Text(widget.todayDiary.formattedDate,
-          style: const TextStyle(fontSize: 20, color: Colors.white)),
+     
       onTap: widget.isLongTaped
           ? () {
               setState(() {
@@ -73,7 +71,7 @@ class _DiaryListTileState extends ConsumerState<DiaryListTile> {
                 ),
               );
             },
-      subtitle: Align(
+      title: Align(
         alignment: Alignment.centerLeft,
         child: Text(widget.todayDiary.text,
             style: const TextStyle(fontSize: 18, color: Colors.white)),

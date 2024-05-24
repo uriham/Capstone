@@ -10,7 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:capstone/models/diary.dart';
 import 'package:langchain/langchain.dart';
 
-class TabScreen extends ConsumerStatefulWidget{
+class TabScreen extends ConsumerStatefulWidget {
   const TabScreen({super.key});
 
   @override
@@ -20,7 +20,23 @@ class TabScreen extends ConsumerStatefulWidget{
 }
 
 class _TapScreenState extends ConsumerState<TabScreen> {
-  
+  void _noneFilter() {
+    showDialog(
+        context: context,
+        builder: (ctx) {
+          return AlertDialog(
+            title: const Text('오류'),
+            content: const Text('먼저 테마를 선택해 주세요'),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                  },
+                  child: const Text('Okay'))
+            ],
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +46,17 @@ class _TapScreenState extends ConsumerState<TabScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        actions: const[Text('Diary',style: TextStyle(fontSize: 20),) ,Spacer(), Icon(Icons.circle),SizedBox(width: 10,)],
+        actions: const [
+          Text(
+            'Diary',
+            style: TextStyle(fontSize: 20),
+          ),
+          Spacer(),
+          Icon(Icons.circle),
+          SizedBox(
+            width: 10,
+          )
+        ],
         title: const Text(
           "Diary",
           style: TextStyle(
@@ -42,7 +68,7 @@ class _TapScreenState extends ConsumerState<TabScreen> {
         backgroundColor: Colors.transparent,
       ),
       body: StartScreen(
-        todayDiary: allDiary,
+        diaryList: allDiary,
         nowFilter: selectedFilter,
       ),
       floatingActionButton: Transform.translate(
@@ -55,28 +81,31 @@ class _TapScreenState extends ConsumerState<TabScreen> {
             width: 86.46,
           ),
           onPressed: () {
-            final List<int> indexList = [];
-            for (Diary diary in selectedDiary){
-              indexList.add(allDiary.indexOf(diary));
-              //ref.read(diaryProvider.notifier).editTodayDiary(diary.text,a, diary.date,true);
+            if (selectedFilter == Filter.none) {
+              _noneFilter();
+            }else {
+              final List<int> indexList = [];
+              for (Diary diary in selectedDiary) {
+                indexList.add(allDiary.indexOf(diary));
+                //ref.read(diaryProvider.notifier).editTodayDiary(diary.text,a, diary.date,true);
+              }
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (ctx) {
+                  Diary combinedDiary = selectedDiary.reduce((diary1, diary2) {
+                    return Diary(
+                        date: diary1.date,
+                        text: '${diary1.text} \n +${diary2.text}');
+                  });
+                  return BookCoverScreen(
+                    indexList: indexList,
+                    selectedDiary: combinedDiary,
+                    nowFilter: selectedFilter,
+                  );
+                }),
+              );
+              ref.read(selectedDiarysProvider.notifier).deleterAllDiary();
+              ref.read(selectedDiarysProvider.notifier).printState();
             }
-
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (ctx) {
-                Diary combinedDiary = selectedDiary.reduce((diary1, diary2) {
-                  return Diary(
-                      date: diary1.date,
-                      text: '${diary1.text} \n +${diary2.text}');
-                });
-                return BookCoverScreen(
-                  indexList: indexList,
-                  selectedDiary: combinedDiary,
-                  nowFilter: selectedFilter,
-                );
-              }),
-            );
-            ref.read(selectedDiarysProvider.notifier).deleterAllDiary();
-            ref.read(selectedDiarysProvider.notifier).printState();
           },
         ),
       ),
