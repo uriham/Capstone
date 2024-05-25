@@ -1,4 +1,5 @@
 import 'package:capstone/providers/diary_provider.dart';
+import 'package:capstone/providers/filter_provider.dart';
 import 'package:capstone/providers/selected_diary_provider.dart';
 import 'package:capstone/screens/bookcover_screen.dart';
 import 'package:capstone/screens/start_screen.dart';
@@ -11,20 +12,44 @@ import 'package:capstone/screens/myprofile_screen.dart';
 import 'package:capstone/screens/profile_setting.dart';
 import 'package:capstone/screens/tutorial_screen.dart';
 
-class TapScreen extends ConsumerWidget {
-  final String userName;
-  final String? selectedImage; // 선택된 이미지를 옵셔널로 변경
+class TabScreen extends ConsumerStatefulWidget {
+  const TabScreen({
+    super.key,
+    //required this.userName,
+    this.selectedImage,
+  });
+  //final String userName;
+  final String? selectedImage;
+  @override
+  ConsumerState<TabScreen> createState() {
+    return _TapScreenState();
+  }
+}
 
-  const TapScreen({
-    Key? key,
-    required this.userName,
-    this.selectedImage, // 선택된 이미지를 옵셔널로 변경
-  }) : super(key: key);
+class _TapScreenState extends ConsumerState<TabScreen> {
+  void _noneFilter() {
+    showDialog(
+        context: context,
+        builder: (ctx) {
+          return AlertDialog(
+            title: const Text('오류'),
+            content: const Text('먼저 테마를 선택해 주세요'),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                  },
+                  child: const Text('Okay'))
+            ],
+          );
+        });
+  }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final allDiary = ref.watch(diaryProvider);
     final selectedDiary = ref.watch(selectedDiarysProvider);
+    final selectedFilter = ref.watch(filterProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -34,13 +59,13 @@ class TapScreen extends ConsumerWidget {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
                 return Profile(
-                  userName: userName,
+                  userName: widget.userName,
                   // 선택된 이미지 전달
                 );
               }));
             },
-            child: Row(
-              children: const [
+            child: const Row(
+              children: [
                 Text(
                   'Diary',
                   style: TextStyle(fontSize: 20),
@@ -55,15 +80,16 @@ class TapScreen extends ConsumerWidget {
           "Diary",
           style: TextStyle(
             color: Colors.white,
-            fontSize: 18,
+            fontSize: 20,
             fontFamily: 'KoPubWorldDotum_Pro',
           ),
         ),
         backgroundColor: Colors.transparent,
       ),
       body: StartScreen(
-        todayDiary: allDiary,
-        userName: userName, // 사용자 이름을 StartScreen으로 전달
+        //userName: 'sinwoo', // 사용자 이름을 StartScreen으로 전달
+        diaryList: allDiary,
+        nowFilter: selectedFilter,
       ),
       floatingActionButton: Transform.translate(
         // Generate 버튼 있는 곳
@@ -75,33 +101,36 @@ class TapScreen extends ConsumerWidget {
             width: 86.46,
           ),
           onPressed: () {
-            final List<int> indexList = [];
-            for (Diary diary in selectedDiary) {
-              indexList.add(allDiary.indexOf(diary));
-            }
-
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (ctx) {
-                Diary combinedDiary = selectedDiary.reduce((diary1, diary2) {
-                  return Diary(
-                    date: diary1.date,
-                    text: '${diary1.text} \n${diary2.text}',
+            if (selectedFilter == Filter.none) {
+              _noneFilter();
+            } else {
+              final List<int> indexList = [];
+              for (Diary diary in selectedDiary) {
+                indexList.add(allDiary.indexOf(diary));
+                //ref.read(diaryProvider.notifier).editTodayDiary(diary.text,a, diary.date,true);
+              }
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (ctx) {
+                  Diary combinedDiary = selectedDiary.reduce((diary1, diary2) {
+                    return Diary(
+                        date: diary1.date,
+                        text: '${diary1.text} \n +${diary2.text}');
+                  });
+                  return BookCoverScreen(
+                    indexList: indexList,
+                    selectedDiary: combinedDiary,
+                    nowFilter: selectedFilter,
                   );
-                });
-                return BookCoverScreen(
-                  indexList: indexList,
-                  selectedDiary: combinedDiary,
-                  userName: userName,
-                );
-              }),
-            );
-            ref.read(selectedDiarysProvider.notifier).deleterAllDiary();
-            ref.read(selectedDiarysProvider.notifier).printState();
+                }),
+              );
+              ref.read(selectedDiarysProvider.notifier).deleterAllDiary();
+              ref.read(selectedDiarysProvider.notifier).printState();
+            }
           },
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: MyBottomAppBar(),
+      bottomNavigationBar: const MyBottomAppBar(),
     );
   }
 }

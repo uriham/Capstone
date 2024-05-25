@@ -102,6 +102,18 @@ flutter:
     - assets/images/E_R_Share_ic.svg
     - assets/images/R_Bookmark0_ic.svg
     - assets/images/R_Bookmark1_ic.svg
+    - assets/images/char_myao.png
+    - assets/images/chapter2.png
+    - assets/images/chapter1.png
+    - assets/images/char_henry.png
+    - assets/images/char_leesang.png
+    - assets/images/char_mung.png
+    - assets/images/char_pooh.png
+    - assets/images/char_yangkee.png
+    - assets/images/C_E_back_ic.svg
+    - assets/images/E_R_M_Kebab Menu_ic.svg
+    - assets/images/R_Editmode_ic.svg
+    - assets/images/R_Location bar.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

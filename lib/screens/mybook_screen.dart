@@ -6,7 +6,7 @@ import 'package:capstone/screens/tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:palette_generator/palette_generator.dart';
-import 'package:capstone/providers/book_provider.dart';
+import 'package:capstone/providers/book_provider_ex.dart';
 import 'package:capstone/widgets/photo_hero.dart';
 import 'package:capstone/models/book.dart';
 
@@ -182,13 +182,8 @@ class MybookScreen extends ConsumerWidget {
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
-        if (didPop) return;
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (ctx) => const TapScreen(
-                      userName: AutofillHints.username,
-                    )));
+        if(didPop) return;
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>const TabScreen()));
         print('ji');
       },
       child: Scaffold(

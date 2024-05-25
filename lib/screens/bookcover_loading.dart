@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:langchain/langchain.dart';
 import 'package:langchain_openai/langchain_openai.dart';
 import 'package:capstone/data/prompts.dart';
-import 'package:capstone/providers/book_provider.dart';
 import 'dart:async';
 import 'dart:ui' as ui;
 
@@ -349,10 +348,10 @@ class _LoadingTextState extends State<_LoadingText> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 71.0),
+      padding: const EdgeInsets.symmetric(horizontal: 71.0),
       child: Text(
         _loadingTexts[_index],
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 18,
           fontFamily: 'KoPubWorldBatang_Pro',
           fontWeight: FontWeight.w300,

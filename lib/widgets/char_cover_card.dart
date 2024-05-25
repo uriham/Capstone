@@ -13,10 +13,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 // Book 클래스
 class CharCoverCard extends StatefulWidget {
+  const CharCoverCard({super.key, required this.char});
   final Character char;
 
-  CharCoverCard({super.key, required this.char});
-  _CharCoverCardState createState() => _CharCoverCardState();
+  @override
+  State<CharCoverCard> createState() => _CharCoverCardState();
 }
 
 class _CharCoverCardState extends State<CharCoverCard> {

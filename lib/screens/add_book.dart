@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:capstone/providers/diary_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:capstone/models/diary.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 
-final formatter = DateFormat.yMMMd();
+final formatter = DateFormat('yyyy.MM.dd');
+final formatter2 = DateFormat('yyyy년 MM월 dd일');
 
 class AddBookScreen extends ConsumerStatefulWidget {
   const AddBookScreen({super.key});
@@ -35,7 +37,7 @@ class _AddBookScreenState extends ConsumerState<AddBookScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: SvgPicture.asset('assets/images/C_E_back_ic.svg'),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -45,19 +47,22 @@ class _AddBookScreenState extends ConsumerState<AddBookScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(children: [
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const SizedBox(
             height: 100,
           ),
           Text(
-            formatter.format(DateTime.now()),
+            formatter2.format(DateTime.now()),
             style: const TextStyle(
-              fontSize: 30,
+              fontSize: 23,
               color: Colors.white,
             ),
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.left,
           ),
+          Container(width: double.infinity,height: 2,color: Colors.white,),
           TextField(
+            maxLines: null,
+            keyboardType: TextInputType.multiline,
             controller: _textController,
             style: const TextStyle(color: Colors.white),
             decoration: const InputDecoration(

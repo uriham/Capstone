@@ -2,6 +2,8 @@ import 'package:capstone/screens/tutorial_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:capstone/screens/tab.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 final theme = ThemeData.dark().copyWith(
   scaffoldBackgroundColor: Colors.black,
@@ -14,8 +16,9 @@ final theme = ThemeData.dark().copyWith(
   textTheme: GoogleFonts.latoTextTheme(),
 );
 
-void main() async {
-  runApp(const ProviderScope(child: App()));
+void main() {
+  initializeDateFormatting('ko_KR').then((_) => runApp(const ProviderScope(child: App())));
+  ;
 }
 
 class App extends StatelessWidget {
@@ -24,8 +27,9 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {"/first": (context) => const TabScreen(),},
       theme: theme,
-      home: const TutorialScreen(),
+      home: const TabScreen(),
     );
   }
 }

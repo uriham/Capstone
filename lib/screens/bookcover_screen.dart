@@ -1,24 +1,25 @@
+import 'package:capstone/models/chapter.dart';
 import 'package:capstone/models/diary.dart';
+import 'package:capstone/providers/book_provider.dart';
 import 'package:capstone/providers/diary_provider.dart';
 import 'package:capstone/screens/bookcover_loading.dart';
-import 'package:capstone/providers/book_provider.dart';
+import 'package:capstone/providers/filter_provider.dart';
 import 'package:capstone/widgets/bookcover_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:capstone/screens/mybook_screen.dart';
+import 'package:capstone/screens/character_cover.dart';
 import 'package:capstone/screens/tab.dart';
 
 class BookCoverScreen extends ConsumerStatefulWidget {
-  const BookCoverScreen({
-    Key? key,
-    required this.selectedDiary,
-    required this.indexList,
-    required this.userName,
-  }) : super(key: key);
+  const BookCoverScreen(
+      {super.key,
+      required this.selectedDiary,
+      required this.indexList,
+      required this.nowFilter});
 
   final Diary selectedDiary;
   final List<int> indexList;
-  final String userName;
+  final Filter nowFilter;
 
   @override
   ConsumerState<BookCoverScreen> createState() => _BookCoverScreenState();
@@ -30,52 +31,45 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
   List<String> bookInfo = [];
   bool isGenerated = false;
   String bookTitle = '';
-  String? _selectedImage;
 
   void _goCompleteScreen() async {
     bookTitle = _titleController.text;
 
-    final booklist = await Navigator.of(context).push<List<String>>(
-      MaterialPageRoute(builder: (ctx) {
-        return BookCoverLoading(
-          keyword: _keywordController.text,
-          selectedDiary: widget.selectedDiary,
-        );
-      }),
-    );
-    if (booklist != null) {
-      setState(() {
-        bookInfo = booklist;
-        isGenerated = true;
-      });
-    }
+    final booklist = await Navigator.of(context)
+        .push<List<String>>(MaterialPageRoute(builder: (ctx) {
+      return BookCoverLoading(
+        keyword: _keywordController.text,
+        selectedDiary: widget.selectedDiary,
+      );
+    }));
+    setState(() {
+      bookInfo = booklist ??
+          [
+            'awd',
+            'awds'
+          ]; //bookinfo는 appi통신으로 가져온 url과 text이다. 0 이 url, 1이 text
+      isGenerated = true;
+    });
   }
 
-  void _bookProvider() {
+  void _bookprovider() {
     for (int i in widget.indexList) {
-      ref.read(diaryProvider.notifier).useDiary(i);
+      ref.read(diaryProvider.notifier).useDiary(i); //diary사용함 뜨게 만듦
     }
+    ref.read(bookProvider.notifier).addChapter(widget.nowFilter,
+        Chapter(chImg: bookInfo[0], title: bookTitle, text: bookInfo[1]));
+    /*
     ref.read(bookProvider.notifier).addBook(
-          bookInfo[1],
-          bookInfo[0],
-          widget.selectedDiary.date,
-          bookTitle,
-        );
+        bookInfo[1], bookInfo[0], widget.selectedDiary.date, bookTitle);
+        */
+    /*
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+      return const MybookScreen();
+    }
+    ));
+    */
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => MybookScreen(userName: widget.userName),
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    _titleController.dispose();
-    _keywordController.dispose();
-    super.dispose();
-  }
-
-  @override
+      MaterialPageRoute(builder: (context) => const CharCoverScreen()));}
   Widget build(BuildContext context) {
     Widget bodyContent = Column(
       children: [
@@ -86,7 +80,6 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
           '원하시는 그림을 요청해보세요!\nAi가 그려드립니다',
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: const Color(0xFFFF2287),
             fontSize: 22,
             fontFamily: 'Inter',
             fontWeight: FontWeight.w600,
@@ -172,35 +165,39 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
       ],
     );
 
-    if (isGenerated) {
-      bodyContent = Container(
-        width: 268,
-        height: 383,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(bookInfo[0]),
-            fit: BoxFit.fill,
+    if (isGenerated == true) {
+      bodyContent = Column(
+        children: [
+          const SizedBox(
+            height: 100,
           ),
-        ),
+          Container(
+            width: 268,
+            height: 420,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+              image: DecorationImage(
+                image: NetworkImage(bookInfo[0]),
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
+        ],
       );
     }
 
     return Scaffold(
       appBar: AppBar(
         actions: [
-          Spacer(),
+          const Spacer(),
           isGenerated
-              ? SizedBox()
+              ? const SizedBox()
               : TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (ctx) {
-                        return TapScreen(
-                          userName: widget.userName,
-                          selectedImage: _selectedImage,
-                        );
-                      }),
-                    );
+                    Navigator.of(context)
+                        .pushReplacement(MaterialPageRoute(builder: (ctx) {
+                      return const TabScreen();
+                    }));
                   },
                   child: const Icon(Icons.close, color: Colors.white),
                 )
@@ -219,13 +216,13 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               bodyContent, // 주력 내용을 전달함
-              BookCoverButton(
-                onTap: isGenerated ? _bookProvider : _goCompleteScreen,
-                buttonText: isGenerated ? '완성' : '그려내기~',
-              ),
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BookCoverButton(
+        onTap: isGenerated ? _bookprovider : _goCompleteScreen,
+        buttonText: isGenerated ? '완성' : '그려내기~',
       ),
     );
   }

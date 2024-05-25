@@ -2,7 +2,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:capstone/screens/chapter_read.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/widgets/photo_hero.dart';
-import 'package:capstone/models/character.dart';
+import 'package:capstone/models/chapter.dart';
 
 // Book 클래스
 class ChapterCoverCard extends StatelessWidget {
@@ -42,19 +42,21 @@ class ChapterCoverCard extends StatelessWidget {
         children: [
           Column(
             children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                //child: Image.asset(chap.ch_img),
-                child: PhotoHero( //tag로 URL넣음
-                    //width: 268,
-                    photo: chap.chImg,
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute<void>(builder: (context) {
-                          return ChapReaderPage(chap: chap);
-                        }),
-                      );
-                    }),
+              SizedBox(
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  //child: Image.asset(chap.ch_img),
+                  child: PhotoHero( //tag로 URL넣음
+                      //width: 268,
+                      photo: chap.chImg,
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute<void>(builder: (context) {
+                            return ChapReaderPage(chap: chap);
+                          }),
+                        );
+                      }),
+                ),
               ),
               const SizedBox(height: 10),
               Text(
