@@ -1,4 +1,4 @@
-import 'package:capstone/screens/add_book.dart';
+import 'package:capstone/screens/add_edit_book.dart';
 import 'package:capstone/screens/tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -40,7 +40,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
       // Navigate to the next screen after the last tutorial page
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (context) {
-        return TapScreen(userName: _userName); // 사용자 이름을 StartScreen으로 전달
+        return TabScreen(); // 사용자 이름을 StartScreen으로 전달
       }));
     }
   }

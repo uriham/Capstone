@@ -1,5 +1,5 @@
 import 'package:capstone/providers/selected_diary_provider.dart';
-import 'package:capstone/screens/add_book.dart';
+import 'package:capstone/screens/add_edit_book.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/widgets/diary_card.dart';
 import 'package:capstone/models/diary.dart';
@@ -48,7 +48,7 @@ class _StartScreenState extends ConsumerState<StartScreen> {
                   onTap: () {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (ctx) {
-                      return const AddBookScreen();
+                      return AddEditBookScreen();
                     }));
                   },
                   child: Container(

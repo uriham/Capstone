@@ -314,7 +314,7 @@ class Start01 extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      TapScreen(userName: controller.text),
+                                      TabScreen(),
                                 ),
                               );
                             },

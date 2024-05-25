@@ -1,3 +1,4 @@
+import 'package:capstone/screens/add_edit_book.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/models/diary.dart';
 import 'package:capstone/providers/diary_provider.dart';
@@ -7,7 +8,7 @@ import 'package:intl/intl.dart';
 
 final formatter = DateFormat.yMMMd();
 
-class ReadDiaryScreen extends ConsumerStatefulWidget {
+class ReadDiaryScreen extends ConsumerWidget {
   const ReadDiaryScreen(
       {super.key, required this.todayDiary, required this.index});
 
@@ -15,34 +16,7 @@ class ReadDiaryScreen extends ConsumerStatefulWidget {
   final int index;
 
   @override
-  ConsumerState<ReadDiaryScreen> createState() => _ReadDiaryScreenState();
-}
-
-class _ReadDiaryScreenState extends ConsumerState<ReadDiaryScreen> {
-  late TextEditingController _textEditingController;
-
-  void _saveDiary() {
-    ref.read(diaryProvider.notifier).editTodayDiary(_textEditingController.text,
-        widget.index, widget.todayDiary.date, false);
-    Navigator.of(context).pop();
-    Navigator.of(context).pop();
-  }
-
-  @override
-  void initState() {
-    _textEditingController = TextEditingController();
-    _textEditingController.text = widget.todayDiary.text;
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _textEditingController.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -58,7 +32,14 @@ class _ReadDiaryScreenState extends ConsumerState<ReadDiaryScreen> {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+                return AddEditBookScreen(
+                  diary: todayDiary,
+                  index : index
+                );
+              }));
+            },
             icon: SvgPicture.asset(
               'assets/images/R_Editmode_ic.svg',
               width: 32,
@@ -79,69 +60,49 @@ class _ReadDiaryScreenState extends ConsumerState<ReadDiaryScreen> {
             Navigator.pop(context);
           },
         ),
-        title: Text(widget.todayDiary.formattedDate),
+        title: Text(todayDiary.formattedDate),
         backgroundColor: Colors.transparent,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(children: [
-            const SizedBox(
-              height: 300,
-            ),
-            Text(
-              widget.todayDiary.formattedDate,
-              style: const TextStyle(
-                fontSize: 30,
-                color: Colors.white,
+      body: Align(
+        alignment: Alignment.topCenter,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              const SizedBox(
+                height: 300,
               ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(
-              height: 65,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: TextField(
-                maxLines: null,
-                keyboardType: TextInputType.multiline,
-                controller: _textEditingController,
-                style: const TextStyle(color: Colors.white),
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
+              Text(
+                todayDiary.formattedDate,
+                style: const TextStyle(
+                  fontSize: 30,
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(
+                height: 65,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  softWrap: true,
+                  todayDiary.text,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontFamily: 'Cinzel Decorative',
+                    fontWeight: FontWeight.w400,
+                    
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('변환'),
-                      content: const Text('정말로 변환하시겠습니까?'),
-                      actions: <Widget>[
-                        ElevatedButton(
-                          onPressed: _saveDiary,
-                          child: const Text('Okay'),
-                        ),
-                        TextButton(
-                          child: const Text('Close'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-              child: const Text('수정'),
-            ),
-          ]),
+              const SizedBox(
+                height: 10,
+              ), 
+            ]),
+          ),
         ),
       ),
     );

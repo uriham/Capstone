@@ -12,7 +12,7 @@ class ChapterCoverCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    timeDilation = 5.0;
+    //timeDilation = 5.0;
 
     return Container(
       margin: const EdgeInsets.fromLTRB(0, 160, 0, 160),

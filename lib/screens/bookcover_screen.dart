@@ -69,22 +69,25 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
     ));
     */
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const CharCoverScreen()));}
+        MaterialPageRoute(builder: (context) => const CharCoverScreen()));
+  }
+
   Widget build(BuildContext context) {
     Widget bodyContent = Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 130,
         ),
-        Text(
+        const Text(
           '원하시는 그림을 요청해보세요!\nAi가 그려드립니다',
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: 22,
+            color: Color(0xFFFF2287),
+            fontSize: 18,
             fontFamily: 'Inter',
             fontWeight: FontWeight.w600,
             height: 0,
-            letterSpacing: 1,
+            letterSpacing: 0.72,
           ),
         ),
         SizedBox(height: 4),

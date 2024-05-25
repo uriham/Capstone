@@ -32,8 +32,14 @@ class _TapScreenState extends ConsumerState<TabScreen> {
         context: context,
         builder: (ctx) {
           return AlertDialog(
-            title: const Text('오류'),
-            content: const Text('먼저 테마를 선택해 주세요'),
+            title: const Text(
+              '오류',
+              style: TextStyle(color: Colors.white),
+            ),
+            content: const Text(
+              '먼저 테마를 선택해 주세요',
+              style: TextStyle(color: Colors.white),
+            ),
             actions: [
               TextButton(
                   onPressed: () {
@@ -54,26 +60,17 @@ class _TapScreenState extends ConsumerState<TabScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          Spacer(), // 우측 정렬을 위한 Spacer 추가
+          // 우측 정렬을 위한 Spacer 추가
           GestureDetector(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
                 return Profile(
-                  userName: widget.userName,
+                  userName: 'shinwoo',
                   // 선택된 이미지 전달
                 );
               }));
             },
-            child: const Row(
-              children: [
-                Text(
-                  'Diary',
-                  style: TextStyle(fontSize: 20),
-                ),
-                SizedBox(width: 10),
-                Icon(Icons.circle),
-              ],
-            ),
+            child: Icon(Icons.circle),
           ),
         ],
         title: const Text(

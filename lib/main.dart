@@ -18,7 +18,7 @@ final theme = ThemeData.dark().copyWith(
 
 void main() {
   initializeDateFormatting('ko_KR').then((_) => runApp(const ProviderScope(child: App())));
-  ;
+  
 }
 
 class App extends StatelessWidget {

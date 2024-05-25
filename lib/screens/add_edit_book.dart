@@ -1,3 +1,4 @@
+import 'package:capstone/screens/tab.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/providers/diary_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,28 +9,43 @@ import 'package:intl/intl.dart';
 final formatter = DateFormat('yyyy.MM.dd');
 final formatter2 = DateFormat('yyyy년 MM월 dd일');
 
-class AddBookScreen extends ConsumerStatefulWidget {
-  const AddBookScreen({super.key});
+class AddEditBookScreen extends ConsumerStatefulWidget {
+  AddEditBookScreen({super.key, this.diary,this.index});
+
+  Diary? diary;
+  int? index;
 
   @override
-  ConsumerState<AddBookScreen> createState() => _AddBookScreenState();
+  ConsumerState<AddEditBookScreen> createState() => _AddEditBookScreenState();
 }
 
-class _AddBookScreenState extends ConsumerState<AddBookScreen> {
-  final _textController = TextEditingController();
+class _AddEditBookScreenState extends ConsumerState<AddEditBookScreen> {
+  late TextEditingController _textController;
+  
 
+  @override
+  void initState() {
+    super.initState();
+    _textController = TextEditingController();
+    _textController.text = widget.diary==null?'':widget.diary!.text;
+  }
+  @override
+  void dispose() {
+    super.dispose();
+    _textController.dispose();
+  }
+  void _editDiary() {
+    ref.read(diaryProvider.notifier).editTodayDiary(_textController.text,
+        widget.index!, widget.diary!.date, false);
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx){return const TabScreen();}));
+    
+  }
   void _saveDiary() {
     ref
         .read(diaryProvider.notifier)
         .addDiary(Diary(date: DateTime.now(), text: _textController.text));
     Navigator.of(context).pop();
     Navigator.of(context).pop();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _textController.dispose();
   }
 
   @override
@@ -42,7 +58,7 @@ class _AddBookScreenState extends ConsumerState<AddBookScreen> {
             Navigator.pop(context);
           },
         ),
-        title: Text(formatter.format(DateTime.now())),
+        title: widget.diary==null?Text(formatter.format(DateTime.now())):Text(formatter.format(widget.diary!.date)),
         backgroundColor: Colors.transparent,
       ),
       body: Padding(
@@ -52,7 +68,7 @@ class _AddBookScreenState extends ConsumerState<AddBookScreen> {
             height: 100,
           ),
           Text(
-            formatter2.format(DateTime.now()),
+            widget.diary==null?formatter2.format(DateTime.now()):formatter2.format(widget.diary!.date),
             style: const TextStyle(
               fontSize: 23,
               color: Colors.white,
@@ -82,7 +98,7 @@ class _AddBookScreenState extends ConsumerState<AddBookScreen> {
                     content: const Text('정말로 변환하시겠습니까?'),
                     actions: <Widget>[
                       ElevatedButton(
-                        onPressed: _saveDiary,
+                        onPressed: widget.diary==null?_saveDiary:_editDiary,
                         child: const Text('Okay'),
                       ),
                       TextButton(
