@@ -42,7 +42,7 @@ class _CharCoverCardState extends State<CharCoverCard> {
     //timeDilation = 5.0;
 
     return Container(
-      margin: const EdgeInsets.fromLTRB(0, 0, 0, 100),
+      margin: const EdgeInsets.fromLTRB(0, 0, 0, 150),
       //padding: const EdgeInsets.fromLTRB(0, 80, 0, 10),
       // decoration: BoxDecoration(
       //   border: Border.all(
@@ -75,10 +75,9 @@ class _CharCoverCardState extends State<CharCoverCard> {
         ),
         child: Container(
           margin: const EdgeInsets.only(top: 100),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
+          child: 
               Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AnimatedOpacity(
                     opacity: _opacity,
@@ -117,8 +116,7 @@ class _CharCoverCardState extends State<CharCoverCard> {
                   // )
                 ],
               ),
-            ],
-          ),
+
         ),
       ),
     );

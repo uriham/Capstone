@@ -71,6 +71,7 @@ class _ChapCoverScreenState extends State<ChapCoverScreen> {
           // ),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.8,

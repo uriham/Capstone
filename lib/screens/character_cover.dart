@@ -56,8 +56,7 @@ class _CharCoverScreenState extends ConsumerState<CharCoverScreen> {
             //   // ),
             //   child:
             SafeArea( //SafeArea는 디바이스의 노치 부분등을 피하게 만들어준다.
-          child: SingleChildScrollView(
-            child: Column(
+          child:  Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
@@ -84,7 +83,7 @@ class _CharCoverScreenState extends ConsumerState<CharCoverScreen> {
                 )
               ],
             ),
-          ),
+         
         ),
       ),
     );

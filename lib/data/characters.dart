@@ -13,7 +13,7 @@ List<Character> bookList = [
       blue: 102,
       chapters: [
         Chapter(
-          chImg: 'https://picsum.photos/250?image=9',
+          chImg: 'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 1',
           text:
               '''어느 늦가을 아침, 햇살은 창가를 스쳐 지나 내 방을 은은하게 비추었다. 나는 이불 속에서 꿈속 세상을 맴돌다가 새소리에 눈을 떴다. 아직 잠을 더 청하며 이불 속에 머무르고 싶었지만, 어쩔 수 없이 일어나야겠다는 생각이 들었다.
