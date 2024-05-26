@@ -10,16 +10,37 @@ import 'package:capstone/models/diary.dart';
 import 'package:capstone/screens/myprofile_screen.dart';
 import 'package:capstone/screens/profile_setting.dart';
 import 'package:capstone/screens/tutorial_screen.dart';
+import 'package:capstone/screens/calendar.dart';
+import 'package:capstone/screens/diary_page.dart';
 
 class TapScreen extends ConsumerWidget {
   final String userName;
-  final String? selectedImage; // 선택된 이미지를 옵셔널로 변경
+  final String? selectedImage;
 
   const TapScreen({
     Key? key,
     required this.userName,
-    this.selectedImage, // 선택된 이미지를 옵셔널로 변경
+    this.selectedImage,
   }) : super(key: key);
+
+  Future<void> _showCalendar(BuildContext context) async {
+    final selectedDate = await showModalBottomSheet<DateTime?>(
+      context: context,
+      builder: (ctx) => const CalendarWidget(),
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      backgroundColor: Colors.white,
+    );
+
+    if (selectedDate != null) {
+      Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+        return DiaryPage(
+            date: selectedDate); // Navigate to DiaryPage with selected date
+      }));
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,26 +50,24 @@ class TapScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          Spacer(), // 우측 정렬을 위한 Spacer 추가
+          Spacer(),
           GestureDetector(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                return Profile(
-                  userName: userName,
-                  // 선택된 이미지 전달
-                );
+                return Profile(userName: userName);
               }));
             },
             child: Row(
               children: const [
-                Text(
-                  'Diary',
-                  style: TextStyle(fontSize: 20),
-                ),
+                Text('Diary', style: TextStyle(fontSize: 20)),
                 SizedBox(width: 10),
                 Icon(Icons.circle),
               ],
             ),
+          ),
+          IconButton(
+            icon: Icon(Icons.calendar_today),
+            onPressed: () => _showCalendar(context),
           ),
         ],
         title: const Text(
@@ -63,10 +82,9 @@ class TapScreen extends ConsumerWidget {
       ),
       body: StartScreen(
         todayDiary: allDiary,
-        userName: userName, // 사용자 이름을 StartScreen으로 전달
+        userName: userName,
       ),
       floatingActionButton: Transform.translate(
-        // Generate 버튼 있는 곳
         offset: const Offset(0, 8),
         child: IconButton(
           icon: SvgPicture.asset(
