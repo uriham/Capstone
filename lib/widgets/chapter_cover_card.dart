@@ -1,4 +1,4 @@
-import 'package:flutter/scheduler.dart';
+import'package:capstone/models/character.dart';
 import 'package:capstone/screens/chapter_read.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/widgets/photo_hero.dart';
@@ -7,21 +7,21 @@ import 'package:capstone/models/chapter.dart';
 // Book 클래스
 class ChapterCoverCard extends StatelessWidget {
   final Chapter chap;
-
-  const ChapterCoverCard({super.key, required this.chap});
+  final Character character;
+  const ChapterCoverCard({super.key, required this.chap,required this.character});
 
   @override
   Widget build(BuildContext context) {
     //timeDilation = 5.0;
 
     return Container(
-      margin: const EdgeInsets.fromLTRB(0, 130, 0, 160),
+      margin: const EdgeInsets.fromLTRB(0, 110, 0, 80),
       padding: const EdgeInsets.fromLTRB(25, 25, 25, 25),
       child:
           Column(
             children: [
               SizedBox(
-                width: double.infinity,
+                width: 238,
                 height: 360,
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -32,7 +32,7 @@ class ChapterCoverCard extends StatelessWidget {
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute<void>(builder: (context) {
-                            return ChapReaderPage(chap: chap);
+                            return ChapReaderPage(chap: chap,character: character,);
                           }),
                         );
                       }),

@@ -16,7 +16,7 @@ class ChapCoverScreen extends StatefulWidget {
 }
 
 class _ChapCoverScreenState extends State<ChapCoverScreen> {
-  final controller = PageController(viewportFraction: 0.6, keepPage: true);
+  final controller = PageController(viewportFraction: 0.8, keepPage: true);
   var _selectedIndex = 0;
 
   @override
@@ -76,6 +76,7 @@ class _ChapCoverScreenState extends State<ChapCoverScreen> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.8,
               child: PageView.builder(
+                
                   onPageChanged: (index) {
                     setState(() {
                       _selectedIndex = index;
@@ -90,7 +91,7 @@ class _ChapCoverScreenState extends State<ChapCoverScreen> {
                     return TweenAnimationBuilder(
                         tween: Tween(begin: scale, end: scale),
                         duration: const Duration(milliseconds: 100),
-                        child: ChapterCoverCard(chap: chapPage),
+                        child: ChapterCoverCard(chap: chapPage,character: widget.char),
                         builder: (context, value, child) {
                           return Transform.scale(
                             scale: value,

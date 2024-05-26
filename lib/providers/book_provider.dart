@@ -21,3 +21,4 @@ class BookState extends StateNotifier<List<Character>> {
 
 // Provider 정의
 final bookProvider = StateNotifierProvider<BookState, List<Character>>((ref) => BookState());
+

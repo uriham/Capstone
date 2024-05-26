@@ -27,8 +27,9 @@ class TabScreen extends ConsumerStatefulWidget {
 }
 
 class _TapScreenState extends ConsumerState<TabScreen> {
+
   bool isLongTaped = false;
-  
+
   void _noneFilter() {
     showDialog(
         context: context,
@@ -55,6 +56,7 @@ class _TapScreenState extends ConsumerState<TabScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
     final allDiary = ref.watch(diaryProvider);
     final selectedDiary = ref.watch(selectedDiarysProvider);
     final selectedFilter = ref.watch(filterProvider);
@@ -89,13 +91,11 @@ class _TapScreenState extends ConsumerState<TabScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          // 우측 정렬을 위한 Spacer 추가
           GestureDetector(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
                 return const Profile(
                   userName: 'shinwoo',
-                  // 선택된 이미지 전달
                 );
               }));
             },
@@ -116,6 +116,7 @@ class _TapScreenState extends ConsumerState<TabScreen> {
         //userName: 'sinwoo', // 사용자 이름을 StartScreen으로 전달
         diaryList: allDiary,
         nowFilter: selectedFilter,
+        isLongTaped: isLongTaped,
       ),
       floatingActionButton: Transform.translate(
         // Generate 버튼 있는 곳
@@ -156,7 +157,7 @@ class _TapScreenState extends ConsumerState<TabScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: const MyBottomAppBar2(),
+      bottomNavigationBar: const MyBottomAppBar(),
     );
   }
 }

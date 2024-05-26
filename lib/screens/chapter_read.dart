@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:capstone/models/character.dart';
 import 'package:capstone/widgets/mybook_settingbar.dart';
 import 'package:capstone/widgets/photo_hero.dart';
@@ -11,14 +11,18 @@ import 'package:capstone/models/chapter.dart';
 
 class ChapReaderPage extends StatefulWidget {
   final Chapter chap;
+  final Character character;
 
-  const ChapReaderPage({super.key, required this.chap});
+  const ChapReaderPage(
+      {super.key, required this.chap, required this.character});
 
   @override
   State<ChapReaderPage> createState() => _BookReadState();
 }
 
 class _BookReadState extends State<ChapReaderPage> {
+  final _refreshController = RefreshController(initialRefresh: false);
+
   static bool isCheck = false;
   bool _isReadSetBarVisible = false;
   bool _isContentBoxVisible = false;
@@ -65,7 +69,6 @@ class _BookReadState extends State<ChapReaderPage> {
   void _contentBoxVisibility() {
     setState(() {
       _isContentBoxVisible = !_isContentBoxVisible;
-      
     });
   }
 
@@ -85,107 +88,139 @@ class _BookReadState extends State<ChapReaderPage> {
 
   @override
   Widget build(BuildContext context) {
+    int chapterIndex = widget.character.chapters
+        .indexWhere((chapter) => chapter.text == widget.chap.text);
     return GestureDetector(
       onTap: _readSetBarVisibility,
       child: Scaffold(
         body: Stack(
           children: [
-            CustomScrollView(
-              //physics: const BouncingScrollPhysics(),
-              slivers: <Widget>[
-              SliverAppBar(
-                pinned: _fined,
-                snap: false,
-                floating: false,
-                expandedHeight: 620,
-                elevation: 0,
-                flexibleSpace: ShaderMask(
-                  // 이미지 하단 밑 그라데이션
-                  shaderCallback: (Rect bound) {
-                    return const LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [Colors.white, Colors.transparent],
-                      stops: [0.70, 1.0],
-                    ).createShader(bound);
-                  },
-                  blendMode: BlendMode.dstIn,
-                  child: FlexibleSpaceBar(
-                    //title: Text(book.title),
-                    background: PhotoHero(
-                      photo: widget.chap.chImg,
-                    ),
-                  ),
-                ),
-                actions: [
-                  IconButton(
-                      onPressed: () {
-                        setState(() {
-                          isCheck = !isCheck;
-                        });
-                      },
-                      icon: isCheck
-                          ? SvgPicture.asset("assets/images/R_Bookmark0_ic.svg")
-                          : SvgPicture.asset(
-                              "assets/images/R_Bookmark1_ic.svg")),
-                  PopupMenuButton(
-                    icon: const Icon(Icons.more_vert),
-                    itemBuilder: (BuildContext context) => [
-                      // PopupMenuItem(
-                      //   child: ListTile(
-                      //     leading: SvgPicture.asset(
-                      //         'assets/images/E_R_Full screen_ic.svg'),
-                      //     title: Text('전체 화면'),
-                      //   ),
-                      // ),
-                      PopupMenuItem<String>(
-                        child: Container(
-                            color: Colors.transparent,
-                            // leading: SvgPicture.asset(
-                            //     'assets/images/E_R_PDF_ic.svg'),
-                            child: const Text('PDF로 내보내기')),
-                      ),
-                      PopupMenuItem(
-                        child: ListTile(
-                            leading: SvgPicture.asset(
-                                'assets/images/E_R_Share_ic.svg'),
-                            title: const Text('공유하기')),
-                      ),
-                    ],
-                    onSelected: (value) {},
-                  )
-                ],
+            SmartRefresher(
+              enablePullDown: false,
+              onLoading: () async {
+                // 밑에 있는놈 담당
+                await Future.delayed(Duration(milliseconds: 1000));
+                if (chapterIndex != -1 &&
+                    chapterIndex < widget.character.chapters.length - 1) {
+                  Chapter nextChapter =
+                      widget.character.chapters[chapterIndex + 1];
+                  Navigator.of(context)
+                      .pushReplacement(MaterialPageRoute(builder: (ctx) {
+                    return ChapReaderPage(
+                        chap: nextChapter, character: widget.character);
+                  }));
+                  _refreshController.loadComplete();
+                } else {
+                  _refreshController.loadComplete();
+                }
+              },
+              controller: _refreshController,
+              enablePullUp: true,
+              footer: const ClassicFooter(
+                spacing: 3,
+                loadingText: 'Loading',
+                canLoadingText: '드래그해서 다음 페이지',
+                idleText: '',
               ),
-              SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    SizedBox(height: 50),
-                    TitleHero(
-                      title: widget.chap.title,
-                      size: 18.0,
+              child: CustomScrollView(
+                  physics: BouncingScrollPhysics(),
+                  //physics: const BouncingScrollPhysics(),
+                  slivers: <Widget>[
+                    SliverAppBar(
+                      pinned: _fined,
+                      snap: false,
+                      floating: false,
+                      expandedHeight: 620,
+                      elevation: 0,
+                      flexibleSpace: ShaderMask(
+                        // 이미지 하단 밑 그라데이션
+                        shaderCallback: (Rect bound) {
+                          return const LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [Colors.white, Colors.transparent],
+                            stops: [0.70, 1.0],
+                          ).createShader(bound);
+                        },
+                        blendMode: BlendMode.dstIn,
+                        child: FlexibleSpaceBar(
+                          //title: Text(book.title),
+                          background: PhotoHero(
+                            photo: widget.chap.chImg,
+                          ),
+                        ),
+                      ),
+                      actions: [
+                        IconButton(
+                            onPressed: () {
+                              setState(() {
+                                isCheck = !isCheck;
+                              });
+                            },
+                            icon: isCheck
+                                ? SvgPicture.asset(
+                                    "assets/images/R_Bookmark0_ic.svg")
+                                : SvgPicture.asset(
+                                    "assets/images/R_Bookmark1_ic.svg")),
+                        PopupMenuButton(
+                          icon: const Icon(Icons.more_vert),
+                          itemBuilder: (BuildContext context) => [
+                            // PopupMenuItem(
+                            //   child: ListTile(
+                            //     leading: SvgPicture.asset(
+                            //         'assets/images/E_R_Full screen_ic.svg'),
+                            //     title: Text('전체 화면'),
+                            //   ),
+                            // ),
+                            PopupMenuItem<String>(
+                              child: Container(
+                                  color: Colors.transparent,
+                                  // leading: SvgPicture.asset(
+                                  //     'assets/images/E_R_PDF_ic.svg'),
+                                  child: const Text('PDF로 내보내기')),
+                            ),
+                            PopupMenuItem(
+                              child: ListTile(
+                                  leading: SvgPicture.asset(
+                                      'assets/images/E_R_Share_ic.svg'),
+                                  title: const Text('공유하기')),
+                            ),
+                          ],
+                          onSelected: (value) {},
+                        )
+                      ],
                     ),
-                    const SizedBox(height: 300),
-                    // Center(
-                    //   child: Text(widget.book.date.toString(),
-                    //       style: TextStyle(color: Colors.white, fontSize: 22)),
-                    // ),
-                    // SizedBox(height: 70),
-                    Container(
-                      //alignment: Alignment.topLeft,
-                      padding: const EdgeInsets.only(left: 25, right: 25),
-                      alignment: Alignment.topLeft,
-                      child: Text(widget.chap.text,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: _fontSize,
-                            height: _fontHeight,
-                          )),
-                    ),
-                    const SizedBox(height: 100),
-                  ],
-                ),
-              )
-            ]),
+                    SliverToBoxAdapter(
+                      child: Column(
+                        children: [
+                          SizedBox(height: 50),
+                          TitleHero(
+                            title: widget.chap.title,
+                            size: 18.0,
+                          ),
+                          const SizedBox(height: 300),
+                          // Center(
+                          //   child: Text(widget.book.date.toString(),
+                          //       style: TextStyle(color: Colors.white, fontSize: 22)),
+                          // ),
+                          // SizedBox(height: 70),
+                          Container(
+                            //alignment: Alignment.topLeft,
+                            padding: const EdgeInsets.only(left: 25, right: 25),
+                            alignment: Alignment.topLeft,
+                            child: Text(widget.chap.text,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: _fontSize,
+                                  height: _fontHeight,
+                                )),
+                          ),
+                          const SizedBox(height: 100),
+                        ],
+                      ),
+                    )
+                  ]),
+            ),
 
             // 하단 설정창
             Visibility(
@@ -239,8 +274,8 @@ class _BookReadState extends State<ChapReaderPage> {
                           Container(
                             width: 150,
                             decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50.0)),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(50.0)),
                                 color: const Color.fromARGB(118, 109, 109, 109),
                                 boxShadow: [
                                   BoxShadow(
