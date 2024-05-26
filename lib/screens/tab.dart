@@ -10,7 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:capstone/models/diary.dart';
 import 'package:capstone/screens/myprofile_screen.dart';
 import 'package:capstone/screens/profile_setting.dart';
-import 'package:capstone/screens/tutorial_screen.dart';
+import 'package:capstone/widgets/my_bottom_appbar2.dart';
 
 class TabScreen extends ConsumerStatefulWidget {
   const TabScreen({
@@ -27,6 +27,8 @@ class TabScreen extends ConsumerStatefulWidget {
 }
 
 class _TapScreenState extends ConsumerState<TabScreen> {
+  bool isLongTaped = false;
+  
   void _noneFilter() {
     showDialog(
         context: context,
@@ -56,6 +58,33 @@ class _TapScreenState extends ConsumerState<TabScreen> {
     final allDiary = ref.watch(diaryProvider);
     final selectedDiary = ref.watch(selectedDiarysProvider);
     final selectedFilter = ref.watch(filterProvider);
+    void pressGenerate(){ //애가 최종 전달자 이다.
+      if (selectedFilter == Filter.none) {
+              _noneFilter();
+            } else {
+              final List<int> indexList = [];
+              for (Diary diary in selectedDiary) {
+                indexList.add(allDiary.indexOf(diary));
+                //ref.read(diaryProvider.notifier).editTodayDiary(diary.text,a, diary.date,true);
+              }
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (ctx) {
+                  Diary combinedDiary = selectedDiary.reduce((diary1, diary2) {
+                    return Diary(
+                        date: diary1.date,
+                        text: '${diary1.text} \n +${diary2.text}');
+                  });
+                  return BookCoverScreen(
+                    indexList: indexList,
+                    selectedDiary: combinedDiary,
+                    nowFilter: selectedFilter,
+                  );
+                }),
+              );
+              ref.read(selectedDiarysProvider.notifier).deleterAllDiary();
+              ref.read(selectedDiarysProvider.notifier).printState();
+            }
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -64,13 +93,13 @@ class _TapScreenState extends ConsumerState<TabScreen> {
           GestureDetector(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                return Profile(
+                return const Profile(
                   userName: 'shinwoo',
                   // 선택된 이미지 전달
                 );
               }));
             },
-            child: Icon(Icons.circle),
+            child: const Icon(Icons.circle),
           ),
         ],
         title: const Text(
@@ -127,7 +156,7 @@ class _TapScreenState extends ConsumerState<TabScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: const MyBottomAppBar(),
+      bottomNavigationBar: const MyBottomAppBar2(),
     );
   }
 }
