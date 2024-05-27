@@ -30,10 +30,10 @@ class _BookReadState extends State<ChapReaderPage> {
   bool _isSettingBoxVisible = false;
   bool _fined = false;
 
-  FontStyle _fontStyle = FontStyle.normal;
-  double _fontSize = 15.0;
-  double _fontHeight = 1.5;
-  Color _textColor = Colors.black;
+  final FontStyle _fontStyle = FontStyle.normal;
+  double _fontSize = 16.0;
+  double _fontHeight = 2;
+  final Color _textColor = Colors.black;
 
   void _sizeInc() {
     setState(() {
@@ -99,7 +99,7 @@ class _BookReadState extends State<ChapReaderPage> {
               enablePullDown: false,
               onLoading: () async {
                 // 밑에 있는놈 담당
-                await Future.delayed(Duration(milliseconds: 1000));
+                await Future.delayed(const Duration(milliseconds: 1000));
                 if (chapterIndex != -1 &&
                     chapterIndex < widget.character.chapters.length - 1) {
                   Chapter nextChapter =
@@ -123,7 +123,7 @@ class _BookReadState extends State<ChapReaderPage> {
                 idleText: '',
               ),
               child: CustomScrollView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   //physics: const BouncingScrollPhysics(),
                   slivers: <Widget>[
                     SliverAppBar(
@@ -193,7 +193,7 @@ class _BookReadState extends State<ChapReaderPage> {
                     SliverToBoxAdapter(
                       child: Column(
                         children: [
-                          SizedBox(height: 50),
+                          const SizedBox(height: 50),
                           Text(
                             widget.chap.title,
                             style: const TextStyle(
@@ -214,10 +214,10 @@ class _BookReadState extends State<ChapReaderPage> {
                             padding: const EdgeInsets.only(left: 25, right: 25),
                             alignment: Alignment.topLeft,
                             child: Text(widget.chap.text,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 16,
-                                  height: 2,
+                                  fontSize: _fontSize,
+                                  height: _fontHeight,
                                 )),
                           ),
                           const SizedBox(height: 100),
@@ -269,7 +269,12 @@ class _BookReadState extends State<ChapReaderPage> {
                             alignment: Alignment.centerLeft,
                             child: const Text(
                               '글꼴',
-                              style: TextStyle(fontSize: 15),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: 'KoPubWorldDotum_Pro',
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ),
                           IconButton(
@@ -293,7 +298,12 @@ class _BookReadState extends State<ChapReaderPage> {
                             alignment: Alignment.center,
                             child: Text(
                               '$_fontStyle',
-                              style: const TextStyle(fontSize: 16),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: 'KoPubWorldDotum_Pro',
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ),
                           IconButton(
@@ -306,42 +316,52 @@ class _BookReadState extends State<ChapReaderPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            padding: EdgeInsets.only(
+                            padding: const EdgeInsets.only(
                               left: 20,
                             ),
                             width: 130,
                             alignment: Alignment.centerLeft,
-                            child: Text(
+                            child: const Text(
                               '글자 크기',
-                              style: TextStyle(fontSize: 15),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: 'KoPubWorldDotum_Pro',
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.remove),
+                            icon: const Icon(Icons.remove),
                             onPressed: _sizeDec,
                           ),
                           Container(
                             width: 150,
                             decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50.0)),
-                                color: Color.fromARGB(118, 109, 109, 109),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(50.0)),
+                                color: const Color.fromARGB(118, 109, 109, 109),
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.black.withOpacity(0.7),
                                     spreadRadius: -10,
                                     blurRadius: 5,
-                                    offset: Offset(0, 7),
+                                    offset: const Offset(0, 7),
                                   )
                                 ]),
                             alignment: Alignment.center,
                             child: Text(
                               '$_fontSize',
-                              style: TextStyle(fontSize: 16),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: 'KoPubWorldDotum_Pro',
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.add),
+                            icon: const Icon(Icons.add),
                             onPressed: _sizeInc,
                           ),
                         ],
@@ -350,42 +370,52 @@ class _BookReadState extends State<ChapReaderPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            padding: EdgeInsets.only(
+                            padding: const EdgeInsets.only(
                               left: 20,
                             ),
                             width: 130,
                             alignment: Alignment.centerLeft,
-                            child: Text(
+                            child: const Text(
                               '줄 간격',
-                              style: TextStyle(fontSize: 15),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: 'KoPubWorldDotum_Pro',
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.remove),
+                            icon: const Icon(Icons.remove),
                             onPressed: _heightDec,
                           ),
                           Container(
                             width: 150,
                             decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50.0)),
-                                color: Color.fromARGB(118, 109, 109, 109),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(50.0)),
+                                color: const Color.fromARGB(118, 109, 109, 109),
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.black.withOpacity(0.7),
                                     spreadRadius: -10,
                                     blurRadius: 5,
-                                    offset: Offset(0, 7),
+                                    offset: const Offset(0, 7),
                                   )
                                 ]),
                             alignment: Alignment.center,
                             child: Text(
                               '$_fontHeight',
-                              style: TextStyle(fontSize: 16),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: 'KoPubWorldDotum_Pro',
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.add),
+                            icon: const Icon(Icons.add),
                             onPressed: _heightInc,
                           ),
                         ],
@@ -394,18 +424,23 @@ class _BookReadState extends State<ChapReaderPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            padding: EdgeInsets.only(
+                            padding: const EdgeInsets.only(
                               left: 20,
                             ),
                             width: 130,
                             alignment: Alignment.centerLeft,
-                            child: Text(
+                            child: const Text(
                               '설정 초기화',
-                              style: TextStyle(fontSize: 15),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: 'KoPubWorldDotum_Pro',
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ),
                           IconButton(
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.add,
                               color: Colors.transparent,
                             ),
@@ -414,25 +449,31 @@ class _BookReadState extends State<ChapReaderPage> {
                           Container(
                             width: 150,
                             decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50.0)),
-                                color: Color.fromARGB(118, 109, 109, 109),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(50.0)),
+                                color: const Color.fromARGB(118, 109, 109, 109),
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.black.withOpacity(0.7),
                                     spreadRadius: -10,
                                     blurRadius: 5,
-                                    offset: Offset(0, 7),
+                                    offset: const Offset(0, 7),
                                   )
                                 ]),
                             alignment: Alignment.center,
-                            child: Text(
+                            child: const Text(
                               '초기화',
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: 'KoPubWorldDotum_Pro',
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.add, color: Colors.transparent),
+                            icon: const Icon(Icons.add,
+                                color: Colors.transparent),
                             onPressed: () {},
                           ),
                         ],
@@ -444,7 +485,7 @@ class _BookReadState extends State<ChapReaderPage> {
                             onPressed: () {
                               _controlBoxVisibility();
                             },
-                            child: Text(
+                            child: const Text(
                               "확인",
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
@@ -454,7 +495,7 @@ class _BookReadState extends State<ChapReaderPage> {
                             onPressed: () {
                               _controlBoxVisibility();
                             },
-                            child: Text(
+                            child: const Text(
                               "취소",
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
@@ -474,10 +515,10 @@ class _BookReadState extends State<ChapReaderPage> {
                     bottom: 0, // Height of the container
                     left: 0,
                     child: Container(
-                      padding: EdgeInsets.only(top: 15),
+                      padding: const EdgeInsets.only(top: 15),
                       width: MediaQuery.of(context).size.width,
                       height: 256,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Colors.black,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(50.0),
@@ -486,7 +527,7 @@ class _BookReadState extends State<ChapReaderPage> {
                       child: Container(
                           child: Column(
                         children: [
-                          Container(
+                          SizedBox(
                             height: 190,
                             // 달력
                             child: SizedBox(
@@ -507,31 +548,32 @@ class _BookReadState extends State<ChapReaderPage> {
                               child: ScrollDatePicker(
                                 selectedDate: _selectedDate,
                                 minimumDate: DateTime(2023, 1, 1),
-                                locale: Locale('ko'),
-                                options: DatePickerOptions(
+                                locale: const Locale('ko'),
+                                options: const DatePickerOptions(
                                   //diameterRatio: 2,
                                   backgroundColor:
                                       Color.fromARGB(1, 30, 30, 30),
                                 ),
-                                scrollViewOptions: DatePickerScrollViewOptions(
-                                    year: ScrollViewDetailOptions(
-                                      //label: '년',
-                                      margin: const EdgeInsets.only(right: 8),
-                                      // textStyle: TextStyle(
-                                      //   color:
-                                      //       Color.fromARGB(164, 255, 255, 255),
-                                      // ),
-                                      // selectedTextStyle: TextStyle(
-                                      //     color: Color.fromARGB(
-                                      //         255, 255, 255, 255)),
-                                    ),
-                                    month: ScrollViewDetailOptions(
-                                      //label: '월',
-                                      margin: const EdgeInsets.only(right: 8),
-                                    ),
-                                    day: ScrollViewDetailOptions(
-                                        //label: '일',
-                                        )),
+                                scrollViewOptions:
+                                    const DatePickerScrollViewOptions(
+                                        year: ScrollViewDetailOptions(
+                                          //label: '년',
+                                          margin: EdgeInsets.only(right: 8),
+                                          // textStyle: TextStyle(
+                                          //   color:
+                                          //       Color.fromARGB(164, 255, 255, 255),
+                                          // ),
+                                          // selectedTextStyle: TextStyle(
+                                          //     color: Color.fromARGB(
+                                          //         255, 255, 255, 255)),
+                                        ),
+                                        month: ScrollViewDetailOptions(
+                                          //label: '월',
+                                          margin: EdgeInsets.only(right: 8),
+                                        ),
+                                        day: ScrollViewDetailOptions(
+                                            //label: '일',
+                                            )),
                                 onDateTimeChanged: (DateTime value) {
                                   setState(() {
                                     _selectedDate = value;
@@ -547,7 +589,7 @@ class _BookReadState extends State<ChapReaderPage> {
                                 onPressed: () {
                                   _contentBoxVisibility();
                                 },
-                                child: Text(
+                                child: const Text(
                                   "확인",
                                   style: TextStyle(
                                       fontSize: 16,
@@ -558,7 +600,7 @@ class _BookReadState extends State<ChapReaderPage> {
                                 onPressed: () {
                                   _contentBoxVisibility();
                                 },
-                                child: Text(
+                                child: const Text(
                                   "취소",
                                   style: TextStyle(
                                       fontSize: 16,
@@ -577,10 +619,10 @@ class _BookReadState extends State<ChapReaderPage> {
                     bottom: 0, // Height of the container
                     left: 0,
                     child: Container(
-                      padding: EdgeInsets.only(top: 15),
+                      padding: const EdgeInsets.only(top: 15),
                       width: MediaQuery.of(context).size.width,
                       height: 256,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Colors.black,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(50.0),
@@ -600,7 +642,7 @@ class _BookReadState extends State<ChapReaderPage> {
                                 onPressed: () {
                                   _settingBoxVisibility();
                                 },
-                                child: Text(
+                                child: const Text(
                                   "확인",
                                   style: TextStyle(
                                       fontSize: 16,
@@ -611,7 +653,7 @@ class _BookReadState extends State<ChapReaderPage> {
                                 onPressed: () {
                                   _settingBoxVisibility();
                                 },
-                                child: Text(
+                                child: const Text(
                                   "취소",
                                   style: TextStyle(
                                       fontSize: 16,

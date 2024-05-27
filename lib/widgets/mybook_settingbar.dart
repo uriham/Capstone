@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
 class BookSettingBar extends StatelessWidget {
   const BookSettingBar(
       {super.key,
@@ -9,14 +8,9 @@ class BookSettingBar extends StatelessWidget {
       required this.controlBoxVisibility,
       required this.settingBoxVisibility});
 
-  static bool isVisible = true;
   final void Function() contentBoxVisibility;
   final void Function() controlBoxVisibility;
   final void Function() settingBoxVisibility;
-
-  // static void toggleVisibility() {
-  //   isVisible = !isVisible;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +21,7 @@ class BookSettingBar extends StatelessWidget {
             width: 390, // Width of the container
             height: 50, // Height of the container
             decoration: ShapeDecoration(
-              color: Color(0xFF5D5D5D),
+              color: const Color(0xFF5D5D5D),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25),
               ),
@@ -37,14 +31,16 @@ class BookSettingBar extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: contentBoxVisibility,
-                  icon: SvgPicture.asset('assets/images/R_Content_ic.svg'),
+                  icon: SvgPicture.asset("assets/images/R_Content_ic.svg"),
                 ),
                 IconButton(
-                    onPressed:controlBoxVisibility,
-                    icon: SvgPicture.asset('assets/images/R_Control_ic.svg')),
+                  onPressed: controlBoxVisibility,
+                  icon: SvgPicture.asset("assets/images/R_Control_ic.svg"),
+                ),
                 IconButton(
-                    onPressed:settingBoxVisibility,
-                    icon: SvgPicture.asset('assets/images/R_setting_ic.svg')),
+                  onPressed: settingBoxVisibility,
+                  icon: SvgPicture.asset("assets/images/R_setting_ic.svg"),
+                ),
               ],
             ),
           ),

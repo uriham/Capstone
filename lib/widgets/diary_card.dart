@@ -2,6 +2,7 @@ import 'package:capstone/widgets/diary_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/models/diary.dart';
 import 'package:capstone/screens/read_diary_screen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class DiaryCard extends StatelessWidget {
   const DiaryCard(
@@ -26,9 +27,20 @@ class DiaryCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
       ),
-      child:  DiaryListTile(
+      child: Stack(children: [
+        DiaryListTile(
             todayDiary: todayDiary, isLongTaped: isLongTaped, index: index),
-     
+        Positioned(
+            top: -15,
+            right: 0,
+            child: todayDiary.isUsed
+                ? SvgPicture.asset(
+                    'assets/images/R_Bookmark1_ic.svg',
+                    color: Colors.red,
+                    height: 50,
+                  )
+                : const SizedBox())
+      ]),
     );
   }
 }

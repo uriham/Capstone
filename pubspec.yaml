@@ -115,6 +115,11 @@ flutter:
     - assets/images/E_R_M_Kebab Menu_ic.svg
     - assets/images/R_Editmode_ic.svg
     - assets/images/R_Location bar.png
+    - assets/images/R_Content_ic.svg
+    - assets/images/R_Control_ic.svg
+    - assets/images/R_setting_ic.svg
+    
+    
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
