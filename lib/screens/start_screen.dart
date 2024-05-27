@@ -97,8 +97,8 @@ class _GlowingCirclesBackgroundState extends State<GlowingCirclesBlur>
 
     _circles.forEach((circle) {
       final random = Random();
-      final dx = (random.nextDouble() * 30) - 15;
-      final dy = (random.nextDouble() * 30) - 15;
+      final dx = (random.nextDouble() * 60) - 30;
+      final dy = (random.nextDouble() * 60) - 30;
       circle.motion = Offset(dx, dy);
     });
   }

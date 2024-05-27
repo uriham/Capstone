@@ -32,8 +32,8 @@ class Chapter {
 List<Character> charList = [
   Character(
       //char_img: 'assets/images/char_myao.svg',
-      char_img: 'assets/images/char_myao.png',
-      name: 'MyaoMah',
+      char_img: 'assets/images/char/myao-maa.jpg',
+      name: '먀오마아의 은밀한 취미생활',
       alpha: 255,
       red: 48,
       green: 70,
@@ -66,12 +66,12 @@ List<Character> charList = [
       ]),
   Character(
       //char_img: 'assets/images/char_mung.svg',
-      char_img: 'assets/images/char_mung.png',
-      name: 'Kim-Mung',
+      char_img: 'assets/images/char/kim-mung.jpg',
+      name: '우리도 모르는 우리들의 별빛',
       alpha: 255,
-      red: 60,
-      green: 184,
-      blue: 213,
+      red: 39,
+      green: 113,
+      blue: 130,
       chapters: [
         Chapter(
           ch_img: 'assets/images/chapter1.png',
@@ -81,12 +81,12 @@ List<Character> charList = [
       ]),
   Character(
       //char_img: 'assets/images/char_yangkee.svg',
-      char_img: 'assets/images/char_yangkee.png',
-      name: 'Yangkee',
+      char_img: 'assets/images/char/yangkee.jpg',
+      name: '귀여운 것은 곧 사랑이다',
       alpha: 255,
-      red: 244,
-      green: 41,
-      blue: 139,
+      red: 184,
+      green: 44,
+      blue: 111,
       chapters: [
         Chapter(
           ch_img: 'assets/images/chapter2.png',
@@ -96,12 +96,27 @@ List<Character> charList = [
       ]),
   Character(
       //char_img: 'assets/images/char_pooh.svg',
-      char_img: 'assets/images/char_pooh.png',
-      name: 'Pooh',
+      char_img: 'assets/images/char/winnie the pooh.jpg',
+      name: 'Winnie the Pooh',
       alpha: 255,
-      red: 12,
-      green: 245,
-      blue: 174,
+      red: 66,
+      green: 139,
+      blue: 117,
+      chapters: [
+        Chapter(
+          ch_img: 'assets/images/chapter2.png',
+          title: 'Chapter 1',
+          text: '',
+        ),
+      ]),
+  Character(
+      //char_img: 'assets/images/char_henry.svg',
+      char_img: 'assets/images/char/Henry DT.jpg',
+      name: '숲 속을 거닐다',
+      alpha: 255,
+      red: 29,
+      green: 76,
+      blue: 58,
       chapters: [
         Chapter(
           ch_img: 'assets/images/chapter2.png',
@@ -111,20 +126,87 @@ List<Character> charList = [
       ]),
   Character(
       //char_img: 'assets/images/char_leesang.svg',
-      char_img: 'assets/images/char_leesang.png',
-      name: 'LeeSang',
+      char_img: 'assets/images/char/lee sang.jpg',
+      name: '동생 보아라',
       alpha: 255,
-      red: 240,
-      green: 240,
-      blue: 238,
-      chapters: []),
+      red: 216,
+      green: 209,
+      blue: 187,
+      chapters: [
+        Chapter(
+          ch_img: 'assets/images/chapter2.png',
+          title: 'Chapter 1',
+          text: '',
+        ),
+      ]),
   Character(
-      //char_img: 'assets/images/char_henry.svg',
-      char_img: 'assets/images/char_henry.png',
-      name: 'Henry',
+      char_img: 'assets/images/char/alsoubet.jpg',
+      name: '그리스 앞바다',
       alpha: 255,
-      red: 13,
-      green: 92,
-      blue: 64,
-      chapters: []),
+      red: 181,
+      green: 163,
+      blue: 85,
+      chapters: [
+        Chapter(
+          ch_img: 'assets/images/chapter2.png',
+          title: 'Chapter 1',
+          text: '',
+        ),
+      ]),
+  Character(
+      char_img: 'assets/images/char/monk.jpg',
+      name: '동자청풍',
+      alpha: 255,
+      red: 244,
+      green: 168,
+      blue: 79,
+      chapters: [
+        Chapter(
+          ch_img: 'assets/images/chapter2.png',
+          title: 'Chapter 1',
+          text: '',
+        ),
+      ]),
+  Character(
+      char_img: 'assets/images/char/Jangseung.jpg',
+      name: '풍하마을 수호 장승',
+      alpha: 255,
+      red: 198,
+      green: 79,
+      blue: 93,
+      chapters: [
+        Chapter(
+          ch_img: 'assets/images/chapter2.png',
+          title: 'Chapter 1',
+          text: '',
+        ),
+      ]),
+  Character(
+      char_img: 'assets/images/char/florist.jpg',
+      name: '심연의 화원',
+      alpha: 255,
+      red: 191,
+      green: 34,
+      blue: 81,
+      chapters: [
+        Chapter(
+          ch_img: 'assets/images/chapter2.png',
+          title: 'Chapter 1',
+          text: '',
+        ),
+      ]),
+  Character(
+      char_img: 'assets/images/char/grandmother.jpg',
+      name: '할머니',
+      alpha: 255,
+      red: 110,
+      green: 0,
+      blue: 178,
+      chapters: [
+        Chapter(
+          ch_img: 'assets/images/chapter2.png',
+          title: 'Chapter 1',
+          text: '',
+        ),
+      ]),
 ];

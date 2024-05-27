@@ -86,18 +86,17 @@ flutter:
     - assets/images/chap2.svg
     - assets/images/chapter1.png
     - assets/images/chapter2.png
-    - assets/images/char_myao.svg
-    - assets/images/char_mung.svg
-    - assets/images/char_yangkee.svg
-    - assets/images/char_pooh.svg
-    - assets/images/char_leesang.svg
-    - assets/images/char_henry.svg
-    - assets/images/char_myao.png
-    - assets/images/char_mung.png
-    - assets/images/char_yangkee.png
-    - assets/images/char_pooh.png
-    - assets/images/char_leesang.png
-    - assets/images/char_henry.png
+    - assets/images/char/alsoubet.jpg
+    - assets/images/char/florist.jpg
+    - assets/images/char/grandmother.jpg
+    - assets/images/char/Henry DT.jpg
+    - assets/images/char/Jangseung.jpg
+    - assets/images/char/kim-mung.jpg
+    - assets/images/char/lee sang.jpg
+    - assets/images/char/monk.jpg
+    - assets/images/char/myao-maa.jpg
+    - assets/images/char/winnie the pooh.jpg
+    - assets/images/char/yangkee.jpg
     - assets/images/C_E_back_ic.svg
     - assets/images/RM_black.svg
     - assets/images/RM_gray.svg

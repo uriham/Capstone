@@ -78,31 +78,52 @@ class _CharCoverState extends State<CharCover> {
             children: [
               Column(
                 children: [
-                  AnimatedOpacity(
-                    opacity: _opacity,
-                    duration: Duration(seconds: 5),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                ChapCoverScreen(char: widget.char),
-                          ),
-                        );
-                      },
-                      child: SizedBox(
-                        width: 268,
-                        height: 383,
-                        child: ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20)),
-                          //child: SvgPicture.asset(char.char_img),
-                          child: Image.asset(widget.char.char_img),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ChapCoverScreen(char: widget.char),
                         ),
+                      );
+                    },
+                    child: SizedBox(
+                      width: 268,
+                      height: 383,
+                      child: ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20)),
+                        //child: SvgPicture.asset(char.char_img),
+                        child: Image.asset(widget.char.char_img),
                       ),
                     ),
                   ),
+                  // AnimatedOpacity(
+                  //   opacity: _opacity,
+                  //   duration: Duration(milliseconds: 300),
+                  //   child: GestureDetector(
+                  //     onTap: () {
+                  //       Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //           builder: (context) =>
+                  //               ChapCoverScreen(char: widget.char),
+                  //         ),
+                  //       );
+                  //     },
+                  //     child: SizedBox(
+                  //       width: 268,
+                  //       height: 383,
+                  //       child: ClipRRect(
+                  //         borderRadius:
+                  //             const BorderRadius.all(Radius.circular(20)),
+                  //         //child: SvgPicture.asset(char.char_img),
+                  //         child: Image.asset(widget.char.char_img),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   const SizedBox(height: 10),
                   Text(
                     widget.char.name,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:prism_test/models/char_book.dart';
 import 'package:prism_test/models/character.dart';
 import 'package:prism_test/models/chapter_cover.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -55,48 +54,57 @@ class _ChapCoverScreenState extends State<ChapCoverScreen> {
       // ),
       body: Container(
         decoration: BoxDecoration(
-          //color: widget.char.color,
-          //color: Color.fromARGB(255, 48, 70, 102)
-          gradient: RadialGradient(
-            colors: [Colors.white, widget.char.color],
-            stops: [0.1, 1.0],
-            center: Alignment.center,
-            radius: 0.55,
-            focalRadius: 0.7,
-          ),
-          // border: Border.all(
-          //   color: Colors.white,
-          //   width: 1.0,
-          // ),
+          color: widget.char.color,
         ),
         child: Column(
           children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.8,
-              child: PageView.builder(
-                  onPageChanged: (index) {
-                    setState(() {
-                      _selectedIndex = index;
-                    });
-                  },
-                  controller: controller,
-                  itemCount: widget.char.chapters.length,
-                  itemBuilder: (context, index) {
-                    final chapPage = widget.char.chapters[index];
-                    var _scale = _selectedIndex == index ? 1.2 : 1.0;
-                    //return ChapterBook(chap: chapPage);
-                    return TweenAnimationBuilder(
-                        tween: Tween(begin: _scale, end: _scale),
-                        duration: const Duration(milliseconds: 200),
-                        child: ChapterBook(chap: chapPage),
-                        builder: (context, value, child) {
-                          return Transform.scale(
-                            scale: value,
-                            child: child,
-                          );
-                        });
-                  }),
+            Container(
+              margin: EdgeInsets.only(top: 40),
+              height: 600,
+              decoration: BoxDecoration(
+                // border: Border.all(
+                //   color: Colors.white,
+                //   width: 1.0,
+                // ),
+                gradient: RadialGradient(
+                  colors: [
+                    Colors.white.withOpacity(0.5),
+                    Colors.white.withOpacity(0.0)
+                  ],
+                  stops: [0.1, 0.9],
+                  center: Alignment.center,
+                  radius: 0.75,
+                  focalRadius: 0.8,
+                ),
+              ),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.75,
+                child: PageView.builder(
+                    onPageChanged: (index) {
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                    },
+                    controller: controller,
+                    itemCount: widget.char.chapters.length,
+                    itemBuilder: (context, index) {
+                      final chapPage = widget.char.chapters[index];
+                      var _scale = _selectedIndex == index ? 1.2 : 1.0;
+                      //return ChapterBook(chap: chapPage);
+                      return TweenAnimationBuilder(
+                          tween: Tween(begin: _scale, end: _scale),
+                          duration: const Duration(milliseconds: 200),
+                          child: ChapterBook(chap: chapPage),
+                          builder: (context, value, child) {
+                            return Transform.scale(
+                              scale: value,
+                              child: child,
+                            );
+                          });
+                    }),
+              ),
             ),
+            SizedBox(),
             SmoothPageIndicator(
               controller: controller,
               count: widget.char.chapters.length,

@@ -15,28 +15,14 @@ class ChapterBook extends StatelessWidget {
     timeDilation = 5.0;
 
     return Container(
-      margin: const EdgeInsets.fromLTRB(0, 160, 0, 160),
-      padding: const EdgeInsets.fromLTRB(25, 25, 25, 25),
-      // width: 323,
-      // height: 458,
-      decoration: BoxDecoration(
-          //   //borderRadius: const BorderRadius.all(Radius.circular(50)),
-          //   gradient: RadialGradient(
-          //     colors: [
-          //       Colors.white.withOpacity(0.5),
-          //       Colors.white.withOpacity(0.1)
-          //     ],
-          //     stops: [0.1, 0.9],
-          //     center: Alignment.center,
-          //     radius: 0.5,
-          //     focalRadius: 0.7,
-          //     //focal: Alignment(0.0, 0.0),
-          //   ),
-          // border: Border.all(
-          //   color: Colors.white,
-          //   width: 1.0,
-          // ),
-          ),
+      margin: const EdgeInsets.fromLTRB(0, 100, 0, 100),
+      padding: const EdgeInsets.fromLTRB(20, 40, 20, 0),
+      // decoration: BoxDecoration(
+      //   border: Border.all(
+      //     color: Colors.white,
+      //     width: 1.0,
+      //   ),
+      // ),
       child: Stack(
         alignment: Alignment.center,
         children: [

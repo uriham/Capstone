@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prism_test/screens/cover_screen.dart';
 import 'package:prism_test/screens/start_screen.dart';
-// import 'package:prism_test/screens/mybook_cover.dart';
 // import 'package:prism_test/screens/mybook_screen.dart';
 // import 'package:prism_test/models/book_example.dart';
 
