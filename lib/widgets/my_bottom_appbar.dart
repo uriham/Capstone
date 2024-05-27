@@ -10,8 +10,8 @@ class MyBottomAppBar extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return  BottomAppBar(
+      color: Colors.transparent,
         height: 70,
-        color: Colors.transparent,
         elevation: 0,
         child: Row(
           children: [

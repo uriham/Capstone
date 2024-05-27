@@ -46,7 +46,7 @@ class _StartScreenState extends ConsumerState<StartScreen> {
                     height: 0,
                   ),
                 ),
-                const SizedBox(height: 50),
+                const SizedBox(height: 150),
                 InkWell(
                   onTap: () {
                     Navigator.of(context)
@@ -56,9 +56,8 @@ class _StartScreenState extends ConsumerState<StartScreen> {
                   },
                   child: Container(
                     width: double.infinity,
-                    height: 93,
+                    height: 125,
                     decoration: ShapeDecoration(
-                      color: Colors.white.withOpacity(0.10000000149011612),
                       shape: RoundedRectangleBorder(
                         side: const BorderSide(
                             width: 1, color: Color(0xFF414141)),
@@ -70,22 +69,6 @@ class _StartScreenState extends ConsumerState<StartScreen> {
                 ),
                 const SizedBox(
                   height: 10,
-                ),
-                Row(
-                  children: [
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    SvgPicture.asset(
-                      'assets/images/D_PRISM_ic.svg',
-                      width: 30,
-                      height: 30,
-                    ),
-                    const Text(
-                      '  오늘의 기록',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    ),
-                  ],
                 ),
                 const SizedBox(
                   height: 5,
@@ -113,19 +96,28 @@ class _StartScreenState extends ConsumerState<StartScreen> {
                     children: [
                       if (!sameDate)
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          padding: const EdgeInsets.symmetric(horizontal: 11),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
                                 diary.day,
                                 style: const TextStyle(
-                                    color: Colors.white, fontSize: 25),
+                                  color: Colors.white,
+                                  fontSize: 31,
+                                  fontFamily: 'KoPubWorldDotum_Pro',
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
+                              const SizedBox(width: 4,),
                               Text(
-                                diary.koreanDay,
+                                diary.date.day==DateTime.now().day?'오늘의 기록':diary.koreanDay,
                                 style: const TextStyle(
-                                    color: Colors.white, fontSize: 12),
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontFamily: 'KoPubWorldDotum_Pro',
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ],
                           ),
@@ -135,6 +127,7 @@ class _StartScreenState extends ConsumerState<StartScreen> {
                         index: index,
                         isLongTaped: _isLongTaped,
                       ),
+                      const SizedBox(height: 13,),
                     ],
                   ),
                 );

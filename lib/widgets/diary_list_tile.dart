@@ -34,12 +34,25 @@ class _DiaryListTileState extends ConsumerState<DiaryListTile> {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      enabled: !widget.todayDiary.isUsed,
-      trailing: widget.isLongTaped && !widget.todayDiary.isUsed
-          ? Checkbox(
-              value: _isChecked,
-              onChanged: (bool? check) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(4, 6, 0, 0),
+      child: ListTile(
+        enabled: !widget.todayDiary.isUsed,
+        trailing: widget.isLongTaped && !widget.todayDiary.isUsed
+            ? Checkbox(
+                value: _isChecked,
+                onChanged: (bool? check) {
+                  setState(() {
+                    _isChecked = !_isChecked;
+                    ref
+                        .read(selectedDiarysProvider.notifier)
+                        .addSelectedDiary(widget.todayDiary);
+                    ref.read(selectedDiarysProvider.notifier).printState();
+                  });
+                })
+            : null,
+        onTap: widget.isLongTaped
+            ? () {
                 setState(() {
                   _isChecked = !_isChecked;
                   ref
@@ -47,34 +60,29 @@ class _DiaryListTileState extends ConsumerState<DiaryListTile> {
                       .addSelectedDiary(widget.todayDiary);
                   ref.read(selectedDiarysProvider.notifier).printState();
                 });
-              })
-          : null,
-     
-      onTap: widget.isLongTaped
-          ? () {
-              setState(() {
-                _isChecked = !_isChecked;
-                 ref
-                      .read(selectedDiarysProvider.notifier)
-                      .addSelectedDiary(widget.todayDiary);
-                  ref.read(selectedDiarysProvider.notifier).printState();
-              });
-            }
-          : () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (ctx) => ReadDiaryScreen(
-                    todayDiary: widget.todayDiary,
-                    index: widget.index,
+              }
+            : () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (ctx) => ReadDiaryScreen(
+                      todayDiary: widget.todayDiary,
+                      index: widget.index,
+                    ),
                   ),
-                ),
-              );
-            },
-      title: Align(
-        alignment: Alignment.centerLeft,
-        child: Text(widget.todayDiary.text,maxLines: 3,
-            style: const TextStyle(fontSize: 18, color: Colors.white)),
+                );
+              },
+        title: Align(
+          alignment: Alignment.topLeft,
+          child: Text(widget.todayDiary.text,
+              maxLines: 4,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontFamily: 'KoPubWorldDotum_Pro',
+                fontWeight: FontWeight.w500,
+              )),
+        ),
       ),
     );
   }

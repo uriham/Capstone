@@ -16,7 +16,7 @@ class ReadDiaryScreen extends ConsumerWidget {
   final int index;
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -34,10 +34,7 @@ class ReadDiaryScreen extends ConsumerWidget {
           IconButton(
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                return AddEditBookScreen(
-                  diary: todayDiary,
-                  index : index
-                );
+                return AddEditBookScreen(diary: todayDiary, index: index);
               }));
             },
             icon: SvgPicture.asset(
@@ -60,7 +57,15 @@ class ReadDiaryScreen extends ConsumerWidget {
             Navigator.pop(context);
           },
         ),
-        title: Text(todayDiary.formattedDate),
+        title: Text(
+          todayDiary.formattedDate,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 22,
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         backgroundColor: Colors.transparent,
       ),
       body: Align(
@@ -71,13 +76,15 @@ class ReadDiaryScreen extends ConsumerWidget {
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               const SizedBox(
-                height: 300,
+                height: 350,
               ),
               Text(
                 todayDiary.formattedDate,
                 style: const TextStyle(
-                  fontSize: 30,
                   color: Colors.white,
+                  fontSize: 29,
+                  fontFamily: 'KoPubWorldBatang_Pro',
+                  fontWeight: FontWeight.w500,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -91,16 +98,16 @@ class ReadDiaryScreen extends ConsumerWidget {
                   todayDiary.text,
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 18,
+                    fontSize: 16,
                     fontFamily: 'Cinzel Decorative',
                     fontWeight: FontWeight.w400,
-                    
+                    height: 2
                   ),
                 ),
               ),
               const SizedBox(
                 height: 10,
-              ), 
+              ),
             ]),
           ),
         ),

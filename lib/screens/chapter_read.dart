@@ -194,9 +194,14 @@ class _BookReadState extends State<ChapReaderPage> {
                       child: Column(
                         children: [
                           SizedBox(height: 50),
-                          TitleHero(
-                            title: widget.chap.title,
-                            size: 18.0,
+                          Text(
+                            widget.chap.title,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 29,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                           const SizedBox(height: 300),
                           // Center(
@@ -209,10 +214,10 @@ class _BookReadState extends State<ChapReaderPage> {
                             padding: const EdgeInsets.only(left: 25, right: 25),
                             alignment: Alignment.topLeft,
                             child: Text(widget.chap.text,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
-                                  fontSize: _fontSize,
-                                  height: _fontHeight,
+                                  fontSize: 16,
+                                  height: 2,
                                 )),
                           ),
                           const SizedBox(height: 100),

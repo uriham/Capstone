@@ -14,17 +14,21 @@ class DiaryCard extends StatelessWidget {
   final int index;
   final bool isLongTaped;
 
-
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.white.withOpacity(0.10000000149011612),
-      child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 5,
-            vertical: 5,
-          ),
-          child:DiaryListTile(todayDiary: todayDiary,isLongTaped : isLongTaped,index:index)),
+    return Container(
+      width: double.infinity,
+      height: 125,
+      decoration: ShapeDecoration(
+        color: Colors.white.withOpacity(0.10000000149011612),
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(width: 1, color: Color(0xFF414141)),
+          borderRadius: BorderRadius.circular(15),
+        ),
+      ),
+      child:  DiaryListTile(
+            todayDiary: todayDiary, isLongTaped: isLongTaped, index: index),
+     
     );
   }
 }
