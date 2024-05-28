@@ -3,12 +3,14 @@ import 'package:capstone/screens/character_cover.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:capstone/screens/palette_screen.dart';
+import 'package:capstone/providers/filter_provider.dart';
 
 class MyBottomAppBar2 extends StatelessWidget {
-  const MyBottomAppBar2({super.key, required this.clikcGenerate});
+  const MyBottomAppBar2(
+      {super.key, required this.clikcGenerate, required this.currentFilter});
 
   final void Function() clikcGenerate;
-
+  final Filter currentFilter;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -78,6 +80,7 @@ class MyBottomAppBar2 extends StatelessWidget {
               onPressed: clikcGenerate,
               child: SvgPicture.asset(
                 'assets/images/D_generate_button.svg',
+                color: currentFilter.color,
                 width: 87,
               ),
             )),

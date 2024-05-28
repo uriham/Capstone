@@ -1,10 +1,12 @@
+import 'package:capstone/providers/filter_provider.dart';
 import 'package:capstone/widgets/diary_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/models/diary.dart';
 import 'package:capstone/screens/read_diary_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class DiaryCard extends StatelessWidget {
+class DiaryCard extends ConsumerWidget {
   const DiaryCard(
       {super.key,
       required this.todayDiary,
@@ -16,7 +18,8 @@ class DiaryCard extends StatelessWidget {
   final bool isGenerating;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentFilter = ref.watch(filterProvider);
     return Container(
       width: double.infinity,
       height: 125,
@@ -36,7 +39,7 @@ class DiaryCard extends StatelessWidget {
             child: todayDiary.isUsed
                 ? SvgPicture.asset(
                     'assets/images/R_Bookmark1_ic.svg',
-                    color: Colors.red,
+                    color: currentFilter.color,
                     height: 50,
                   )
                 : const SizedBox())

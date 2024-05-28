@@ -148,8 +148,7 @@ class _TapScreenState extends ConsumerState<TabScreen> {
                   clickGenerate: makeBook,
                 )
               : MyBottomAppBar2(
-                  clikcGenerate: noneFilter,
-                ),
+                  clikcGenerate: noneFilter, currentFilter: selectedFilter),
         ]),
         /*
         floatingActionButton: Transform.translate(
