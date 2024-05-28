@@ -5,10 +5,10 @@ class GenerateBottomBar extends StatelessWidget {
   final void Function() clickGenerate;
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: clickGenerate,
-      child: Align(
-        alignment: Alignment.bottomCenter,
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: GestureDetector(
+        onTap: clickGenerate,
         child: Container(
           width: double.infinity,
           height: 72,

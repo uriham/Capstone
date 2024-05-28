@@ -72,6 +72,7 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
         MaterialPageRoute(builder: (context) => const CharCoverScreen()));
   }
 
+  @override
   Widget build(BuildContext context) {
     Widget bodyContent = Column(
       children: [
@@ -90,7 +91,7 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
             letterSpacing: 0.72,
           ),
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         Text(
           '자세하게 작성할수록 더 나은 표지가 생성됩니다',
           textAlign: TextAlign.center,
@@ -103,10 +104,10 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
             letterSpacing: 0.32,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 80,
         ),
-        Align(
+        const Align(
           alignment: Alignment.centerLeft,
           child: Text(
             '책 제목',
@@ -140,7 +141,7 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
             controller: _titleController,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 40,
         ),
         Container(
@@ -162,7 +163,7 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
             controller: _keywordController,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 150,
         ),
       ],
@@ -225,7 +226,7 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
       ),
       bottomNavigationBar: BookCoverButton(
         onTap: isGenerated ? _bookprovider : _goCompleteScreen,
-        buttonText: isGenerated ? '완성' : '그려내기~',
+        buttonText: isGenerated ? '완성' : '그려내기',
       ),
     );
   }

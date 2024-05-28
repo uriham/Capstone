@@ -36,7 +36,7 @@ class _TapScreenState extends ConsumerState<TabScreen> {
     });
   }
 
-  void _noneFilter() {
+  void _showMessage(String message) {
     showDialog(
         context: context,
         builder: (ctx) {
@@ -45,9 +45,9 @@ class _TapScreenState extends ConsumerState<TabScreen> {
               '오류',
               style: TextStyle(color: Colors.white),
             ),
-            content: const Text(
-              '먼저 테마를 선택해 주세요',
-              style: TextStyle(color: Colors.white),
+            content: Text(
+              message,
+              style: const TextStyle(color: Colors.white),
             ),
             actions: [
               TextButton(
@@ -65,16 +65,26 @@ class _TapScreenState extends ConsumerState<TabScreen> {
     final allDiary = ref.watch(diaryProvider);
     final selectedDiary = ref.watch(selectedDiarysProvider);
     final selectedFilter = ref.watch(filterProvider);
-    void pressGenerate() {
-      //애가 최종 전달자 이다. generat bar에 있어야 하는 놈
+
+    void noneFilter() {
       if (selectedFilter == Filter.none) {
-        _noneFilter();
+        _showMessage('먼저 테마를 정해주세요');
       } else {
-        final List<int> indexList = [];
-        for (Diary diary in selectedDiary) {
-          indexList.add(allDiary.indexOf(diary));
-          //ref.read(diaryProvider.notifier).editTodayDiary(diary.text,a, diary.date,true);
-        }
+        clikcGenerate();
+      }
+    }
+
+    void makeBook() {
+      //애가 최종 전달자 이다. generat bar에 있어야 하는 놈
+
+      final List<int> indexList = [];
+      for (Diary diary in selectedDiary) {
+        indexList.add(allDiary.indexOf(diary));
+        //ref.read(diaryProvider.notifier).editTodayDiary(diary.text,a, diary.date,true);
+      }
+      if (indexList.isEmpty) {
+        _showMessage('변환할 일기를 선택해 주세요');
+      } else {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (ctx) {
             Diary combinedDiary = selectedDiary.reduce((diary1, diary2) {
@@ -93,63 +103,69 @@ class _TapScreenState extends ConsumerState<TabScreen> {
       }
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                return const Profile(
-                  userName: 'shinwoo',
-                );
-              }));
-            },
-            child: const Icon(
-              Icons.circle_outlined,
-              size: 38,
-            ),
-          ),
-        ],
-        title: const Text(
-          "Diary",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 23,
-            fontFamily: 'KoPubWorldDotum_Pro',
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-      ),
-      body: Stack(children: [
-        StartScreen(
-          //userName: 'sinwoo', // 사용자 이름을 StartScreen으로 전달
-          diaryList: allDiary,
-          nowFilter: selectedFilter,
-          isGenerating: isGenerating,
-        ),
-        isGenerating
-            ? GenerateBottomBar(
-                clickGenerate: clikcGenerate,
-              )
-            : MyBottomAppBar2(
-                clikcGenerate: clikcGenerate,
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        if (isGenerating) clikcGenerate();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+                  return const Profile(
+                    userName: 'shinwoo',
+                  );
+                }));
+              },
+              child: const Icon(
+                Icons.circle_outlined,
+                size: 38,
               ),
-      ]),
-      /*
-      floatingActionButton: Transform.translate(
-        // Generate 버튼 있는 곳
-        offset: const Offset(0, 8),
-        child: IconButton(
-            icon: SvgPicture.asset(
-              'assets/images/D_generate_button.svg',
-              height: 86.46,
-              width: 86.46,
             ),
-            onPressed: pressGenerate),
+          ],
+          title: const Text(
+            "Diary",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 23,
+              fontFamily: 'KoPubWorldDotum_Pro',
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+        ),
+        body: Stack(children: [
+          StartScreen(
+            //userName: 'sinwoo', // 사용자 이름을 StartScreen으로 전달
+            diaryList: allDiary,
+            nowFilter: selectedFilter,
+            isGenerating: isGenerating,
+          ),
+          isGenerating
+              ? GenerateBottomBar(
+                  clickGenerate: makeBook,
+                )
+              : MyBottomAppBar2(
+                  clikcGenerate: noneFilter,
+                ),
+        ]),
+        /*
+        floatingActionButton: Transform.translate(
+          // Generate 버튼 있는 곳
+          offset: const Offset(0, 8),
+          child: IconButton(
+              icon: SvgPicture.asset(
+                'assets/images/D_generate_button.svg',
+                height: 86.46,
+                width: 86.46,
+              ),
+              onPressed: pressGenerate),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: const MyBottomAppBar(),*/
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: const MyBottomAppBar(),*/
     );
   }
 }

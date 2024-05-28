@@ -8,22 +8,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:capstone/providers/filter_provider.dart';
 
-class StartScreen extends ConsumerStatefulWidget {
+class StartScreen extends StatelessWidget {
   const StartScreen(
       {super.key,
       required this.diaryList,
       required this.nowFilter,
-      required this.isLongTaped});
+      required this.isGenerating});
 
   final List<Diary> diaryList;
   final Filter nowFilter;
-  final bool isLongTaped;
-  @override
-  ConsumerState<StartScreen> createState() => _StartScreenState();
-}
-
-class _StartScreenState extends ConsumerState<StartScreen> {
-  bool _isLongTaped = false;
+  final bool isGenerating;
 
   @override
   Widget build(BuildContext context) {
@@ -79,60 +73,55 @@ class _StartScreenState extends ConsumerState<StartScreen> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                final diary = widget.diaryList[index];
+                final diary = diaryList[index];
                 final sameDate = index > 0 &&
-                    widget.diaryList[index - 1].date.day == diary.date.day;
-                return GestureDetector(
-                  onLongPress: () {
-                    setState(() {
-                      ref
-                          .read(selectedDiarysProvider.notifier)
-                          .deleterAllDiary();
-                      _isLongTaped = !_isLongTaped;
-                      ref.read(selectedDiarysProvider.notifier).printState();
-                    });
-                  },
-                  child: Column(
-                    children: [
-                      if (!sameDate)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 11),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                diary.day,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 31,
-                                  fontFamily: 'KoPubWorldDotum_Pro',
-                                  fontWeight: FontWeight.w500,
-                                ),
+                    diaryList[index - 1].date.day == diary.date.day;
+                return Column(
+                  children: [
+                    if (!sameDate)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 11),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              diary.day,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 31,
+                                fontFamily: 'KoPubWorldDotum_Pro',
+                                fontWeight: FontWeight.w500,
                               ),
-                              const SizedBox(width: 4,),
-                              Text(
-                                diary.date.day==DateTime.now().day?'오늘의 기록':diary.koreanDay,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontFamily: 'KoPubWorldDotum_Pro',
-                                  fontWeight: FontWeight.w700,
-                                ),
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              diary.date.day == DateTime.now().day
+                                  ? '오늘의 기록'
+                                  : diary.koreanDay,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: 'KoPubWorldDotum_Pro',
+                                fontWeight: FontWeight.w700,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      DiaryCard(
-                        todayDiary: widget.diaryList[index],
-                        index: index,
-                        isLongTaped: _isLongTaped,
                       ),
-                      const SizedBox(height: 13,),
-                    ],
-                  ),
+                    DiaryCard(
+                      todayDiary: diaryList[index],
+                      index: index,
+                      isGenerating: isGenerating,
+                    ),
+                    const SizedBox(
+                      height: 13,
+                    ),
+                  ],
                 );
               },
-              childCount: widget.diaryList.length,
+              childCount: diaryList.length,
             ),
           ),
           const SliverToBoxAdapter(

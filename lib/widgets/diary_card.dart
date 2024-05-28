@@ -9,11 +9,11 @@ class DiaryCard extends StatelessWidget {
       {super.key,
       required this.todayDiary,
       required this.index,
-      required this.isLongTaped});
+      required this.isGenerating});
 
   final Diary todayDiary;
   final int index;
-  final bool isLongTaped;
+  final bool isGenerating;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class DiaryCard extends StatelessWidget {
       ),
       child: Stack(children: [
         DiaryListTile(
-            todayDiary: todayDiary, isLongTaped: isLongTaped, index: index),
+            todayDiary: todayDiary, isGenerating: isGenerating, index: index),
         Positioned(
             top: -15,
             right: 0,

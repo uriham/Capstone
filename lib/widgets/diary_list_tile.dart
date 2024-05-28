@@ -9,11 +9,11 @@ class DiaryListTile extends ConsumerStatefulWidget {
       {super.key,
       required this.todayDiary,
       required this.index,
-      required this.isLongTaped});
+      required this.isGenerating});
 
   final Diary todayDiary;
   final int index;
-  final bool isLongTaped;
+  final bool isGenerating;
 
   @override
   ConsumerState<DiaryListTile> createState() => _DiaryListTileState();
@@ -25,7 +25,7 @@ class _DiaryListTileState extends ConsumerState<DiaryListTile> {
   @override // 다시 실행했을 때 변수 초기화 해주는 함수..?
   void didUpdateWidget(covariant DiaryListTile oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.isLongTaped != widget.isLongTaped) {
+    if (oldWidget.isGenerating != widget.isGenerating) {
       setState(() {
         _isChecked = false;
       });
@@ -38,7 +38,7 @@ class _DiaryListTileState extends ConsumerState<DiaryListTile> {
       padding: const EdgeInsets.fromLTRB(4, 6, 0, 0),
       child: ListTile(
         enabled: !widget.todayDiary.isUsed,
-        trailing: widget.isLongTaped && !widget.todayDiary.isUsed
+        trailing: widget.isGenerating && !widget.todayDiary.isUsed
             ? Checkbox(
                 value: _isChecked,
                 onChanged: (bool? check) {
@@ -51,7 +51,7 @@ class _DiaryListTileState extends ConsumerState<DiaryListTile> {
                   });
                 })
             : null,
-        onTap: widget.isLongTaped
+        onTap: widget.isGenerating
             ? () {
                 setState(() {
                   _isChecked = !_isChecked;
