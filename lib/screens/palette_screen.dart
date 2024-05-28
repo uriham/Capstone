@@ -47,7 +47,7 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
     super.dispose();
   }
 
-  void changeFilter(Filter filter){
+  void changeFilter(Filter filter) {
     ref.read(filterProvider.notifier).setFilter(filter);
   }
 
@@ -72,7 +72,7 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                 Padding(
                   padding: EdgeInsets.only(
                     left: size.width * 0.05,
-                    top: size.height * 0.04,
+                    top: size.height * 0.06,
                   ),
                   child: Row(
                     children: [
@@ -80,10 +80,16 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                         'PRISM',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: size.width * 0.08,
+                          fontSize: 18,
                           fontFamily: 'KoPubWorldDotum_Pro',
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w700,
                         ),
+                      ),
+                      SizedBox(width: 3), // 텍스트와 이미지 사이의 간격
+                      Image.asset(
+                        'assets/images/D_PRISM_ic.png', // 이미지 파일의 경로
+                        width: 24, // 원하는 너비
+                        height: 24, // 원하는 높이
                       ),
                     ],
                   ),
@@ -96,11 +102,12 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                     size.height * 0.1,
                   ),
                   child: Text(
-                    '다른 시선으로\n나를 발견해보세요!',
+                    '다른 시선으로\n새로운 나를 발견해보세요!',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: size.width * 0.065,
                       fontFamily: 'KoPubWorldDotum_Pro',
+                      fontWeight: FontWeight.w700,
                       color: Colors.white,
                     ),
                   ),
@@ -111,7 +118,7 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                     children: [
                       Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: size.width * 0.14,
+                          horizontal: size.width * 0.08,
                         ),
                         child: CustomCard_myao(
                           onTap: () {
@@ -123,12 +130,14 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               ),
                             );
                           },
-                          onCharacterSelected:(){changeFilter(Filter.myaomah);} ,
+                          onCharacterSelected: () {
+                            changeFilter(Filter.myaomah);
+                          },
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: size.width * 0.14,
+                          horizontal: size.width * 0.08,
                         ),
                         child: CustomCard_mmung(
                           onTap: () {
@@ -147,7 +156,7 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: size.width * 0.14,
+                          horizontal: size.width * 0.08,
                         ),
                         child: CustomCard_yang(
                           onTap: () {
@@ -156,6 +165,158 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               MaterialPageRoute(
                                 builder: (context) =>
                                     palette_screen_next_yang(),
+                              ),
+                            );
+                          },
+                          onCharacterSelected: () {
+                            changeFilter(Filter.yangkee);
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: size.width * 0.08,
+                        ),
+                        child: CustomCard_pooh(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    palette_screen_next_pooh(),
+                              ),
+                            );
+                          },
+                          onCharacterSelected: () {
+                            changeFilter(Filter.yangkee);
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: size.width * 0.08,
+                        ),
+                        child: CustomCard_Thoreau(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    palette_screen_next_Thoreau(),
+                              ),
+                            );
+                          },
+                          onCharacterSelected: () {
+                            changeFilter(Filter.yangkee);
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: size.width * 0.08,
+                        ),
+                        child: CustomCard_leesangv2(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    palette_screen_next_leesangv2(),
+                              ),
+                            );
+                          },
+                          onCharacterSelected: () {
+                            changeFilter(Filter.yangkee);
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: size.width * 0.08,
+                        ),
+                        child: CustomCard_alsoubet(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    palette_screen_next_alsoubet(),
+                              ),
+                            );
+                          },
+                          onCharacterSelected: () {
+                            changeFilter(Filter.yangkee);
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: size.width * 0.08,
+                        ),
+                        child: CustomCard_dongja(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    palette_screen_next_dongja(),
+                              ),
+                            );
+                          },
+                          onCharacterSelected: () {
+                            changeFilter(Filter.yangkee);
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: size.width * 0.08,
+                        ),
+                        child: CustomCard_jang(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    palette_screen_next_jang(),
+                              ),
+                            );
+                          },
+                          onCharacterSelected: () {
+                            changeFilter(Filter.yangkee);
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: size.width * 0.08,
+                        ),
+                        child: CustomCard_yeonhwa(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    palette_screen_next_yeonhwa(),
+                              ),
+                            );
+                          },
+                          onCharacterSelected: () {
+                            changeFilter(Filter.yangkee);
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: size.width * 0.08,
+                        ),
+                        child: CustomCard_halmae(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    palette_screen_next_halmae(),
                               ),
                             );
                           },
@@ -182,7 +343,6 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
   }
 }
 
-
 /// 밑의 카드 부분 구현
 
 class Group39569 extends StatelessWidget {
@@ -201,7 +361,7 @@ class Group39569 extends StatelessWidget {
       height: size.height * 0.2,
       child: Stack(
         children: [
-          for (double i = 0; i < 6; i++)
+          for (double i = 0; i < 14; i++)
             _animatedColorCard(
               left: _calculateLeft(i),
               top: _calculateTop(i),
@@ -225,9 +385,26 @@ class Group39569 extends StatelessWidget {
       case 4:
         return Color(0xFFC6F50C);
       case 5:
-        return Color.fromARGB(255, 237, 238, 235);
+        return Color(0xFFFBF6E7);
+      case 6:
+        return Color(0xFFFFDD4D);
+      case 7:
+        return Color(0xFFFFAE4F);
+      case 8:
+        return Color(0xFFFF6678);
+      case 9:
+        return Color(0xFFE1235C);
+      case 10:
+        return Color(0xFF9E00FF);
+      case 11:
+        return Color.fromARGB(255, 85, 164, 164);
+      case 12:
+        return Color.fromARGB(255, 212, 226, 106);
+      case 13:
+        return Color.fromARGB(255, 45, 46, 38);
+
       default:
-        return Colors.grey;
+        return Color(0xFF6023E1);
     }
   }
 
@@ -254,7 +431,11 @@ class Group39569 extends StatelessWidget {
   }
 
   double _calculateLeft(double index) {
-    double baseLeft = size.width * 0.25 * index;
+    double baseLeft = size.width * 0.22 * index;
+    if (currentPage >= 1) {
+      baseLeft -=
+          size.width * 0.22 * (currentPage - 1); // index가 4 이상일 때 왼쪽으로 이동
+    }
     return baseLeft;
   }
 

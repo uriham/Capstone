@@ -28,7 +28,7 @@ class TabScreen extends ConsumerStatefulWidget {
 
 class _TapScreenState extends ConsumerState<TabScreen> {
   bool isLongTaped = false;
-  
+
   void _noneFilter() {
     showDialog(
         context: context,
@@ -58,32 +58,32 @@ class _TapScreenState extends ConsumerState<TabScreen> {
     final allDiary = ref.watch(diaryProvider);
     final selectedDiary = ref.watch(selectedDiarysProvider);
     final selectedFilter = ref.watch(filterProvider);
-    void pressGenerate(){ //애가 최종 전달자 이다.
+    void pressGenerate() {
+      //애가 최종 전달자 이다.
       if (selectedFilter == Filter.none) {
-              _noneFilter();
-            } else {
-              final List<int> indexList = [];
-              for (Diary diary in selectedDiary) {
-                indexList.add(allDiary.indexOf(diary));
-                //ref.read(diaryProvider.notifier).editTodayDiary(diary.text,a, diary.date,true);
-              }
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (ctx) {
-                  Diary combinedDiary = selectedDiary.reduce((diary1, diary2) {
-                    return Diary(
-                        date: diary1.date,
-                        text: '${diary1.text} \n +${diary2.text}');
-                  });
-                  return BookCoverScreen(
-                    indexList: indexList,
-                    selectedDiary: combinedDiary,
-                    nowFilter: selectedFilter,
-                  );
-                }),
-              );
-              ref.read(selectedDiarysProvider.notifier).deleterAllDiary();
-              ref.read(selectedDiarysProvider.notifier).printState();
-            }
+        _noneFilter();
+      } else {
+        final List<int> indexList = [];
+        for (Diary diary in selectedDiary) {
+          indexList.add(allDiary.indexOf(diary));
+          //ref.read(diaryProvider.notifier).editTodayDiary(diary.text,a, diary.date,true);
+        }
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (ctx) {
+            Diary combinedDiary = selectedDiary.reduce((diary1, diary2) {
+              return Diary(
+                  date: diary1.date, text: '${diary1.text} \n +${diary2.text}');
+            });
+            return BookCoverScreen(
+              indexList: indexList,
+              selectedDiary: combinedDiary,
+              nowFilter: selectedFilter,
+            );
+          }),
+        );
+        ref.read(selectedDiarysProvider.notifier).deleterAllDiary();
+        ref.read(selectedDiarysProvider.notifier).printState();
+      }
     }
 
     return Scaffold(
@@ -156,7 +156,7 @@ class _TapScreenState extends ConsumerState<TabScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: const MyBottomAppBar2(),
+      bottomNavigationBar: const MyBottomAppBar(),
     );
   }
 }
