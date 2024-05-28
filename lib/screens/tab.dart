@@ -3,6 +3,7 @@ import 'package:capstone/providers/filter_provider.dart';
 import 'package:capstone/providers/selected_diary_provider.dart';
 import 'package:capstone/screens/bookcover_screen.dart';
 import 'package:capstone/screens/start_screen.dart';
+import 'package:capstone/widgets/generate_bottombar.dart';
 import 'package:capstone/widgets/my_bottom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,7 +28,13 @@ class TabScreen extends ConsumerStatefulWidget {
 }
 
 class _TapScreenState extends ConsumerState<TabScreen> {
-  bool isLongTaped = false;
+  bool isGenerating = false;
+
+  void clikcGenerate() {
+    setState(() {
+      isGenerating = !isGenerating;
+    });
+  }
 
   void _noneFilter() {
     showDialog(
@@ -59,7 +66,7 @@ class _TapScreenState extends ConsumerState<TabScreen> {
     final selectedDiary = ref.watch(selectedDiarysProvider);
     final selectedFilter = ref.watch(filterProvider);
     void pressGenerate() {
-      //애가 최종 전달자 이다.
+      //애가 최종 전달자 이다. generat bar에 있어야 하는 놈
       if (selectedFilter == Filter.none) {
         _noneFilter();
       } else {
@@ -97,7 +104,10 @@ class _TapScreenState extends ConsumerState<TabScreen> {
                 );
               }));
             },
-            child: const Icon(Icons.circle_outlined, size:38,),
+            child: const Icon(
+              Icons.circle_outlined,
+              size: 38,
+            ),
           ),
         ],
         title: const Text(
@@ -111,52 +121,35 @@ class _TapScreenState extends ConsumerState<TabScreen> {
         ),
         backgroundColor: Colors.transparent,
       ),
-      body: StartScreen(
-        //userName: 'sinwoo', // 사용자 이름을 StartScreen으로 전달
-        diaryList: allDiary,
-        nowFilter: selectedFilter,
-        isLongTaped: isLongTaped,
-      ),
+      body: Stack(children: [
+        StartScreen(
+          //userName: 'sinwoo', // 사용자 이름을 StartScreen으로 전달
+          diaryList: allDiary,
+          nowFilter: selectedFilter,
+          isGenerating: isGenerating,
+        ),
+        isGenerating
+            ? GenerateBottomBar(
+                clickGenerate: clikcGenerate,
+              )
+            : MyBottomAppBar2(
+                clikcGenerate: clikcGenerate,
+              ),
+      ]),
+      /*
       floatingActionButton: Transform.translate(
         // Generate 버튼 있는 곳
         offset: const Offset(0, 8),
         child: IconButton(
-          icon: SvgPicture.asset(
-            'assets/images/D_generate_button.svg',
-            height: 86.46,
-            width: 86.46,
-          ),
-          onPressed: () {
-            if (selectedFilter == Filter.none) {
-              _noneFilter();
-            } else {
-              final List<int> indexList = [];
-              for (Diary diary in selectedDiary) {
-                indexList.add(allDiary.indexOf(diary));
-                //ref.read(diaryProvider.notifier).editTodayDiary(diary.text,a, diary.date,true);
-              }
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (ctx) {
-                  Diary combinedDiary = selectedDiary.reduce((diary1, diary2) {
-                    return Diary(
-                        date: diary1.date,
-                        text: '${diary1.text} \n +${diary2.text}');
-                  });
-                  return BookCoverScreen(
-                    indexList: indexList,
-                    selectedDiary: combinedDiary,
-                    nowFilter: selectedFilter,
-                  );
-                }),
-              );
-              ref.read(selectedDiarysProvider.notifier).deleterAllDiary();
-              ref.read(selectedDiarysProvider.notifier).printState();
-            }
-          },
-        ),
+            icon: SvgPicture.asset(
+              'assets/images/D_generate_button.svg',
+              height: 86.46,
+              width: 86.46,
+            ),
+            onPressed: pressGenerate),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: const MyBottomAppBar(),
+      bottomNavigationBar: const MyBottomAppBar(),*/
     );
   }
 }

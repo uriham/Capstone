@@ -14,7 +14,7 @@ class MyPainter extends CustomPainter {
     // 그라데이션 페인트 생성
     final Paint paint = Paint()
       ..shader = ui.Gradient.linear(
-        Offset(0, 0),
+        const Offset(0, 0),
         Offset(size.width, size.height),
         [Colors.purpleAccent, Colors.purple],
       );
@@ -60,7 +60,7 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
     final llm = ChatOpenAI(
       apiKey: openaiApiKey,
       defaultOptions: const ChatOpenAIOptions(
-        model: 'gpt-4-turbo-preview',
+        model: 'gpt-3.5-turbo-0125',
         temperature: 0,
       ),
     );
@@ -144,14 +144,14 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
         builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             // 'Icons.check_circle_outline'가 나타난 후 2초 뒤에 현재 화면이 pop되고 이전 화면으로 이동
-            Future.delayed(Duration(seconds: 2), () {
+            Future.delayed(const Duration(seconds: 2), () {
               Navigator.of(context).pop(snapshot.data);
             });
-            return Center(
+            return const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  const Icon(
+                  Icon(
                     Icons.check_circle_outline,
                     color: Colors.blue,
                     size: 60,
@@ -195,7 +195,7 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(21),
                       ),
-                      shadows: [
+                      shadows: const [
                         BoxShadow(
                           color: Color(0x3F000000),
                           blurRadius: 4,
@@ -211,9 +211,9 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
                           width: 290.36,
                           height: 53.70,
                           decoration: ShapeDecoration(
-                            color: Color(0xFF0E0E0E),
+                            color: const Color(0xFF0E0E0E),
                             shape: RoundedRectangleBorder(
-                              side: BorderSide(
+                              side: const BorderSide(
                                   width: 2, color: Color(0xFFFF2287)),
                               borderRadius: BorderRadius.circular(18),
                             ),
@@ -222,7 +222,7 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Text(
+                                const Text(
                                   '오늘의 일기 생성중',
                                   style: TextStyle(
                                     color: Colors.white,
@@ -230,7 +230,7 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
                                     fontSize: 20,
                                   ),
                                 ),
-                                SizedBox(width: 8),
+                                const SizedBox(width: 8),
                                 _ArrowRotationAnimation(),
                               ],
                             ),
@@ -244,7 +244,7 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
                   top: 160, // 텍스트 상자 위에 위치하도록 조정
                   left: MediaQuery.of(context).size.width / 2 - 200, // 가운데 정렬
                   child: CustomPaint(
-                    size: Size(400, 480),
+                    size: const Size(400, 480),
                     painter: ShapePainter(),
                   ),
                 ),
@@ -265,8 +265,8 @@ class ShapePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint()
       ..shader = LinearGradient(
-        begin: Alignment(0, -1.0), // 시작점을 위로 이동
-        end: Alignment(0, 1.0), // 끝점을 아래로 이동
+        begin: const Alignment(0, -1.0), // 시작점을 위로 이동
+        end: const Alignment(0, 1.0), // 끝점을 아래로 이동
         colors: [
           Colors.transparent,
           Colors.purple.withOpacity(0.5),
@@ -303,7 +303,7 @@ class _ArrowRotationAnimationState extends State<_ArrowRotationAnimation>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
       vsync: this,
     )..repeat();
   }
@@ -333,8 +333,8 @@ class _LoadingText extends StatefulWidget {
 }
 
 class _LoadingTextState extends State<_LoadingText> {
-  int _index = 0;
-  List<String> _loadingTexts = [
+  final int _index = 0;
+  final List<String> _loadingTexts = [
     '팔월 초하룻날 밤차로 너와 네 연인은 떠나는 것처럼 나한테는 그래놓고 기실은 이튿날 아침차로 가 버렸다. \n\n내가 아무리 이 사회에서 또 우리 가정에서 어른 노릇을 못하는 변변치 못한 인간이라기로서니 그래도 너희들보다야 어른이다.',
     '우리 둘이 떨어지기 어렵소이다. 하고 내게 그야말로 강담판(强談判)을 했다면 낸들 또 어쩌랴. 암만 못한다고 딱 거절했던 일이라도 어머니나 아버지 몰래 너희 둘 안동시켜서 쾌히 전송(餞送)할 내 딴은 이해도 아량도 있다.\n\n 그것을, 나까지 속이고 그랬다는 것을 네 장래의 행복 이외의 아무것도 생각할 줄 모르는 네 큰오빠 나로서 꽤 서운히 생각한다',
     '예정대로 K가 팔월 초하룻날 밤 북행차(北行車)로 떠난다고, 그것을 일러 주려 하룻날 아침에 너와 K 둘이서 나를 찾아왔다.\n\n 요 전날 너희 둘이 의논차 내게 왔을 때 말한 바와 같이 K만 떠나고 옥희 너는 네 큰오빠 나와 함께 K를 전송하기로 한 것인데, 또 일의 순서상 일은 그렇게 하는 것이 옳지 않았더냐'
