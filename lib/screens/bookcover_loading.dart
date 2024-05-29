@@ -333,7 +333,9 @@ class _LoadingText extends StatefulWidget {
 }
 
 class _LoadingTextState extends State<_LoadingText> {
-  final int _index = 0;
+  int _index = 0;
+  late Timer _timer;
+
   final List<String> _loadingTexts = [
     '팔월 초하룻날 밤차로 너와 네 연인은 떠나는 것처럼 나한테는 그래놓고 기실은 이튿날 아침차로 가 버렸다. \n\n내가 아무리 이 사회에서 또 우리 가정에서 어른 노릇을 못하는 변변치 못한 인간이라기로서니 그래도 너희들보다야 어른이다.',
     '우리 둘이 떨어지기 어렵소이다. 하고 내게 그야말로 강담판(强談判)을 했다면 낸들 또 어쩌랴. 암만 못한다고 딱 거절했던 일이라도 어머니나 아버지 몰래 너희 둘 안동시켜서 쾌히 전송(餞送)할 내 딴은 이해도 아량도 있다.\n\n 그것을, 나까지 속이고 그랬다는 것을 네 장래의 행복 이외의 아무것도 생각할 줄 모르는 네 큰오빠 나로서 꽤 서운히 생각한다',
@@ -343,6 +345,21 @@ class _LoadingTextState extends State<_LoadingText> {
   @override
   void initState() {
     super.initState();
+    _startTimer();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+      setState(() {
+        _index = (_index + 1) % _loadingTexts.length;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override
