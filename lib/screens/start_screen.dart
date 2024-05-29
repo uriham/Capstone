@@ -9,12 +9,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:capstone/providers/filter_provider.dart';
 
 class StartScreen extends ConsumerStatefulWidget {
-  const StartScreen(
-      {super.key, required this.diaryList, required this.nowFilter});
+  const StartScreen({
+    Key? key,
+    required this.diaryList,
+    required this.nowFilter,
+    required this.userName, // Add userName parameter
+  }) : super(key: key);
 
   final List<Diary> diaryList;
   final Filter nowFilter;
-
+  final String userName; // userName parameter
   @override
   ConsumerState<StartScreen> createState() => _StartScreenState();
 }
@@ -123,7 +127,6 @@ class _StartScreenState extends ConsumerState<StartScreen> {
                                 diary.koreanDay,
                                 style: const TextStyle(
                                     color: Colors.white, fontSize: 12),
-                                    
                               ),
                             ],
                           ),

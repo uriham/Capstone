@@ -17,8 +17,8 @@ final theme = ThemeData.dark().copyWith(
 );
 
 void main() {
-  initializeDateFormatting('ko_KR').then((_) => runApp(const ProviderScope(child: App())));
-  
+  initializeDateFormatting('ko_KR')
+      .then((_) => runApp(const ProviderScope(child: App())));
 }
 
 class App extends StatelessWidget {
@@ -27,9 +27,11 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {"/first": (context) => const TabScreen(),},
+      routes: {
+        "/first": (context) => const TabScreen(),
+      },
       theme: theme,
-      home: const TabScreen(),
+      home: const TutorialScreen(),
     );
   }
 }

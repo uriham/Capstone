@@ -113,7 +113,7 @@ class _TapScreenState extends ConsumerState<TabScreen> {
         backgroundColor: Colors.transparent,
       ),
       body: StartScreen(
-        //userName: 'sinwoo', // 사용자 이름을 StartScreen으로 전달
+        userName: '', // 사용자 이름을 StartScreen으로 전달
         diaryList: allDiary,
         nowFilter: selectedFilter,
       ),

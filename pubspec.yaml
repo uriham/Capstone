@@ -51,6 +51,7 @@ dependencies:
   scroll_wheel_date_picker: ^0.0.2
   image_picker: ^0.8.4+4 
   provider: ^5.0.0
+  flutter_svg_provider: ^1.0.7
 
 dev_dependencies:
   flutter_test:
@@ -158,6 +159,14 @@ flutter:
     - assets/images/pooh_profile.png
     - assets/images/tho_profile.png
     - assets/images/yeonhwa_profile.png
+    - assets/images/Roading.svg
+    - assets/images/startpage01.svg
+    - assets/images/startpage02.svg
+    - assets/images/startpage03.svg
+    - assets/images/startpage01.png
+    - assets/images/startpage02.png
+    - assets/images/startpage03.png
+
     
     
 

@@ -75,15 +75,15 @@ class Start01 extends StatelessWidget {
     required this.controller,
     required this.userName,
     required this.onUserNameUpdated,
-    required this.selectedImage, // 추가: 이미지 선택을 저장하는 변수
-    required this.onImageSelected, // 추가: 이미지 선택 이벤트를 처리하는 함수
+    required this.selectedImage,
+    required this.onImageSelected,
   }) : super(key: key);
 
   final TextEditingController controller;
   final String userName;
   final Function(String) onUserNameUpdated;
-  final String? selectedImage; // 변경된 부분: 이미지 선택을 저장하는 변수
-  final Function(String) onImageSelected; // 변경된 부분: 이미지 선택 이벤트를 처리하는 함수
+  final String? selectedImage;
+  final Function(String) onImageSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -124,14 +124,13 @@ class Start01 extends StatelessWidget {
                         selectedImage!,
                         fit: BoxFit.cover,
                       )
-                    : null, // 선택된 이미지가 있을 때만 이미지 표시
+                    : null,
               ),
             ),
             SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // 이미지 클릭 가능하도록 GestureDetector 추가
                 GestureDetector(
                   onTap: () {
                     onImageSelected('assets/images/Myao-maa_profile.png');
@@ -246,7 +245,7 @@ class Start01 extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 4),
                   Center(
                     child: Column(
                       children: [
@@ -255,41 +254,52 @@ class Start01 extends StatelessWidget {
                           height: 53,
                           child: Stack(
                             children: [
-                              Center(
-                                child: TextField(
-                                  controller: controller,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 0.72,
+                              Positioned(
+                                left: 0,
+                                top: 0,
+                                child: Container(
+                                  width: 318,
+                                  height: 37,
+                                  padding: const EdgeInsets.only(
+                                      bottom: 0.21, left: 8.0),
+                                  decoration: BoxDecoration(
+                                    color: Color(0x19D9D9D9),
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: Border.all(
+                                      width: 1,
+                                      color: Colors.white.withOpacity(0.8),
+                                    ),
                                   ),
-                                  decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 15.0),
-                                    filled: true,
-                                    fillColor: Color.fromRGBO(
-                                        217, 217, 217, 1.0), // 변경된 부분
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius: BorderRadius.circular(13),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius: BorderRadius.circular(13),
-                                    ),
-                                    hintText: '텍스트를 입력하세요',
-                                    hintStyle: TextStyle(
-                                      color: Colors.black.withOpacity(0.5),
+                                  child: Center(
+                                    child: TextField(
+                                      controller: controller,
+                                      onChanged: onUserNameUpdated,
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 11,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w300,
+                                        letterSpacing: 0.44,
+                                      ),
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: '텍스트를 입력하세요',
+                                        hintStyle: TextStyle(
+                                          color: Colors.white.withOpacity(0.5),
+                                          fontSize: 11,
+                                          fontFamily: 'Inter',
+                                          fontWeight: FontWeight.w300,
+                                          letterSpacing: 0.44,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                               Positioned(
-                                right: 10,
-                                top: 45,
+                                left: 278,
+                                top: 43,
                                 child: Text(
                                   '10자 이내',
                                   style: TextStyle(
@@ -303,54 +313,56 @@ class Start01 extends StatelessWidget {
                               ),
                             ],
                           ),
-                        ),
-                        SizedBox(height: 180),
-                        Container(
-                          width: 330,
-                          height: 46,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      TabScreen(),
-                                ),
-                              );
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: 328.15,
-                                  height: 45.74,
-                                  decoration: ShapeDecoration(
-                                    color: Color(0xFF0E0E0E),
-                                    shape: RoundedRectangleBorder(
-                                      side: BorderSide(
-                                          width: 2, color: Color(0xFFFF2287)),
-                                      borderRadius: BorderRadius.circular(18),
-                                    ),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      '시작!',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 0.72,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        )
                       ],
+                    ),
+                  ),
+                  SizedBox(height: 180),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      width: 330,
+                      height: 46,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TabScreen(),
+                            ),
+                          );
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 328.15,
+                              height: 45.74,
+                              decoration: ShapeDecoration(
+                                color: Color(0xFF0E0E0E),
+                                shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                      width: 2, color: Color(0xFFFF2287)),
+                                  borderRadius: BorderRadius.circular(18),
+                                ),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  '시작!',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 0.72,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ],
