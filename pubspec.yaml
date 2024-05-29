@@ -52,6 +52,8 @@ dependencies:
   image_picker: ^0.8.4+4 
   provider: ^5.0.0
   pull_to_refresh: ^2.0.0
+  svg_flutter: ^0.0.1
+  flutter_svg_provider: ^1.0.7
 
 dev_dependencies:
   flutter_test:
@@ -164,6 +166,8 @@ flutter:
     - assets/images/pooh_profile.png
     - assets/images/tho_profile.png
     - assets/images/yeonhwa_profile.png
+    - assets/images/D_seletion0_ic.svg
+    - assets/images/D_seletion1_ic.svg
     
     
 

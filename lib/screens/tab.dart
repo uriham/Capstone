@@ -1,5 +1,6 @@
 import 'package:capstone/providers/diary_provider.dart';
 import 'package:capstone/providers/filter_provider.dart';
+import 'package:capstone/providers/is_generating_provider.dart';
 import 'package:capstone/providers/selected_diary_provider.dart';
 import 'package:capstone/screens/bookcover_screen.dart';
 import 'package:capstone/screens/start_screen.dart';
@@ -28,11 +29,11 @@ class TabScreen extends ConsumerStatefulWidget {
 }
 
 class _TapScreenState extends ConsumerState<TabScreen> {
-  bool isGenerating = false;
+  bool _isGenerating = false;
 
   void clikcGenerate() {
     setState(() {
-      isGenerating = !isGenerating;
+      _isGenerating = !_isGenerating;
     });
   }
 
@@ -62,6 +63,7 @@ class _TapScreenState extends ConsumerState<TabScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isGenerating = ref.watch(isGeneratingProvider);
     final allDiary = ref.watch(diaryProvider);
     final selectedDiary = ref.watch(selectedDiarysProvider);
     final selectedFilter = ref.watch(filterProvider);
@@ -70,7 +72,7 @@ class _TapScreenState extends ConsumerState<TabScreen> {
       if (selectedFilter == Filter.none) {
         _showMessage('먼저 테마를 정해주세요');
       } else {
-        clikcGenerate();
+        ref.read(isGeneratingProvider.notifier).changeState();
       }
     }
 
@@ -100,13 +102,16 @@ class _TapScreenState extends ConsumerState<TabScreen> {
         );
         ref.read(selectedDiarysProvider.notifier).deleterAllDiary();
         ref.read(selectedDiarysProvider.notifier).printState();
+        ref.read(isGeneratingProvider.notifier).changeState();
       }
     }
 
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
-        if (isGenerating) clikcGenerate();
+        if (isGenerating) ref.read(isGeneratingProvider.notifier).changeState();
+        ref.read(selectedDiarysProvider.notifier).deleterAllDiary();
+        ref.read(selectedDiarysProvider.notifier).printState();
       },
       child: Scaffold(
         appBar: AppBar(
@@ -136,20 +141,23 @@ class _TapScreenState extends ConsumerState<TabScreen> {
           ),
           backgroundColor: Colors.transparent,
         ),
-        body: Stack(children: [
-          StartScreen(
-            //userName: 'sinwoo', // 사용자 이름을 StartScreen으로 전달
-            diaryList: allDiary,
-            nowFilter: selectedFilter,
-            isGenerating: isGenerating,
-          ),
-          isGenerating
-              ? GenerateBottomBar(
-                  clickGenerate: makeBook,
-                )
-              : MyBottomAppBar2(
-                  clikcGenerate: noneFilter, currentFilter: selectedFilter),
-        ]),
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+          child: Stack(children: [
+            StartScreen(
+              //userName: 'sinwoo', // 사용자 이름을 StartScreen으로 전달
+              diaryList: allDiary,
+              nowFilter: selectedFilter,
+              isGenerating: isGenerating,
+            ),
+            isGenerating
+                ? GenerateBottomBar(
+                    clickGenerate: makeBook,
+                  )
+                : MyBottomAppBar2(
+                    clikcGenerate: noneFilter, currentFilter: selectedFilter),
+          ]),
+        ),
         /*
         floatingActionButton: Transform.translate(
           // Generate 버튼 있는 곳

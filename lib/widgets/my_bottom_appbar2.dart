@@ -23,8 +23,8 @@ class MyBottomAppBar2 extends StatelessWidget {
             // <-- clips to the 200x200 [Container] below
             child: BackdropFilter(
               filter: ImageFilter.blur(
-                sigmaX: 3.0,
-                sigmaY: 3.0,
+                sigmaX: 2.0,
+                sigmaY: 2.0,
               ),
               child: Container(
                 alignment: Alignment.center,

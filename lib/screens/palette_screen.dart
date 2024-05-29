@@ -70,30 +70,13 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(
-                    left: size.width * 0.05,
-                    top: size.height * 0.06,
-                  ),
-                  child: Row(
-                    children: [
-                      Text(
-                        'PRISM',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontFamily: 'KoPubWorldDotum_Pro',
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      SizedBox(width: 3), // 텍스트와 이미지 사이의 간격
-                      Image.asset(
-                        'assets/images/D_PRISM_ic.png', // 이미지 파일의 경로
-                        width: 24, // 원하는 너비
-                        height: 24, // 원하는 높이
-                      ),
-                    ],
-                  ),
-                ),
+                    padding: EdgeInsets.only(
+                      left: size.width * 0.05,
+                      top: size.height * 0.06,
+                    ),
+                    child: const SizedBox(
+                      height: 10,
+                    )),
                 Padding(
                   padding: EdgeInsets.fromLTRB(
                     0,
@@ -357,7 +340,7 @@ class Group39569 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: size.height * 0.3,
       child: Stack(
         children: [
@@ -375,36 +358,36 @@ class Group39569 extends StatelessWidget {
   Color _getColorForIndex(double index) {
     switch (index) {
       case 0:
-        return Color(0xFFF4298B);
+        return const Color(0xFFF4298B);
       case 1:
-        return Color(0xFF4069CD);
+        return const Color(0xFF4069CD);
       case 2:
-        return Color(0xFF3CB8D5);
+        return const Color(0xFF3CB8D5);
       case 3:
-        return Color(0xFF0CF5AE);
+        return const Color(0xFF0CF5AE);
       case 4:
-        return Color(0xFFC6F50C);
+        return const Color(0xFFC6F50C);
       case 5:
-        return Color(0xFFFBF6E7);
+        return const Color(0xFFFBF6E7);
       case 6:
-        return Color(0xFFFFDD4D);
+        return const Color(0xFFFFDD4D);
       case 7:
-        return Color(0xFFFFAE4F);
+        return const Color(0xFFFFAE4F);
       case 8:
-        return Color(0xFFFF6678);
+        return const Color(0xFFFF6678);
       case 9:
-        return Color(0xFFE1235C);
+        return const Color(0xFFE1235C);
       case 10:
-        return Color(0xFF9E00FF);
+        return const Color(0xFF9E00FF);
       case 11:
-        return Color.fromARGB(255, 85, 164, 164);
+        return const Color.fromARGB(255, 85, 164, 164);
       case 12:
-        return Color.fromARGB(255, 212, 226, 106);
+        return const Color.fromARGB(255, 212, 226, 106);
       case 13:
-        return Color.fromARGB(255, 45, 46, 38);
+        return const Color.fromARGB(255, 45, 46, 38);
 
       default:
-        return Color(0xFF6023E1);
+        return const Color(0xFF6023E1);
     }
   }
 

@@ -55,7 +55,10 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
 
   void _bookprovider() {
     for (int i in widget.indexList) {
-      ref.read(diaryProvider.notifier).useDiary(i); //diary사용함 뜨게 만듦
+      ref.read(diaryProvider.notifier).useDiary(i);
+      ref
+          .read(diaryProvider.notifier)
+          .changeFilter(i, widget.nowFilter); //diary사용함 뜨게 만듦
     }
     ref.read(bookProvider.notifier).addChapter(widget.nowFilter,
         Chapter(chImg: bookInfo[0], title: bookTitle, text: bookInfo[1]));
