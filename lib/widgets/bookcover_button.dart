@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class BookCoverButton extends StatelessWidget {
-  const BookCoverButton({super.key, required this.onTap, required this.buttonText});
+  const BookCoverButton(
+      {super.key, required this.onTap, required this.buttonText});
 
   final void Function() onTap;
   final String buttonText;
-  
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(14,0,14,0),
+      padding: const EdgeInsets.fromLTRB(14, 0, 14, 0),
       child: InkWell(
         onTap: onTap,
         child: Container(
@@ -20,7 +22,8 @@ class BookCoverButton extends StatelessWidget {
           decoration: ShapeDecoration(
             color: const Color(0xFF0E0E0E),
             shape: RoundedRectangleBorder(
-              side: const BorderSide(width: 2, color: Color(0xFFFF2287)),
+              side: const BorderSide(
+                  width: 2, color: Color(0xFFFF2287), style: BorderStyle.solid),
               borderRadius: BorderRadius.circular(18),
             ),
           ),

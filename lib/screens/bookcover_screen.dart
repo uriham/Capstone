@@ -6,6 +6,7 @@ import 'package:capstone/screens/bookcover_loading.dart';
 import 'package:capstone/providers/filter_provider.dart';
 import 'package:capstone/widgets/bookcover_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:capstone/screens/character_cover.dart';
 import 'package:capstone/screens/tab.dart';
@@ -79,16 +80,22 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
         const SizedBox(
           height: 130,
         ),
-        const Text(
-          '원하시는 그림을 요청해보세요!\nAi가 그려드립니다',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Color(0xFFFF2287),
-            fontSize: 18,
-            fontFamily: 'Inter',
-            fontWeight: FontWeight.w600,
-            height: 0,
-            letterSpacing: 0.72,
+        ShaderMask(
+          shaderCallback: (bounds) => const LinearGradient(
+            colors: [Color(0xFFFF2287), Color.fromARGB(255, 255, 255, 255)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ).createShader(bounds),
+          child: const Text(
+            '원하시는 그림을 요청해보세요!\nAi가 그려드립니다',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              height: 1.3,
+              color: Colors.white,
+              fontSize: 22,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
         const SizedBox(height: 4),
@@ -97,11 +104,9 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white.withOpacity(0.5),
-            fontSize: 11,
+            fontSize: 14,
             fontFamily: 'Inter',
             fontWeight: FontWeight.w600,
-            height: 0,
-            letterSpacing: 0.32,
           ),
         ),
         const SizedBox(
@@ -122,21 +127,17 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
             ),
           ),
         ),
-        Container(
-          width: double.infinity,
-          height: 37,
-          padding: const EdgeInsets.only(bottom: 0.21),
-          decoration: ShapeDecoration(
-            color: const Color(0x19D9D9D9),
-            shape: RoundedRectangleBorder(
-              side: BorderSide(
-                width: 1,
-                color: Colors.white.withOpacity(0.800000011920929),
-              ),
-              borderRadius: BorderRadius.circular(13),
-            ),
-          ),
+        SizedBox(
+          height: 40,
           child: TextField(
+            decoration: InputDecoration(
+                fillColor: Colors.white.withOpacity(0.800000011920929),
+                contentPadding: const EdgeInsets.fromLTRB(3, 1, 1, 1),
+                hintText: '   텍스트를 입력하세요',
+                border: OutlineInputBorder(
+                    borderSide:
+                        const BorderSide(width: 1, color: Color(0x19D9D9D9)),
+                    borderRadius: BorderRadius.circular(13))),
             style: const TextStyle(color: Colors.white),
             controller: _titleController,
           ),
@@ -144,24 +145,20 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
         const SizedBox(
           height: 40,
         ),
-        Container(
-          width: double.infinity,
-          height: 190,
-          padding: const EdgeInsets.only(bottom: 1.07),
-          decoration: ShapeDecoration(
-            color: const Color(0x19D9D9D9),
-            shape: RoundedRectangleBorder(
-              side: BorderSide(
-                width: 1,
-                color: Colors.white.withOpacity(0.800000011920929),
-              ),
-              borderRadius: BorderRadius.circular(13),
-            ),
-          ),
-          child: TextField(
-            style: const TextStyle(color: Colors.white),
-            controller: _keywordController,
-          ),
+        TextField(
+          maxLines: 7,
+          decoration: InputDecoration(
+              contentPadding: const EdgeInsets.all(11),
+              hintText: '텍스트를 입력하세요',
+              counterText: '',
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 1,
+                    color: Colors.white.withOpacity(0.800000011920929),
+                  ),
+                  borderRadius: BorderRadius.circular(13))),
+          style: const TextStyle(color: Colors.white),
+          controller: _keywordController,
         ),
         const SizedBox(
           height: 150,
