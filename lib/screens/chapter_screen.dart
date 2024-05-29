@@ -16,6 +16,7 @@ class ChapCoverScreen extends StatefulWidget {
 class _ChapCoverScreenState extends State<ChapCoverScreen> {
   final controller = PageController(viewportFraction: 0.6, keepPage: true);
   var _selectedIndex = 0;
+  Color whiteOp = Colors.white.withOpacity(0.55);
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,10 @@ class _ChapCoverScreenState extends State<ChapCoverScreen> {
           style: TextStyle(color: Colors.white),
         ),
       );
+    }
+
+    if (widget.char.color.green < 80) {
+      whiteOp = Colors.white.withOpacity(0.35);
     }
 
     return Scaffold(
@@ -67,10 +72,7 @@ class _ChapCoverScreenState extends State<ChapCoverScreen> {
                 //   width: 1.0,
                 // ),
                 gradient: RadialGradient(
-                  colors: [
-                    Colors.white.withOpacity(0.5),
-                    Colors.white.withOpacity(0.0)
-                  ],
+                  colors: [whiteOp, Colors.white.withOpacity(0.0)],
                   stops: [0.1, 0.9],
                   center: Alignment.center,
                   radius: 0.75,

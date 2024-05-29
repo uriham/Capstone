@@ -31,6 +31,21 @@ class Chapter {
 
 List<Character> charList = [
   Character(
+      //char_img: 'assets/images/char_yangkee.svg',
+      char_img: 'assets/images/char/yangkee.jpg',
+      name: '귀여운 것은 곧 사랑이다',
+      alpha: 255,
+      red: 184,
+      green: 44,
+      blue: 111,
+      chapters: [
+        Chapter(
+          ch_img: 'assets/images/chapter2.png',
+          title: 'Chapter 2',
+          text: '',
+        ),
+      ]),
+  Character(
       //char_img: 'assets/images/char_myao.svg',
       char_img: 'assets/images/char/myao-maa.jpg',
       name: '먀오마아의 은밀한 취미생활',
@@ -76,21 +91,6 @@ List<Character> charList = [
         Chapter(
           ch_img: 'assets/images/chapter1.png',
           title: 'Chapter 1',
-          text: '',
-        ),
-      ]),
-  Character(
-      //char_img: 'assets/images/char_yangkee.svg',
-      char_img: 'assets/images/char/yangkee.jpg',
-      name: '귀여운 것은 곧 사랑이다',
-      alpha: 255,
-      red: 184,
-      green: 44,
-      blue: 111,
-      chapters: [
-        Chapter(
-          ch_img: 'assets/images/chapter2.png',
-          title: 'Chapter 2',
           text: '',
         ),
       ]),

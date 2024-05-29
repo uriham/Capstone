@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:prism_test/screens/cover_screen.dart';
 
 class MainAppBar extends StatelessWidget {
   @override
@@ -19,7 +20,7 @@ class MainAppBar extends StatelessWidget {
               height: 48,
               margin: EdgeInsets.only(bottom: 0),
               decoration: BoxDecoration(
-                color: Colors.transparent,
+                color: Colors.transparent.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(30.0),
                 boxShadow: [
                   BoxShadow(
@@ -35,7 +36,11 @@ class MainAppBar extends StatelessWidget {
                 children: <Widget>[
                   GestureDetector(
                       onTap: () {
-                        // 버튼 눌렀을 때
+                        Navigator.of(context).push(
+                          MaterialPageRoute<void>(builder: (context) {
+                            return CharCoverScreen();
+                          }),
+                        );
                       },
                       child: SvgPicture.asset('assets/images/D_mybook.svg')),
 
