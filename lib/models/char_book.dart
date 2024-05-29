@@ -40,7 +40,7 @@ class _CharCoverState extends State<CharCover> {
     //timeDilation = 5.0;
 
     return Container(
-      margin: const EdgeInsets.fromLTRB(0, 0, 0, 100),
+      margin: const EdgeInsets.fromLTRB(0, 0, 0, 70),
       //padding: const EdgeInsets.fromLTRB(0, 80, 0, 10),
       // decoration: BoxDecoration(
       //   border: Border.all(
@@ -57,12 +57,15 @@ class _CharCoverState extends State<CharCover> {
         decoration: BoxDecoration(
           gradient: RadialGradient(
             colors: _animate
-                ? [Colors.transparent, widget.char.color]
+                ? [
+                    Color.fromARGB(1, 14, 14, 14).withAlpha(100),
+                    widget.char.color.withAlpha(255)
+                  ]
                 : [Colors.transparent, Colors.transparent],
             center: Alignment.center,
-            stops: [0.2, 1.0],
-            radius: 0.07,
-            focalRadius: 1.0,
+            stops: [0.1, 0.8],
+            radius: 0.1,
+            focalRadius: 0.9,
             focal: Alignment(0.0, 0.0),
           ),
           //borderRadius: const BorderRadius.all(Radius.circular(50)),
@@ -89,8 +92,8 @@ class _CharCoverState extends State<CharCover> {
                       );
                     },
                     child: SizedBox(
-                      width: 268,
-                      height: 383,
+                      width: 285,
+                      height: 405,
                       child: ClipRRect(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20)),
@@ -124,10 +127,14 @@ class _CharCoverState extends State<CharCover> {
                   //     ),
                   //   ),
                   // ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 30),
                   Text(
                     widget.char.name,
-                    style: const TextStyle(fontSize: 20, color: Colors.white),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   // const SizedBox(height: 15),
                   // Text(

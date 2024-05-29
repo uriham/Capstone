@@ -106,13 +106,13 @@ class _ChapCoverScreenState extends State<ChapCoverScreen> {
                     }),
               ),
             ),
-            SizedBox(),
+            SizedBox(height: 83),
             SmoothPageIndicator(
               controller: controller,
               count: widget.char.chapters.length,
               effect: const ScrollingDotsEffect(
-                dotHeight: 10,
-                dotWidth: 10,
+                dotHeight: 6,
+                dotWidth: 6,
                 activeDotColor: Colors.white,
                 //dotColor: Color.fromARGB(1, 217, 217, 217),
                 spacing: 8,

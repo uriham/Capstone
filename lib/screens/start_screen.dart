@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prism_test/widgets/appbar_main.dart';
 import 'package:prism_test/widgets/blurred_light.dart';
 import 'dart:math';
+import 'dart:async';
 
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
@@ -54,53 +55,79 @@ class GlowingCirclesBlur extends StatefulWidget {
 class _GlowingCirclesBackgroundState extends State<GlowingCirclesBlur>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late List<Circle> _circles;
+  List<Circle>? _circles;
+  Random _random = Random();
 
   @override
   void initState() {
     super.initState();
     _controller =
         AnimationController(vsync: this, duration: Duration(seconds: 5))
-          ..repeat(reverse: true);
-    _circles = [
-      Circle(
-        initialOffset: Offset(300, 200),
-        motion: Offset(0, 0),
-        radius: 100,
-        color: Colors.white,
-      ),
-      Circle(
-        initialOffset: Offset(370, 100),
-        motion: Offset(0, 0),
-        radius: 70,
-        color: Colors.white,
-      ),
-      Circle(
-        initialOffset: Offset(20, 10),
-        motion: Offset(0, 0),
-        radius: 100,
-        color: Colors.white,
-      ),
-      Circle(
-        initialOffset: Offset(30, 600),
-        motion: Offset(0, 0),
-        radius: 80,
-        color: Colors.white,
-      ),
-      Circle(
-        initialOffset: Offset(400, 720),
-        motion: Offset(0, 0),
-        radius: 110,
-        color: Colors.white,
-      ),
-    ];
+          ..repeat();
 
-    _circles.forEach((circle) {
-      final random = Random();
-      final dx = (random.nextDouble() * 70) - 35;
-      final dy = (random.nextDouble() * 70) - 35;
-      circle.motion = Offset(dx, dy);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final screenSize = MediaQuery.of(context).size;
+      setState(() {
+        _circles = List.generate(
+            10, (_) => Circle(random: _random, screenSize: screenSize));
+      });
+
+      _controller.addListener(() {
+        if (_circles != null) {
+          setState(() {
+            _circles!.forEach((circle) {
+              circle.updatePosition();
+              circle.updateColor();
+            });
+            _circles!
+                .removeWhere((circle) => circle.isOutsideScreen(screenSize));
+            if (_circles!.length < 6) {
+              _circles!.add(Circle(random: _random, screenSize: screenSize));
+            }
+          });
+        }
+      });
     });
+    // _circles = [
+    //   Circle(
+    //     initialOffset: Offset(300, 200),
+    //     motion: Offset(0, 0),
+    //     radius: 100,
+    //     color: Colors.white,
+    //   ),
+    //   Circle(
+    //     initialOffset: Offset(370, 100),
+    //     motion: Offset(0, 0),
+    //     radius: 70,
+    //     color: Colors.white,
+    //   ),
+    //   Circle(
+    //     initialOffset: Offset(20, 10),
+    //     motion: Offset(0, 0),
+    //     radius: 100,
+    //     color: Colors.white,
+    //   ),
+    //   Circle(
+    //     initialOffset: Offset(30, 600),
+    //     motion: Offset(0, 0),
+    //     radius: 80,
+    //     color: Colors.white,
+    //   ),
+    //   Circle(
+    //     initialOffset: Offset(400, 720),
+    //     motion: Offset(0, 0),
+    //     radius: 110,
+    //     color: Colors.white,
+    //   ),
+    // ];
+
+    // _circles.forEach((circle) {
+    //   final random = Random();
+    //   final dx = (random.nextDouble() * 60) - 30;
+    //   final dy = (random.nextDouble() * 60) - 30;
+
+    //   circle.motion = Offset(dx, dy);
+    // });
   }
 
   @override
@@ -113,7 +140,8 @@ class _GlowingCirclesBackgroundState extends State<GlowingCirclesBlur>
   Widget build(BuildContext context) {
     return CustomPaint(
       size: MediaQuery.of(context).size,
-      painter: GlowingCirclesPainter(_controller, _circles),
+      painter: GlowingCirclesPainter(
+          animation: _controller, circles: _circles ?? []),
     );
   }
 }

@@ -25,6 +25,7 @@ class CharCoverScreen extends StatelessWidget {
     // }
 
     return Scaffold(
+      backgroundColor: Color.fromARGB(1, 14, 14, 14),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
@@ -51,12 +52,15 @@ class CharCoverScreen extends StatelessWidget {
                       return CharCover(char: char);
                     }),
               ),
+              SizedBox(
+                height: 30,
+              ),
               SmoothPageIndicator(
                 controller: controller,
                 count: charList.length,
                 effect: const ScrollingDotsEffect(
-                  dotHeight: 10,
-                  dotWidth: 10,
+                  dotHeight: 6,
+                  dotWidth: 6,
                   activeDotColor: Colors.white,
                   //dotColor: Color.fromARGB(1, 217, 217, 217),
                   spacing: 8,
@@ -66,6 +70,7 @@ class CharCoverScreen extends StatelessWidget {
           ),
         ),
       ),
+
       // bottomNavigationBar: MainAppBar(),
       // floatingActionButton: FloatingActionButton(
       //   onPressed: () {},

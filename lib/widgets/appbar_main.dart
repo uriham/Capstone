@@ -36,11 +36,11 @@ class MainAppBar extends StatelessWidget {
                 children: <Widget>[
                   GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute<void>(builder: (context) {
-                            return CharCoverScreen();
-                          }),
-                        );
+                        // Navigator.of(context).push(
+                        //   MaterialPageRoute<void>(builder: (context) {
+                        //     return CharCoverScreen();
+                        //   }),
+                        // );
                       },
                       child: SvgPicture.asset('assets/images/D_mybook.svg')),
 

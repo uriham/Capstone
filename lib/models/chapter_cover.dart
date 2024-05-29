@@ -42,7 +42,7 @@ class ChapterBook extends StatelessWidget {
                       );
                     }),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 15),
               Text(
                 chap.title,
                 style: const TextStyle(fontSize: 15, color: Colors.white),
