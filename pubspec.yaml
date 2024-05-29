@@ -71,6 +71,25 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
 
+  fonts:
+    - family: KoPubWorldBatang_Pro
+      fonts:
+        - asset: assets/fonts/KoPubWorld Batang_Pro Light.otf
+          weight: 300 # Light weight
+        - asset: assets/fonts/KoPubWorld Batang_Pro Medium.otf
+          weight: 500 # Medium weight
+        - asset: assets/fonts/KoPubWorld Batang_Pro Bold.otf
+          weight: 700 # Bold weight
+
+    - family: KoPubWorldDotum_Pro
+      fonts:
+        - asset: assets/fonts/KoPubWorld Dotum_Pro Light.otf
+          weight: 300 # Light weight
+        - asset: assets/fonts/KoPubWorld Dotum_Pro Medium.otf
+          weight: 500 # Medium weight
+        - asset: assets/fonts/KoPubWorld Dotum_Pro Bold.otf
+          weight: 700 # Bold weight
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

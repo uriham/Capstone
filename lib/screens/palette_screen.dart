@@ -80,7 +80,7 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                         'PRISM',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
+                          fontSize: 20,
                           fontFamily: 'KoPubWorldDotum_Pro',
                           fontWeight: FontWeight.w700,
                         ),
@@ -97,9 +97,9 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                 Padding(
                   padding: EdgeInsets.fromLTRB(
                     0,
-                    size.height * 0.05,
+                    size.height * 0.07,
                     0,
-                    size.height * 0.1,
+                    size.height * 0.08,
                   ),
                   child: Text(
                     '다른 시선으로\n새로운 나를 발견해보세요!',
@@ -116,6 +116,25 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                   child: PageView(
                     controller: _pageController,
                     children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: size.width * 0.08,
+                        ),
+                        child: CustomCard_yang(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    palette_screen_next_yang(),
+                              ),
+                            );
+                          },
+                          onCharacterSelected: () {
+                            changeFilter(Filter.yangkee);
+                          },
+                        ),
+                      ),
                       Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: size.width * 0.08,
@@ -151,25 +170,6 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                           },
                           onCharacterSelected: () {
                             changeFilter(Filter.kimmunng);
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: size.width * 0.08,
-                        ),
-                        child: CustomCard_yang(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    palette_screen_next_yang(),
-                              ),
-                            );
-                          },
-                          onCharacterSelected: () {
-                            changeFilter(Filter.yangkee);
                           },
                         ),
                       ),
@@ -358,7 +358,7 @@ class Group39569 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: size.height * 0.2,
+      height: size.height * 0.3,
       child: Stack(
         children: [
           for (double i = 0; i < 14; i++)
@@ -442,9 +442,9 @@ class Group39569 extends StatelessWidget {
   double _calculateTop(double index) {
     double diff = (currentPage - index).abs();
     if (diff < 1) {
-      return size.height * 0.036 + size.height * 0.024 * diff;
+      return size.height * 0.012 + size.height * 0.033 * diff;
     } else {
-      return size.height * 0.06;
+      return size.height * 0.045;
     }
   }
 }

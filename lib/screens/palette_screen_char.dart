@@ -8,7 +8,7 @@ const double largePadding = 20;
 // 고정된 글꼴 크기 및 스타일 설정
 const double tagFontSize = 12;
 const double titleFontSize = 24;
-const double descriptionFontSize = 14;
+const double descriptionFontSize = 13;
 
 final TextStyle labelStyle = TextStyle(
   color: Colors.white,
@@ -82,7 +82,7 @@ Widget createCard({
                         imageAsset,
                         width: cardWidth,
                         height: cardHeight * 0.48, // 카드 높이의 48%
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                       ),
                       Positioned(
                         left: 17, // 텍스트의 왼쪽 여백
@@ -124,8 +124,8 @@ Widget createCard({
               onTap: onCharacterSelected,
               child: Image.asset(
                 buttonImageAsset,
-                width: 36,
-                height: 36,
+                width: 44,
+                height: 44,
                 color: isSelected ? Colors.white : null, // 선택 상태에 따라 색상 변경
               ),
             ),
