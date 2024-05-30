@@ -14,17 +14,16 @@ import 'package:capstone/widgets/my_bottom_appbar2.dart';
 
 class TabScreen extends ConsumerStatefulWidget {
   const TabScreen({
-    super.key,
+    Key? key,
     required this.userName,
     required this.selectedImage,
-  });
+  }) : super(key: key);
+
   final String userName;
   final String? selectedImage; // 추가: 이미지 경로를 저장할 변수
 
   @override
-  ConsumerState<TabScreen> createState() {
-    return _TapScreenState();
-  }
+  ConsumerState<TabScreen> createState() => _TapScreenState();
 }
 
 class _TapScreenState extends ConsumerState<TabScreen> {
@@ -32,26 +31,28 @@ class _TapScreenState extends ConsumerState<TabScreen> {
 
   void _noneFilter() {
     showDialog(
-        context: context,
-        builder: (ctx) {
-          return AlertDialog(
-            title: const Text(
-              '오류',
-              style: TextStyle(color: Colors.white),
-            ),
-            content: const Text(
-              '먼저 테마를 선택해 주세요',
-              style: TextStyle(color: Colors.white),
-            ),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(ctx).pop();
-                  },
-                  child: const Text('Okay'))
-            ],
-          );
-        });
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: const Text(
+            '오류',
+            style: TextStyle(color: Colors.white),
+          ),
+          content: const Text(
+            '먼저 테마를 선택해 주세요',
+            style: TextStyle(color: Colors.white),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: const Text('Okay'),
+            )
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -78,6 +79,7 @@ class _TapScreenState extends ConsumerState<TabScreen> {
               selectedDiary: combinedDiary,
               nowFilter: selectedFilter,
               userName: widget.userName,
+              selectedImage: '',
             );
           }),
         );
@@ -85,17 +87,17 @@ class _TapScreenState extends ConsumerState<TabScreen> {
       }
     }
 
+    String selectedImagePath = widget.selectedImage ?? ''; // 선택적 null 대체
     return Scaffold(
       appBar: AppBar(
         actions: [
-          // 우측 정렬을 위한 Spacer 추가
           GestureDetector(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
                 return Profile(
                   userName: widget.userName,
                   selectedImage: widget.selectedImage,
-                ); // Pass userName to Profile screen
+                );
               }));
             },
             child: const Icon(Icons.circle),
@@ -112,12 +114,11 @@ class _TapScreenState extends ConsumerState<TabScreen> {
         backgroundColor: Colors.transparent,
       ),
       body: StartScreen(
-        userName: widget.userName, // Pass userName to StartScreen
+        userName: widget.userName,
         diaryList: allDiary,
         nowFilter: selectedFilter,
       ),
       floatingActionButton: Transform.translate(
-        // Generate 버튼 있는 곳
         offset: const Offset(0, 8),
         child: IconButton(
           icon: SvgPicture.asset(
@@ -145,6 +146,7 @@ class _TapScreenState extends ConsumerState<TabScreen> {
                     selectedDiary: combinedDiary,
                     nowFilter: selectedFilter,
                     userName: widget.userName,
+                    selectedImage: selectedImagePath,
                   );
                 }),
               );
@@ -154,7 +156,7 @@ class _TapScreenState extends ConsumerState<TabScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: const MyBottomAppBar(),
+      bottomNavigationBar: MyBottomAppBar(selectedImage: selectedImagePath),
     );
   }
 }

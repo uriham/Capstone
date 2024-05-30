@@ -211,7 +211,9 @@ class MybookScreen extends ConsumerWidget {
               final book = bookList[index];
               return BookCard(book: book);
             }),
-        bottomNavigationBar: MyBottomAppBar(),
+        bottomNavigationBar: MyBottomAppBar(
+          selectedImage: '',
+        ),
       ),
     );
   }

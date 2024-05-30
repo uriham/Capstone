@@ -17,12 +17,14 @@ class BookCoverScreen extends ConsumerStatefulWidget {
     required this.indexList,
     required this.nowFilter,
     required this.userName,
+    required this.selectedImage, // selectedImage 추가
   });
 
   final Diary selectedDiary;
   final List<int> indexList;
   final Filter nowFilter;
-  final String userName; // userName parameter
+  final String userName;
+  final String selectedImage; // selectedImage 추가
 
   @override
   ConsumerState<BookCoverScreen> createState() => _BookCoverScreenState();
@@ -71,8 +73,9 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
     }
     ));
     */
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const CharCoverScreen()));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) =>
+            CharCoverScreen(selectedImage: widget.selectedImage)));
   }
 
   Widget build(BuildContext context) {

@@ -4,23 +4,13 @@ import 'package:capstone/screens/palette_screen_next.dart';
 import 'package:capstone/screens/palette_screen_char.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: PaletteScreen(),
-    );
-  }
-}
-
 class PaletteScreen extends ConsumerStatefulWidget {
-  const PaletteScreen({Key? key}) : super(key: key);
+  final String selectedImage; // selectedImage 필드 추가
+
+  const PaletteScreen({
+    Key? key,
+    required this.selectedImage, // 생성자 매개변수로 selectedImage 추가
+  }) : super(key: key);
 
   @override
   ConsumerState<PaletteScreen> createState() => _PaletteScreenState();
@@ -121,12 +111,15 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                           horizontal: size.width * 0.08,
                         ),
                         child: CustomCard_yang(
+                          selectedImage:
+                              widget.selectedImage, // selectedImage 필드 전달
+
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    palette_screen_next_yang(),
+                                builder: (context) => palette_screen_next_yang(
+                                    selectedImage: widget.selectedImage),
                               ),
                             );
                           },
@@ -140,12 +133,14 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                           horizontal: size.width * 0.08,
                         ),
                         child: CustomCard_myao(
+                          selectedImage:
+                              widget.selectedImage, // selectedImage 필드 전달
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    palette_screen_next_miao(),
+                                builder: (context) => palette_screen_next_miao(
+                                    selectedImage: widget.selectedImage),
                               ),
                             );
                           },
@@ -159,12 +154,13 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                           horizontal: size.width * 0.08,
                         ),
                         child: CustomCard_mmung(
+                          selectedImage: widget.selectedImage,
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    palette_screen_next_mmung(),
+                                builder: (context) => palette_screen_next_mmung(
+                                    selectedImage: widget.selectedImage),
                               ),
                             );
                           },
@@ -178,12 +174,13 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                           horizontal: size.width * 0.08,
                         ),
                         child: CustomCard_pooh(
+                          selectedImage: widget.selectedImage,
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    palette_screen_next_pooh(),
+                                builder: (context) => palette_screen_next_pooh(
+                                    selectedImage: widget.selectedImage),
                               ),
                             );
                           },
@@ -197,12 +194,14 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                           horizontal: size.width * 0.08,
                         ),
                         child: CustomCard_Thoreau(
+                          selectedImage: widget.selectedImage,
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    palette_screen_next_Thoreau(),
+                                    palette_screen_next_Thoreau(
+                                        selectedImage: widget.selectedImage),
                               ),
                             );
                           },
@@ -216,12 +215,14 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                           horizontal: size.width * 0.08,
                         ),
                         child: CustomCard_leesangv2(
+                          selectedImage: widget.selectedImage,
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    palette_screen_next_leesangv2(),
+                                    palette_screen_next_leesangv2(
+                                        selectedImage: widget.selectedImage),
                               ),
                             );
                           },
@@ -235,12 +236,14 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                           horizontal: size.width * 0.08,
                         ),
                         child: CustomCard_alsoubet(
+                          selectedImage: widget.selectedImage,
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    palette_screen_next_alsoubet(),
+                                    palette_screen_next_alsoubet(
+                                        selectedImage: widget.selectedImage),
                               ),
                             );
                           },
@@ -254,12 +257,14 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                           horizontal: size.width * 0.08,
                         ),
                         child: CustomCard_dongja(
+                          selectedImage: widget.selectedImage,
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    palette_screen_next_dongja(),
+                                    palette_screen_next_dongja(
+                                        selectedImage: widget.selectedImage),
                               ),
                             );
                           },
@@ -273,12 +278,13 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                           horizontal: size.width * 0.08,
                         ),
                         child: CustomCard_jang(
+                          selectedImage: widget.selectedImage,
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    palette_screen_next_jang(),
+                                builder: (context) => palette_screen_next_jang(
+                                    selectedImage: widget.selectedImage),
                               ),
                             );
                           },
@@ -292,12 +298,14 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                           horizontal: size.width * 0.08,
                         ),
                         child: CustomCard_yeonhwa(
+                          selectedImage: widget.selectedImage,
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    palette_screen_next_yeonhwa(),
+                                    palette_screen_next_yeonhwa(
+                                        selectedImage: widget.selectedImage),
                               ),
                             );
                           },
@@ -311,12 +319,14 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                           horizontal: size.width * 0.08,
                         ),
                         child: CustomCard_halmae(
+                          selectedImage: widget.selectedImage,
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    palette_screen_next_halmae(),
+                                    palette_screen_next_halmae(
+                                        selectedImage: widget.selectedImage),
                               ),
                             );
                           },

@@ -10,13 +10,16 @@ final formatter = DateFormat('yyyy.MM.dd');
 final formatter2 = DateFormat('yyyy년 MM월 dd일');
 
 class AddEditBookScreen extends ConsumerStatefulWidget {
-  AddEditBookScreen({super.key, this.diary, this.index});
+  const AddEditBookScreen(
+      {Key? key, this.diary, this.index, this.selectedImage})
+      : super(key: key);
 
-  Diary? diary;
-  int? index;
+  final Diary? diary;
+  final int? index;
+  final String? selectedImage;
 
   @override
-  ConsumerState<AddEditBookScreen> createState() => _AddEditBookScreenState();
+  _AddEditBookScreenState createState() => _AddEditBookScreenState();
 }
 
 class _AddEditBookScreenState extends ConsumerState<AddEditBookScreen> {
@@ -37,19 +40,25 @@ class _AddEditBookScreenState extends ConsumerState<AddEditBookScreen> {
 
   void _editDiary() {
     ref.read(diaryProvider.notifier).editTodayDiary(
-        _textController.text, widget.index!, widget.diary!.date, false);
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) {
-      return const TabScreen(
-        userName: AutofillHints.username,
-        selectedImage: '',
-      );
-    }));
+          _textController.text,
+          widget.index!,
+          widget.diary!.date,
+          false,
+        );
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (ctx) => TabScreen(
+          userName: AutofillHints.username,
+          selectedImage: widget.selectedImage, // 수정된 부분
+        ),
+      ),
+    );
   }
 
   void _saveDiary() {
-    ref
-        .read(diaryProvider.notifier)
-        .addDiary(Diary(date: DateTime.now(), text: _textController.text));
+    ref.read(diaryProvider.notifier).addDiary(
+          Diary(date: DateTime.now(), text: _textController.text),
+        );
     Navigator.of(context).pop();
     Navigator.of(context).pop();
   }
@@ -71,65 +80,64 @@ class _AddEditBookScreenState extends ConsumerState<AddEditBookScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const SizedBox(
-            height: 100,
-          ),
-          Text(
-            widget.diary == null
-                ? formatter2.format(DateTime.now())
-                : formatter2.format(widget.diary!.date),
-            style: const TextStyle(
-              fontSize: 23,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 100),
+            Text(
+              widget.diary == null
+                  ? formatter2.format(DateTime.now())
+                  : formatter2.format(widget.diary!.date),
+              style: const TextStyle(
+                fontSize: 23,
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.left,
+            ),
+            Container(
+              width: double.infinity,
+              height: 2,
               color: Colors.white,
             ),
-            textAlign: TextAlign.left,
-          ),
-          Container(
-            width: double.infinity,
-            height: 2,
-            color: Colors.white,
-          ),
-          TextField(
-            maxLines: null,
-            keyboardType: TextInputType.multiline,
-            controller: _textController,
-            style: const TextStyle(color: Colors.white),
-            decoration: const InputDecoration(
-              border: InputBorder.none,
+            TextField(
+              maxLines: null,
+              keyboardType: TextInputType.multiline,
+              controller: _textController,
+              style: const TextStyle(color: Colors.white),
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          ElevatedButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text('변환'),
-                    content: const Text('정말로 변환하시겠습니까?'),
-                    actions: <Widget>[
-                      ElevatedButton(
-                        onPressed:
-                            widget.diary == null ? _saveDiary : _editDiary,
-                        child: const Text('Okay'),
-                      ),
-                      TextButton(
-                        child: const Text('Close'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
-            child: const Text('수정'),
-          ),
-        ]),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('변환'),
+                      content: const Text('정말로 변환하시겠습니까?'),
+                      actions: <Widget>[
+                        ElevatedButton(
+                          onPressed:
+                              widget.diary == null ? _saveDiary : _editDiary,
+                          child: const Text('Okay'),
+                        ),
+                        TextButton(
+                          child: const Text('Close'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: const Text('수정'),
+            ),
+          ],
+        ),
       ),
     );
   }
