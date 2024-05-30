@@ -4,9 +4,10 @@ import 'package:capstone/providers/book_provider.dart';
 import 'package:capstone/providers/diary_provider.dart';
 import 'package:capstone/screens/bookcover_loading.dart';
 import 'package:capstone/providers/filter_provider.dart';
+import 'package:capstone/screens/chapter_cover.dart';
 import 'package:capstone/widgets/bookcover_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:capstone/data/characters.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:capstone/screens/character_cover.dart';
 import 'package:capstone/screens/tab.dart';
@@ -62,9 +63,10 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
         widget.nowFilter,
         Chapter(
             chImg: bookInfo[0], title: bookTitle, text: bookInfo[1])); // 책 생성
-
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const CharCoverScreen()));
+    final myCharacter =
+        ref.read(bookProvider.notifier).getCharacter(widget.nowFilter);
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => ChapCoverScreen(char: myCharacter)));
   }
 
   @override

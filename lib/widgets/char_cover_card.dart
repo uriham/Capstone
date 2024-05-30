@@ -85,8 +85,9 @@ class _CharCoverCardState extends State<CharCoverCard> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            ChapCoverScreen(char: widget.char),
+                        builder: (context) => ChapCoverScreen(
+                          char: widget.char,
+                        ),
                       ),
                     );
                   },

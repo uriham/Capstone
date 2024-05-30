@@ -41,12 +41,12 @@ class DiaryCard extends ConsumerWidget {
             todayDiary: todayDiary, isGenerating: isGenerating, index: index),
         Positioned(
             top: -3,
-            right: 15,
+            right: 12,
             child: todayDiary.isUsed
                 ? SvgPicture.asset(
                     'assets/images/D_mark.svg',
                     color: todayDiary.filter.color,
-                    height: 50,
+                    height: 30,
                   )
                 : const SizedBox()),
       ]),
