@@ -1,19 +1,20 @@
 import 'package:capstone/models/character.dart';
 import 'package:capstone/models/chapter.dart';
-
+import 'package:capstone/providers/filter_provider.dart';
 
 List<Character> bookList = [
   Character(
       //charImg: 'assets/images/char_myao.svg',
       charImg: 'assets/images/char_myao.png',
-      name: 'myaomah',
+      filter: Filter.myaomah,
       alpha: 255,
       red: 48,
       green: 70,
       blue: 102,
       chapters: [
         Chapter(
-          chImg: 'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
+          chImg:
+              'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 1',
           text:
               '''어느 늦가을 아침, 햇살은 창가를 스쳐 지나 내 방을 은은하게 비추었다. 나는 이불 속에서 꿈속 세상을 맴돌다가 새소리에 눈을 떴다. 아직 잠을 더 청하며 이불 속에 머무르고 싶었지만, 어쩔 수 없이 일어나야겠다는 생각이 들었다.
@@ -40,7 +41,7 @@ List<Character> bookList = [
   Character(
       //charImg: 'assets/images/char_mung.svg',
       charImg: 'assets/images/char_mung.png',
-      name: 'kimmunng',
+      filter: Filter.kimmunng,
       alpha: 255,
       red: 60,
       green: 184,
@@ -55,7 +56,7 @@ List<Character> bookList = [
   Character(
       //charImg: 'assets/images/char_yangkee.svg',
       charImg: 'assets/images/char_yangkee.png',
-      name: 'yangkee',
+      filter: Filter.yangkee,
       alpha: 255,
       red: 244,
       green: 41,
@@ -70,7 +71,7 @@ List<Character> bookList = [
   Character(
       //charImg: 'assets/images/char_pooh.svg',
       charImg: 'assets/images/char_pooh.png',
-      name: 'pooh',
+      filter: Filter.pooh,
       alpha: 255,
       red: 12,
       green: 245,
@@ -85,7 +86,7 @@ List<Character> bookList = [
   Character(
       //charImg: 'assets/images/char_leesang.svg',
       charImg: 'assets/images/char_leesang.png',
-      name: 'leesang',
+      filter: Filter.leesang,
       alpha: 255,
       red: 240,
       green: 240,
@@ -94,7 +95,7 @@ List<Character> bookList = [
   Character(
       //charImg: 'assets/images/char_henry.svg',
       charImg: 'assets/images/char_henry.png',
-      name: 'henry',
+      filter: Filter.henry,
       alpha: 255,
       red: 13,
       green: 92,

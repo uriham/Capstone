@@ -1,5 +1,5 @@
 import 'package:capstone/providers/filter_provider.dart';
-import 'package:capstone/widgets/checkbox.dart';
+import 'package:capstone/widgets/custom_checkbox.dart';
 import 'package:capstone/widgets/diary_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/models/diary.dart';
@@ -28,7 +28,7 @@ class DiaryCard extends ConsumerWidget {
     final currentFilter = ref.watch(filterProvider);
     return Container(
       width: double.infinity,
-      height: 120,
+      height: 115,
       decoration: ShapeDecoration(
         color: Colors.white.withOpacity(0.10000000149011612),
         shape: RoundedRectangleBorder(
@@ -40,11 +40,11 @@ class DiaryCard extends ConsumerWidget {
         DiaryListTile(
             todayDiary: todayDiary, isGenerating: isGenerating, index: index),
         Positioned(
-            top: -15,
-            right: 0,
+            top: -3,
+            right: 15,
             child: todayDiary.isUsed
                 ? SvgPicture.asset(
-                    'assets/images/R_Bookmark1_ic.svg',
+                    'assets/images/D_mark.svg',
                     color: todayDiary.filter.color,
                     height: 50,
                   )

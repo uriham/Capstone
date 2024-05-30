@@ -17,7 +17,9 @@ class CharCoverScreen extends ConsumerStatefulWidget {
 }
 
 class _CharCoverScreenState extends ConsumerState<CharCoverScreen> {
-  final _controller = PageController(viewportFraction: 1, keepPage: true); // keeppage가 true면 initioal페이지가 아닌 내가 마지막에 본페이지부터 저장됨
+  final _controller = PageController(
+      viewportFraction: 1,
+      keepPage: true); // keeppage가 true면 initioal페이지가 아닌 내가 마지막에 본페이지부터 저장됨
 
   @override
   void dispose() {
@@ -32,58 +34,59 @@ class _CharCoverScreenState extends ConsumerState<CharCoverScreen> {
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
-        if(didPop) return;
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>const TabScreen()));
+        if (didPop) return;
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (ctx) => const TabScreen()));
       },
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text(
-            "My Book",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontFamily: 'KoPubWorldDotum_Pro',
-            ),
+          title: const Row(
+            children: [
+              SizedBox(
+                width: 7,
+              ),
+              Text(
+                "My Book",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 23,
+                  fontFamily: 'KoPubWorldDotum_Pro',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
           ),
           backgroundColor: Colors.transparent,
         ),
-        body:
-            // Container(
-            //   margin: const EdgeInsets.fromLTRB(5, 20, 5, 100),
-            //   // decoration: BoxDecoration(
-            //   //   color: Colors.white,
-            //   // ),
-            //   child:
-            SafeArea( //SafeArea는 디바이스의 노치 부분등을 피하게 만들어준다.
-          child:  Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  //width: MediaQuery.of(context).size.width * 0.9,
-                  height: MediaQuery.of(context).size.height * 0.8,
-                  child: PageView.builder(
-                      controller: _controller,
-                      itemCount: characterList.length,
-                      itemBuilder: (context, index) {
-                        final charBook = characterList[index];
-                        return CharCoverCard(char: charBook);
-                      }),
+        body: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                //width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * 0.8,
+                child: PageView.builder(
+                    controller: _controller,
+                    itemCount: characterList.length,
+                    itemBuilder: (context, index) {
+                      final charBook = characterList[index];
+                      return CharCoverCard(char: charBook);
+                    }),
+              ),
+              SmoothPageIndicator(
+                controller: _controller,
+                count: characterList.length,
+                effect: const ScrollingDotsEffect(
+                  dotHeight: 10,
+                  dotWidth: 10,
+                  activeDotColor: Colors.white,
+                  //dotColor: Color.fromARGB(1, 217, 217, 217),
+                  spacing: 8,
                 ),
-                SmoothPageIndicator(
-                  controller: _controller,
-                  count: characterList.length,
-                  effect: const ScrollingDotsEffect(
-                    dotHeight: 10,
-                    dotWidth: 10,
-                    activeDotColor: Colors.white,
-                    //dotColor: Color.fromARGB(1, 217, 217, 217),
-                    spacing: 8,
-                  ),
-                )
-              ],
-            ),
-         
+              )
+            ],
+          ),
         ),
       ),
     );

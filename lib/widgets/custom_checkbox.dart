@@ -20,8 +20,8 @@ class CustomCheckbox extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      width: 38.0, // 이미지 크기 조정
-      height: 38.0,
+      width: 33.0, // 이미지 크기 조정
+      height: 33.0,
     );
   }
 }

@@ -29,12 +29,11 @@ class _CharCoverCardState extends State<CharCoverCard> {
   @override
   void initState() {
     super.initState();
-    
-      setState(() {
-        _animate = true;
-        _opacity = 1.0;
-      });
-   
+
+    setState(() {
+      _animate = true;
+      _opacity = 1.0;
+    });
   }
 
   @override
@@ -62,10 +61,10 @@ class _CharCoverCardState extends State<CharCoverCard> {
                 ? [Colors.transparent, widget.char.color]
                 : [Colors.transparent, Colors.transparent],
             center: Alignment.center,
-            stops: [0.2, 1.0],
+            stops: const [0.2, 1.0],
             radius: 0.07,
             focalRadius: 1.0,
-            focal: Alignment(0.0, 0.0),
+            focal: const Alignment(0.0, 0.0),
           ),
           //borderRadius: const BorderRadius.all(Radius.circular(50)),
           // border: Border.all(
@@ -75,48 +74,45 @@ class _CharCoverCardState extends State<CharCoverCard> {
         ),
         child: Container(
           margin: const EdgeInsets.only(top: 100),
-          child: 
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AnimatedOpacity(
-                    opacity: _opacity,
-                    duration: const Duration(milliseconds: 5000),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                ChapCoverScreen(char: widget.char),
-                          ),
-                        );
-                      },
-                      child: SizedBox(
-                        width: 268,
-                        height: 383,
-                        child: ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20)),
-                          //child: SvgPicture.asset(char.char_img),
-                          child: Image.asset(widget.char.charImg),
-                        ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AnimatedOpacity(
+                opacity: _opacity,
+                duration: const Duration(milliseconds: 5000),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ChapCoverScreen(char: widget.char),
                       ),
+                    );
+                  },
+                  child: SizedBox(
+                    width: 268,
+                    height: 383,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(20)),
+                      //child: SvgPicture.asset(char.char_img),
+                      child: Image.asset(widget.char.charImg),
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  Text(
-                    widget.char.name,
-                    style: const TextStyle(fontSize: 20, color: Colors.white),
-                  ),
-                  // const SizedBox(height: 15),
-                  // Text(
-                  //   widget.book.title,
-                  //   style: const TextStyle(fontSize: 18, color: Colors.white),
-                  // )
-                ],
+                ),
               ),
-
+              const SizedBox(height: 10),
+              Text(
+                widget.char.filter.name,
+                style: const TextStyle(fontSize: 20, color: Colors.white),
+              ),
+              // const SizedBox(height: 15),
+              // Text(
+              //   widget.book.title,
+              //   style: const TextStyle(fontSize: 18, color: Colors.white),
+              // )
+            ],
+          ),
         ),
       ),
     );

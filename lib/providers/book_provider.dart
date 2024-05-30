@@ -11,8 +11,9 @@ class BookState extends StateNotifier<List<Character>> {
   void addChapter(Filter filter, Chapter chapter) {
     state = [
       for (final character in state)
-        if (character.name == filter.name)
-          character.changeChapters([chapter,...character.chapters]) //시간순으로 정렬되지 않았음
+        if (character.filter == filter)
+          character
+              .changeChapters([chapter, ...character.chapters]) //시간순으로 정렬되지 않았음
         else
           character,
     ];
@@ -20,5 +21,5 @@ class BookState extends StateNotifier<List<Character>> {
 }
 
 // Provider 정의
-final bookProvider = StateNotifierProvider<BookState, List<Character>>((ref) => BookState());
-
+final bookProvider =
+    StateNotifierProvider<BookState, List<Character>>((ref) => BookState());

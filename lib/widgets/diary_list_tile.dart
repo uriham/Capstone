@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:capstone/models/diary.dart';
 import 'package:capstone/screens/read_diary_screen.dart';
-import 'package:capstone/widgets/checkbox.dart';
+import 'package:capstone/widgets/custom_checkbox.dart';
 
 class DiaryListTile extends ConsumerStatefulWidget {
   const DiaryListTile(
@@ -36,7 +36,7 @@ class _DiaryListTileState extends ConsumerState<DiaryListTile> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(4, 6, 0, 0),
+      padding: const EdgeInsets.fromLTRB(6, 8, 0, 0),
       child: Stack(children: [
         ListTile(
           enabled: !widget.todayDiary.isUsed,
@@ -82,7 +82,7 @@ class _DiaryListTileState extends ConsumerState<DiaryListTile> {
                 maxLines: 4,
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 15,
+                  fontSize: 14,
                   fontFamily: 'KoPubWorldDotum_Pro',
                   fontWeight: FontWeight.w500,
                 )),
@@ -90,12 +90,12 @@ class _DiaryListTileState extends ConsumerState<DiaryListTile> {
         ),
         Positioned(
             bottom: 0,
-            right: 10,
+            right: 3,
             child: widget.isGenerating && !widget.todayDiary.isUsed
                 ? CustomCheckbox(isCheck: _isChecked)
                 : const SizedBox(
                     height: 1,
-                  ))
+                  )),
       ]),
     );
   }

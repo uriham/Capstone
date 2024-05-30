@@ -42,7 +42,7 @@ class _ChapCoverScreenState extends State<ChapCoverScreen> {
           },
         ),
         title: Text(
-          widget.char.name,
+          widget.char.filter.name,
           style: const TextStyle(
             color: Colors.white,
             fontSize: 18,
@@ -76,7 +76,6 @@ class _ChapCoverScreenState extends State<ChapCoverScreen> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.8,
               child: PageView.builder(
-                
                   onPageChanged: (index) {
                     setState(() {
                       _selectedIndex = index;
@@ -91,7 +90,8 @@ class _ChapCoverScreenState extends State<ChapCoverScreen> {
                     return TweenAnimationBuilder(
                         tween: Tween(begin: scale, end: scale),
                         duration: const Duration(milliseconds: 100),
-                        child: ChapterCoverCard(chap: chapPage,character: widget.char),
+                        child: ChapterCoverCard(
+                            chap: chapPage, character: widget.char),
                         builder: (context, value, child) {
                           return Transform.scale(
                             scale: value,

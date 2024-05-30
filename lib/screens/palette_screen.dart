@@ -2,7 +2,9 @@ import 'package:capstone/providers/filter_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/screens/palette_screen_next.dart';
 import 'package:capstone/screens/palette_screen_char.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   runApp(const MyApp());
@@ -70,12 +72,41 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
             child: Column(
               children: [
                 Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 31, 0, 0),
+                  child: Row(
+                    children: [
+                      const SizedBox(
+                        width: 7,
+                      ),
+                      const Text(
+                        "PRISM",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 23,
+                          fontFamily: 'KoPubWorldDotum_Pro',
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 3,
+                      ),
+                      Transform.translate(
+                        offset: const Offset(0, -1),
+                        child: SvgPicture.asset(
+                          'assets/images/PRIZM_ic.svg',
+                          height: 26,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
                     padding: EdgeInsets.only(
                       left: size.width * 0.05,
-                      top: size.height * 0.06,
+                      top: size.height * 0.02,
                     ),
                     child: const SizedBox(
-                      height: 10,
+                      height: 1,
                     )),
                 Padding(
                   padding: EdgeInsets.fromLTRB(

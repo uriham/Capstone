@@ -126,23 +126,33 @@ class _TapScreenState extends ConsumerState<TabScreen> {
               },
               child: const Icon(
                 Icons.circle_outlined,
-                size: 38,
+                size: 41,
               ),
             ),
+            const SizedBox(
+              width: 9,
+            )
           ],
-          title: const Text(
-            "Diary",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 23,
-              fontFamily: 'KoPubWorldDotum_Pro',
-              fontWeight: FontWeight.w700,
-            ),
+          title: const Row(
+            children: [
+              SizedBox(
+                width: 7,
+              ),
+              Text(
+                "Diary",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 23,
+                  fontFamily: 'KoPubWorldDotum_Pro',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
           ),
           backgroundColor: Colors.transparent,
         ),
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+          padding: const EdgeInsets.fromLTRB(14, 0, 14, 0),
           child: Stack(children: [
             StartScreen(
               //userName: 'sinwoo', // 사용자 이름을 StartScreen으로 전달

@@ -56,22 +56,13 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
   void _bookprovider() {
     for (int i in widget.indexList) {
       ref.read(diaryProvider.notifier).useDiary(i);
-      ref
-          .read(diaryProvider.notifier)
-          .changeFilter(i, widget.nowFilter); //diary사용함 뜨게 만듦
+      ref.read(diaryProvider.notifier).changeFilter(i, widget.nowFilter);
     }
-    ref.read(bookProvider.notifier).addChapter(widget.nowFilter,
-        Chapter(chImg: bookInfo[0], title: bookTitle, text: bookInfo[1]));
-    /*
-    ref.read(bookProvider.notifier).addBook(
-        bookInfo[1], bookInfo[0], widget.selectedDiary.date, bookTitle);
-        */
-    /*
-    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-      return const MybookScreen();
-    }
-    ));
-    */
+    ref.read(bookProvider.notifier).addChapter(
+        widget.nowFilter,
+        Chapter(
+            chImg: bookInfo[0], title: bookTitle, text: bookInfo[1])); // 책 생성
+
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const CharCoverScreen()));
   }
