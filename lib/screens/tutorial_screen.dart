@@ -4,6 +4,8 @@ import 'package:capstone/screens/start_screen.dart';
 import 'package:capstone/screens/myprofile_screen.dart';
 import 'package:capstone/screens/tab.dart';
 
+import 'package:flutter/material.dart';
+
 class TutorialScreen extends StatefulWidget {
   const TutorialScreen({Key? key}) : super(key: key);
 
@@ -57,8 +59,8 @@ class _TutorialScreenState extends State<TutorialScreen> {
             },
             children: [
               _buildTutorialPage('assets/images/startpage01.png'),
-              _buildTutorialPage('assets/images/startpage02.png'),
               _buildTutorialPage('assets/images/startpage03.png'),
+              _buildTutorialPage('assets/images/startpage02.png'),
               MyProfile(
                 userName: _userName,
               ), // MyProfile 클래스를 페이지로 사용합니다.
@@ -102,10 +104,11 @@ class _TutorialScreenState extends State<TutorialScreen> {
 
   Widget _buildTutorialPage(String imagePath) {
     Widget textWidget; // 텍스트 위젯을 저장할 변수
+    Widget scrollableImage; // 스크롤 가능한 이미지 위젯
 
     // 이미지마다 다른 위치에 다른 텍스트를 지정합니다.
     if (imagePath == 'assets/images/startpage01.png') {
-      // 첫 번째 이미지에 대한 텍스트
+      // 첫 번째 이미지에 대한 텍스트 및 스크롤 가능한 이미지
       textWidget = Positioned(
         bottom: 150.0,
         left: 29.0,
@@ -136,22 +139,26 @@ class _TutorialScreenState extends State<TutorialScreen> {
           ],
         ),
       );
+      // 첫 번째 이미지 위에는 추가 이미지 없음
+      scrollableImage = Container();
     } else if (imagePath == 'assets/images/startpage02.png') {
-      // 두 번째 이미지에 대한 텍스트
+      // 두 번째 이미지에 대한 텍스트 및 스크롤 가능한 이미지
       textWidget = Positioned(
         bottom: 150.0,
         left: 29.0,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('제 3자의 시점\n\n\n',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontFamily: 'KoPubWorldDotum_Pro',
-                  fontWeight: FontWeight.w700,
-                  height: 0.05,
-                )),
+            Text(
+              '제 3자의 시점\n\n\n',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+                fontFamily: 'KoPubWorldDotum_Pro',
+                fontWeight: FontWeight.w700,
+                height: 0.05,
+              ),
+            ),
             SizedBox(height: 40), // 텍스트 사이의 간격 조절
             Text(
               '매력적인 캐릭터들과 이야기 속으로 빠져 여러분들의 일기를 제 3자\n의 시점으로 바라볼 수 있게 도와드립니다',
@@ -166,45 +173,73 @@ class _TutorialScreenState extends State<TutorialScreen> {
           ],
         ),
       );
+      scrollableImage = Container();
+
+      // 스크롤 가능한 이미지 추가 졸업전시 전에 다시 시도해볼 코드
+      // scrollableImage = Positioned.fill(
+      //   // Use Positioned.fill to take the entire space available
+      //   bottom: 0,
+      //   child: ListView(
+      //     scrollDirection: Axis.horizontal,
+      //     children: [
+      //       Image.asset(
+      //         'assets/images/Group 39617.png',
+      //         fit: BoxFit.cover,
+      //       ),
+      //     ],
+      //   ),
+      // );
     } else if (imagePath == 'assets/images/startpage03.png') {
-      // 세 번째 이미지에 대한 텍스트
+      // 세 번째 이미지에 대한 텍스트 및 스크롤 가능한 이미지
       textWidget = Positioned(
         bottom: 150.0,
         left: 29.0,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Book cover\n\n\n',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontFamily: 'KoPubWorldDotum_Pro',
-                  fontWeight: FontWeight.w700,
-                  height: 0.05,
-                )),
+            Text(
+              'Book cover\n\n\n',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+                fontFamily: 'KoPubWorldDotum_Pro',
+                fontWeight: FontWeight.w700,
+                height: 0.05,
+              ),
+            ),
             SizedBox(height: 40), // 텍스트 사이의 간격 조절
-            Text('오직 자신만의 책을 소장하여 특별함을 더하다\n캐릭터들과 쌓아온 나만의 일기를 책으로 소장할 수 있어요',
-                style: TextStyle(
-                  color: Color(0xFF8C8C8C),
-                  fontSize: 13,
-                  fontFamily: 'KoPubWorldDotum_Pro',
-                  fontWeight: FontWeight.w700,
-                  height: 1.5,
-                )),
+            Text(
+              '오직 자신만의 책을 소장하여 특별함을 더하다.\n캐릭터들과 쌓아온 나만의 일기를 책으로 소장할 수 있어요',
+              style: TextStyle(
+                color: Color(0xFF8C8C8C),
+                fontSize: 13,
+                fontFamily: 'KoPubWorldDotum_Pro',
+                fontWeight: FontWeight.w700,
+                height: 1.5,
+              ),
+            ),
           ],
         ),
       );
+      // 세 번째 이미지 위에는 추가 이미지 없음
+      scrollableImage = Container();
     } else {
       // 나머지 경우에 대한 기본값
       textWidget = Container(); // 빈 컨테이너를 반환하여 아무것도 표시하지 않음
+      scrollableImage = Container(); // 빈 컨테이너를 반환하여 아무것도 표시하지 않음
     }
 
     // 이미지와 텍스트를 겹쳐서 표시합니다.
     return Stack(
       children: [
-        Image.asset(imagePath,
-            fit: BoxFit.cover, width: double.infinity, height: double.infinity),
+        Image.asset(
+          imagePath,
+          fit: BoxFit.cover,
+          width: double.infinity,
+          height: double.infinity,
+        ),
         textWidget, // 텍스트 위젯을 추가합니다.
+        scrollableImage, // 스크롤 가능한 이미지 위젯을 추가합니다.
       ],
     );
   }
