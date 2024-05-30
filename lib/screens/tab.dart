@@ -15,11 +15,12 @@ import 'package:capstone/widgets/my_bottom_appbar2.dart';
 class TabScreen extends ConsumerStatefulWidget {
   const TabScreen({
     super.key,
-    //required this.userName,
-    this.selectedImage,
+    required this.userName,
+    required this.selectedImage,
   });
-  //final String userName;
-  final String? selectedImage;
+  final String userName;
+  final String? selectedImage; // 추가: 이미지 경로를 저장할 변수
+
   @override
   ConsumerState<TabScreen> createState() {
     return _TapScreenState();
@@ -59,14 +60,12 @@ class _TapScreenState extends ConsumerState<TabScreen> {
     final selectedDiary = ref.watch(selectedDiarysProvider);
     final selectedFilter = ref.watch(filterProvider);
     void pressGenerate() {
-      //애가 최종 전달자 이다.
       if (selectedFilter == Filter.none) {
         _noneFilter();
       } else {
         final List<int> indexList = [];
         for (Diary diary in selectedDiary) {
           indexList.add(allDiary.indexOf(diary));
-          //ref.read(diaryProvider.notifier).editTodayDiary(diary.text,a, diary.date,true);
         }
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (ctx) {
@@ -78,11 +77,11 @@ class _TapScreenState extends ConsumerState<TabScreen> {
               indexList: indexList,
               selectedDiary: combinedDiary,
               nowFilter: selectedFilter,
+              userName: widget.userName,
             );
           }),
         );
         ref.read(selectedDiarysProvider.notifier).deleterAllDiary();
-        ref.read(selectedDiarysProvider.notifier).printState();
       }
     }
 
@@ -93,18 +92,18 @@ class _TapScreenState extends ConsumerState<TabScreen> {
           GestureDetector(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                return const Profile(
-                  userName: 'shinwoo',
-                  // 선택된 이미지 전달
-                );
+                return Profile(
+                  userName: widget.userName,
+                  selectedImage: widget.selectedImage,
+                ); // Pass userName to Profile screen
               }));
             },
             child: const Icon(Icons.circle),
           ),
         ],
-        title: const Text(
+        title: Text(
           "Diary",
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 20,
             fontFamily: 'KoPubWorldDotum_Pro',
@@ -113,7 +112,7 @@ class _TapScreenState extends ConsumerState<TabScreen> {
         backgroundColor: Colors.transparent,
       ),
       body: StartScreen(
-        userName: '', // 사용자 이름을 StartScreen으로 전달
+        userName: widget.userName, // Pass userName to StartScreen
         diaryList: allDiary,
         nowFilter: selectedFilter,
       ),
@@ -133,7 +132,6 @@ class _TapScreenState extends ConsumerState<TabScreen> {
               final List<int> indexList = [];
               for (Diary diary in selectedDiary) {
                 indexList.add(allDiary.indexOf(diary));
-                //ref.read(diaryProvider.notifier).editTodayDiary(diary.text,a, diary.date,true);
               }
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (ctx) {
@@ -146,11 +144,11 @@ class _TapScreenState extends ConsumerState<TabScreen> {
                     indexList: indexList,
                     selectedDiary: combinedDiary,
                     nowFilter: selectedFilter,
+                    userName: widget.userName,
                   );
                 }),
               );
               ref.read(selectedDiarysProvider.notifier).deleterAllDiary();
-              ref.read(selectedDiarysProvider.notifier).printState();
             }
           },
         ),

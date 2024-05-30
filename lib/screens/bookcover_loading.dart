@@ -352,7 +352,7 @@ class _LoadingTextState extends State<_LoadingText> {
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 5), (timer) {
+    _timer = Timer.periodic(Duration(seconds: 8), (timer) {
       setState(() {
         _index = (_index + 1) % _loadingTexts.length;
       });

@@ -16,7 +16,9 @@ class TutorialScreen extends StatefulWidget {
 class _TutorialScreenState extends State<TutorialScreen> {
   final PageController _pageController = PageController();
   late TextEditingController _nameController;
-  String _userName = '';
+  String _userName = AutofillHints.username;
+  String? _selectedImage; // 추가: 선택된 이미지를 저장할 변수
+
   int _currentPage = 0;
 
   @override
@@ -40,7 +42,10 @@ class _TutorialScreenState extends State<TutorialScreen> {
       // Navigate to the next screen after the last tutorial page
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (context) {
-        return TabScreen(); // 사용자 이름을 StartScreen으로 전달
+        return TabScreen(
+          userName: _userName,
+          selectedImage: _selectedImage,
+        ); // 사용자 이름을 StartScreen으로 전달
       }));
     }
   }

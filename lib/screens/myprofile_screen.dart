@@ -3,10 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:capstone/screens/start_screen.dart';
 import 'package:flutter/widgets.dart';
 
-void main() {
-  runApp(const MyProfile(userName: 'DefaultUsername'));
-}
-
 class MyProfile extends StatefulWidget {
   const MyProfile({Key? key, required this.userName}) : super(key: key);
 
@@ -26,7 +22,7 @@ class _MyProfileState extends State<MyProfile> {
     super.initState();
     // 위젯이 초기화될 때 기존 userName을 가져와서 _userName에 저장합니다.
     _userName = widget.userName;
-    _controller = TextEditingController(text: _userName);
+    _controller = TextEditingController(text: '');
   }
 
   // 사용자 이름을 업데이트하고 _userName을 변경합니다.
@@ -342,7 +338,10 @@ class Start01 extends StatelessWidget {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => TabScreen(),
+                                          builder: (context) => TabScreen(
+                                            userName: userName,
+                                            selectedImage: selectedImage,
+                                          ),
                                         ),
                                       );
                                     },

@@ -11,15 +11,18 @@ import 'package:capstone/screens/character_cover.dart';
 import 'package:capstone/screens/tab.dart';
 
 class BookCoverScreen extends ConsumerStatefulWidget {
-  const BookCoverScreen(
-      {super.key,
-      required this.selectedDiary,
-      required this.indexList,
-      required this.nowFilter});
+  const BookCoverScreen({
+    super.key,
+    required this.selectedDiary,
+    required this.indexList,
+    required this.nowFilter,
+    required this.userName,
+  });
 
   final Diary selectedDiary;
   final List<int> indexList;
   final Filter nowFilter;
+  final String userName; // userName parameter
 
   @override
   ConsumerState<BookCoverScreen> createState() => _BookCoverScreenState();
@@ -199,7 +202,10 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
                   onPressed: () {
                     Navigator.of(context)
                         .pushReplacement(MaterialPageRoute(builder: (ctx) {
-                      return const TabScreen();
+                      return const TabScreen(
+                        userName: AutofillHints.username,
+                        selectedImage: '',
+                      );
                     }));
                   },
                   child: const Icon(Icons.close, color: Colors.white),

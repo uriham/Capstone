@@ -37,8 +37,8 @@ class _StartScreenState extends ConsumerState<StartScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 60), // 위쪽 여백 추가
-                const Text(
-                  '안녕하세요 \nUser님',
+                Text(
+                  '안녕하세요 \n${widget.userName}님', // 사용자 이름으로 변경
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 32,
