@@ -28,19 +28,31 @@ class ChapterBook extends StatelessWidget {
         children: [
           Column(
             children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                //child: Image.asset(chap.ch_img),
-                child: PhotoHero(
-                    //width: 268,
-                    photo: chap.ch_img,
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute<void>(builder: (context) {
-                          return ChapReaderPage(chap: chap);
-                        }),
-                      );
-                    }),
+              Container(
+                decoration: BoxDecoration(
+                    //border: Border.all(color: Colors.white),
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 4,
+                        offset: Offset(1, 2),
+                      )
+                    ]),
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  //child: Image.asset(chap.ch_img),
+                  child: PhotoHero(
+                      photo: chap.ch_img,
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute<void>(builder: (context) {
+                            return ChapReaderPage(chap: chap);
+                          }),
+                        );
+                      }),
+                ),
               ),
               const SizedBox(height: 15),
               Text(

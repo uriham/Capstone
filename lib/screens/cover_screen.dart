@@ -37,7 +37,9 @@ class CharCoverScreen extends StatelessWidget {
           ),
         ),
         backgroundColor: Colors.transparent,
+        //elevation: 0.0,
       ),
+      extendBodyBehindAppBar: false,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -70,13 +72,6 @@ class CharCoverScreen extends StatelessWidget {
           ),
         ),
       ),
-
-      // bottomNavigationBar: MainAppBar(),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {},
-      //   child: Icon(Icons.change_history),
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

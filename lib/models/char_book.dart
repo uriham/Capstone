@@ -23,6 +23,7 @@ class _CharCoverState extends State<CharCover> {
 
   bool _animate = false;
   double _opacity = 0.0;
+  double focalRad = 1.1;
 
   @override
   void initState() {
@@ -39,8 +40,12 @@ class _CharCoverState extends State<CharCover> {
   Widget build(BuildContext context) {
     //timeDilation = 5.0;
 
+    if (widget.char.color.green < 80) {
+      focalRad = 1.25;
+    }
+
     return Container(
-      margin: const EdgeInsets.fromLTRB(0, 0, 0, 70),
+      margin: const EdgeInsets.fromLTRB(0, 15, 0, 60),
       //padding: const EdgeInsets.fromLTRB(0, 80, 0, 10),
       // decoration: BoxDecoration(
       //   border: Border.all(
@@ -57,15 +62,12 @@ class _CharCoverState extends State<CharCover> {
         decoration: BoxDecoration(
           gradient: RadialGradient(
             colors: _animate
-                ? [
-                    Color.fromARGB(1, 14, 14, 14).withAlpha(100),
-                    widget.char.color.withAlpha(255)
-                  ]
+                ? [Color.fromARGB(1, 14, 14, 14), widget.char.color]
                 : [Colors.transparent, Colors.transparent],
             center: Alignment.center,
-            stops: [0.1, 0.8],
-            radius: 0.1,
-            focalRadius: 0.9,
+            stops: [0.1, 1.0],
+            radius: 0.05,
+            focalRadius: 1.1,
             focal: Alignment(0.0, 0.0),
           ),
           //borderRadius: const BorderRadius.all(Radius.circular(50)),
@@ -81,24 +83,37 @@ class _CharCoverState extends State<CharCover> {
             children: [
               Column(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              ChapCoverScreen(char: widget.char),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(20)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          spreadRadius: 2,
+                          blurRadius: 4,
+                          offset: Offset(1, 2),
+                        )
+                      ],
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                ChapCoverScreen(char: widget.char),
+                          ),
+                        );
+                      },
+                      child: SizedBox(
+                        width: 285,
+                        height: 405,
+                        child: ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20)),
+                          //child: SvgPicture.asset(char.char_img),
+                          child: Image.asset(widget.char.char_img),
                         ),
-                      );
-                    },
-                    child: SizedBox(
-                      width: 285,
-                      height: 405,
-                      child: ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20)),
-                        //child: SvgPicture.asset(char.char_img),
-                        child: Image.asset(widget.char.char_img),
                       ),
                     ),
                   ),
@@ -136,11 +151,6 @@ class _CharCoverState extends State<CharCover> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  // const SizedBox(height: 15),
-                  // Text(
-                  //   widget.book.title,
-                  //   style: const TextStyle(fontSize: 18, color: Colors.white),
-                  // )
                 ],
               ),
             ],
@@ -149,4 +159,20 @@ class _CharCoverState extends State<CharCover> {
       ),
     );
   }
+}
+
+class ImageShadow {
+  final Widget child;
+  final double opacity;
+  final double sigma;
+  final Color color;
+  final Offset offset;
+
+  ImageShadow({
+    required this.child,
+    this.opacity = 0.5,
+    this.sigma = 2,
+    this.color = Colors.black,
+    this.offset = const Offset(2, 2),
+  });
 }
