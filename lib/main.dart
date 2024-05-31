@@ -31,7 +31,7 @@ class App extends StatelessWidget {
         "/first": (context) => const TabScreen(),
       },
       theme: theme,
-      home: const TabScreen(),
+      home: const TutorialScreen(),
     );
   }
 }

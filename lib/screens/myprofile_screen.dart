@@ -2,10 +2,7 @@ import 'package:capstone/screens/tab.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/screens/start_screen.dart';
 import 'package:flutter/widgets.dart';
-
-void main() {
-  runApp(const MyProfile(userName: 'DefaultUsername'));
-}
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 class MyProfile extends StatefulWidget {
   const MyProfile({Key? key, required this.userName}) : super(key: key);
@@ -26,7 +23,7 @@ class _MyProfileState extends State<MyProfile> {
     super.initState();
     // 위젯이 초기화될 때 기존 userName을 가져와서 _userName에 저장합니다.
     _userName = widget.userName;
-    _controller = TextEditingController(text: _userName);
+    _controller = TextEditingController(text: '');
   }
 
   // 사용자 이름을 업데이트하고 _userName을 변경합니다.
@@ -48,7 +45,7 @@ class _MyProfileState extends State<MyProfile> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 0, 0, 0),
       ),
       home: Scaffold(
         body: SingleChildScrollView(
@@ -75,290 +72,349 @@ class Start01 extends StatelessWidget {
     required this.controller,
     required this.userName,
     required this.onUserNameUpdated,
-    required this.selectedImage, // 추가: 이미지 선택을 저장하는 변수
-    required this.onImageSelected, // 추가: 이미지 선택 이벤트를 처리하는 함수
+    required this.selectedImage,
+    required this.onImageSelected,
   }) : super(key: key);
 
   final TextEditingController controller;
   final String userName;
   final Function(String) onUserNameUpdated;
-  final String? selectedImage; // 변경된 부분: 이미지 선택을 저장하는 변수
-  final Function(String) onImageSelected; // 변경된 부분: 이미지 선택 이벤트를 처리하는 함수
+  final String? selectedImage;
+  final Function(String) onImageSelected;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      color: Color(0xFF0E0E0E),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 50),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Text(
-                '프로필 설정',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontFamily: 'KoPubWorldDotum_Pro',
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.64,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        color: const Color(0xFF0E0E0E),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 50),
+              const Padding(
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  'Profile Setting',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontFamily: 'KoPubWorldDotum_Pro',
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 0.64,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 150),
-            Center(
-              child: Container(
-                width: 165,
-                height: 165,
-                decoration: BoxDecoration(
-                  color: Color(0xFF717171),
-                  shape: BoxShape.circle,
-                  border: Border.all(width: 1, color: Colors.white),
+              const SizedBox(height: 120),
+              Center(
+                child: SizedBox(
+                  width: 220, // 더 큰 컨테이너 크기 설정
+                  height: 220, // 더 큰 컨테이너 크기 설정
+                  child: Center(
+                    // 원을 중앙에 배치하기 위해 Center 위젯 사용
+                    child: Container(
+                      width: 165, // 원의 크기를 유지
+                      height: 165, // 원의 크기를 유지
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF717171),
+                        shape: BoxShape.circle,
+                        border: Border.all(width: 1, color: Colors.white),
+                      ),
+                      child: selectedImage != null
+                          ? ClipOval(
+                              // 이미지가 원형 컨테이너에 맞게 자르기 위해 ClipOval 사용
+                              child: Image.asset(
+                                selectedImage!,
+                                width: 165, // 원의 크기와 맞춤
+                                height: 165, // 원의 크기와 맞춤
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : null,
+                    ),
+                  ),
                 ),
-                child: selectedImage != null
-                    ? Image.asset(
-                        selectedImage!,
-                        fit: BoxFit.cover,
-                      )
-                    : null, // 선택된 이미지가 있을 때만 이미지 표시
               ),
-            ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // 이미지 클릭 가능하도록 GestureDetector 추가
-                GestureDetector(
-                  onTap: () {
-                    onImageSelected('assets/images/Myao-maa_profile.png');
-                  },
-                  child: Container(
-                    width: 35,
-                    height: 35,
-                    margin: EdgeInsets.only(right: 6),
-                    decoration: BoxDecoration(
-                      color: Color(0xFFD9D9D9),
-                      borderRadius: BorderRadius.circular(8),
-                      image: DecorationImage(
-                        image: AssetImage(
-                          'assets/images/Myao-maa_profile.png',
-                        ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    onImageSelected('assets/images/Kimmung_profile.png');
-                  },
-                  child: Container(
-                    width: 35,
-                    height: 35,
-                    margin: EdgeInsets.only(right: 6),
-                    decoration: BoxDecoration(
-                      color: Color(0xFFD9D9D9),
-                      borderRadius: BorderRadius.circular(8),
-                      image: DecorationImage(
-                        image: AssetImage(
-                          'assets/images/Kimmung_profile.png',
-                        ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    onImageSelected('assets/images/yangkee_profile.png');
-                  },
-                  child: Container(
-                    width: 35,
-                    height: 35,
-                    margin: EdgeInsets.only(right: 6),
-                    decoration: BoxDecoration(
-                      color: Color(0xFFD9D9D9),
-                      borderRadius: BorderRadius.circular(8),
-                      image: DecorationImage(
-                        image: AssetImage(
-                          'assets/images/yangkee_profile.png',
-                        ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    onImageSelected('assets/images/Myao-maa_profile.png');
-                  },
-                  child: Container(
-                    width: 35,
-                    height: 35,
-                    margin: EdgeInsets.only(right: 6),
-                    decoration: BoxDecoration(
-                      color: Color(0xFFD9D9D9),
-                      borderRadius: BorderRadius.circular(8),
-                      image: DecorationImage(
-                        image: AssetImage(
-                          'assets/images/Myao-maa_profile.png',
-                        ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 35,
-                  height: 35,
-                  margin: EdgeInsets.only(right: 6),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFD9D9D9),
-                    borderRadius: BorderRadius.circular(8),
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/Pi_back_ic.png'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 50),
-            Padding(
-              padding: const EdgeInsets.all(0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 60),
-                    child: Text(
-                      '이름',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 13,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0.52,
+                  GestureDetector(
+                    onTap: () {
+                      onImageSelected('assets/images/circle.png');
+                    },
+                    child: Container(
+                      width: 38,
+                      height: 38,
+                      margin: const EdgeInsets.only(right: 6),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFD9D9D9),
+                        borderRadius: BorderRadius.circular(8),
+                        image: const DecorationImage(
+                          image: Svg(
+                            'assets/images/D_generate_button.svg',
+                          ),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
-                  Center(
-                    child: Column(
-                      children: [
-                        Container(
-                          width: 318,
-                          height: 53,
-                          child: Stack(
-                            children: [
-                              Center(
-                                child: TextField(
-                                  controller: controller,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 0.72,
-                                  ),
-                                  decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 15.0),
-                                    filled: true,
-                                    fillColor: Color.fromRGBO(
-                                        217, 217, 217, 1.0), // 변경된 부분
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius: BorderRadius.circular(13),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius: BorderRadius.circular(13),
-                                    ),
-                                    hintText: '텍스트를 입력하세요',
-                                    hintStyle: TextStyle(
-                                      color: Colors.black.withOpacity(0.5),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                right: 10,
-                                top: 45,
-                                child: Text(
-                                  '10자 이내',
-                                  style: TextStyle(
-                                    color: Colors.white.withOpacity(0.5),
-                                    fontSize: 8,
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w300,
-                                    letterSpacing: 0.32,
-                                  ),
-                                ),
-                              ),
-                            ],
+                  GestureDetector(
+                    onTap: () {
+                      onImageSelected('assets/images/triangle.png');
+                    },
+                    child: Container(
+                      width: 38,
+                      height: 38,
+                      margin: const EdgeInsets.only(right: 6),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFD9D9D9),
+                        borderRadius: BorderRadius.circular(8),
+                        image: const DecorationImage(
+                          alignment: Alignment(0, -0.5), // 이미지 위치 조정
+                          image: Svg(
+                            'assets/images/D_generate_button.svg',
                           ),
+                          fit: BoxFit.cover,
                         ),
-                        SizedBox(height: 180),
-                        Container(
-                          width: 330,
-                          height: 46,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      TabScreen(),
-                                ),
-                              );
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: 328.15,
-                                  height: 45.74,
-                                  decoration: ShapeDecoration(
-                                    color: Color(0xFF0E0E0E),
-                                    shape: RoundedRectangleBorder(
-                                      side: BorderSide(
-                                          width: 2, color: Color(0xFFFF2287)),
-                                      borderRadius: BorderRadius.circular(18),
-                                    ),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      '시작!',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 0.72,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      onImageSelected('assets/images/star.png');
+                    },
+                    child: Container(
+                      width: 38,
+                      height: 38,
+                      margin: const EdgeInsets.only(right: 6),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFD9D9D9),
+                        borderRadius: BorderRadius.circular(8),
+                        image: const DecorationImage(
+                          image: Svg(
+                            'assets/images/D_generate_button.svg',
                           ),
+                          fit: BoxFit.cover,
                         ),
-                      ],
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      onImageSelected('assets/images/square.png');
+                    },
+                    child: Container(
+                      width: 38,
+                      height: 38,
+                      margin: const EdgeInsets.only(right: 6),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFD9D9D9),
+                        borderRadius: BorderRadius.circular(8),
+                        image: const DecorationImage(
+                          image: Svg(
+                            'assets/images/D_generate_button.svg',
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 38,
+                    height: 38,
+                    margin: const EdgeInsets.only(right: 6),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      image: const DecorationImage(
+                        image: Svg('assets/images/R_Editmode_ic.svg'),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ],
               ),
-            ),
-          ],
-        ),
-      ),
-    );
+              const SizedBox(height: 50),
+              Padding(
+                  padding: const EdgeInsets.all(0),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(left: 30),
+                          child: Text(
+                            '이름',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 13,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 0.52,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Center(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                width: 360,
+                                height: 53,
+                                child: Stack(
+                                  children: [
+                                    Positioned(
+                                      left: 0,
+                                      top: 0,
+                                      child: Container(
+                                        width: 360,
+                                        height: 37,
+                                        padding: const EdgeInsets.only(
+                                            bottom: 0.21, left: 8.0),
+                                        decoration: BoxDecoration(
+                                          color: const Color(0x19D9D9D9),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          border: Border.all(
+                                            width: 1,
+                                            color:
+                                                Colors.white.withOpacity(0.8),
+                                          ),
+                                        ),
+                                        child: Center(
+                                          child: TextField(
+                                            controller: controller,
+                                            onChanged: onUserNameUpdated,
+                                            textAlign: TextAlign.start,
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 11,
+                                              fontFamily: 'Inter',
+                                              fontWeight: FontWeight.w300,
+                                              letterSpacing: 0.44,
+                                            ),
+                                            decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              hintText: '텍스트를 입력하세요',
+                                              hintStyle: TextStyle(
+                                                color: Colors.white
+                                                    .withOpacity(0.5),
+                                                fontSize: 11,
+                                                fontFamily: 'Inter',
+                                                fontWeight: FontWeight.w300,
+                                                letterSpacing: 0.44,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: 320,
+                                      top: 43,
+                                      child: Text(
+                                        '10자 이내',
+                                        style: TextStyle(
+                                          color: Colors.white.withOpacity(0.5),
+                                          fontSize: 8,
+                                          fontFamily: 'Inter',
+                                          fontWeight: FontWeight.w300,
+                                          letterSpacing: 0.32,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 180),
+                        Align(
+                            alignment: Alignment.center,
+                            child: SizedBox(
+                                width: 330,
+                                height: 46,
+                                child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => TabScreen(
+                                            selectedImage: selectedImage,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Stack(
+                                              alignment: Alignment.center,
+                                              children: [
+                                                Container(
+                                                  width: 328.15,
+                                                  height: 45.74,
+                                                  decoration: ShapeDecoration(
+                                                    color:
+                                                        const Color(0xFF0E0E0E),
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              18),
+                                                    ),
+                                                  ),
+                                                  child: ShaderMask(
+                                                    shaderCallback: (bounds) {
+                                                      return const LinearGradient(
+                                                        colors: [
+                                                          Color(
+                                                              0xFFFF2287), // 핑크색
+                                                          Color(
+                                                              0xFF800080), // 보라색
+                                                          Color(
+                                                              0xFF87CEEB), // 하늘색
+                                                        ],
+                                                        begin: Alignment
+                                                            .centerLeft,
+                                                        end: Alignment
+                                                            .centerRight,
+                                                      ).createShader(bounds);
+                                                    },
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(18),
+                                                        border: Border.all(
+                                                          width: 2,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                const Center(
+                                                  child: Text(
+                                                    '시작!',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      color: Colors
+                                                          .white, // 텍스트 색상을 흰색으로 설정
+                                                      fontSize: 18,
+                                                      fontFamily: 'Inter',
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      letterSpacing: 0.72,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ])
+                                        ]))))
+                      ]))
+            ],
+          ),
+        ));
   }
 }
