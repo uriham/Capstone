@@ -323,6 +323,7 @@ class Start01 extends StatelessWidget {
                             ],
                           ),
                         ),
+
                       ],
                     ),
                   ),
@@ -369,6 +370,8 @@ class Start01 extends StatelessWidget {
                                         begin: Alignment.centerLeft,
                                         end: Alignment.centerRight,
                                       ).createShader(bounds);
+
+
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
