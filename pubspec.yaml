@@ -180,6 +180,12 @@ flutter:
     - assets/images/startpage02.png
     - assets/images/startpage03.png
     - assets/images/Start01.png
+
+    - assets/images/circle.png
+    - assets/images/square.png
+    - assets/images/star.png
+    - assets/images/triangle.png
+
     - assets/images/char/alsoubet.jpg
     - assets/images/char/florist.jpg
     - assets/images/char/grandmother.jpg
@@ -191,6 +197,7 @@ flutter:
     - assets/images/char/myao-maa.jpg
     - assets/images/char/winnie the pooh.jpg
     - assets/images/char/yangkee.jpg
+
 
     
     
