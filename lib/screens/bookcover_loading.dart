@@ -1,4 +1,5 @@
 import 'package:capstone/models/diary.dart';
+import 'package:capstone/providers/filter_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/env.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -38,10 +39,14 @@ class MyPainter extends CustomPainter {
 
 class BookCoverLoading extends ConsumerStatefulWidget {
   const BookCoverLoading(
-      {super.key, required this.keyword, required this.selectedDiary});
+      {super.key,
+      required this.keyword,
+      required this.selectedDiary,
+      required this.filterNumber});
 
   final String keyword;
   final Diary selectedDiary;
+  final int filterNumber;
 
   @override
   BookCoverLoadingState createState() {
@@ -54,20 +59,34 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
   late Future<String> bookUrl;
   late Future<String> bookText;
 
-  Future<List<String>> _makeBook(String keyword, String content) async {
+  Future<List<String>> _makeBook(
+    String keyword,
+    String content,
+  ) async {
     final openaiApiKey = Env.apiKey;
+    //final currentFilter = ref.watch(filterProvider);
 
     final llm = ChatOpenAI(
       apiKey: openaiApiKey,
       defaultOptions: const ChatOpenAIOptions(
-        model: 'gpt-3.5-turbo-0125',
+        model: 'gpt-4-32k',
+        temperature: 0,
+      ),
+    );
+    final llm2 = ChatOpenAI(
+      apiKey: openaiApiKey,
+      defaultOptions: const ChatOpenAIOptions(
+        model: 'gpt-3.5-turbo',
         temperature: 0,
       ),
     );
 
     final urlTemplate = exSysmessage;
     const humanTemplate = '{text}';
-    const booktemplate = 'summarize text';
+    //final booktemplate = systemExampleList[widget.filterNumber];
+    const booktemplate =
+        '''You are a black cat named Myoma. You have a beloved owner. Your hobby is to read your owner's diary secretly at dawn when your owner is asleep. If i deliver your owner's diary for the day as input, you can write down your thoughts while reading your owner's diary. "Myoma" is pronounced "먀오마아" in Korean. To improve the quality of the text, please read and apply the [Conditions of the text] , [Myoma's information], [Prohibitions] and [example].
+''';
 
     final urlsystemMessagePrompt =
         SystemChatMessagePromptTemplate.fromTemplate(urlTemplate);
@@ -90,7 +109,7 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
       ),
     ];
     final agent = OpenAIFunctionsAgent.fromLLMAndTools(
-      llm: llm,
+      llm: llm2,
       tools: tools,
       systemChatMessage: urlsystemMessagePrompt,
     );
@@ -98,9 +117,10 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
 
     final chain = bookchatPrompt | llm | outputParser;
 
+    final text = await chain.invoke({'text': content});
+    print(text);
     final executor = AgentExecutor(agent: agent);
     final url = await executor.run(keyword);
-    final text = await chain.invoke({'text': content});
     print(url);
 
     return [url, text.toString()];

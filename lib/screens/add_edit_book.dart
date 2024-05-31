@@ -105,12 +105,15 @@ class _AddEditBookScreenState extends ConsumerState<AddEditBookScreen> {
             height: 2,
             color: Colors.white,
           ),
-          const SizedBox(height: 30,),
+          const SizedBox(
+            height: 30,
+          ),
           TextField(
             maxLines: null,
             keyboardType: TextInputType.multiline,
             controller: _textController,
-            style: const TextStyle(color: Colors.white,fontSize: 16,height: 2),
+            style:
+                const TextStyle(color: Colors.white, fontSize: 16, height: 2),
             decoration: const InputDecoration(
               border: InputBorder.none,
             ),
@@ -124,8 +127,14 @@ class _AddEditBookScreenState extends ConsumerState<AddEditBookScreen> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: const Text('변환'),
-                    content: const Text('정말로 변환하시겠습니까?'),
+                    title: const Text(
+                      '수정',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    content: const Text(
+                      '정말로 수정하시겠습니까?',
+                      style: TextStyle(color: Colors.white),
+                    ),
                     actions: <Widget>[
                       ElevatedButton(
                         onPressed:

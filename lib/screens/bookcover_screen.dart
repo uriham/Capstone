@@ -42,12 +42,13 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
       return BookCoverLoading(
         keyword: _keywordController.text,
         selectedDiary: widget.selectedDiary,
+        filterNumber: widget.nowFilter.number,
       );
     }));
     setState(() {
       bookInfo = booklist ??
           [
-            'awd',
+            'https://picsum.photos/250?image=9',
             'awds'
           ]; //bookinfo는 appi통신으로 가져온 url과 text이다. 0 이 url, 1이 text
       isGenerated = true;
