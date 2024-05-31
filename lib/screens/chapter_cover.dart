@@ -93,7 +93,7 @@ class _ChapCoverScreenState extends State<ChapCoverScreen> {
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.75,
+                height: MediaQuery.of(context).size.height * 0.7,
                 child: PageView.builder(
                     onPageChanged: (index) {
                       setState(() {
