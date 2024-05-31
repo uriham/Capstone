@@ -19,7 +19,6 @@ class ChapCoverScreen extends StatefulWidget {
 class _ChapCoverScreenState extends State<ChapCoverScreen> {
   late PageController _pageController;
   late int _selectedIndex;
-  Color whiteOp = Colors.white.withOpacity(0.55);
 
   @override
   void initState() {
@@ -40,10 +39,6 @@ class _ChapCoverScreenState extends State<ChapCoverScreen> {
           style: TextStyle(color: Colors.white),
         ),
       );
-    }
-
-    if (widget.char.color.green < 80) {
-      whiteOp = Colors.white.withOpacity(0.35);
     }
 
     return PopScope(
@@ -72,28 +67,33 @@ class _ChapCoverScreenState extends State<ChapCoverScreen> {
           ),
           backgroundColor: widget.char.color,
         ),
+        // body: Container(
+        //   color: Colors.blue,
+        // ),
         body: Container(
           decoration: BoxDecoration(
-            color: widget.char.color,
+            //color: widget.char.color,
+            //color: Color.fromARGB(255, 48, 70, 102)
+            gradient: RadialGradient(
+              colors: [Colors.white, widget.char.color],
+              stops: const [0.1, 1.0],
+              center: Alignment.center,
+              radius: 0.55,
+              focalRadius: 0.7,
+            ),
+            // border: Border.all(
+            //   color: Colors.white,
+            //   width: 1.0,
+            // ),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                margin: const EdgeInsets.only(top: 40),
-                height: 600,
-                decoration: BoxDecoration(
-                  gradient: RadialGradient(
-                    colors: [whiteOp, Colors.white.withOpacity(0.0)],
-                    stops: const [0.1, 0.9],
-                    center: Alignment.center,
-                    radius: 0.75,
-                    focalRadius: 0.8,
-                  ),
-                ),
+              const SizedBox(
+                height: 200,
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.7,
+                height: MediaQuery.of(context).size.height * 0.8,
                 child: PageView.builder(
                     onPageChanged: (index) {
                       setState(() {
@@ -108,7 +108,7 @@ class _ChapCoverScreenState extends State<ChapCoverScreen> {
                       //return ChapterBook(chap: chapPage);
                       return TweenAnimationBuilder(
                           tween: Tween(begin: scale, end: scale),
-                          duration: const Duration(milliseconds: 200),
+                          duration: const Duration(milliseconds: 100),
                           child: ChapterCoverCard(
                               chap: chapPage, character: widget.char),
                           builder: (context, value, child) {
@@ -119,14 +119,14 @@ class _ChapCoverScreenState extends State<ChapCoverScreen> {
                           });
                     }),
               ),
-              const SizedBox(height: 83),
               SmoothPageIndicator(
                 controller: _pageController,
                 count: widget.char.chapters.length,
                 effect: const ScrollingDotsEffect(
-                  dotHeight: 6,
-                  dotWidth: 6,
+                  dotHeight: 10,
+                  dotWidth: 10,
                   activeDotColor: Colors.white,
+                  //dotColor: Color.fromARGB(1, 217, 217, 217),
                   spacing: 8,
                 ),
               )

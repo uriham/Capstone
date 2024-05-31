@@ -6,6 +6,7 @@ class Character {
   final String charImg;
   final Filter filter;
   final Color color;
+  final String name;
   List<Chapter> chapters;
 
   Character({
@@ -16,6 +17,7 @@ class Character {
     required int green,
     required int blue,
     required this.chapters,
+    required this.name,
   }) : color = Color.fromARGB(alpha, red, green, blue);
 
   Character changeChapters(List<Chapter> chapterList) {
@@ -27,6 +29,7 @@ class Character {
         red: color.red,
         green: color.green,
         blue: color.blue,
-        chapters: myChapters);
+        chapters: myChapters,
+        name: name);
   }
 }

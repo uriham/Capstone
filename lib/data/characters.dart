@@ -15,7 +15,8 @@ List<Character> charList = [
       blue: 111,
       chapters: [
         Chapter(
-          chImg: 'assets/images/chapter2.png',
+          chImg:
+              'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 2',
           text: '',
         ),
@@ -31,7 +32,7 @@ List<Character> charList = [
       blue: 102,
       chapters: [
         Chapter(
-          chImg: 'assets/images/chapter1.png',
+          chImg: 'https://picsum.photos/250?image=9',
           title: 'Chapter 1',
           text:
               '''어느 늦가을 아침, 햇살은 창가를 스쳐 지나 내 방을 은은하게 비추었다. 나는 이불 속에서 꿈속 세상을 맴돌다가 새소리에 눈을 떴다. 아직 잠을 더 청하며 이불 속에 머무르고 싶었지만, 어쩔 수 없이 일어나야겠다는 생각이 들었다.
@@ -50,7 +51,8 @@ List<Character> charList = [
 드디어 숙제를 끝내고 잠자리에 들었다. 오늘 하루는 꽤 피곤했지만,''',
         ),
         Chapter(
-          chImg: 'assets/images/chapter2.png',
+          chImg:
+              'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 2',
           text: '',
         ),
@@ -66,7 +68,8 @@ List<Character> charList = [
       blue: 130,
       chapters: [
         Chapter(
-          chImg: 'assets/images/chapter1.png',
+          chImg:
+              'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 1',
           text: '',
         ),
@@ -82,7 +85,8 @@ List<Character> charList = [
       blue: 117,
       chapters: [
         Chapter(
-          chImg: 'assets/images/chapter2.png',
+          chImg:
+              'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 1',
           text: '',
         ),
@@ -98,7 +102,8 @@ List<Character> charList = [
       blue: 58,
       chapters: [
         Chapter(
-          chImg: 'assets/images/chapter2.png',
+          chImg:
+              'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 1',
           text: '',
         ),
@@ -114,7 +119,8 @@ List<Character> charList = [
       blue: 187,
       chapters: [
         Chapter(
-          chImg: 'assets/images/chapter2.png',
+          chImg:
+              'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 1',
           text: '',
         ),
@@ -129,7 +135,8 @@ List<Character> charList = [
       blue: 85,
       chapters: [
         Chapter(
-          chImg: 'assets/images/chapter2.png',
+          chImg:
+              'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 1',
           text: '',
         ),
@@ -144,7 +151,8 @@ List<Character> charList = [
       blue: 79,
       chapters: [
         Chapter(
-          chImg: 'assets/images/chapter2.png',
+          chImg:
+              'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 1',
           text: '',
         ),
@@ -159,7 +167,8 @@ List<Character> charList = [
       blue: 93,
       chapters: [
         Chapter(
-          chImg: 'assets/images/chapter2.png',
+          chImg:
+              'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 1',
           text: '',
         ),
@@ -174,14 +183,15 @@ List<Character> charList = [
       blue: 81,
       chapters: [
         Chapter(
-          chImg: 'assets/images/chapter2.png',
+          chImg:
+              'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 1',
           text: '',
         ),
       ]),
   Character(
       charImg: 'assets/images/char/grandmother.jpg',
-      name: '할머니',
+      name: '우리 아가 왔나',
       filter: Filter.grandma,
       alpha: 255,
       red: 110,
@@ -189,7 +199,8 @@ List<Character> charList = [
       blue: 178,
       chapters: [
         Chapter(
-          chImg: 'assets/images/chapter2.png',
+          chImg:
+              'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 1',
           text: '',
         ),
