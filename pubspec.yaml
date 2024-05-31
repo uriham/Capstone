@@ -180,11 +180,25 @@ flutter:
     - assets/images/startpage02.png
     - assets/images/startpage03.png
     - assets/images/Start01.png
+<<<<<<< HEAD
     - assets/images/circle.png
     - assets/images/square.png
     - assets/images/star.png
     - assets/images/triangle.png
 
+=======
+    - assets/images/char/alsoubet.jpg
+    - assets/images/char/florist.jpg
+    - assets/images/char/grandmother.jpg
+    - assets/images/char/Henry DT.jpg
+    - assets/images/char/Jangseung.jpg
+    - assets/images/char/kim-mung.jpg
+    - assets/images/char/lee sang.jpg
+    - assets/images/char/monk.jpg
+    - assets/images/char/myao-maa.jpg
+    - assets/images/char/winnie the pooh.jpg
+    - assets/images/char/yangkee.jpg
+>>>>>>> 9ff739e1b36a3af254262f4b1b785c829b44a10c
 
     
     

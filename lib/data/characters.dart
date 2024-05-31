@@ -1,11 +1,29 @@
+import 'package:flutter/material.dart';
 import 'package:capstone/models/character.dart';
 import 'package:capstone/models/chapter.dart';
 import 'package:capstone/providers/filter_provider.dart';
 
-List<Character> bookList = [
+List<Character> charList = [
   Character(
-      //charImg: 'assets/images/char_myao.svg',
-      charImg: 'assets/images/char_myao.png',
+      //char_img: 'assets/images/char_yangkee.svg',
+      charImg: 'assets/images/char/yangkee.jpg',
+      name: '귀여운 것은 곧 사랑이다',
+      filter: Filter.yangkee,
+      alpha: 255,
+      red: 184,
+      green: 44,
+      blue: 111,
+      chapters: [
+        Chapter(
+          chImg: 'assets/images/chapter2.png',
+          title: 'Chapter 2',
+          text: '',
+        ),
+      ]),
+  Character(
+      //char_img: 'assets/images/char_myao.svg',
+      charImg: 'assets/images/char/myao-maa.jpg',
+      name: '먀오마아의 은밀한 취미생활',
       filter: Filter.myaomah,
       name: "",
       alpha: 255,
@@ -14,8 +32,7 @@ List<Character> bookList = [
       blue: 102,
       chapters: [
         Chapter(
-          chImg:
-              'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
+          chImg: 'assets/images/chapter1.png',
           title: 'Chapter 1',
           text:
               '''어느 늦가을 아침, 햇살은 창가를 스쳐 지나 내 방을 은은하게 비추었다. 나는 이불 속에서 꿈속 세상을 맴돌다가 새소리에 눈을 떴다. 아직 잠을 더 청하며 이불 속에 머무르고 싶었지만, 어쩔 수 없이 일어나야겠다는 생각이 들었다.
@@ -34,28 +51,30 @@ List<Character> bookList = [
 드디어 숙제를 끝내고 잠자리에 들었다. 오늘 하루는 꽤 피곤했지만,''',
         ),
         Chapter(
-          chImg: 'https://picsum.photos/250?image=9',
+          chImg: 'assets/images/chapter2.png',
           title: 'Chapter 2',
           text: '',
         ),
       ]),
   Character(
-      //charImg: 'assets/images/char_mung.svg',
-      charImg: 'assets/images/char_mung.png',
+      //char_img: 'assets/images/char_mung.svg',
+      charImg: 'assets/images/char/kim-mung.jpg',
+      name: '우리도 모르는 우리들의 별빛',
       filter: Filter.kimmunng,
       name: "",
       alpha: 255,
-      red: 60,
-      green: 184,
-      blue: 213,
+      red: 39,
+      green: 113,
+      blue: 130,
       chapters: [
         Chapter(
-          chImg: 'https://picsum.photos/250?image=9',
+          chImg: 'assets/images/chapter1.png',
           title: 'Chapter 1',
           text: '',
         ),
       ]),
   Character(
+<<<<<<< HEAD
       //charImg: 'assets/images/char_yangkee.svg',
       charImg: 'assets/images/char_yangkee.png',
       filter: Filter.yangkee,
@@ -80,14 +99,25 @@ List<Character> bookList = [
       green: 245,
       name: "",
       blue: 174,
+=======
+      //char_img: 'assets/images/char_pooh.svg',
+      charImg: 'assets/images/char/winnie the pooh.jpg',
+      name: 'Winnie the Pooh',
+      filter: Filter.pooh,
+      alpha: 255,
+      red: 66,
+      green: 139,
+      blue: 117,
+>>>>>>> 9ff739e1b36a3af254262f4b1b785c829b44a10c
       chapters: [
         Chapter(
-          chImg: 'https://picsum.photos/250?image=9',
+          chImg: 'assets/images/chapter2.png',
           title: 'Chapter 1',
           text: '',
         ),
       ]),
   Character(
+<<<<<<< HEAD
       //charImg: 'assets/images/char_leesang.svg',
       charImg: 'assets/images/char_leesang.png',
       filter: Filter.leesang,
@@ -107,4 +137,112 @@ List<Character> bookList = [
       green: 92,
       blue: 64,
       chapters: []),
+=======
+      //char_img: 'assets/images/char_henry.svg',
+      charImg: 'assets/images/char/Henry DT.jpg',
+      name: '숲 속을 거닐다',
+      filter: Filter.henry,
+      alpha: 255,
+      red: 29,
+      green: 76,
+      blue: 58,
+      chapters: [
+        Chapter(
+          chImg: 'assets/images/chapter2.png',
+          title: 'Chapter 1',
+          text: '',
+        ),
+      ]),
+  Character(
+      //char_img: 'assets/images/char_leesang.svg',
+      charImg: 'assets/images/char/lee sang.jpg',
+      name: '동생 보아라',
+      filter: Filter.leesang,
+      alpha: 255,
+      red: 216,
+      green: 209,
+      blue: 187,
+      chapters: [
+        Chapter(
+          chImg: 'assets/images/chapter2.png',
+          title: 'Chapter 1',
+          text: '',
+        ),
+      ]),
+  Character(
+      charImg: 'assets/images/char/alsoubet.jpg',
+      name: '그리스 앞바다',
+      filter: Filter.alsoubet,
+      alpha: 255,
+      red: 181,
+      green: 163,
+      blue: 85,
+      chapters: [
+        Chapter(
+          chImg: 'assets/images/chapter2.png',
+          title: 'Chapter 1',
+          text: '',
+        ),
+      ]),
+  Character(
+      charImg: 'assets/images/char/monk.jpg',
+      name: '동자청풍',
+      filter: Filter.irae,
+      alpha: 255,
+      red: 244,
+      green: 168,
+      blue: 79,
+      chapters: [
+        Chapter(
+          chImg: 'assets/images/chapter2.png',
+          title: 'Chapter 1',
+          text: '',
+        ),
+      ]),
+  Character(
+      charImg: 'assets/images/char/Jangseung.jpg',
+      name: '풍하마을 수호 장승',
+      filter: Filter.jangseung,
+      alpha: 255,
+      red: 198,
+      green: 79,
+      blue: 93,
+      chapters: [
+        Chapter(
+          chImg: 'assets/images/chapter2.png',
+          title: 'Chapter 1',
+          text: '',
+        ),
+      ]),
+  Character(
+      charImg: 'assets/images/char/florist.jpg',
+      name: '심연의 화원',
+      filter: Filter.yeonhwa,
+      alpha: 255,
+      red: 191,
+      green: 34,
+      blue: 81,
+      chapters: [
+        Chapter(
+          chImg: 'assets/images/chapter2.png',
+          title: 'Chapter 1',
+          text: '',
+        ),
+      ]),
+  Character(
+      charImg: 'assets/images/char/grandmother.jpg',
+      name: '할머니',
+      filter: Filter.grandma,
+      alpha: 255,
+      red: 110,
+      green: 0,
+      blue: 178,
+      chapters: [
+        Chapter(
+          chImg: 'assets/images/chapter2.png',
+          title: 'Chapter 1',
+          text: '',
+        ),
+      ]),
+>>>>>>> 9ff739e1b36a3af254262f4b1b785c829b44a10c
 ];
