@@ -6,7 +6,7 @@ import 'package:capstone/providers/filter_provider.dart';
 
 // BookState 정의
 class BookState extends StateNotifier<List<Character>> {
-  BookState() : super(bookList);
+  BookState() : super(charList);
 
   void addChapter(Filter filter, Chapter chapter) {
     state = [
