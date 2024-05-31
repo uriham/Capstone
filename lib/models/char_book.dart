@@ -62,7 +62,7 @@ class _CharCoverState extends State<CharCover> {
         decoration: BoxDecoration(
           gradient: RadialGradient(
             colors: _animate
-                ? [Color.fromARGB(1, 14, 14, 14), widget.char.color]
+                ? [Colors.transparent, widget.char.color]
                 : [Colors.transparent, Colors.transparent],
             center: Alignment.center,
             stops: [0.1, 1.0],

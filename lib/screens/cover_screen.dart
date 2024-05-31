@@ -54,9 +54,7 @@ class CharCoverScreen extends StatelessWidget {
                       return CharCover(char: char);
                     }),
               ),
-              SizedBox(
-                height: 30,
-              ),
+              SizedBox(height: 30),
               SmoothPageIndicator(
                 controller: controller,
                 count: charList.length,
