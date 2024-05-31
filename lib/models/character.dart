@@ -6,11 +6,13 @@ class Character {
   final String charImg;
   final Filter filter;
   final Color color;
+  final String name;
   List<Chapter> chapters;
 
   Character({
     required this.charImg,
     required this.filter,
+    required this.name,
     required int alpha,
     required int red,
     required int green,
@@ -24,6 +26,7 @@ class Character {
         charImg: charImg,
         filter: filter,
         alpha: color.alpha,
+        name: name,
         red: color.red,
         green: color.green,
         blue: color.blue,
