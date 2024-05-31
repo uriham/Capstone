@@ -48,7 +48,6 @@ class _AddEditBookScreenState extends ConsumerState<AddEditBookScreen> {
         .read(diaryProvider.notifier)
         .addDiary(Diary(date: DateTime.now(), text: _textController.text));
     Navigator.of(context).pop();
-    Navigator.of(context).pop();
   }
 
   @override
@@ -125,7 +124,7 @@ class _AddEditBookScreenState extends ConsumerState<AddEditBookScreen> {
             onPressed: () {
               showDialog(
                 context: context,
-                builder: (BuildContext context) {
+                builder: (BuildContext ctx) {
                   return AlertDialog(
                     title: const Text(
                       '수정',
@@ -137,14 +136,16 @@ class _AddEditBookScreenState extends ConsumerState<AddEditBookScreen> {
                     ),
                     actions: <Widget>[
                       ElevatedButton(
-                        onPressed:
-                            widget.diary == null ? _saveDiary : _editDiary,
+                        onPressed: () {
+                          Navigator.of(ctx).pop();
+                          widget.diary == null ? _saveDiary() : _editDiary();
+                        },
                         child: const Text('Okay'),
                       ),
                       TextButton(
                         child: const Text('Close'),
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          Navigator.of(ctx).pop();
                         },
                       ),
                     ],

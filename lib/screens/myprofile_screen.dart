@@ -336,10 +336,10 @@ class Start01 extends StatelessWidget {
                                 height: 46,
                                 child: GestureDetector(
                                     onTap: () {
-                                      Navigator.push(
+                                      Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => TabScreen(
+                                          builder: (ctx) => TabScreen(
                                             selectedImage: selectedImage,
                                           ),
                                         ),
