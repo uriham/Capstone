@@ -94,11 +94,14 @@ class _CharCoverCardState extends State<CharCoverCard> {
                   ),
                 ),
               ),
-
-              const SizedBox(height: 10),
+              const SizedBox(height: 30),
               Text(
-                widget.char.filter.name,
-                style: const TextStyle(fontSize: 20, color: Colors.white),
+                widget.char.name,
+                style: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               // const SizedBox(height: 15),
               // Text(

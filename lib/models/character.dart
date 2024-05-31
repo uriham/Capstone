@@ -4,12 +4,14 @@ import 'package:capstone/providers/filter_provider.dart';
 
 class Character {
   final String charImg;
+  final String name;
   final Filter filter;
   final Color color;
   List<Chapter> chapters;
 
   Character({
     required this.charImg,
+    required this.name,
     required this.filter,
     required int alpha,
     required int red,
@@ -22,6 +24,7 @@ class Character {
     final myChapters = chapterList;
     return Character(
         charImg: charImg,
+        name: name,
         filter: filter,
         alpha: color.alpha,
         red: color.red,
