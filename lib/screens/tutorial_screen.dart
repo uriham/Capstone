@@ -33,13 +33,17 @@ class _TutorialScreenState extends State<TutorialScreen> {
   }
 
   void _nextPage() {
-    if (_currentPage < 3) {
+    if (_currentPage < 2) {
+      // 페이지 인덱스 수정
       _pageController.nextPage(
           duration: const Duration(milliseconds: 500), curve: Curves.ease);
     } else {
       // Navigate to the next screen after the last tutorial page
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-        return const TabScreen(); // 사용자 이름을 StartScreen으로 전달
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) {
+        return MyProfile(
+          userName: _userName,
+        ); // MyProfileScreen으로 전환
       }));
     }
   }
@@ -59,8 +63,8 @@ class _TutorialScreenState extends State<TutorialScreen> {
             },
             children: [
               _buildTutorialPage('assets/images/startpage01.png'),
-              _buildTutorialPage('assets/images/startpage03.png'),
               _buildTutorialPage('assets/images/startpage02.png'),
+              _buildTutorialPage('assets/images/startpage03.png'),
               MyProfile(
                 userName: _userName,
               ), // MyProfile 클래스를 페이지로 사용합니다.
@@ -138,7 +142,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
           ],
         ),
       );
-    } else if (imagePath == 'assets/images/startpage03.png') {
+    } else if (imagePath == 'assets/images/startpage02.png') {
       // 두 번째 이미지에 대한 텍스트
       textWidget = const Positioned(
         bottom: 150.0,
@@ -168,7 +172,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
           ],
         ),
       );
-    } else if (imagePath == 'assets/images/startpage02.png') {
+    } else if (imagePath == 'assets/images/startpage03.png') {
       // 세 번째 이미지에 대한 텍스트
       textWidget = const Positioned(
         bottom: 150.0,

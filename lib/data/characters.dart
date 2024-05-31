@@ -25,7 +25,6 @@ List<Character> charList = [
       charImg: 'assets/images/char/myao-maa.jpg',
       name: '먀오마아의 은밀한 취미생활',
       filter: Filter.myaomah,
-      name: "",
       alpha: 255,
       red: 48,
       green: 70,
@@ -61,7 +60,6 @@ List<Character> charList = [
       charImg: 'assets/images/char/kim-mung.jpg',
       name: '우리도 모르는 우리들의 별빛',
       filter: Filter.kimmunng,
-      name: "",
       alpha: 255,
       red: 39,
       green: 113,
@@ -74,33 +72,6 @@ List<Character> charList = [
         ),
       ]),
   Character(
-<<<<<<< HEAD
-<<<<<<< HEAD
-      //charImg: 'assets/images/char_yangkee.svg',
-      charImg: 'assets/images/char_yangkee.png',
-      filter: Filter.yangkee,
-      alpha: 255,
-      name: "",
-      red: 244,
-      green: 41,
-      blue: 139,
-      chapters: [
-        Chapter(
-          chImg: 'https://picsum.photos/250?image=9',
-          title: 'Chapter 2',
-          text: '',
-        ),
-      ]),
-  Character(
-      //charImg: 'assets/images/char_pooh.svg',
-      charImg: 'assets/images/char_pooh.png',
-      filter: Filter.pooh,
-      alpha: 255,
-      red: 12,
-      green: 245,
-      name: "",
-      blue: 174,
-=======
       //char_img: 'assets/images/char_pooh.svg',
       charImg: 'assets/images/char/winnie the pooh.jpg',
       name: 'Winnie the Pooh',
@@ -109,17 +80,6 @@ List<Character> charList = [
       red: 66,
       green: 139,
       blue: 117,
->>>>>>> 9ff739e1b36a3af254262f4b1b785c829b44a10c
-=======
-      //char_img: 'assets/images/char_pooh.svg',
-      charImg: 'assets/images/char/winnie the pooh.jpg',
-      name: 'Winnie the Pooh',
-      filter: Filter.pooh,
-      alpha: 255,
-      red: 66,
-      green: 139,
-      blue: 117,
->>>>>>> 9ff739e1b36a3af254262f4b1b785c829b44a10c
       chapters: [
         Chapter(
           chImg: 'assets/images/chapter2.png',
@@ -128,40 +88,11 @@ List<Character> charList = [
         ),
       ]),
   Character(
-<<<<<<< HEAD
-<<<<<<< HEAD
-      //charImg: 'assets/images/char_leesang.svg',
-      charImg: 'assets/images/char_leesang.png',
-      filter: Filter.leesang,
-      alpha: 255,
-      red: 240,
-      name: "",
-      green: 240,
-      blue: 238,
-      chapters: []),
-  Character(
-      //charImg: 'assets/images/char_henry.svg',
-      charImg: 'assets/images/char_henry.png',
-      filter: Filter.henry,
-      alpha: 255,
-      name: "",
-      red: 13,
-      green: 92,
-      blue: 64,
-      chapters: []),
-=======
       //char_img: 'assets/images/char_henry.svg',
       charImg: 'assets/images/char/Henry DT.jpg',
       name: '숲 속을 거닐다',
       filter: Filter.henry,
       alpha: 255,
-=======
-      //char_img: 'assets/images/char_henry.svg',
-      charImg: 'assets/images/char/Henry DT.jpg',
-      name: '숲 속을 거닐다',
-      filter: Filter.henry,
-      alpha: 255,
->>>>>>> 9ff739e1b36a3af254262f4b1b785c829b44a10c
       red: 29,
       green: 76,
       blue: 58,
@@ -263,8 +194,4 @@ List<Character> charList = [
           text: '',
         ),
       ]),
-<<<<<<< HEAD
->>>>>>> 9ff739e1b36a3af254262f4b1b785c829b44a10c
-=======
->>>>>>> 9ff739e1b36a3af254262f4b1b785c829b44a10c
 ];
