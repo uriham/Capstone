@@ -59,8 +59,8 @@ class _TutorialScreenState extends State<TutorialScreen> {
             },
             children: [
               _buildTutorialPage('assets/images/startpage01.png'),
-              _buildTutorialPage('assets/images/startpage02.png'),
               _buildTutorialPage('assets/images/startpage03.png'),
+              _buildTutorialPage('assets/images/startpage02.png'),
               MyProfile(
                 userName: _userName,
               ), // MyProfile 클래스를 페이지로 사용합니다.
@@ -138,7 +138,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
           ],
         ),
       );
-    } else if (imagePath == 'assets/images/startpage02.png') {
+    } else if (imagePath == 'assets/images/startpage03.png') {
       // 두 번째 이미지에 대한 텍스트
       textWidget = const Positioned(
         bottom: 150.0,
@@ -168,7 +168,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
           ],
         ),
       );
-    } else if (imagePath == 'assets/images/startpage03.png') {
+    } else if (imagePath == 'assets/images/startpage02.png') {
       // 세 번째 이미지에 대한 텍스트
       textWidget = const Positioned(
         bottom: 150.0,
