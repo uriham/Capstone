@@ -16,7 +16,7 @@ class TutorialScreen extends StatefulWidget {
 class _TutorialScreenState extends State<TutorialScreen> {
   final PageController _pageController = PageController();
   late TextEditingController _nameController;
-  String _userName = AutofillHints.username;
+  final String _userName = AutofillHints.username;
   String? _selectedImage; // 추가: 선택된 이미지를 저장할 변수
 
   int _currentPage = 0;
@@ -91,7 +91,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(4, (index) {
                   return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 8.0),
+                    margin: const EdgeInsets.symmetric(horizontal: 8.0),
                     width: 4.0,
                     height: 4.0,
                     decoration: BoxDecoration(
@@ -107,6 +107,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
     );
   }
 
+// 위젯 구현 부분 -> 따로 빼놓기
   Widget _buildTutorialPage(String imagePath) {
     Widget textWidget; // 텍스트 위젯을 저장할 변수
     Widget scrollableImage; // 스크롤 가능한 이미지 위젯
@@ -114,7 +115,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
     // 이미지마다 다른 위치에 다른 텍스트를 지정합니다.
     if (imagePath == 'assets/images/startpage01.png') {
       // 첫 번째 이미지에 대한 텍스트 및 스크롤 가능한 이미지
-      textWidget = Positioned(
+      textWidget = const Positioned(
         bottom: 150.0,
         left: 29.0,
         child: Column(
@@ -148,7 +149,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
       scrollableImage = Container();
     } else if (imagePath == 'assets/images/startpage02.png') {
       // 두 번째 이미지에 대한 텍스트 및 스크롤 가능한 이미지
-      textWidget = Positioned(
+      textWidget = const Positioned(
         bottom: 150.0,
         left: 29.0,
         child: Column(
@@ -196,7 +197,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
       // );
     } else if (imagePath == 'assets/images/startpage03.png') {
       // 세 번째 이미지에 대한 텍스트 및 스크롤 가능한 이미지
-      textWidget = Positioned(
+      textWidget = const Positioned(
         bottom: 150.0,
         left: 29.0,
         child: Column(

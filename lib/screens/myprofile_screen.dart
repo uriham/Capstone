@@ -233,7 +233,7 @@ class Start01 extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               Padding(
                   padding: const EdgeInsets.all(0),
                   child: Column(
