@@ -51,7 +51,6 @@ Widget createCard({
   required VoidCallback onTap,
   required VoidCallback onCharacterSelected,
   required String buttonImageAsset,
-  required String selectedImage,
   required bool isSelected,
   required double cardWidth, // cardWidth 매개변수 추가
   required double cardHeight, // cardHeight 매개변수 추가
@@ -146,13 +145,11 @@ class CustomCard_myao extends StatefulWidget {
   final String titleText;
   final String descriptionText;
   final String buttonImageAsset;
-  final String selectedImage;
 
   // 기본값 설정
   const CustomCard_myao({
     super.key,
     required this.onTap,
-    required this.selectedImage,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/Myao_mao.png',
     this.tagText = '고양이',
@@ -175,7 +172,6 @@ class _CustomCard_myaoState extends State<CustomCard_myao> {
       context: context, // BuildContext 전달
       imageAsset: widget.imageAsset,
       tagText: widget.tagText,
-      selectedImage: widget.selectedImage,
       titleText: widget.titleText,
       descriptionText: widget.descriptionText,
       onTap: widget.onTap,
@@ -201,13 +197,11 @@ class CustomCard_mmung extends StatefulWidget {
   final String titleText;
   final String descriptionText;
   final String buttonImageAsset;
-  final String selectedImage;
 
   // 기본값 설정
   const CustomCard_mmung({
     required this.onTap,
     required this.onCharacterSelected,
-    required this.selectedImage,
     this.imageAsset = 'assets/images/kimmung_2.png',
     this.tagText = '대학생',
     this.titleText = '우리도 모르는 우리들의 별빛',
@@ -231,8 +225,6 @@ class _CustomCard_mmungState extends State<CustomCard_mmung> {
       imageAsset: widget.imageAsset,
       tagText: widget.tagText,
       titleText: widget.titleText,
-      selectedImage: widget.selectedImage,
-
       descriptionText: widget.descriptionText,
       onTap: widget.onTap,
       onCharacterSelected: () {
@@ -255,15 +247,12 @@ class CustomCard_yang extends StatefulWidget {
   final String imageAsset;
   final String tagText;
   final String titleText;
-  final String selectedImage;
-
   final String descriptionText;
   final String buttonImageAsset;
 
   // 기본값 설정
   const CustomCard_yang({
     required this.onTap,
-    required this.selectedImage,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/Yangkee_2.png',
     this.tagText = '양아치',
@@ -288,8 +277,6 @@ class _CustomCard_yangState extends State<CustomCard_yang> {
       imageAsset: widget.imageAsset,
       tagText: widget.tagText,
       titleText: widget.titleText,
-      selectedImage: widget.selectedImage,
-
       descriptionText: widget.descriptionText,
       onTap: widget.onTap,
       onCharacterSelected: () {
@@ -313,15 +300,12 @@ class CustomCard_pooh extends StatefulWidget {
   final String tagText;
   final String titleText;
   final String descriptionText;
-  final String selectedImage;
-
   final String buttonImageAsset;
 
   // 기본값 설정
   const CustomCard_pooh({
     required this.onTap,
     required this.onCharacterSelected,
-    required this.selectedImage,
     this.imageAsset = 'assets/images/Winne the pooh2.png',
     this.tagText = '푸',
     this.titleText = 'Winne the Pooh',
@@ -345,8 +329,6 @@ class _CustomCard_poohState extends State<CustomCard_pooh> {
       imageAsset: widget.imageAsset,
       tagText: widget.tagText,
       titleText: widget.titleText,
-      selectedImage: widget.selectedImage,
-
       descriptionText: widget.descriptionText,
       onTap: widget.onTap,
       onCharacterSelected: () {
@@ -369,7 +351,6 @@ class CustomCard_Thoreau extends StatefulWidget {
   final String imageAsset;
   final String tagText;
   final String titleText;
-  final String selectedImage;
   final String descriptionText;
   final String buttonImageAsset;
 
@@ -377,7 +358,6 @@ class CustomCard_Thoreau extends StatefulWidget {
   const CustomCard_Thoreau({
     required this.onTap,
     required this.onCharacterSelected,
-    required this.selectedImage,
     this.imageAsset = 'assets/images/Thoreau2.png',
     this.tagText = '철학자',
     this.titleText = '숲 속을 거닐다 ',
@@ -397,7 +377,6 @@ class _CustomCard_ThoreauState extends State<CustomCard_Thoreau> {
   Widget build(BuildContext context) {
     return createCard(
       context: context, // BuildContext 전달
-      selectedImage: widget.selectedImage,
 
       imageAsset: widget.imageAsset,
       tagText: widget.tagText,
@@ -424,8 +403,6 @@ class CustomCard_leesangv2 extends StatefulWidget {
   final String imageAsset;
   final String tagText;
   final String titleText;
-  final String selectedImage;
-
   final String descriptionText;
   final String buttonImageAsset;
 
@@ -433,7 +410,6 @@ class CustomCard_leesangv2 extends StatefulWidget {
   const CustomCard_leesangv2({
     required this.onTap,
     required this.onCharacterSelected,
-    required this.selectedImage,
     this.imageAsset = 'assets/images/leesangv2_2.png',
     this.tagText = '한국 시인',
     this.titleText = '동생 보아라',
@@ -455,8 +431,6 @@ class _CustomCard_leesangv2State extends State<CustomCard_leesangv2> {
       context: context, // BuildContext 전달
 
       imageAsset: widget.imageAsset,
-      selectedImage: widget.selectedImage,
-
       tagText: widget.tagText,
       titleText: widget.titleText,
       descriptionText: widget.descriptionText,
@@ -481,8 +455,6 @@ class CustomCard_alsoubet extends StatefulWidget {
   final String imageAsset;
   final String tagText;
   final String titleText;
-  final String selectedImage;
-
   final String descriptionText;
   final String buttonImageAsset;
 
@@ -491,7 +463,6 @@ class CustomCard_alsoubet extends StatefulWidget {
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/alsoubet and igo2.png',
-    required this.selectedImage,
     this.tagText = '인물',
     this.titleText = '그리스 앞바다',
     this.descriptionText =
@@ -513,8 +484,6 @@ class _CustomCard_alsoubetState extends State<CustomCard_alsoubet> {
 
       imageAsset: widget.imageAsset,
       tagText: widget.tagText,
-      selectedImage: widget.selectedImage,
-
       titleText: widget.titleText,
       descriptionText: widget.descriptionText,
       onTap: widget.onTap,
@@ -539,8 +508,6 @@ class CustomCard_dongja extends StatefulWidget {
   final String tagText;
   final String titleText;
   final String descriptionText;
-  final String selectedImage;
-
   final String buttonImageAsset;
 
   // 기본값 설정
@@ -548,7 +515,6 @@ class CustomCard_dongja extends StatefulWidget {
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/dongja2.png',
-    required this.selectedImage,
     this.tagText = '동자승',
     this.titleText = '동자청풍',
     this.descriptionText =
@@ -569,8 +535,6 @@ class _CustomCard_dongjaState extends State<CustomCard_dongja> {
       context: context, // BuildContext 전달
 
       imageAsset: widget.imageAsset,
-      selectedImage: widget.selectedImage,
-
       tagText: widget.tagText,
       titleText: widget.titleText,
       descriptionText: widget.descriptionText,
@@ -594,8 +558,6 @@ class CustomCard_jang extends StatefulWidget {
   final VoidCallback onCharacterSelected;
   final String imageAsset;
   final String tagText;
-  final String selectedImage;
-
   final String titleText;
   final String descriptionText;
   final String buttonImageAsset;
@@ -606,7 +568,6 @@ class CustomCard_jang extends StatefulWidget {
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/jang2.png',
     this.tagText = '장승',
-    required this.selectedImage,
     this.titleText = '풍하마을 수호 장승',
     this.descriptionText =
         '풍하 마을을 수호하는 천하대장군과 지하여장군, 지나가려는 나그네는 이들에게 자신은 심신이 투명한 자인 것을 증명해야 한다. 장승들은 나그네의 삶을 듣고 이 사람이 어떤 사람이고 어떤 생각으로 살아가고 있는 지 판단하여 입장을 허한다.',
@@ -626,8 +587,6 @@ class _CustomCard_jangState extends State<CustomCard_jang> {
       context: context, // BuildContext 전달
 
       imageAsset: widget.imageAsset,
-      selectedImage: widget.selectedImage,
-
       tagText: widget.tagText,
       titleText: widget.titleText,
       descriptionText: widget.descriptionText,
@@ -652,8 +611,6 @@ class CustomCard_halmae extends StatefulWidget {
   final String imageAsset;
   final String tagText;
   final String titleText;
-  final String selectedImage;
-
   final String descriptionText;
   final String buttonImageAsset;
 
@@ -664,7 +621,6 @@ class CustomCard_halmae extends StatefulWidget {
     this.imageAsset = 'assets/images/halmae2.png',
     this.tagText = '할머니',
     this.titleText = '우리 아가 왔나',
-    required this.selectedImage,
     this.descriptionText =
         '할머니의 댓가없는 사랑과 끝없는 지지를 주며 일상에서 겪는 어려움과 고민을 들어주고 위로와 격려를 건넨다. 자신의 가치를 깨닫고, 행복을 스스로 찾아갈 수 있도록 할머니의 정성과 관심을 전한다.',
     this.buttonImageAsset = 'assets/images/P_select0_ic.png',
@@ -681,7 +637,6 @@ class _CustomCard_halmaeState extends State<CustomCard_halmae> {
   Widget build(BuildContext context) {
     return createCard(
       context: context, // BuildContext 전달
-      selectedImage: widget.selectedImage,
 
       imageAsset: widget.imageAsset,
       tagText: widget.tagText,
@@ -708,8 +663,6 @@ class CustomCard_yeonhwa extends StatefulWidget {
   final String imageAsset;
   final String tagText;
   final String titleText;
-  final String selectedImage;
-
   final String descriptionText;
   final String buttonImageAsset;
 
@@ -718,7 +671,6 @@ class CustomCard_yeonhwa extends StatefulWidget {
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/yeonhwa2.png',
-    required this.selectedImage,
     this.tagText = '꽃집 사장',
     this.titleText = '심연의 화원',
     this.descriptionText =
@@ -739,8 +691,6 @@ class _CustomCard_yeonhwaState extends State<CustomCard_yeonhwa> {
       context: context, // BuildContext 전달
 
       imageAsset: widget.imageAsset,
-      selectedImage: widget.selectedImage,
-
       tagText: widget.tagText,
       titleText: widget.titleText,
       descriptionText: widget.descriptionText,

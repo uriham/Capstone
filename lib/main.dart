@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:capstone/screens/tab.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:capstone/screens/myprofile_screen.dart';
 
 final theme = ThemeData.dark().copyWith(
   scaffoldBackgroundColor: Colors.black,
@@ -29,13 +28,10 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        "/first": (context) => const TabScreen(
-              userName: AutofillHints.username,
-              selectedImage: '',
-            ),
+        "/first": (context) => const TabScreen(),
       },
       theme: theme,
-      home: const TutorialScreen(),
+      home: const TabScreen(),
     );
   }
 }

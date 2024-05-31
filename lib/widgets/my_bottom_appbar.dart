@@ -3,11 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:capstone/screens/character_cover.dart';
 import 'package:capstone/screens/palette_screen.dart';
 
-class MyBottomAppBar extends StatelessWidget {
-  final String selectedImage;
+class MyBottomAppBar extends StatelessWidget{
+  const MyBottomAppBar({super.key});
 
-  const MyBottomAppBar({Key? key, required this.selectedImage})
-      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,21 +26,21 @@ class MyBottomAppBar extends StatelessWidget {
                 height: 70,
               ),
             ),
-          ),
-          const Spacer(),
-          InkWell(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                return PaletteScreen(selectedImage: selectedImage);
-              }));
-            },
-            child: SvgPicture.asset(
-              'assets/images/D_PRISM_ic.svg',
-              height: 70,
+            const Spacer(),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+                  return const PaletteScreen();
+                }));
+              },
+              child: SvgPicture.asset(
+                'assets/images/D_PRISM_ic.svg',
+                height: 70,
+              ),
             ),
-          ),
+          
         ],
       ),
-    )
+    );
   }
 }

@@ -182,14 +182,8 @@ class MybookScreen extends ConsumerWidget {
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
-        if (didPop) return;
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (ctx) => const TabScreen(
-                      userName: AutofillHints.username,
-                      selectedImage: '',
-                    )));
+        if(didPop) return;
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>const TabScreen()));
         print('ji');
       },
       child: Scaffold(
@@ -211,9 +205,7 @@ class MybookScreen extends ConsumerWidget {
               final book = bookList[index];
               return BookCard(book: book);
             }),
-        bottomNavigationBar: MyBottomAppBar(
-          selectedImage: '',
-        ),
+        bottomNavigationBar: MyBottomAppBar(),
       ),
     );
   }

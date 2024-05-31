@@ -16,16 +16,16 @@ import 'package:capstone/widgets/my_bottom_appbar2.dart';
 
 class TabScreen extends ConsumerStatefulWidget {
   const TabScreen({
-    Key? key,
-    required this.userName,
-    required this.selectedImage,
-  }) : super(key: key);
-
-  final String userName;
-  final String? selectedImage; // 추가: 이미지 경로를 저장할 변수
-
+    super.key,
+    //required this.userName,
+    this.selectedImage,
+  });
+  //final String userName;
+  final String? selectedImage;
   @override
-  ConsumerState<TabScreen> createState() => _TapScreenState();
+  ConsumerState<TabScreen> createState() {
+    return _TapScreenState();
+  }
 }
 
 class _TapScreenState extends ConsumerState<TabScreen> {
@@ -97,8 +97,6 @@ class _TapScreenState extends ConsumerState<TabScreen> {
               indexList: indexList,
               selectedDiary: combinedDiary,
               nowFilter: selectedFilter,
-              userName: widget.userName,
-              selectedImage: '',
             );
           }),
         );

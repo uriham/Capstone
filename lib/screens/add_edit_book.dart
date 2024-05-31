@@ -10,16 +10,13 @@ final formatter = DateFormat('yyyy.MM.dd');
 final formatter2 = DateFormat('yyyy년 MM월 dd일');
 
 class AddEditBookScreen extends ConsumerStatefulWidget {
-  const AddEditBookScreen(
-      {Key? key, this.diary, this.index, this.selectedImage})
-      : super(key: key);
+  AddEditBookScreen({super.key, this.diary, this.index});
 
-  final Diary? diary;
-  final int? index;
-  final String? selectedImage;
+  Diary? diary;
+  int? index;
 
   @override
-  _AddEditBookScreenState createState() => _AddEditBookScreenState();
+  ConsumerState<AddEditBookScreen> createState() => _AddEditBookScreenState();
 }
 
 class _AddEditBookScreenState extends ConsumerState<AddEditBookScreen> {
@@ -40,25 +37,16 @@ class _AddEditBookScreenState extends ConsumerState<AddEditBookScreen> {
 
   void _editDiary() {
     ref.read(diaryProvider.notifier).editTodayDiary(
-          _textController.text,
-          widget.index!,
-          widget.diary!.date,
-          false,
-        );
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (ctx) => TabScreen(
-          userName: AutofillHints.username,
-          selectedImage: widget.selectedImage, // 수정된 부분
-        ),
-      ),
-    );
+        _textController.text, widget.index!, widget.diary!.date, false);
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) {
+      return const TabScreen();
+    }));
   }
 
   void _saveDiary() {
-    ref.read(diaryProvider.notifier).addDiary(
-          Diary(date: DateTime.now(), text: _textController.text),
-        );
+    ref
+        .read(diaryProvider.notifier)
+        .addDiary(Diary(date: DateTime.now(), text: _textController.text));
     Navigator.of(context).pop();
     Navigator.of(context).pop();
   }
@@ -117,15 +105,12 @@ class _AddEditBookScreenState extends ConsumerState<AddEditBookScreen> {
             height: 2,
             color: Colors.white,
           ),
-          const SizedBox(
-            height: 30,
-          ),
+          const SizedBox(height: 30,),
           TextField(
             maxLines: null,
             keyboardType: TextInputType.multiline,
             controller: _textController,
-            style:
-                const TextStyle(color: Colors.white, fontSize: 16, height: 2),
+            style: const TextStyle(color: Colors.white,fontSize: 16,height: 2),
             decoration: const InputDecoration(
               border: InputBorder.none,
             ),
