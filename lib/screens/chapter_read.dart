@@ -139,7 +139,7 @@ class _BookReadState extends State<ChapReaderPage> {
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             colors: [Colors.white, Colors.transparent],
-                            stops: [0.70, 1.0],
+                            stops: [0.60, 1.0],
                           ).createShader(bound);
                         },
                         blendMode: BlendMode.dstIn,

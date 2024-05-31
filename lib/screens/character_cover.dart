@@ -2,7 +2,6 @@ import 'package:capstone/providers/book_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/widgets/char_cover_card.dart';
 import 'package:capstone/screens/tab.dart';
-import 'package:capstone/widgets/chapter_cover_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -64,7 +63,6 @@ class _CharCoverScreenState extends ConsumerState<CharCoverScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                //width: MediaQuery.of(context).size.width * 0.9,
                 height: MediaQuery.of(context).size.height * 0.8,
                 child: PageView.builder(
                     controller: _controller,
@@ -74,14 +72,14 @@ class _CharCoverScreenState extends ConsumerState<CharCoverScreen> {
                       return CharCoverCard(char: charBook);
                     }),
               ),
+              const SizedBox(height: 30),
               SmoothPageIndicator(
                 controller: _controller,
                 count: characterList.length,
                 effect: const ScrollingDotsEffect(
-                  dotHeight: 10,
-                  dotWidth: 10,
+                  dotHeight: 6,
+                  dotWidth: 6,
                   activeDotColor: Colors.white,
-                  //dotColor: Color.fromARGB(1, 217, 217, 217),
                   spacing: 8,
                 ),
               )
