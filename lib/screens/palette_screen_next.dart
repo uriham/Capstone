@@ -179,19 +179,23 @@ class PaletteScreen extends StatelessWidget {
   final String category;
   final String tagLine;
   final String exampleTitle;
+  final String selectedImage;
   final List<TextSpan> exampleTextSpans;
   final List<Widget> relationImages;
 
-  const PaletteScreen({
-    required this.imagePath,
-    required this.title,
-    required this.description,
-    required this.category,
-    required this.tagLine,
-    required this.exampleTitle,
-    required this.exampleTextSpans,
-    required this.relationImages,
-  });
+  const PaletteScreen(
+      {required this.imagePath,
+      required this.title,
+      required this.description,
+      required this.category,
+      required this.tagLine,
+      required this.exampleTitle,
+      required this.exampleTextSpans,
+      required this.relationImages,
+      required this.selectedImage
+      // 추가: 선택한 이미지 경로
+
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -272,12 +276,18 @@ class PaletteScreen extends StatelessWidget {
 }
 
 class palette_screen_next_miao extends StatelessWidget {
+  final String selectedImage;
+
+  const palette_screen_next_miao({
+    required this.selectedImage,
+  });
   @override
   Widget build(BuildContext context) {
     return PaletteScreen(
       imagePath: 'assets/images/Myao_mao.png',
       title: '먀오마아의 은밀한 취미생활',
       category: '고양이',
+      selectedImage: 'selectedImage',
       tagLine: '#고양이 ' ' ' ' #퉁명 ' ' ' ' #츤데레 ' ' ' ' #내편',
       description:
           '"먀오마아"는 주인의 일기를 훔쳐보는 고양이이다. 먀오마아는 퉁명스럽고 귀찮음이 많지만 주인이 잠든 새벽에 주인의 일기를 보며 주인을 관찰하는 것이 취미이다. 본능에 충실한 고양이로서, 인간들의 심리, 생각, 고정관념에 대해서 이해와 공감을 하지 못하지만 주인을 향한 애정은 확실하다.\n',
@@ -324,7 +334,7 @@ class palette_screen_next_miao extends StatelessWidget {
           width: 8,
         ),
         RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+          imagePath: selectedImage,
           label: '주인',
         ),
       ],
@@ -333,6 +343,11 @@ class palette_screen_next_miao extends StatelessWidget {
 }
 
 class palette_screen_next_mmung extends StatelessWidget {
+  final String selectedImage;
+  const palette_screen_next_mmung({
+    required this.selectedImage,
+  });
+
   @override
   Widget build(BuildContext context) {
     return PaletteScreen(
@@ -340,6 +355,7 @@ class palette_screen_next_mmung extends StatelessWidget {
       title: '우리도 모르는 우리들의 별빛',
       category: '대학생',
       tagLine: '#대학생 ' ' ' ' #심리 ' ' ' ' #배움 ' ' ' ' #깨달음',
+      selectedImage: 'selectedImage',
       description:
           ' 김뭉은 평범한 대학생이다. 사람은 저마다의 빛을 가지고 있다. 다만 모든 이들이 깨닫지 못한다. 김뭉은 한 사람의 인생 스토리가 닮긴 소설책을 읽으며, 주인공의 빛을 발견한다. 사람들의 심리를 이해하고 관찰하며 자신 또한 그들로 인해 깨달음을 얻고자한다.\n',
       exampleTitle: '예시',
@@ -373,7 +389,7 @@ class palette_screen_next_mmung extends StatelessWidget {
           width: 8,
         ),
         RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+          imagePath: selectedImage,
           label: '소설 속 주인공',
         ),
       ],
@@ -383,11 +399,16 @@ class palette_screen_next_mmung extends StatelessWidget {
 
 class palette_screen_next_yang extends StatelessWidget {
   @override
+  final String selectedImage;
+  const palette_screen_next_yang({
+    required this.selectedImage,
+  });
   Widget build(BuildContext context) {
     return PaletteScreen(
       imagePath: 'assets/images/Yangkee_2.png',
       title: '귀여운 것은 곧 사랑이다',
       category: '양아치',
+      selectedImage: 'selectedImage',
       tagLine: '#사랑 ' ' ' ' #양아치 ' ' ' ' #배움 ' ' ' ' #깨달음',
       description:
           '양키는 뜨개질을 취미로 가진 사람이다. 양키는 뜨개질을 하며 영화 시청을 한다. 영화 속 인물의 이야기에 몰입하며, 양키의  아름다운 내면의 시선으로 주인공을 바라보며  혼잣말로 감상을 남긴다\n',
@@ -434,7 +455,7 @@ class palette_screen_next_yang extends StatelessWidget {
           width: 8,
         ),
         RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+          imagePath: selectedImage,
           label: '손뜨개질 동아리 친구',
         ),
       ],
@@ -443,11 +464,16 @@ class palette_screen_next_yang extends StatelessWidget {
 }
 
 class palette_screen_next_pooh extends StatelessWidget {
+  final String selectedImage;
+  const palette_screen_next_pooh({
+    required this.selectedImage,
+  });
   @override
   Widget build(BuildContext context) {
     return PaletteScreen(
       imagePath: 'assets/images/Winne the pooh2.png',
       title: 'Winne the Pooh',
+      selectedImage: 'selectedImage',
       category: '푸',
       tagLine: '#동화 ' ' ' ' #긍정 ' ' ' ' #귀여움 ' ' ' ' #순수',
       description:
@@ -483,7 +509,7 @@ class palette_screen_next_pooh extends StatelessWidget {
           width: 8,
         ),
         RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+          imagePath: selectedImage,
           label: '동화 속 친구',
         ),
       ],
@@ -492,11 +518,16 @@ class palette_screen_next_pooh extends StatelessWidget {
 }
 
 class palette_screen_next_Thoreau extends StatelessWidget {
+  final String selectedImage;
+  const palette_screen_next_Thoreau({
+    required this.selectedImage,
+  });
   @override
   Widget build(BuildContext context) {
-    return const PaletteScreen(
+    return PaletteScreen(
       imagePath: 'assets/images/Thoreau2.png',
       title: '숲 속을 거닐다',
+      selectedImage: 'selectedImage',
       category: '철학자',
       tagLine: '#시인 ' ' ' ' #근대 ' ' ' ' #초현실주의',
       description:
@@ -532,7 +563,7 @@ class palette_screen_next_Thoreau extends StatelessWidget {
           width: 8,
         ),
         RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+          imagePath: selectedImage,
           label: '청취자',
         ),
       ],
@@ -541,11 +572,17 @@ class palette_screen_next_Thoreau extends StatelessWidget {
 }
 
 class palette_screen_next_leesangv2 extends StatelessWidget {
+  final String selectedImage;
+  const palette_screen_next_leesangv2({
+    required this.selectedImage,
+  });
+
   @override
   Widget build(BuildContext context) {
     return PaletteScreen(
       imagePath: 'assets/images/leesangv2_2.png',
       title: '동생 보아라',
+      selectedImage: 'selectedImage',
       category: '한국 시인',
       tagLine: '#천재 시인 ' ' ' ' #근대 ' ' ' ' #초현실주의 ' ' ' ' #동생바보',
       description:
@@ -581,7 +618,7 @@ class palette_screen_next_leesangv2 extends StatelessWidget {
           width: 8,
         ),
         RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+          imagePath: selectedImage,
           label: '동생',
         ),
       ],
@@ -590,6 +627,10 @@ class palette_screen_next_leesangv2 extends StatelessWidget {
 }
 
 class palette_screen_next_alsoubet extends StatelessWidget {
+  final String selectedImage;
+  const palette_screen_next_alsoubet({
+    required this.selectedImage,
+  });
   @override
   Widget build(BuildContext context) {
     return PaletteScreen(
@@ -600,6 +641,7 @@ class palette_screen_next_alsoubet extends StatelessWidget {
       description:
           '알소베는 현재의 욕망에 몰입하며, 사회적 윤리와 운명적인 모순에 직면하면서도 치열한 삶을 살고자 하며, 이고는 자유와 순수함, 열정과 뜨거움을 가진 인물로 인간의 본연의 아름다움과 열정을 드러낸다. 이들은 어느 날부터 떠내려오는 맥주 명 속 편지를 발견하곤 편지 속 주인공을 궁금해 하기 시작한다.\n',
       exampleTitle: '예시',
+      selectedImage: 'selectedImage',
       exampleTextSpans: [
         TextSpan(
           text:
@@ -630,7 +672,7 @@ class palette_screen_next_alsoubet extends StatelessWidget {
           width: 8,
         ),
         RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+          imagePath: selectedImage,
           label: '맥주병 속 편지 주인',
         ),
       ],
@@ -639,6 +681,10 @@ class palette_screen_next_alsoubet extends StatelessWidget {
 }
 
 class palette_screen_next_dongja extends StatelessWidget {
+  final String selectedImage;
+  const palette_screen_next_dongja({
+    required this.selectedImage,
+  });
   @override
   Widget build(BuildContext context) {
     return PaletteScreen(
@@ -646,6 +692,7 @@ class palette_screen_next_dongja extends StatelessWidget {
       title: '동자청풍',
       category: '동자승',
       tagLine: '#동심 ' ' ' ' #순수 ' ' ' ' #철',
+      selectedImage: 'selectedImage',
       description:
           '이레는 호기심 많고 사랑스러운 7살 동자승이다. 매일 아침 일찍 일어나 큰절을 올리며 하루를 시작한다. 순수한 마음을 가지고 있어 세상 모든 것에 호기심이 많고 다른 사람들과 나누는 것을 좋아한다. 절에 오는 손님들에게 먼저 다가가 밝게 인사하며 스님에게 배운 것들을 전달하며 같이 놀고자 한다.\n',
       exampleTitle: '예시',
@@ -679,7 +726,7 @@ class palette_screen_next_dongja extends StatelessWidget {
           width: 8,
         ),
         RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+          imagePath: selectedImage,
           label: '손님',
         ),
       ],
@@ -688,6 +735,10 @@ class palette_screen_next_dongja extends StatelessWidget {
 }
 
 class palette_screen_next_jang extends StatelessWidget {
+  final String selectedImage;
+  const palette_screen_next_jang({
+    required this.selectedImage,
+  });
   @override
   Widget build(BuildContext context) {
     return PaletteScreen(
@@ -695,6 +746,7 @@ class palette_screen_next_jang extends StatelessWidget {
       title: '풍하마을 수호 장승',
       category: '장승',
       tagLine: '#풍하 ' ' ' ' #장승 ' ' ' ' #투명한 삶',
+      selectedImage: 'selectedImage',
       description:
           '풍하 마을을 수호하는 천하대장군과 지하여장군, 지나가려는 나그네는 이들에게 자신은 심신이 투명한 자인 것을 증명해야 한다. 장승들은 나그네의 삶을 듣고 이 사람이 어떤 사람이고 어떤 생각으로 살아가고 있는 지 판단하여 입장을 허한다.\n',
       exampleTitle: '예시',
@@ -728,7 +780,7 @@ class palette_screen_next_jang extends StatelessWidget {
           width: 8,
         ),
         RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+          imagePath: selectedImage,
           label: '나그네',
         ),
       ],
@@ -737,11 +789,16 @@ class palette_screen_next_jang extends StatelessWidget {
 }
 
 class palette_screen_next_yeonhwa extends StatelessWidget {
+  final String selectedImage;
+  const palette_screen_next_yeonhwa({
+    required this.selectedImage,
+  });
   @override
   Widget build(BuildContext context) {
     return PaletteScreen(
       imagePath: 'assets/images/yeonhwa2.png',
       title: '심연의 화원',
+      selectedImage: 'selectedImage',
       category: '꽃집 사장',
       tagLine: '#꽃말 ' ' ' ' #응원 ' ' ' ' #동네 꽃집',
       description:
@@ -777,7 +834,7 @@ class palette_screen_next_yeonhwa extends StatelessWidget {
           width: 8,
         ),
         RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+          imagePath: selectedImage,
           label: '동네 주민',
         ),
       ],
@@ -786,6 +843,10 @@ class palette_screen_next_yeonhwa extends StatelessWidget {
 }
 
 class palette_screen_next_halmae extends StatelessWidget {
+  final String selectedImage;
+  const palette_screen_next_halmae({
+    required this.selectedImage,
+  });
   @override
   Widget build(BuildContext context) {
     return PaletteScreen(
@@ -796,6 +857,7 @@ class palette_screen_next_halmae extends StatelessWidget {
       description:
           '할머니의 댓가없는 사랑과 끝없는 지지를 주며 일상에서 겪는 어려움과 고민을 들어주고 위로와 격려를 건넨다. 자신의 가치를 깨닫고, 행복을 스스로 찾아갈 수 있도록 할머니의 정성과 관심을 전한다.\n',
       exampleTitle: '예시',
+      selectedImage: 'selectedImage',
       exampleTextSpans: [
         TextSpan(
           text:
@@ -826,7 +888,7 @@ class palette_screen_next_halmae extends StatelessWidget {
           width: 8,
         ),
         RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+          imagePath: selectedImage,
           label: '손주',
         ),
       ],

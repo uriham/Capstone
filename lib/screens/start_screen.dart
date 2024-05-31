@@ -13,11 +13,13 @@ class StartScreen extends StatelessWidget {
       {super.key,
       required this.diaryList,
       required this.nowFilter,
-      required this.isGenerating});
+      required this.isGenerating
+      required this.userName});
 
   final List<Diary> diaryList;
   final Filter nowFilter;
   final bool isGenerating;
+  final String userName;
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +32,9 @@ class StartScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 60), // 위쪽 여백 추가
-                const Text(
-                  '안녕하세요 \nUser님',
-                  style: TextStyle(
+                Text(
+                  '안녕하세요 \n$userName님', // 사용자 이름으로 변경
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 32,
                     fontFamily: 'KoPubWorldDotum_Pro',
@@ -45,7 +47,7 @@ class StartScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (ctx) {
-                      return AddEditBookScreen();
+                      return const AddEditBookScreen();
                     }));
                   },
                   child: Container(

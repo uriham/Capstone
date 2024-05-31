@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const Profile(userName: 'User Name')); // 사용자 이름을 전달
-}
-
 class Profile extends StatefulWidget {
   final String userName;
+  final String? selectedImage; // 수정: 선택한 이미지 경로를 저장하는 변수
 
-  const Profile({Key? key, required this.userName}) : super(key: key);
+  const Profile({Key? key, required this.userName, this.selectedImage})
+      : super(key: key);
 
   @override
   _ProfileState createState() => _ProfileState();
@@ -23,6 +21,9 @@ class _ProfileState extends State<Profile> {
     });
   }
 
+  // _selectedImage를 받아오는 getter 메서드
+  String get selectedImage => _selectedImage;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -34,7 +35,8 @@ class _ProfileState extends State<Profile> {
           children: [
             Setting0(
               userName: widget.userName,
-              selectedImage: _selectedImage, // 선택한 이미지 전달
+              selectedImage: widget.selectedImage ??
+                  _selectedImage, // 수정: 선택한 이미지 전달 (기본값은 _selectedImage)
               onImageSelected: _handleImageSelected, // 이미지 선택 이벤트 처리 함수 전달
             ),
           ],
@@ -66,30 +68,6 @@ class Setting0 extends StatelessWidget {
         children: [
           // 기존 코드...
 
-          Align(
-            alignment: Alignment(0.0, -0.7),
-            child: GestureDetector(
-              onTap: () {
-                // 이미지 선택 이벤트 호출
-                onImageSelected('assets/images/Myao-maa_profile.png');
-              },
-              child: Container(
-                width: 202,
-                height: 202,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF717171),
-                  shape: BoxShape.circle,
-                  border: Border.all(width: 1, color: Colors.white),
-                  image: selectedImage.isNotEmpty
-                      ? DecorationImage(
-                          image: AssetImage(selectedImage),
-                          fit: BoxFit.cover,
-                        )
-                      : null, // 선택한 이미지가 있을 때만 이미지 표시
-                ),
-              ),
-            ),
-          ),
           Align(
             alignment: Alignment(0.0, -0.3),
             child: Container(
@@ -136,6 +114,26 @@ class Setting0 extends StatelessWidget {
             left: 25,
             top: 500,
             child: MenuItem(text: 'Privacy Policy\n'),
+          ),
+          Align(
+            alignment: Alignment(0.0, -0.7),
+            child: GestureDetector(
+              child: Container(
+                width: 202,
+                height: 202,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF717171),
+                  shape: BoxShape.circle,
+                  border: Border.all(width: 1, color: Colors.white),
+                  image: selectedImage.isNotEmpty
+                      ? DecorationImage(
+                          image: AssetImage(selectedImage),
+                          fit: BoxFit.cover,
+                        )
+                      : null, // 선택한 이미지가 있을 때만 이미지 표시
+                ),
+              ),
+            ),
           ),
         ],
       ),

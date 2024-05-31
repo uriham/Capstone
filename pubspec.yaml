@@ -51,8 +51,11 @@ dependencies:
   scroll_wheel_date_picker: ^0.0.2
   image_picker: ^0.8.4+4 
   provider: ^5.0.0
+<<<<<<< HEAD
   pull_to_refresh: ^2.0.0
   svg_flutter: ^0.0.1
+=======
+>>>>>>> tutorial-layout
   flutter_svg_provider: ^1.0.7
 
 dev_dependencies:
@@ -166,11 +169,33 @@ flutter:
     - assets/images/pooh_profile.png
     - assets/images/tho_profile.png
     - assets/images/yeonhwa_profile.png
+<<<<<<< HEAD
     - assets/images/D_seletion0_ic.svg
     - assets/images/D_seletion1_ic.svg
     - assets/images/PRIZM_ic.svg
     - assets/images/D_Setting_ic.svg
     - assets/images/D_mark.svg
+=======
+    - assets/images/Roading.svg
+    - assets/images/startpage01.svg
+    - assets/images/startpage02.svg
+    - assets/images/startpage03.svg
+    - assets/images/startpage01.png
+    - assets/images/startpage02.png
+    - assets/images/startpage03.png
+    - assets/images/triangle.png
+    - assets/images/square.png
+    - assets/images/star.png
+    - assets/images/circle.png
+    - assets/images/Group 39617.png
+    - assets/images/R_Editmode_ic.png
+    - assets/images/loading background.png
+
+
+
+
+
+>>>>>>> tutorial-layout
     
     
 

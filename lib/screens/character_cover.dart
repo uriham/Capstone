@@ -6,14 +6,16 @@ import 'package:capstone/widgets/chapter_cover_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-// MybookScreen 클래스
 class CharCoverScreen extends ConsumerStatefulWidget {
   const CharCoverScreen({
-    super.key,
-  });
+    Key? key,
+    required this.selectedImage,
+  }) : super(key: key);
+
+  final String? selectedImage;
 
   @override
-  ConsumerState<CharCoverScreen> createState() => _CharCoverScreenState();
+  _CharCoverScreenState createState() => _CharCoverScreenState();
 }
 
 class _CharCoverScreenState extends ConsumerState<CharCoverScreen> {
@@ -36,7 +38,12 @@ class _CharCoverScreenState extends ConsumerState<CharCoverScreen> {
       onPopInvoked: (didPop) {
         if (didPop) return;
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (ctx) => const TabScreen()));
+            context,
+            MaterialPageRoute(
+                builder: (ctx) => TabScreen(
+                      userName: AutofillHints.username,
+                      selectedImage: widget.selectedImage,
+                    )));
       },
       child: Scaffold(
         appBar: AppBar(
@@ -81,7 +88,6 @@ class _CharCoverScreenState extends ConsumerState<CharCoverScreen> {
                   dotHeight: 10,
                   dotWidth: 10,
                   activeDotColor: Colors.white,
-                  //dotColor: Color.fromARGB(1, 217, 217, 217),
                   spacing: 8,
                 ),
               )
