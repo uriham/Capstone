@@ -81,6 +81,37 @@ class _AddEditBookScreenState extends ConsumerState<AddEditBookScreen> {
                 ),
               ),
         backgroundColor: Colors.transparent,
+        actions: [
+          IconButton(
+            icon: SvgPicture.asset('assets/images/D_Mybook_ic.svg'),
+            onPressed: () {
+              // 저장 버튼 눌렀을 때 수행할 동작
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      content: const Text(
+                        '저장하시겠습니까?',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      actions: <Widget>[
+                        ElevatedButton(
+                          onPressed:
+                              widget.diary == null ? _saveDiary : _editDiary,
+                          child: const Text('Okay'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Close'),
+                        )
+                      ],
+                    );
+                  });
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -120,39 +151,6 @@ class _AddEditBookScreenState extends ConsumerState<AddEditBookScreen> {
           ),
           const SizedBox(
             height: 10,
-          ),
-          ElevatedButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text(
-                      '수정',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    content: const Text(
-                      '정말로 수정하시겠습니까?',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    actions: <Widget>[
-                      ElevatedButton(
-                        onPressed:
-                            widget.diary == null ? _saveDiary : _editDiary,
-                        child: const Text('Okay'),
-                      ),
-                      TextButton(
-                        child: const Text('Close'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
-            child: const Text('수정'),
           ),
         ]),
       ),
