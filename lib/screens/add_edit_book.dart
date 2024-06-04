@@ -83,7 +83,12 @@ class _AddEditBookScreenState extends ConsumerState<AddEditBookScreen> {
         backgroundColor: Colors.transparent,
         actions: [
           IconButton(
-            icon: SvgPicture.asset('assets/images/D_Mybook_ic.svg'),
+              icon: SvgPicture.asset('assets/images/D_Mybook_ic.svg'),
+              onPressed: () {
+                // 읽기 모드로?
+              }),
+          IconButton(
+            icon: Icon(Icons.save), // 여기 뭐하지
             onPressed: () {
               // 저장 버튼 눌렀을 때 수행할 동작
               showDialog(
