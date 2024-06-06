@@ -27,37 +27,23 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: theme,
-      home: const InitialScreenDecider(),
-    );
-  }
-}
+    // 여기서 어떤 스크린을 보여줄지 결정합니다.
+    Widget initialScreen = TutorialScreen(); // 초기 스크린은 튜토리얼로 설정됩니다.
 
-class InitialScreenDecider extends StatefulWidget {
-  const InitialScreenDecider({Key? key}) : super(key: key);
+    // 튜토리얼을 이미 본 경우, TabScreen을 초기 스크린으로 설정합니다.
+    // 이 로직은 SharedPreferences 또는 다른 지속성 도구를 사용하여 사용자가 튜토리얼을 본 여부를 추적하는 방법으로 대체될 수 있습니다.
+    bool tutorialCompleted = false; // 여기서는 임시로 false로 설정합니다.
 
-  @override
-  _InitialScreenDeciderState createState() => _InitialScreenDeciderState();
-}
-
-class _InitialScreenDeciderState extends State<InitialScreenDecider> {
-  bool _tutorialCompleted = false;
-
-  void _completeTutorial() {
-    setState(() {
-      _tutorialCompleted = true;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Widget initialScreen = TutorialScreen();
-
-    if (_tutorialCompleted) {
+    if (tutorialCompleted) {
       initialScreen = const TabScreen();
     }
 
-    return initialScreen;
+    return MaterialApp(
+      routes: {
+        "/first": (context) => const TabScreen(),
+      },
+      theme: theme,
+      home: initialScreen, // 초기 스크린 설정
+    );
   }
 }
