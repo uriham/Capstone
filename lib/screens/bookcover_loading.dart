@@ -64,6 +64,7 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
     String keyword,
     String content,
   ) async {
+    final userInfo = ref.watch(userProvider);
     final openaiApiKey = Env.apiKey;
     //final currentFilter = ref.watch(filterProvider);
 
@@ -83,7 +84,8 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
     );
 
     final urlTemplate = exSysmessage;
-    const humanTemplate = '{text}';
+    const humanTemplate =
+        'My name is {name} i wrote this diary at the time of {time} and the diary content is : {text}';
     final booktemplate = systemExampleList[widget.filterNumber];
 
     final booktemplate1 = booktemplate.replaceAll('\n', ' ');
@@ -116,7 +118,11 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
 
     final chain = bookchatPrompt | llm | outputParser;
 
-    final text = await chain.invoke({'text': content});
+    final text = await chain.invoke({
+      'text': content,
+      'name': userInfo.name,
+      'time': widget.selectedDiary.day
+    });
     //print(text.toString());
     final executor = AgentExecutor(agent: agent);
     final url = await executor.run(keyword);
@@ -131,7 +137,8 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
     const booktemplate = 'summarize text';
     final booksystemMessagePrompt =
         SystemChatMessagePromptTemplate.fromTemplate(booktemplate);
-    const humanTemplate = 'my name is {name}i wrote it in {time} : {text}';
+    const humanTemplate =
+        'My name is {name} i wrote this diary at the time of {time} and the diary content is : {text}';
     final humanMessagePrompt =
         HumanChatMessagePromptTemplate.fromTemplate(humanTemplate);
     final chatPrompt = ChatPromptTemplate.fromPromptMessages(
