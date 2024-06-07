@@ -117,6 +117,7 @@ class _TapScreenState extends ConsumerState<TabScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           actions: [
             GestureDetector(
               onTap: () {
