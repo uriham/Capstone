@@ -5,37 +5,40 @@ const Color cardBackgroundColor = Colors.black54;
 const double smallPadding = 15;
 const double largePadding = 20;
 
-// 고정된 글꼴 크기 및 스타일 설정
-const double tagFontSize = 12;
-const double titleFontSize = 24;
-const double descriptionFontSize = 13;
+// 화면 너비를 기준으로 글꼴 크기를 조정하는 함수
+double responsiveFontSize(BuildContext context, double baseFontSize) {
+  double screenWidth = MediaQuery.of(context).size.width;
+  // 기준 너비를 400으로 설정, 필요에 따라 조정 가능
+  return baseFontSize * (screenWidth / 400);
+}
 
-const TextStyle labelStyle = TextStyle(
-  color: Colors.white,
-  fontSize: 10,
-  fontFamily: 'KoPubWorldDotum_Pro',
-  fontWeight: FontWeight.w700,
-);
-
-TextStyle tagStyle(BuildContext context) => const TextStyle(
+// 반응형 글꼴 스타일 설정
+TextStyle labelStyle(BuildContext context) => TextStyle(
       color: Colors.white,
-      fontSize: tagFontSize,
+      fontSize: responsiveFontSize(context, 10),
+      fontFamily: 'KoPubWorldDotum_Pro',
+      fontWeight: FontWeight.w700,
+    );
+
+TextStyle tagStyle(BuildContext context) => TextStyle(
+      color: Colors.white,
+      fontSize: responsiveFontSize(context, 12),
       fontFamily: 'KoPubWorldDotum_Pro',
       fontWeight: FontWeight.w700,
       height: 1,
     );
 
-TextStyle titleStyle(BuildContext context) => const TextStyle(
+TextStyle titleStyle(BuildContext context) => TextStyle(
       color: Colors.white,
-      fontSize: titleFontSize,
+      fontSize: responsiveFontSize(context, 24),
       fontFamily: 'KoPubWorldDotum_Pro',
       fontWeight: FontWeight.w700,
       height: 1,
     );
 
-TextStyle descriptionStyle(BuildContext context) => const TextStyle(
+TextStyle descriptionStyle(BuildContext context) => TextStyle(
       color: Colors.white,
-      fontSize: descriptionFontSize,
+      fontSize: responsiveFontSize(context, 13),
       fontFamily: 'KoPubWorldDotum_Pro',
       fontWeight: FontWeight.w300,
       height: 1.5,
@@ -52,8 +55,8 @@ Widget createCard({
   required VoidCallback onCharacterSelected,
   required String buttonImageAsset,
   required bool isSelected,
-  required double cardWidth, // cardWidth 매개변수 추가
-  required double cardHeight, // cardHeight 매개변수 추가
+  required double cardWidth,
+  required double cardHeight,
   Key? key,
 }) {
   return GestureDetector(
@@ -73,7 +76,7 @@ Widget createCard({
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 ClipRRect(
-                  borderRadius: const BorderRadius.vertical(
+                  borderRadius: BorderRadius.vertical(
                     top: Radius.circular(cardBorderRadius),
                   ),
                   child: Stack(
@@ -81,12 +84,12 @@ Widget createCard({
                       Image.asset(
                         imageAsset,
                         width: cardWidth,
-                        height: cardHeight * 0.48, // 카드 높이의 48%
+                        height: cardHeight * 0.48,
                         fit: BoxFit.cover,
                       ),
                       Positioned(
-                        left: 17, // 텍스트의 왼쪽 여백
-                        bottom: 10, // 텍스트의 아래쪽 여백
+                        left: 17,
+                        bottom: 10,
                         child: Text(
                           tagText,
                           style: tagStyle(context),
@@ -96,14 +99,14 @@ Widget createCard({
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(18, 0, 18, 0),
+                  padding: EdgeInsets.fromLTRB(18, 0, 18, 0),
                   child: Text(
                     titleText,
                     style: titleStyle(context),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(
+                  padding: EdgeInsets.fromLTRB(
                     smallPadding,
                     largePadding,
                     smallPadding,
@@ -126,7 +129,7 @@ Widget createCard({
                 buttonImageAsset,
                 width: 44,
                 height: 44,
-                color: isSelected ? Colors.white : null, // 선택 상태에 따라 색상 변경
+                color: isSelected ? Colors.white : null,
               ),
             ),
           ),
@@ -146,7 +149,6 @@ class CustomCard_myao extends StatefulWidget {
   final String descriptionText;
   final String buttonImageAsset;
 
-  // 기본값 설정
   const CustomCard_myao({
     super.key,
     required this.onTap,
@@ -155,7 +157,7 @@ class CustomCard_myao extends StatefulWidget {
     this.tagText = '고양이',
     this.titleText = '먀오마아의 은밀한 취미생활',
     this.descriptionText =
-        '"먀오마아"는 주인의 일기를 훔쳐보는 고양이이다. 먀오마아는 퉁명스럽고 귀찮음이 많지만 주인이 잠든 새벽에 주인의 일기를 보며 주인을 관찰하는 것이 취미이다. 본능에 충실한 고양이로서, 인간들의 심리, 생각, 고정관념에 대해서 이해와 공감을 하지 못하지만 주인을 향한 애정은 확실하다.\n',
+        '"먀오마아"는 주인의 일기를 훔쳐보는 고양이이다. 먀오마아는 퉁명스럽고 귀찮음이 많지만 주인이 잠든 새벽에 주인의 일기를 보며 주인을 관찰하는 것이 취미이다.',
     this.buttonImageAsset = 'assets/images/P_select0_ic.png',
   });
 
@@ -169,7 +171,7 @@ class _CustomCard_myaoState extends State<CustomCard_myao> {
   @override
   Widget build(BuildContext context) {
     return createCard(
-      context: context, // BuildContext 전달
+      context: context,
       imageAsset: widget.imageAsset,
       tagText: widget.tagText,
       titleText: widget.titleText,
@@ -183,8 +185,8 @@ class _CustomCard_myaoState extends State<CustomCard_myao> {
       },
       buttonImageAsset: widget.buttonImageAsset,
       isSelected: _isSelected,
-      cardWidth: 380.0, // 여기서 사진의 너비를 설정
-      cardHeight: 657.0, // 사진의 높이를 설정
+      cardWidth: 380.0,
+      cardHeight: 657.0,
     );
   }
 }
@@ -200,7 +202,6 @@ class CustomCard_mmung extends StatefulWidget {
 
   // 기본값 설정
   const CustomCard_mmung({
-    super.key,
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/kimmung_2.png',
@@ -253,14 +254,13 @@ class CustomCard_yang extends StatefulWidget {
 
   // 기본값 설정
   const CustomCard_yang({
-    super.key,
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/Yangkee_2.png',
     this.tagText = '양아치',
     this.titleText = '귀여운 것은 곧 사랑이다',
     this.descriptionText =
-        '양키는 뜨개질을 취미로 가진 사람이다. 양키는 뜨개질을 하며 영화 시청을 한다. 영화 속 인물의 이야기에 몰입하며, 양키의  아름다운 내면의 시선으로 주인공을 바라보며  혼잣말로 감상을 남긴다\n',
+        '손뜨개를 좋아하는 양키. 아무도 자신이 손뜨개질을 좋아하는 지 모른다. 같이 손뜨개질을 하는 친구 빼고. 입이 험하고 행동이 거칠지만 귀여운 것을 좋아하는 순수한 소년이다. 친구에게 거칠게 입막음을 하지만 친구의 이야기를 잘 들어주며 그의 단순한 생각회로로 도움을 줄 때도 있다 ',
     this.buttonImageAsset = 'assets/images/P_select0_ic.png',
   });
 
@@ -306,7 +306,6 @@ class CustomCard_pooh extends StatefulWidget {
 
   // 기본값 설정
   const CustomCard_pooh({
-    super.key,
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/Winne the pooh2.png',
@@ -359,7 +358,6 @@ class CustomCard_Thoreau extends StatefulWidget {
 
   // 기본값 설정
   const CustomCard_Thoreau({
-    super.key,
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/Thoreau2.png',
@@ -412,7 +410,6 @@ class CustomCard_leesangv2 extends StatefulWidget {
 
   // 기본값 설정
   const CustomCard_leesangv2({
-    super.key,
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/leesangv2_2.png',
@@ -465,7 +462,6 @@ class CustomCard_alsoubet extends StatefulWidget {
 
   // 기본값 설정
   const CustomCard_alsoubet({
-    super.key,
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/alsoubet and igo2.png',
@@ -518,7 +514,6 @@ class CustomCard_dongja extends StatefulWidget {
 
   // 기본값 설정
   const CustomCard_dongja({
-    super.key,
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/dongja2.png',
@@ -571,7 +566,6 @@ class CustomCard_jang extends StatefulWidget {
 
   // 기본값 설정
   const CustomCard_jang({
-    super.key,
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/jang2.png',
@@ -624,7 +618,6 @@ class CustomCard_halmae extends StatefulWidget {
 
   // 기본값 설정
   const CustomCard_halmae({
-    super.key,
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/halmae2.png',
@@ -677,7 +670,6 @@ class CustomCard_yeonhwa extends StatefulWidget {
 
   // 기본값 설정
   const CustomCard_yeonhwa({
-    super.key,
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/yeonhwa2.png',

@@ -1,33 +1,53 @@
-import 'package:capstone/providers/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// 화면 너비를 기준으로 글꼴 크기를 조정하는 함수
+double responsiveFontSize(BuildContext context, double baseFontSize) {
+  double screenWidth = MediaQuery.of(context).size.width;
+  // 기준 너비를 400으로 설정, 필요에 따라 조정 가능
+  return baseFontSize * (screenWidth / 400);
+}
 
 // 텍스트 스타일 정의
-const textTitleStyle = TextStyle(
-  color: Colors.white,
-  fontSize: 26,
-  fontFamily: 'KoPubWorldDotum_Pro',
-  fontWeight: FontWeight.w700,
-);
+TextStyle textTitleStyle(BuildContext context) => TextStyle(
+      color: Colors.white,
+      fontSize: responsiveFontSize(context, 26),
+      fontFamily: 'KoPubWorldDotum_Pro',
+      fontWeight: FontWeight.w700,
+    );
 
-const textSubtitleStyle = TextStyle(
-  color: Colors.white,
-  fontSize: 13,
-  fontFamily: 'KoPubWorldDotum_Pro',
-  fontWeight: FontWeight.w300,
-);
+TextStyle textSubtitleStyle(BuildContext context) => TextStyle(
+      color: Colors.white,
+      fontSize: responsiveFontSize(context, 13),
+      fontFamily: 'KoPubWorldDotum_Pro',
+      fontWeight: FontWeight.w300,
+    );
 
-const textSmallStyle = TextStyle(
-  color: Colors.white,
-  fontSize: 12,
-  fontFamily: 'KoPubWorldDotum_Pro',
-  fontWeight: FontWeight.w700,
-);
+TextStyle textSmallStyle(BuildContext context) => TextStyle(
+      color: Colors.white,
+      fontSize: responsiveFontSize(context, 12),
+      fontFamily: 'KoPubWorldDotum_Pro',
+      fontWeight: FontWeight.w700,
+    );
 
-const commonPadding = EdgeInsets.symmetric(horizontal: 8);
-const commonPadding2 = EdgeInsets.fromLTRB(10, 10, 10, 0);
+TextStyle exampleTitleStyle(BuildContext context) => TextStyle(
+      color: Colors.white,
+      fontSize: responsiveFontSize(context, 18),
+      fontFamily: 'KoPubWorldDotum_Pro',
+      fontWeight: FontWeight.w700,
+    );
+
+TextStyle exampleTextSpanStyle(BuildContext context) => TextStyle(
+      color: Colors.white,
+      fontSize: responsiveFontSize(context, 13),
+      fontFamily: 'KoPubWorldBatang_Pro',
+      fontWeight: FontWeight.w300,
+      height: 1.5,
+    );
+
+final commonPadding = EdgeInsets.symmetric(horizontal: 8);
+final commonPadding2 = EdgeInsets.fromLTRB(10, 10, 10, 0);
 
 // 재사용 가능한 컴포넌트 정의
 class TopImageSection extends StatelessWidget {
@@ -36,7 +56,6 @@ class TopImageSection extends StatelessWidget {
   final VoidCallback onBackPress;
 
   const TopImageSection({
-    super.key,
     required this.imagePath,
     required this.category, // category 추가
     required this.onBackPress,
@@ -75,7 +94,7 @@ class TopImageSection extends StatelessWidget {
             bottom: 3,
             child: Text(
               category,
-              style: textSmallStyle,
+              style: textSmallStyle(context),
             ),
           ),
         ],
@@ -84,14 +103,13 @@ class TopImageSection extends StatelessWidget {
   }
 }
 
-class RelationImage extends ConsumerWidget {
+class RelationImage extends StatelessWidget {
   final String imagePath;
   final String label;
   final double width;
   final double height;
 
   const RelationImage({
-    super.key,
     required this.imagePath,
     required this.label,
     this.width = 100.0, // 기본값 설정
@@ -99,7 +117,7 @@ class RelationImage extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
@@ -112,54 +130,12 @@ class RelationImage extends ConsumerWidget {
             ),
           ),
         ),
-        const SizedBox(height: 8),
+        SizedBox(height: 8),
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.white,
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'KoPubWorldDotum_Pro',
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class RelationImage2 extends ConsumerWidget {
-  final String label;
-  final double width;
-  final double height;
-
-  const RelationImage2({
-    super.key,
-    required this.label,
-    this.width = 100.0, // 기본값 설정
-    this.height = 100.0, // 기본값 설정
-  });
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final userImage = ref.watch(userProvider).imgPath;
-    return Column(
-      children: [
-        Container(
-          width: width,
-          height: height,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(userImage),
-              fit: BoxFit.contain,
-            ),
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          label,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 14,
+            fontSize: responsiveFontSize(context, 14),
             fontWeight: FontWeight.bold,
             fontFamily: 'KoPubWorldDotum_Pro',
           ),
@@ -174,7 +150,6 @@ class ExampleSection extends StatelessWidget {
   final List<TextSpan> textSpans;
 
   const ExampleSection({
-    super.key,
     required this.title,
     required this.textSpans,
   });
@@ -185,30 +160,26 @@ class ExampleSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
+          padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
           child: Text(
             title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontFamily: 'KoPubWorldDotum_Pro',
-              fontWeight: FontWeight.w700,
-            ),
+            style: exampleTitleStyle(context),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+          padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
           child: Container(
-            width: 340,
-            height: 200,
-            color: const Color(0xFF1A1A1A),
+            color: Color(0xFF1A1A1A),
             child: Padding(
               padding: const EdgeInsets.all(10),
-              child: Text.rich(
-                TextSpan(
-                  children: textSpans,
+              child: Flexible(
+                child: Text.rich(
+                  TextSpan(
+                    children: textSpans,
+                  ),
+                  textAlign: TextAlign.start,
+                  style: exampleTextSpanStyle(context),
                 ),
-                textAlign: TextAlign.start,
               ),
             ),
           ),
@@ -230,7 +201,6 @@ class PaletteScreen extends StatelessWidget {
   final List<Widget> relationImages;
 
   const PaletteScreen({
-    super.key,
     required this.imagePath,
     required this.title,
     required this.description,
@@ -261,46 +231,41 @@ class PaletteScreen extends StatelessWidget {
                   padding: commonPadding,
                   child: Text(
                     title,
-                    style: textTitleStyle,
+                    style: textTitleStyle(context),
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 1,
                 ),
                 Padding(
                   padding: commonPadding,
                   child: Text(
                     tagLine,
-                    style: textSubtitleStyle,
+                    style: textSubtitleStyle(context),
                   ),
                 ),
                 Padding(
                   padding: commonPadding2,
                   child: Text(
                     description,
-                    style: textSubtitleStyle,
+                    style: textSubtitleStyle(context),
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 4,
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: Text(
                     '관계',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontFamily: 'KoPubWorldDotum_Pro',
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: exampleTitleStyle(context),
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 10,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  padding: EdgeInsets.symmetric(vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: relationImages, // `relationImages` 값 사용
@@ -320,11 +285,9 @@ class PaletteScreen extends StatelessWidget {
 }
 
 class palette_screen_next_miao extends StatelessWidget {
-  const palette_screen_next_miao({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const PaletteScreen(
+    return PaletteScreen(
       imagePath: 'assets/images/Myao_mao.png',
       title: '먀오마아의 은밀한 취미생활',
       category: '고양이',
@@ -336,25 +299,8 @@ class palette_screen_next_miao extends StatelessWidget {
         TextSpan(
           text:
               '““오후에는 도서관에서 공부를 했는데 취업 때문에 집중이 잘 되지 않았다. 나는 정말 이 길을 갈 수 있을까? 요즘 생각이 깊어진다..””\n\n\n"주인이 도서관에서 공부를? 집에선 뒹굴뒹굴거리기에 밖에서 제대로 생활하나 했더니 나쁘지 않은 모양이군" 고양이는 속으로 중얼거렸다. "흐음. 어제도 일기에 취업 걱정을 주저리 써놨던데 취업인가 하는 놈이 속을 썩이나보군. 어떻게 생긴 놈인지 알면 앞발펀치를 날려줄텐데. 재수좋은 놈이로군! ...',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 13,
-            fontFamily: 'KoPubWorldBatang_Pro',
-            fontWeight: FontWeight.w300,
-            height: 0,
-          ),
+          style: exampleTextSpanStyle(context),
         ),
-
-        // TextSpan(
-        //   text:
-        //       '"주인이 도서관에서 공부를? 집에선 뒹굴뒹굴거리기에 밖에서 제대로 생활하나 했더니 나쁘지 않은 모양이군" 고양이는 속으로 중얼거렸다. "흐음. 어제도 일기에 취업 걱정을 주저리 써놨던데 취업인가 하는 놈이 속을 썩이나보군. 어떻게 생긴 놈인지 알면 앞발펀치를 날려줄텐데. 재수좋은 놈이로군! 그나저나 요새 밥도 잘 안 먹고, 무기력한거 보면 심히 걱정이란 말이지.."\n',
-        //   style: TextStyle(
-        //     color: Colors.white,
-        //     fontSize: 11,
-        //     fontFamily: 'KoPubWorldDotum_Pro',
-        //     fontWeight: FontWeight.w300,
-        //   ),
-        // ),
       ],
       relationImages: [
         RelationImage(
@@ -373,7 +319,8 @@ class palette_screen_next_miao extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage2(
+        RelationImage(
+          imagePath: 'assets/images/R_Location_circle.png',
           label: '주인',
         ),
       ],
@@ -382,11 +329,9 @@ class palette_screen_next_miao extends StatelessWidget {
 }
 
 class palette_screen_next_mmung extends StatelessWidget {
-  const palette_screen_next_mmung({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const PaletteScreen(
+    return PaletteScreen(
       imagePath: 'assets/images/kimmung_2.png',
       title: '우리도 모르는 우리들의 별빛',
       category: '대학생',
@@ -397,13 +342,8 @@ class palette_screen_next_mmung extends StatelessWidget {
       exampleTextSpans: [
         TextSpan(
           text:
-              '"초봄이라 날씨가 쌀쌀했다. 한숨을 쉬니 하얗게 올라오는 입김들을 보니 조금은 머리가 차분해 지는 기분이었다."\n\n늘 이맘때 쯤이면 소설 한 권을 들고 조용한 공원을 찾곤 한다. 그곳에서 다른 사람들의 이야기를 읽으며, 그들의 생각과 감정을 이해하려 노력한다. 이것이 내가 문학을 통해 세상을 바라보는 방식이다. 각자의 삶에서 빛나는 순간들을 발견하는 것, 그것이 내가 문학에 빠진 이유다.이 짧은 문장에서도, 저자는 계절의 변화와 인간의 내적 감정을 섬세하게 포착하고 있다....\n\n',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 13,
-            fontFamily: 'KoPubWorldBatang_Pro',
-            fontWeight: FontWeight.w300,
-          ),
+              '"초봄이라 날씨가 쌀쌀했다. 한숨을 쉬니 하얗게 올라오는 입김들을 보니 조금은 머리가 차분해 지는 기분이었다."\n\n늘 이맘때 쯤이면 소설 한 권을 들고 조용한 공원을 찾곤 한다. 그곳에서 다른 사람들의 이야기를 읽으며, 그들의 생각과 감정을 이해하려 노력한다. 이것이 내가 문학을 통해 세상을 바라보는 방식이다. 각자의 삶에서 빛나는 순간들을 발견하는 것, 그것이 내가 문학에 빠진 이유다.이 짧은 문장에서도, 저자는 계절의 변화와 인간의 내적 감정을 섬세하게 포착하고 있다....\n',
+          style: exampleTextSpanStyle(context),
         ),
       ],
       relationImages: [
@@ -423,7 +363,8 @@ class palette_screen_next_mmung extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage2(
+        RelationImage(
+          imagePath: 'assets/images/R_Location_circle.png',
           label: '소설 속 주인공',
         ),
       ],
@@ -432,11 +373,9 @@ class palette_screen_next_mmung extends StatelessWidget {
 }
 
 class palette_screen_next_yang extends StatelessWidget {
-  const palette_screen_next_yang({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const PaletteScreen(
+    return PaletteScreen(
       imagePath: 'assets/images/Yangkee_2.png',
       title: '귀여운 것은 곧 사랑이다',
       category: '양아치',
@@ -448,13 +387,7 @@ class palette_screen_next_yang extends StatelessWidget {
         TextSpan(
           text:
               '양키는 오늘도 저녁빛이 부연한 방안에서 조용히 뜨개질을 하며 영화를 보고 있었다. 손길에는 부드러운 실이 흐르고, 영화 속 김길동의 일상이 흘러나왔다.\n\n"헉, 이 사람도 참 하루하루가 전쟁 같네. 회의에서 의견 뭉개지고, 집에 와서도 잠 못 이루는 거 보니," 양키가 중얼거리며 실을 꼬았다. "정말 힘든 일이지. 남의 마음 안에서 무슨 일이 일어나고 있는지, 그 무게를 다른 사람이 어떻게 알겠어?"\n영화 속 김길동이 운동으로 스트레스를 해소하..',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 13,
-            fontFamily: 'KoPubWorldBatang_Pro',
-            fontWeight: FontWeight.w300,
-            height: 0,
-          ),
+          style: exampleTextSpanStyle(context),
         ),
         // TextSpan(
         //   text:
@@ -485,7 +418,8 @@ class palette_screen_next_yang extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage2(
+        RelationImage(
+          imagePath: 'assets/images/R_Location_circle.png',
           label: '손뜨개질 동아리 친구',
         ),
       ],
@@ -494,11 +428,9 @@ class palette_screen_next_yang extends StatelessWidget {
 }
 
 class palette_screen_next_pooh extends StatelessWidget {
-  const palette_screen_next_pooh({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const PaletteScreen(
+    return PaletteScreen(
       imagePath: 'assets/images/Winne the pooh2.png',
       title: 'Winne the Pooh',
       category: '푸',
@@ -510,12 +442,7 @@ class palette_screen_next_pooh extends StatelessWidget {
         TextSpan(
           text:
               '어느 멋진 날, 숲속을 산책하던 우리의 친근한 곰돌이 푸와 그의 친구는 맑은 하늘 아래에서 즐겁게 놀고 있었어요. 푸는 그의 친구에게 소중한 이야기를 듣고, 힘든 하루를 보낸 친구를 위해 특별한 날을 만들기로 마음먹었죠. \n\n"오늘은 내가 네게 특별한 게임을 보여줄게," 푸가 말했어요. 그리고 그들은 푸의 고향인 백 헥타르 숲에서 "꿀단지 찾기" 게임을 시작했어요. 함께 벌통을 찾아 나서면서, 친구의 스트레스가 하나둘씩 사라지는 것을 느낄 수 있었죠...',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 13,
-            fontFamily: 'KoPubWorldBatang_Pro',
-            fontWeight: FontWeight.w300,
-          ),
+          style: exampleTextSpanStyle(context),
         ),
       ],
       relationImages: [
@@ -535,7 +462,8 @@ class palette_screen_next_pooh extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage2(
+        RelationImage(
+          imagePath: 'assets/images/R_Location_circle.png',
           label: '동화 속 친구',
         ),
       ],
@@ -544,11 +472,9 @@ class palette_screen_next_pooh extends StatelessWidget {
 }
 
 class palette_screen_next_Thoreau extends StatelessWidget {
-  const palette_screen_next_Thoreau({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const PaletteScreen(
+    return PaletteScreen(
       imagePath: 'assets/images/Thoreau2.png',
       title: '숲 속을 거닐다',
       category: '철학자',
@@ -560,12 +486,7 @@ class palette_screen_next_Thoreau extends StatelessWidget {
         TextSpan(
           text:
               '[2023년 1월 23일, 숲 속을 거닐다, 소로의 라디오 방송]\n\n안녕하십니까, 여러분. 오늘도 "숲 속을 거닐다"에서 여러분과 함께합니다. 저는 여러분의 숲 속 DJ, 헨리 데이비드 소로입니다. 오늘 저에게 도착한 한 청취자분의 이야기를 나누겠습니다.\n\n청취자분께서는 아침부터 저녁까지 긴 하루를 보내셨군요. 회의에서 자신의 목소리가 묵살되고, 업무의 부담에 짓눌린 모습이 안타까움을 자아냅니다.저는 먼저 이렇게 말씀드리고 싶습니다...',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 13,
-            fontFamily: 'KoPubWorldBatang_Pro',
-            fontWeight: FontWeight.w300,
-          ),
+          style: exampleTextSpanStyle(context),
         ),
       ],
       relationImages: [
@@ -585,7 +506,8 @@ class palette_screen_next_Thoreau extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage2(
+        RelationImage(
+          imagePath: 'assets/images/R_Location_circle.png',
           label: '청취자',
         ),
       ],
@@ -594,11 +516,9 @@ class palette_screen_next_Thoreau extends StatelessWidget {
 }
 
 class palette_screen_next_leesangv2 extends StatelessWidget {
-  const palette_screen_next_leesangv2({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const PaletteScreen(
+    return PaletteScreen(
       imagePath: 'assets/images/leesangv2_2.png',
       title: '동생 보아라',
       category: '한국 시인',
@@ -610,12 +530,7 @@ class palette_screen_next_leesangv2 extends StatelessWidget {
         TextSpan(
           text:
               '동생 이메화 보아라,\n\n차가운 바람이 뼈 속까지 파고드는 요즘이로구나. 매 서린 출근길, 네 마음의 무게가 어떨지 내겐 오롯이 와 닿는다. 동생, 이토록 너를 괴롭히는 세상의 무게에 대해 조금이라도 덜어내고자 몇 자 적는다.\n\n네가 매일을 지옥 같다 여기며 삶의 의미를 의심하는 것, 그런 너의 심정을 못 알 바 아니지만, 너의 고달픔이...',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 13,
-            fontFamily: 'KoPubWorldBatang_Pro',
-            fontWeight: FontWeight.w300,
-          ),
+          style: exampleTextSpanStyle(context),
         ),
       ],
       relationImages: [
@@ -635,7 +550,8 @@ class palette_screen_next_leesangv2 extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage2(
+        RelationImage(
+          imagePath: 'assets/images/R_Location_circle.png',
           label: '동생',
         ),
       ],
@@ -644,11 +560,9 @@ class palette_screen_next_leesangv2 extends StatelessWidget {
 }
 
 class palette_screen_next_alsoubet extends StatelessWidget {
-  const palette_screen_next_alsoubet({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const PaletteScreen(
+    return PaletteScreen(
       imagePath: 'assets/images/alsoubet and igo2.png',
       title: '그리스 앞바다',
       category: '인물',
@@ -660,12 +574,7 @@ class palette_screen_next_alsoubet extends StatelessWidget {
         TextSpan(
           text:
               '알소베는 매일 아침 해변을 걸으며, 혼자만의 시간을 음미했다. 그곳에서 일상의 번잡함을 잠시 벗어나 차분한 마음으로 자신을 돌아보고, 무한한 바다를 바라보며 생의 근원에 대해 사유하는 것이 그의 일과의 시작이었다.\n\n어느 날, 해변가에 이르렀을 때, 파도가 밀려온 맥주 병 하나가 모래 위에 누워 있었다. 그런 평범하지 않은 광경에 알소베는 호기심을 느꼈다. 병을 집어들고 그 안에 들어 있는 종이를 꺼냈다. 종이에는 생소한 이름, "김길동"이 적혀 있었고, 일기장 페이지처럼..',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 13,
-            fontFamily: 'KoPubWorldBatang_Pro',
-            fontWeight: FontWeight.w300,
-          ),
+          style: exampleTextSpanStyle(context),
         ),
       ],
       relationImages: [
@@ -685,7 +594,8 @@ class palette_screen_next_alsoubet extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage2(
+        RelationImage(
+          imagePath: 'assets/images/R_Location_circle.png',
           label: '맥주병 속 편지 주인',
         ),
       ],
@@ -694,11 +604,9 @@ class palette_screen_next_alsoubet extends StatelessWidget {
 }
 
 class palette_screen_next_dongja extends StatelessWidget {
-  const palette_screen_next_dongja({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const PaletteScreen(
+    return PaletteScreen(
       imagePath: 'assets/images/dongja2.png',
       title: '동자청풍',
       category: '동자승',
@@ -710,12 +618,7 @@ class palette_screen_next_dongja extends StatelessWidget {
         TextSpan(
           text:
               '..."안녕하세요, 이메화님! 아, 저는 이레예요. 동자승이에요. 오늘은 어떤 날이셨나요?" 이레는 손을 흔들며 대답했어요.\n\n이메화님이 회사에서 힘들었다는 이야기를 들은 이레는 잠시의 침묵을 지키더니 그녀의 손을 잡고 조심스레 말했어요.\n\n“스님이 때때로 말씀하셨어요. 삶은 때로 힘들고 불공평할 수 있지만, 우리는 그것을 통해 더욱 강해질 수 있다고… 혹시 지금 그런 감정을 조금이라도 덜게 도와드릴 게 있을까요?" 크리스마스 ..',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 13,
-            fontFamily: 'KoPubWorldBatang_Pro',
-            fontWeight: FontWeight.w300,
-          ),
+          style: exampleTextSpanStyle(context),
         ),
       ],
       relationImages: [
@@ -735,7 +638,8 @@ class palette_screen_next_dongja extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage2(
+        RelationImage(
+          imagePath: 'assets/images/R_Location_circle.png',
           label: '손님',
         ),
       ],
@@ -744,11 +648,9 @@ class palette_screen_next_dongja extends StatelessWidget {
 }
 
 class palette_screen_next_jang extends StatelessWidget {
-  const palette_screen_next_jang({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const PaletteScreen(
+    return PaletteScreen(
       imagePath: 'assets/images/jang2.png',
       title: '풍하마을 수호 장승',
       category: '장승',
@@ -760,12 +662,7 @@ class palette_screen_next_jang extends StatelessWidget {
         TextSpan(
           text:
               '"안녕하신지요 천하대장군님. 지하여장군님. 풍하마을을 들어가려하는 나그네입니다. 들어가도 될까요?"라고 나그네가 말했다.  "이 마을에 들어가려면 너의 속내를 밝혀야 한다." 천하대장군이 말했습니다. "어떻게 하면 되까요?" 나그네가 물었다. 그 말을 들은 천하대장군은 당황했다. "이런 그걸 생각하지 못했네. 여보! 이거 어찌하고 우리도 처음이라 근엄하게만 하면 될 줄 알았는데!" 지하여장군에게 물었다. "오늘 뭘했는지 무슨 생각을 했는지 물어보세요" 지하여장군이 답했다. "오 그거 좋은 생각이군! 크흠 네가 오늘 무엇을 했는지 밝혀라! 이 풍하마을은 심신이 투명한 자만이...',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 13,
-            fontFamily: 'KoPubWorldBatang_Pro',
-            fontWeight: FontWeight.w300,
-          ),
+          style: exampleTextSpanStyle(context),
         ),
       ],
       relationImages: [
@@ -785,7 +682,8 @@ class palette_screen_next_jang extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage2(
+        RelationImage(
+          imagePath: 'assets/images/R_Location_circle.png',
           label: '나그네',
         ),
       ],
@@ -794,11 +692,9 @@ class palette_screen_next_jang extends StatelessWidget {
 }
 
 class palette_screen_next_yeonhwa extends StatelessWidget {
-  const palette_screen_next_yeonhwa({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const PaletteScreen(
+    return PaletteScreen(
       imagePath: 'assets/images/yeonhwa2.png',
       title: '심연의 화원',
       category: '꽃집 사장',
@@ -810,12 +706,7 @@ class palette_screen_next_yeonhwa extends StatelessWidget {
         TextSpan(
           text:
               '... 장미는 이 세상 어떤 꽃보다 아름답고 강한 매력을 가지고 있다는 것을 연화는 잘 알고 있었다. 인간의 감정과 가장 밀접한 연관성을 지닌 꽃이라 할 수 있었다.\n\n그런데 이메화가 꽃집 앞을 지나가며 한숨을 쉬는 모습을 보았다. 연화는 조용히 그의 상태를 읽어 보았다. 내면의 피로감, 아픔, 화, 불만... 꾸밈 없는 감정이 연화를 거칠게 쳤다. 이메화는 연말에 혼자 외롭게 보내는 생각에 더 큰 외로움과 절망을 느끼고 있었다.\n연화는 그에게 송이 꽃을 권했다. 크리스마스 장미였다...`',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 13,
-            fontFamily: 'KoPubWorldBatang_Pro',
-            fontWeight: FontWeight.w300,
-          ),
+          style: exampleTextSpanStyle(context),
         ),
       ],
       relationImages: [
@@ -835,7 +726,8 @@ class palette_screen_next_yeonhwa extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage2(
+        RelationImage(
+          imagePath: 'assets/images/R_Location_circle.png',
           label: '동네 주민',
         ),
       ],
@@ -844,11 +736,9 @@ class palette_screen_next_yeonhwa extends StatelessWidget {
 }
 
 class palette_screen_next_halmae extends StatelessWidget {
-  const palette_screen_next_halmae({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const PaletteScreen(
+    return PaletteScreen(
       imagePath: 'assets/images/halmae2.png',
       title: '우리 아가 왔나',
       category: '할머니',
@@ -860,12 +750,7 @@ class palette_screen_next_halmae extends StatelessWidget {
         TextSpan(
           text:
               '"어차피 내일도 또 그런 상황을 마주 해야하는데 할머닌 어떻게 할 수 있을지 조언을 받고 싶어요." 나는 조금은 두려운 마음으로 할머니에게 물었다.\n"막둥아, 알아봐. 뭐든지 할 수 있어. 애기때부터 이 할매 옆에서 볼 때부터 그랬어. 그런 상사가 뭐얏다고 너한테 그런 일로 힘들게 하눈데. 뭐 그런 사람은 별무시만 혀. 그런 사람이 할 수 있는 최대한으로 피하렴이."\n\n"막둥아, 이 할매는 내 막둥이가 항상 건강하고, 행복하면 좋겨..',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 13,
-            fontFamily: 'KoPubWorldBatang_Pro',
-            fontWeight: FontWeight.w300,
-          ),
+          style: exampleTextSpanStyle(context),
         ),
       ],
       relationImages: [
@@ -885,7 +770,8 @@ class palette_screen_next_halmae extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage2(
+        RelationImage(
+          imagePath: 'assets/images/R_Location_circle.png',
           label: '손주',
         ),
       ],
