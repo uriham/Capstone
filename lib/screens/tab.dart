@@ -153,24 +153,25 @@ class _TapScreenState extends ConsumerState<TabScreen> {
           ),
           backgroundColor: Colors.transparent,
         ),
-        body: Padding(
-          padding: const EdgeInsets.fromLTRB(14, 0, 14, 0),
-          child: Stack(children: [
-            StartScreen(
+        body: Stack(children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(14, 0, 14, 0),
+            child: StartScreen(
               //userName: 'sinwoo', // 사용자 이름을 StartScreen으로 전달
               diaryList: allDiary,
               nowFilter: selectedFilter,
               isGenerating: isGenerating,
               userName: userInfo.name,
             ),
-            isGenerating
-                ? GenerateBottomBar(
-                    clickGenerate: makeBook,
-                  )
-                : MyBottomAppBar2(
-                    clikcGenerate: noneFilter, currentFilter: selectedFilter),
-          ]),
-        ),
+          ),
+          isGenerating
+              ? GenerateBottomBar(
+                  clickGenerate: makeBook,
+                )
+              : MyBottomAppBar2(
+                  clikcGenerate: noneFilter, currentFilter: selectedFilter),
+        ]),
+
         /*
         floatingActionButton: Transform.translate(
           // Generate 버튼 있는 곳
