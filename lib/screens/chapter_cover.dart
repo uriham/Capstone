@@ -19,19 +19,22 @@ class ChapCoverScreen extends StatefulWidget {
 class _ChapCoverScreenState extends State<ChapCoverScreen> {
   late PageController _pageController;
   late int _selectedIndex;
+  Color whiteOp = Colors.white.withOpacity(0.55);
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController(
-        viewportFraction: 0.8, keepPage: true, initialPage: widget.numChap);
+        viewportFraction: 0.7, keepPage: true, initialPage: widget.numChap);
     _selectedIndex = widget.numChap;
   }
 
   @override
   Widget build(BuildContext context) {
     //final bookList = ref.watch(bookProvider);
-
+    if (widget.char.color.green < 80) {
+      whiteOp = Colors.white.withOpacity(0.35);
+    }
     if (widget.char.chapters.isEmpty) {
       return const Center(
         child: Text(
@@ -71,53 +74,53 @@ class _ChapCoverScreenState extends State<ChapCoverScreen> {
         //   color: Colors.blue,
         // ),
         body: Container(
-          decoration: BoxDecoration(
-            //color: widget.char.color,
-            //color: Color.fromARGB(255, 48, 70, 102)
-            gradient: RadialGradient(
-              colors: [Colors.white, widget.char.color],
-              stops: const [0.1, 1.0],
-              center: Alignment.center,
-              radius: 0.55,
-              focalRadius: 0.7,
-            ),
-            // border: Border.all(
-            //   color: Colors.white,
-            //   width: 1.0,
-            // ),
-          ),
+          decoration: BoxDecoration(color: widget.char.color),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(
-                height: 200,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.8,
-                child: PageView.builder(
-                    onPageChanged: (index) {
-                      setState(() {
-                        _selectedIndex = index;
-                      });
-                    },
-                    controller: _pageController,
-                    itemCount: widget.char.chapters.length,
-                    itemBuilder: (context, index) {
-                      final chapPage = widget.char.chapters[index];
-                      var scale = _selectedIndex == index ? 1.2 : 1.0;
-                      //return ChapterBook(chap: chapPage);
-                      return TweenAnimationBuilder(
-                          tween: Tween(begin: scale, end: scale),
-                          duration: const Duration(milliseconds: 100),
-                          child: ChapterCoverCard(
-                              chap: chapPage, character: widget.char),
-                          builder: (context, value, child) {
-                            return Transform.scale(
-                              scale: value,
-                              child: child,
-                            );
-                          });
-                    }),
+              Container(
+                margin: const EdgeInsets.only(top: 10),
+                height: 600,
+                decoration: BoxDecoration(
+                  // border: Border.all(
+                  //   color: Colors.white,
+                  //   width: 1.0,
+                  // ),
+                  gradient: RadialGradient(
+                    colors: [whiteOp, Colors.white.withOpacity(0.0)],
+                    stops: const [0.1, 0.9],
+                    center: Alignment.center,
+                    radius: 0.4,
+                    focalRadius: 1.1,
+                  ),
+                ),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.8,
+                  child: PageView.builder(
+                      onPageChanged: (index) {
+                        setState(() {
+                          _selectedIndex = index;
+                        });
+                      },
+                      controller: _pageController,
+                      itemCount: widget.char.chapters.length,
+                      itemBuilder: (context, index) {
+                        final chapPage = widget.char.chapters[index];
+                        var scale = _selectedIndex == index ? 1.2 : 1.0;
+                        //return ChapterBook(chap: chapPage);
+                        return TweenAnimationBuilder(
+                            tween: Tween(begin: scale, end: scale),
+                            duration: const Duration(milliseconds: 100),
+                            child: ChapterCoverCard(
+                                chap: chapPage, character: widget.char),
+                            builder: (context, value, child) {
+                              return Transform.scale(
+                                scale: value,
+                                child: child,
+                              );
+                            });
+                      }),
+                ),
               ),
               SmoothPageIndicator(
                 controller: _pageController,

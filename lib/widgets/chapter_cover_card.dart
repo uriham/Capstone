@@ -15,54 +15,58 @@ class ChapterCoverCard extends StatelessWidget {
   Widget build(BuildContext context) {
     //timeDilation = 5.0;
 
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Column(
-          children: [
-            Container(
-              // width: 238,
-              // height: 360,
-              decoration: BoxDecoration(
-                  //border: Border.all(color: Colors.white),
+    return Container(
+      margin: const EdgeInsets.fromLTRB(0, 20, 0, 100),
+      padding: const EdgeInsets.fromLTRB(20, 40, 20, 0),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Column(
+            children: [
+              Container(
+                width: 238,
+                height: 360,
+                decoration: BoxDecoration(
+                    //border: Border.all(color: Colors.white),
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 4,
+                        offset: const Offset(1, 2),
+                      )
+                    ]),
+                child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
-                      spreadRadius: 2,
-                      blurRadius: 4,
-                      offset: Offset(1, 2),
-                    )
-                  ]),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                child: PhotoHero(
-                    //tag로 URL넣음
-                    //width: 268,
-                    photo: chap.chImg,
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute<void>(builder: (context) {
-                          return ChapReaderPage(
-                            chap: chap,
-                            character: character,
-                          );
-                        }),
-                      );
-                    }),
+                  child: PhotoHero(
+                      //tag로 URL넣음
+                      //width: 268,
+                      photo: chap.chImg,
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute<void>(builder: (context) {
+                            return ChapReaderPage(
+                              chap: chap,
+                              character: character,
+                            );
+                          }),
+                        );
+                      }),
+                ),
               ),
-            ),
-            const SizedBox(height: 15),
-            Text(
-              chap.title,
-              style: const TextStyle(
-                fontSize: 15,
-                color: Colors.white,
+              const SizedBox(height: 15),
+              Text(
+                chap.title,
+                style: const TextStyle(
+                  fontSize: 15,
+                  color: Colors.white,
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

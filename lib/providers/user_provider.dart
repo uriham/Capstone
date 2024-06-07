@@ -5,9 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class UserNotifier extends StateNotifier<User> {
   UserNotifier() : super(User(imgPath: '', name: 'none'));
 
-  void setFilter(User user) {
+  void setUser(User user) {
     state = user;
-    print(state);
   }
 }
 

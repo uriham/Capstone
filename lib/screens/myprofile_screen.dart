@@ -1,22 +1,25 @@
+import 'package:capstone/providers/user_provider.dart';
 import 'package:capstone/screens/tab.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/screens/start_screen.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import 'package:capstone/models/user.dart';
 
-class MyProfile extends StatefulWidget {
+class MyProfile extends ConsumerStatefulWidget {
   const MyProfile({Key? key, required this.userName}) : super(key: key);
 
   final String userName;
 
   @override
-  _MyProfileState createState() => _MyProfileState();
+  ConsumerState<MyProfile> createState() => _MyProfileState();
 }
 
-class _MyProfileState extends State<MyProfile> {
+class _MyProfileState extends ConsumerState<MyProfile> {
   late TextEditingController _controller;
   String _userName = ''; // 사용자 이름을 저장할 변수 추가
-  String? _selectedImage; // 추가: 선택된 이미지를 저장할 변수
+  String _selectedImage = 'assets/images/circle.png'; // 추가: 선택된 이미지를 저장할 변수
 
   @override
   void initState() {
@@ -40,6 +43,10 @@ class _MyProfileState extends State<MyProfile> {
     });
   }
 
+  void _setUserInfo(String name, String path) {
+    ref.read(userProvider.notifier).setUser(User(name: name, imgPath: path));
+  }
+
   // build 함수에서 _userName을 사용하여 표시합니다.
   @override
   Widget build(BuildContext context) {
@@ -56,8 +63,8 @@ class _MyProfileState extends State<MyProfile> {
               userName: _userName,
               selectedImage: _selectedImage, // 변경된 부분: 선택된 이미지를 전달합니다.
               onUserNameUpdated: _updateUserName,
-              onImageSelected:
-                  _handleImageSelected, // 추가: 이미지 선택 이벤트를 처리하는 함수 전달
+              onImageSelected: _handleImageSelected,
+              onStartSelected: _setUserInfo, // 추가: 이미지 선택 이벤트를 처리하는 함수 전달
             ),
           ),
         ),
@@ -69,6 +76,7 @@ class _MyProfileState extends State<MyProfile> {
 class Start01 extends StatelessWidget {
   const Start01({
     Key? key,
+    required this.onStartSelected,
     required this.controller,
     required this.userName,
     required this.onUserNameUpdated,
@@ -79,8 +87,9 @@ class Start01 extends StatelessWidget {
   final TextEditingController controller;
   final String userName;
   final Function(String) onUserNameUpdated;
-  final String? selectedImage;
+  final String selectedImage;
   final Function(String) onImageSelected;
+  final void Function(String, String) onStartSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +134,7 @@ class Start01 extends StatelessWidget {
                         ? ClipOval(
                             // 이미지가 원형 컨테이너에 맞게 자르기 위해 ClipOval 사용
                             child: Image.asset(
-                              selectedImage!,
+                              selectedImage,
                               width: 165, // 원의 크기와 맞춤
                               height: 165, // 원의 크기와 맞춤
                               fit: BoxFit.cover,
@@ -323,7 +332,6 @@ class Start01 extends StatelessWidget {
                             ],
                           ),
                         ),
-
                       ],
                     ),
                   ),
@@ -335,6 +343,7 @@ class Start01 extends StatelessWidget {
                       height: 46,
                       child: GestureDetector(
                         onTap: () {
+                          onStartSelected(userName, selectedImage);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -370,8 +379,6 @@ class Start01 extends StatelessWidget {
                                         begin: Alignment.centerLeft,
                                         end: Alignment.centerRight,
                                       ).createShader(bounds);
-
-
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(

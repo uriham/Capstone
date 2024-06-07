@@ -15,11 +15,13 @@ class StartScreen extends StatelessWidget {
       {super.key,
       required this.diaryList,
       required this.nowFilter,
-      required this.isGenerating});
+      required this.isGenerating,
+      required this.userName});
 
   final List<Diary> diaryList;
   final Filter nowFilter;
   final bool isGenerating;
+  final String userName;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class StartScreen extends StatelessWidget {
         children: [
           Container(
             constraints: const BoxConstraints.expand(),
-            child: GlowingCirclesBlur(),
+            child: const GlowingCirclesBlur(),
           ),
           CustomScrollView(
             slivers: [
@@ -38,9 +40,9 @@ class StartScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     const SizedBox(height: 60), // 위쪽 여백 추가
-                    const Text(
-                      '안녕하세요 \nUser님',
-                      style: TextStyle(
+                    Text(
+                      '안녕하세요 \n$userName님',
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 32,
                         fontFamily: 'KoPubWorldDotum_Pro',
@@ -146,6 +148,8 @@ class StartScreen extends StatelessWidget {
 }
 
 class GlowingCirclesBlur extends StatefulWidget {
+  const GlowingCirclesBlur({super.key});
+
   @override
   _GlowingCirclesBackgroundState createState() =>
       _GlowingCirclesBackgroundState();
@@ -155,13 +159,13 @@ class _GlowingCirclesBackgroundState extends State<GlowingCirclesBlur>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   List<Circle>? _circles;
-  Random _random = Random();
+  final Random _random = Random();
 
   @override
   void initState() {
     super.initState();
     _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 5))
+        AnimationController(vsync: this, duration: const Duration(seconds: 5))
           ..repeat();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -174,10 +178,10 @@ class _GlowingCirclesBackgroundState extends State<GlowingCirclesBlur>
       _controller.addListener(() {
         if (_circles != null) {
           setState(() {
-            _circles!.forEach((circle) {
+            for (var circle in _circles!) {
               circle.updatePosition();
               circle.updateColor();
-            });
+            }
             _circles!
                 .removeWhere((circle) => circle.isOutsideScreen(screenSize));
             if (_circles!.length < 6) {

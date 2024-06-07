@@ -2,6 +2,7 @@ import 'package:capstone/providers/diary_provider.dart';
 import 'package:capstone/providers/filter_provider.dart';
 import 'package:capstone/providers/is_generating_provider.dart';
 import 'package:capstone/providers/selected_diary_provider.dart';
+import 'package:capstone/providers/user_provider.dart';
 import 'package:capstone/screens/bookcover_screen.dart';
 import 'package:capstone/screens/start_screen.dart';
 import 'package:capstone/widgets/generate_bottombar.dart';
@@ -67,6 +68,7 @@ class _TapScreenState extends ConsumerState<TabScreen> {
     final allDiary = ref.watch(diaryProvider);
     final selectedDiary = ref.watch(selectedDiarysProvider);
     final selectedFilter = ref.watch(filterProvider);
+    final userInfo = ref.watch(userProvider);
 
     void noneFilter() {
       if (selectedFilter == Filter.none) {
@@ -119,8 +121,8 @@ class _TapScreenState extends ConsumerState<TabScreen> {
             GestureDetector(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                  return const Profile(
-                    userName: 'shinwoo',
+                  return Profile(
+                    userName: userInfo.name,
                   );
                 }));
               },
@@ -159,6 +161,7 @@ class _TapScreenState extends ConsumerState<TabScreen> {
               diaryList: allDiary,
               nowFilter: selectedFilter,
               isGenerating: isGenerating,
+              userName: userInfo.name,
             ),
             isGenerating
                 ? GenerateBottomBar(

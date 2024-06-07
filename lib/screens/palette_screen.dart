@@ -140,7 +140,7 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    palette_screen_next_yang(),
+                                    const palette_screen_next_yang(),
                               ),
                             );
                           },
@@ -159,7 +159,7 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    palette_screen_next_miao(),
+                                    const palette_screen_next_miao(),
                               ),
                             );
                           },
@@ -178,7 +178,7 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    palette_screen_next_mmung(),
+                                    const palette_screen_next_mmung(),
                               ),
                             );
                           },
@@ -197,12 +197,12 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    palette_screen_next_pooh(),
+                                    const palette_screen_next_pooh(),
                               ),
                             );
                           },
                           onCharacterSelected: () {
-                            changeFilter(Filter.yangkee);
+                            changeFilter(Filter.pooh);
                           },
                         ),
                       ),
@@ -216,12 +216,12 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    palette_screen_next_Thoreau(),
+                                    const palette_screen_next_Thoreau(),
                               ),
                             );
                           },
                           onCharacterSelected: () {
-                            changeFilter(Filter.yangkee);
+                            changeFilter(Filter.henry);
                           },
                         ),
                       ),
@@ -235,12 +235,12 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    palette_screen_next_leesangv2(),
+                                    const palette_screen_next_leesangv2(),
                               ),
                             );
                           },
                           onCharacterSelected: () {
-                            changeFilter(Filter.yangkee);
+                            changeFilter(Filter.leesang);
                           },
                         ),
                       ),
@@ -254,12 +254,12 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    palette_screen_next_alsoubet(),
+                                    const palette_screen_next_alsoubet(),
                               ),
                             );
                           },
                           onCharacterSelected: () {
-                            changeFilter(Filter.yangkee);
+                            changeFilter(Filter.alsoubet);
                           },
                         ),
                       ),
@@ -273,12 +273,12 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    palette_screen_next_dongja(),
+                                    const palette_screen_next_dongja(),
                               ),
                             );
                           },
                           onCharacterSelected: () {
-                            changeFilter(Filter.yangkee);
+                            changeFilter(Filter.irae);
                           },
                         ),
                       ),
@@ -292,12 +292,12 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    palette_screen_next_jang(),
+                                    const palette_screen_next_jang(),
                               ),
                             );
                           },
                           onCharacterSelected: () {
-                            changeFilter(Filter.yangkee);
+                            changeFilter(Filter.jangseung);
                           },
                         ),
                       ),
@@ -311,12 +311,12 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    palette_screen_next_yeonhwa(),
+                                    const palette_screen_next_yeonhwa(),
                               ),
                             );
                           },
                           onCharacterSelected: () {
-                            changeFilter(Filter.yangkee);
+                            changeFilter(Filter.yeonhwa);
                           },
                         ),
                       ),
@@ -330,12 +330,12 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    palette_screen_next_halmae(),
+                                    const palette_screen_next_halmae(),
                               ),
                             );
                           },
                           onCharacterSelected: () {
-                            changeFilter(Filter.yangkee);
+                            changeFilter(Filter.grandma);
                           },
                         ),
                       ),

@@ -1,31 +1,33 @@
+import 'package:capstone/providers/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // 텍스트 스타일 정의
-final textTitleStyle = TextStyle(
+const textTitleStyle = TextStyle(
   color: Colors.white,
   fontSize: 26,
   fontFamily: 'KoPubWorldDotum_Pro',
   fontWeight: FontWeight.w700,
 );
 
-final textSubtitleStyle = TextStyle(
+const textSubtitleStyle = TextStyle(
   color: Colors.white,
   fontSize: 13,
   fontFamily: 'KoPubWorldDotum_Pro',
   fontWeight: FontWeight.w300,
 );
 
-final textSmallStyle = TextStyle(
+const textSmallStyle = TextStyle(
   color: Colors.white,
   fontSize: 12,
   fontFamily: 'KoPubWorldDotum_Pro',
   fontWeight: FontWeight.w700,
 );
 
-final commonPadding = EdgeInsets.symmetric(horizontal: 8);
-final commonPadding2 = EdgeInsets.fromLTRB(10, 10, 10, 0);
+const commonPadding = EdgeInsets.symmetric(horizontal: 8);
+const commonPadding2 = EdgeInsets.fromLTRB(10, 10, 10, 0);
 
 // 재사용 가능한 컴포넌트 정의
 class TopImageSection extends StatelessWidget {
@@ -34,6 +36,7 @@ class TopImageSection extends StatelessWidget {
   final VoidCallback onBackPress;
 
   const TopImageSection({
+    super.key,
     required this.imagePath,
     required this.category, // category 추가
     required this.onBackPress,
@@ -81,13 +84,14 @@ class TopImageSection extends StatelessWidget {
   }
 }
 
-class RelationImage extends StatelessWidget {
+class RelationImage extends ConsumerWidget {
   final String imagePath;
   final String label;
   final double width;
   final double height;
 
   const RelationImage({
+    super.key,
     required this.imagePath,
     required this.label,
     this.width = 100.0, // 기본값 설정
@@ -95,7 +99,7 @@ class RelationImage extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
         Container(
@@ -108,10 +112,52 @@ class RelationImage extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Text(
           label,
-          style: TextStyle(
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'KoPubWorldDotum_Pro',
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class RelationImage2 extends ConsumerWidget {
+  final String label;
+  final double width;
+  final double height;
+
+  const RelationImage2({
+    super.key,
+    required this.label,
+    this.width = 100.0, // 기본값 설정
+    this.height = 100.0, // 기본값 설정
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userImage = ref.watch(userProvider).imgPath;
+    return Column(
+      children: [
+        Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(userImage),
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          label,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 14,
             fontWeight: FontWeight.bold,
@@ -128,6 +174,7 @@ class ExampleSection extends StatelessWidget {
   final List<TextSpan> textSpans;
 
   const ExampleSection({
+    super.key,
     required this.title,
     required this.textSpans,
   });
@@ -138,10 +185,10 @@ class ExampleSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
-          padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
+          padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
           child: Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 18,
               fontFamily: 'KoPubWorldDotum_Pro',
@@ -150,11 +197,11 @@ class ExampleSection extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
           child: Container(
             width: 340,
             height: 200,
-            color: Color(0xFF1A1A1A),
+            color: const Color(0xFF1A1A1A),
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Text.rich(
@@ -183,6 +230,7 @@ class PaletteScreen extends StatelessWidget {
   final List<Widget> relationImages;
 
   const PaletteScreen({
+    super.key,
     required this.imagePath,
     required this.title,
     required this.description,
@@ -216,7 +264,7 @@ class PaletteScreen extends StatelessWidget {
                     style: textTitleStyle,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 1,
                 ),
                 Padding(
@@ -233,10 +281,10 @@ class PaletteScreen extends StatelessWidget {
                     style: textSubtitleStyle,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 4,
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: Text(
                     '관계',
@@ -248,11 +296,11 @@ class PaletteScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: relationImages, // `relationImages` 값 사용
@@ -272,9 +320,11 @@ class PaletteScreen extends StatelessWidget {
 }
 
 class palette_screen_next_miao extends StatelessWidget {
+  const palette_screen_next_miao({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return PaletteScreen(
+    return const PaletteScreen(
       imagePath: 'assets/images/Myao_mao.png',
       title: '먀오마아의 은밀한 취미생활',
       category: '고양이',
@@ -323,8 +373,7 @@ class palette_screen_next_miao extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '주인',
         ),
       ],
@@ -333,9 +382,11 @@ class palette_screen_next_miao extends StatelessWidget {
 }
 
 class palette_screen_next_mmung extends StatelessWidget {
+  const palette_screen_next_mmung({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return PaletteScreen(
+    return const PaletteScreen(
       imagePath: 'assets/images/kimmung_2.png',
       title: '우리도 모르는 우리들의 별빛',
       category: '대학생',
@@ -372,8 +423,7 @@ class palette_screen_next_mmung extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '소설 속 주인공',
         ),
       ],
@@ -382,9 +432,11 @@ class palette_screen_next_mmung extends StatelessWidget {
 }
 
 class palette_screen_next_yang extends StatelessWidget {
+  const palette_screen_next_yang({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return PaletteScreen(
+    return const PaletteScreen(
       imagePath: 'assets/images/Yangkee_2.png',
       title: '귀여운 것은 곧 사랑이다',
       category: '양아치',
@@ -433,8 +485,7 @@ class palette_screen_next_yang extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '손뜨개질 동아리 친구',
         ),
       ],
@@ -443,9 +494,11 @@ class palette_screen_next_yang extends StatelessWidget {
 }
 
 class palette_screen_next_pooh extends StatelessWidget {
+  const palette_screen_next_pooh({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return PaletteScreen(
+    return const PaletteScreen(
       imagePath: 'assets/images/Winne the pooh2.png',
       title: 'Winne the Pooh',
       category: '푸',
@@ -482,8 +535,7 @@ class palette_screen_next_pooh extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '동화 속 친구',
         ),
       ],
@@ -492,6 +544,8 @@ class palette_screen_next_pooh extends StatelessWidget {
 }
 
 class palette_screen_next_Thoreau extends StatelessWidget {
+  const palette_screen_next_Thoreau({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const PaletteScreen(
@@ -531,8 +585,7 @@ class palette_screen_next_Thoreau extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '청취자',
         ),
       ],
@@ -541,9 +594,11 @@ class palette_screen_next_Thoreau extends StatelessWidget {
 }
 
 class palette_screen_next_leesangv2 extends StatelessWidget {
+  const palette_screen_next_leesangv2({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return PaletteScreen(
+    return const PaletteScreen(
       imagePath: 'assets/images/leesangv2_2.png',
       title: '동생 보아라',
       category: '한국 시인',
@@ -580,8 +635,7 @@ class palette_screen_next_leesangv2 extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '동생',
         ),
       ],
@@ -590,9 +644,11 @@ class palette_screen_next_leesangv2 extends StatelessWidget {
 }
 
 class palette_screen_next_alsoubet extends StatelessWidget {
+  const palette_screen_next_alsoubet({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return PaletteScreen(
+    return const PaletteScreen(
       imagePath: 'assets/images/alsoubet and igo2.png',
       title: '그리스 앞바다',
       category: '인물',
@@ -629,8 +685,7 @@ class palette_screen_next_alsoubet extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '맥주병 속 편지 주인',
         ),
       ],
@@ -639,9 +694,11 @@ class palette_screen_next_alsoubet extends StatelessWidget {
 }
 
 class palette_screen_next_dongja extends StatelessWidget {
+  const palette_screen_next_dongja({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return PaletteScreen(
+    return const PaletteScreen(
       imagePath: 'assets/images/dongja2.png',
       title: '동자청풍',
       category: '동자승',
@@ -678,8 +735,7 @@ class palette_screen_next_dongja extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '손님',
         ),
       ],
@@ -688,9 +744,11 @@ class palette_screen_next_dongja extends StatelessWidget {
 }
 
 class palette_screen_next_jang extends StatelessWidget {
+  const palette_screen_next_jang({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return PaletteScreen(
+    return const PaletteScreen(
       imagePath: 'assets/images/jang2.png',
       title: '풍하마을 수호 장승',
       category: '장승',
@@ -727,8 +785,7 @@ class palette_screen_next_jang extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '나그네',
         ),
       ],
@@ -737,9 +794,11 @@ class palette_screen_next_jang extends StatelessWidget {
 }
 
 class palette_screen_next_yeonhwa extends StatelessWidget {
+  const palette_screen_next_yeonhwa({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return PaletteScreen(
+    return const PaletteScreen(
       imagePath: 'assets/images/yeonhwa2.png',
       title: '심연의 화원',
       category: '꽃집 사장',
@@ -776,8 +835,7 @@ class palette_screen_next_yeonhwa extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '동네 주민',
         ),
       ],
@@ -786,9 +844,11 @@ class palette_screen_next_yeonhwa extends StatelessWidget {
 }
 
 class palette_screen_next_halmae extends StatelessWidget {
+  const palette_screen_next_halmae({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return PaletteScreen(
+    return const PaletteScreen(
       imagePath: 'assets/images/halmae2.png',
       title: '우리 아가 왔나',
       category: '할머니',
@@ -825,8 +885,7 @@ class palette_screen_next_halmae extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '손주',
         ),
       ],
