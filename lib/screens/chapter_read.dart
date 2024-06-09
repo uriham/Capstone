@@ -33,7 +33,6 @@ class _BookReadState extends State<ChapReaderPage> {
   final FontStyle _fontStyle = FontStyle.normal;
   double _fontSize = 16.0;
   double _fontHeight = 2;
-  final Color _textColor = Colors.black;
 
   void _sizeInc() {
     setState(() {
@@ -84,6 +83,28 @@ class _BookReadState extends State<ChapReaderPage> {
     });
   }
 
+  Color _selectedColor = Colors.white;
+  Color _cstmColor = Colors.black;
+  Color _backgroundColor = Colors.transparent; // 최종 적용된 배경색
+  Color _textColor = Colors.white; // 최종 적용된 텍스트 색상
+
+  void _changeColor(Color color) {
+    setState(() {
+      _selectedColor = color;
+      _cstmColor = (color == Colors.black ||
+              color == const Color.fromARGB(255, 44, 44, 44))
+          ? Colors.white
+          : Colors.black;
+    });
+  }
+
+  void _applyColor() {
+    setState(() {
+      _backgroundColor = _selectedColor;
+      _textColor = _cstmColor;
+    });
+  }
+
   DateTime _selectedDate = DateTime.now();
 
   @override
@@ -91,7 +112,14 @@ class _BookReadState extends State<ChapReaderPage> {
     int chapterIndex = widget.character.chapters
         .indexWhere((chapter) => chapter.text == widget.chap.text);
     return GestureDetector(
-      onTap: _readSetBarVisibility,
+      onTap: () {
+        setState(() {
+          if (_isContentBoxVisible ||
+              _isControlBoxVisible ||
+              _isSettingBoxVisible) return;
+          _readSetBarVisibility();
+        });
+      },
       child: Scaffold(
         body: Stack(
           children: [
@@ -139,7 +167,7 @@ class _BookReadState extends State<ChapReaderPage> {
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             colors: [Colors.white, Colors.transparent],
-                            stops: [0.60, 1.0],
+                            stops: [0.70, 1.0],
                           ).createShader(bound);
                         },
                         blendMode: BlendMode.dstIn,
@@ -211,11 +239,12 @@ class _BookReadState extends State<ChapReaderPage> {
                           // SizedBox(height: 70),
                           Container(
                             //alignment: Alignment.topLeft,
+                            color: _backgroundColor,
                             padding: const EdgeInsets.only(left: 25, right: 25),
                             alignment: Alignment.topLeft,
                             child: Text(widget.chap.text,
                                 style: TextStyle(
-                                  color: Colors.white,
+                                  color: _textColor,
                                   fontSize: _fontSize,
                                   height: _fontHeight,
                                 )),
@@ -632,9 +661,55 @@ class _BookReadState extends State<ChapReaderPage> {
                           child: Column(
                         children: [
                           Container(
-                            height: 190,
-                            // 배경색
-                          ),
+                              height: 190,
+                              // 배경색
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                    width: 155,
+                                    height: 95,
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(9)),
+                                      color: _selectedColor,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        '가나다라\n012345',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(color: _cstmColor),
+                                      ),
+                                    ),
+                                  ),
+                                  Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            _buildColorButton(Colors.white),
+                                            _buildColorButton(Colors.black),
+                                            _buildColorButton(Color.fromARGB(
+                                                255, 44, 44, 44)),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            _buildColorButton(Color.fromARGB(
+                                                255, 225, 208, 188)),
+                                            _buildColorButton(Color.fromARGB(
+                                                255, 221, 194, 194)),
+                                            _buildColorButton(Color.fromARGB(
+                                                255, 172, 204, 208)),
+                                          ],
+                                        )
+                                      ])
+                                ],
+                              )),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
@@ -667,6 +742,35 @@ class _BookReadState extends State<ChapReaderPage> {
                     ))),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildColorButton(Color color) {
+    bool isSelected = color == _selectedColor;
+    return GestureDetector(
+      onTap: () {
+        _changeColor(color);
+      },
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            margin: EdgeInsets.all(10.0),
+            width: 25,
+            height: 25,
+            decoration: BoxDecoration(
+              color: color,
+              //shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.all(Radius.circular(5)),
+            ),
+          ),
+          if (isSelected)
+            Icon(
+              Icons.check,
+              color: _cstmColor,
+            ),
+        ],
       ),
     );
   }
