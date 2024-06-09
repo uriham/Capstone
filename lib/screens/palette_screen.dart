@@ -140,7 +140,7 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    const palette_screen_next_yang(),
+                                    palette_screen_next_yang(),
                               ),
                             );
                           },
@@ -159,7 +159,7 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    const palette_screen_next_miao(),
+                                    palette_screen_next_miao(),
                               ),
                             );
                           },
@@ -178,7 +178,7 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    const palette_screen_next_mmung(),
+                                    palette_screen_next_mmung(),
                               ),
                             );
                           },
@@ -197,7 +197,7 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    const palette_screen_next_pooh(),
+                                    palette_screen_next_pooh(),
                               ),
                             );
                           },
@@ -216,7 +216,7 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    const palette_screen_next_Thoreau(),
+                                    palette_screen_next_Thoreau(),
                               ),
                             );
                           },
@@ -235,7 +235,7 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    const palette_screen_next_leesangv2(),
+                                    palette_screen_next_leesangv2(),
                               ),
                             );
                           },
@@ -254,7 +254,7 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    const palette_screen_next_alsoubet(),
+                                    palette_screen_next_alsoubet(),
                               ),
                             );
                           },
@@ -273,7 +273,7 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    const palette_screen_next_dongja(),
+                                    palette_screen_next_dongja(),
                               ),
                             );
                           },
@@ -292,7 +292,7 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    const palette_screen_next_jang(),
+                                    palette_screen_next_jang(),
                               ),
                             );
                           },
@@ -311,7 +311,7 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    const palette_screen_next_yeonhwa(),
+                                    palette_screen_next_yeonhwa(),
                               ),
                             );
                           },
@@ -330,7 +330,7 @@ class _PaletteScreenState extends ConsumerState<PaletteScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    const palette_screen_next_halmae(),
+                                    palette_screen_next_halmae(),
                               ),
                             );
                           },
