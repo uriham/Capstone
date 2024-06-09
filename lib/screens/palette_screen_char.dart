@@ -76,7 +76,7 @@ Widget createCard({
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.vertical(
+                  borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(cardBorderRadius),
                   ),
                   child: Stack(
@@ -99,14 +99,14 @@ Widget createCard({
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(18, 0, 18, 0),
+                  padding: const EdgeInsets.fromLTRB(18, 0, 18, 0),
                   child: Text(
                     titleText,
                     style: titleStyle(context),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(
+                  padding: const EdgeInsets.fromLTRB(
                     smallPadding,
                     largePadding,
                     smallPadding,
@@ -202,6 +202,7 @@ class CustomCard_mmung extends StatefulWidget {
 
   // 기본값 설정
   const CustomCard_mmung({
+    super.key,
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/kimmung_2.png',
@@ -254,6 +255,7 @@ class CustomCard_yang extends StatefulWidget {
 
   // 기본값 설정
   const CustomCard_yang({
+    super.key,
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/Yangkee_2.png',
@@ -306,6 +308,7 @@ class CustomCard_pooh extends StatefulWidget {
 
   // 기본값 설정
   const CustomCard_pooh({
+    super.key,
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/Winne the pooh2.png',
@@ -358,6 +361,7 @@ class CustomCard_Thoreau extends StatefulWidget {
 
   // 기본값 설정
   const CustomCard_Thoreau({
+    super.key,
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/Thoreau2.png',
@@ -410,6 +414,7 @@ class CustomCard_leesangv2 extends StatefulWidget {
 
   // 기본값 설정
   const CustomCard_leesangv2({
+    super.key,
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/leesangv2_2.png',
@@ -462,6 +467,7 @@ class CustomCard_alsoubet extends StatefulWidget {
 
   // 기본값 설정
   const CustomCard_alsoubet({
+    super.key,
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/alsoubet and igo2.png',
@@ -514,6 +520,7 @@ class CustomCard_dongja extends StatefulWidget {
 
   // 기본값 설정
   const CustomCard_dongja({
+    super.key,
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/dongja2.png',
@@ -566,6 +573,7 @@ class CustomCard_jang extends StatefulWidget {
 
   // 기본값 설정
   const CustomCard_jang({
+    super.key,
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/jang2.png',
@@ -618,6 +626,7 @@ class CustomCard_halmae extends StatefulWidget {
 
   // 기본값 설정
   const CustomCard_halmae({
+    super.key,
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/halmae2.png',
@@ -670,6 +679,7 @@ class CustomCard_yeonhwa extends StatefulWidget {
 
   // 기본값 설정
   const CustomCard_yeonhwa({
+    super.key,
     required this.onTap,
     required this.onCharacterSelected,
     this.imageAsset = 'assets/images/yeonhwa2.png',

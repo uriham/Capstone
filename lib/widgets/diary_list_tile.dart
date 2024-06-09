@@ -39,7 +39,7 @@ class _DiaryListTileState extends ConsumerState<DiaryListTile> {
       padding: const EdgeInsets.fromLTRB(6, 8, 0, 0),
       child: Stack(children: [
         ListTile(
-          enabled: !widget.todayDiary.isUsed,
+          enabled: !(widget.todayDiary.isUsed && widget.isGenerating),
           /*
           trailing: widget.isGenerating && !widget.todayDiary.isUsed
               ? Checkbox(
