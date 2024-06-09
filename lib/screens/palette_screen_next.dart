@@ -196,7 +196,6 @@ class ExampleSection extends StatelessWidget {
   final List<TextSpan> textSpans;
 
   const ExampleSection({
-    super.key,
     required this.title,
     required this.textSpans,
   });
@@ -207,30 +206,26 @@ class ExampleSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
+          padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
           child: Text(
             title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontFamily: 'KoPubWorldDotum_Pro',
-              fontWeight: FontWeight.w700,
-            ),
+            style: exampleTitleStyle(context),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+          padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
           child: Container(
-            width: 340,
-            height: 200,
-            color: const Color(0xFF1A1A1A),
+            color: Color(0xFF1A1A1A),
             child: Padding(
               padding: const EdgeInsets.all(10),
-              child: Text.rich(
-                TextSpan(
-                  children: textSpans,
+              child: Flexible(
+                child: Text.rich(
+                  TextSpan(
+                    children: textSpans,
+                  ),
+                  textAlign: TextAlign.start,
+                  style: exampleTextSpanStyle(context),
                 ),
-                textAlign: TextAlign.start,
               ),
             ),
           ),
