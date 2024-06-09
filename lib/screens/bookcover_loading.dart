@@ -1,6 +1,7 @@
 import 'package:capstone/models/diary.dart';
 import 'package:capstone/providers/filter_provider.dart';
 import 'package:capstone/providers/user_provider.dart';
+import 'package:capstone/widgets/loading_text.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/env.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,11 +44,13 @@ class BookCoverLoading extends ConsumerStatefulWidget {
       {super.key,
       required this.keyword,
       required this.selectedDiary,
-      required this.filterNumber});
+      required this.filterNumber,
+      required this.username});
 
   final String keyword;
   final Diary selectedDiary;
   final int filterNumber;
+  final String username;
 
   @override
   BookCoverLoadingState createState() {
@@ -63,15 +66,15 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
   Future<List<String>> _makeBook(
     String keyword,
     String content,
+    String username,
   ) async {
-    final userInfo = ref.watch(userProvider);
     final openaiApiKey = Env.apiKey;
     //final currentFilter = ref.watch(filterProvider);
 
     final llm = ChatOpenAI(
       apiKey: openaiApiKey,
       defaultOptions: const ChatOpenAIOptions(
-        model: 'gpt-4-turbo',
+        model: 'gpt-3.5-turbo',
         temperature: 1,
       ),
     );
@@ -84,8 +87,7 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
     );
 
     final urlTemplate = exSysmessage;
-    const humanTemplate =
-        'My name is {name} i wrote this diary at the time of {time} and the diary content is : {text}';
+    const humanTemplate = 'my name is {name}:{text}';
     final booktemplate = systemExampleList[widget.filterNumber];
 
     final booktemplate1 = booktemplate.replaceAll('\n', ' ');
@@ -118,11 +120,7 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
 
     final chain = bookchatPrompt | llm | outputParser;
 
-    final text = await chain.invoke({
-      'text': content,
-      'name': userInfo.name,
-      'time': widget.selectedDiary.day
-    });
+    final text = await chain.invoke({'text': content, 'name': username});
     //print(text.toString());
     final executor = AgentExecutor(agent: agent);
     final url = await executor.run(keyword);
@@ -137,8 +135,7 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
     const booktemplate = 'summarize text';
     final booksystemMessagePrompt =
         SystemChatMessagePromptTemplate.fromTemplate(booktemplate);
-    const humanTemplate =
-        'My name is {name} i wrote this diary at the time of {time} and the diary content is : {text}';
+    const humanTemplate = 'my name is {name}i wrote it in {time} : {text}';
     final humanMessagePrompt =
         HumanChatMessagePromptTemplate.fromTemplate(humanTemplate);
     final chatPrompt = ChatPromptTemplate.fromPromptMessages(
@@ -162,7 +159,8 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
   @override
   void initState() {
     super.initState();
-    bookList = _makeBook(widget.keyword, widget.selectedDiary.text);
+    bookList =
+        _makeBook(widget.keyword, widget.selectedDiary.text, widget.username);
   }
 
   @override
@@ -280,8 +278,9 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
                 //     painter: ShapePainter(),
                 //   ),
                 // ),
-                Center(
-                  child: _LoadingText(),
+                const Center(
+                  //child: _LoadingText(),
+                  child: LoadingText(),
                 ),
               ],
             );

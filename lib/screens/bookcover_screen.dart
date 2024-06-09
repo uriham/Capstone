@@ -2,6 +2,7 @@ import 'package:capstone/models/chapter.dart';
 import 'package:capstone/models/diary.dart';
 import 'package:capstone/providers/book_provider.dart';
 import 'package:capstone/providers/diary_provider.dart';
+import 'package:capstone/providers/user_provider.dart';
 import 'package:capstone/screens/bookcover_loading.dart';
 import 'package:capstone/providers/filter_provider.dart';
 import 'package:capstone/screens/chapter_cover.dart';
@@ -36,6 +37,7 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
 
   void _goCompleteScreen() async {
     bookTitle = _titleController.text;
+    final username = ref.watch(userProvider).name;
 
     final booklist = await Navigator.of(context)
         .push<List<String>>(MaterialPageRoute(builder: (ctx) {
@@ -43,6 +45,7 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
         keyword: _keywordController.text,
         selectedDiary: widget.selectedDiary,
         filterNumber: widget.nowFilter.number,
+        username: username,
       );
     }));
     setState(() {
