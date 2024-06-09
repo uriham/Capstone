@@ -1,6 +1,8 @@
+import 'package:capstone/providers/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // 화면 너비를 기준으로 글꼴 크기를 조정하는 함수
 double responsiveFontSize(BuildContext context, double baseFontSize) {
@@ -56,6 +58,7 @@ class TopImageSection extends StatelessWidget {
   final VoidCallback onBackPress;
 
   const TopImageSection({
+    super.key,
     required this.imagePath,
     required this.category, // category 추가
     required this.onBackPress,
@@ -103,13 +106,14 @@ class TopImageSection extends StatelessWidget {
   }
 }
 
-class RelationImage extends StatelessWidget {
+class RelationImage extends ConsumerWidget {
   final String imagePath;
   final String label;
   final double width;
   final double height;
 
   const RelationImage({
+    super.key,
     required this.imagePath,
     required this.label,
     this.width = 100.0, // 기본값 설정
@@ -117,7 +121,7 @@ class RelationImage extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
         Container(
@@ -130,12 +134,54 @@ class RelationImage extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Text(
           label,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
-            fontSize: responsiveFontSize(context, 14),
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'KoPubWorldDotum_Pro',
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class RelationImage2 extends ConsumerWidget {
+  final String label;
+  final double width;
+  final double height;
+
+  const RelationImage2({
+    super.key,
+    required this.label,
+    this.width = 100.0, // 기본값 설정
+    this.height = 100.0, // 기본값 설정
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userImage = ref.watch(userProvider).imgPath;
+    return Column(
+      children: [
+        Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(userImage),
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          label,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 14,
             fontWeight: FontWeight.bold,
             fontFamily: 'KoPubWorldDotum_Pro',
           ),
@@ -150,6 +196,7 @@ class ExampleSection extends StatelessWidget {
   final List<TextSpan> textSpans;
 
   const ExampleSection({
+    super.key,
     required this.title,
     required this.textSpans,
   });
@@ -160,26 +207,30 @@ class ExampleSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
-          padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
+          padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
           child: Text(
             title,
-            style: exampleTitleStyle(context),
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontFamily: 'KoPubWorldDotum_Pro',
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
         Padding(
-          padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
           child: Container(
-            color: Color(0xFF1A1A1A),
+            width: 340,
+            height: 200,
+            color: const Color(0xFF1A1A1A),
             child: Padding(
               padding: const EdgeInsets.all(10),
-              child: Flexible(
-                child: Text.rich(
-                  TextSpan(
-                    children: textSpans,
-                  ),
-                  textAlign: TextAlign.start,
-                  style: exampleTextSpanStyle(context),
+              child: Text.rich(
+                TextSpan(
+                  children: textSpans,
                 ),
+                textAlign: TextAlign.start,
               ),
             ),
           ),
@@ -201,6 +252,7 @@ class PaletteScreen extends StatelessWidget {
   final List<Widget> relationImages;
 
   const PaletteScreen({
+    super.key,
     required this.imagePath,
     required this.title,
     required this.description,
@@ -234,7 +286,7 @@ class PaletteScreen extends StatelessWidget {
                     style: textTitleStyle(context),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 1,
                 ),
                 Padding(
@@ -251,21 +303,26 @@ class PaletteScreen extends StatelessWidget {
                     style: textSubtitleStyle(context),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 4,
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: Text(
                     '관계',
-                    style: exampleTitleStyle(context),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontFamily: 'KoPubWorldDotum_Pro',
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: relationImages, // `relationImages` 값 사용
@@ -285,6 +342,8 @@ class PaletteScreen extends StatelessWidget {
 }
 
 class palette_screen_next_miao extends StatelessWidget {
+  const palette_screen_next_miao({super.key});
+
   @override
   Widget build(BuildContext context) {
     return PaletteScreen(
@@ -301,6 +360,17 @@ class palette_screen_next_miao extends StatelessWidget {
               '““오후에는 도서관에서 공부를 했는데 취업 때문에 집중이 잘 되지 않았다. 나는 정말 이 길을 갈 수 있을까? 요즘 생각이 깊어진다..””\n\n\n"주인이 도서관에서 공부를? 집에선 뒹굴뒹굴거리기에 밖에서 제대로 생활하나 했더니 나쁘지 않은 모양이군" 고양이는 속으로 중얼거렸다. "흐음. 어제도 일기에 취업 걱정을 주저리 써놨던데 취업인가 하는 놈이 속을 썩이나보군. 어떻게 생긴 놈인지 알면 앞발펀치를 날려줄텐데. 재수좋은 놈이로군! ...',
           style: exampleTextSpanStyle(context),
         ),
+
+        // TextSpan(
+        //   text:
+        //       '"주인이 도서관에서 공부를? 집에선 뒹굴뒹굴거리기에 밖에서 제대로 생활하나 했더니 나쁘지 않은 모양이군" 고양이는 속으로 중얼거렸다. "흐음. 어제도 일기에 취업 걱정을 주저리 써놨던데 취업인가 하는 놈이 속을 썩이나보군. 어떻게 생긴 놈인지 알면 앞발펀치를 날려줄텐데. 재수좋은 놈이로군! 그나저나 요새 밥도 잘 안 먹고, 무기력한거 보면 심히 걱정이란 말이지.."\n',
+        //   style: TextStyle(
+        //     color: Colors.white,
+        //     fontSize: 11,
+        //     fontFamily: 'KoPubWorldDotum_Pro',
+        //     fontWeight: FontWeight.w300,
+        //   ),
+        // ),
       ],
       relationImages: [
         RelationImage(
@@ -319,8 +389,7 @@ class palette_screen_next_miao extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '주인',
         ),
       ],
@@ -329,6 +398,8 @@ class palette_screen_next_miao extends StatelessWidget {
 }
 
 class palette_screen_next_mmung extends StatelessWidget {
+  const palette_screen_next_mmung({super.key});
+
   @override
   Widget build(BuildContext context) {
     return PaletteScreen(
@@ -342,7 +413,7 @@ class palette_screen_next_mmung extends StatelessWidget {
       exampleTextSpans: [
         TextSpan(
           text:
-              '"초봄이라 날씨가 쌀쌀했다. 한숨을 쉬니 하얗게 올라오는 입김들을 보니 조금은 머리가 차분해 지는 기분이었다."\n\n늘 이맘때 쯤이면 소설 한 권을 들고 조용한 공원을 찾곤 한다. 그곳에서 다른 사람들의 이야기를 읽으며, 그들의 생각과 감정을 이해하려 노력한다. 이것이 내가 문학을 통해 세상을 바라보는 방식이다. 각자의 삶에서 빛나는 순간들을 발견하는 것, 그것이 내가 문학에 빠진 이유다.이 짧은 문장에서도, 저자는 계절의 변화와 인간의 내적 감정을 섬세하게 포착하고 있다....\n',
+              '"초봄이라 날씨가 쌀쌀했다. 한숨을 쉬니 하얗게 올라오는 입김들을 보니 조금은 머리가 차분해 지는 기분이었다."\n\n늘 이맘때 쯤이면 소설 한 권을 들고 조용한 공원을 찾곤 한다. 그곳에서 다른 사람들의 이야기를 읽으며, 그들의 생각과 감정을 이해하려 노력한다. 이것이 내가 문학을 통해 세상을 바라보는 방식이다. 각자의 삶에서 빛나는 순간들을 발견하는 것, 그것이 내가 문학에 빠진 이유다.이 짧은 문장에서도, 저자는 계절의 변화와 인간의 내적 감정을 섬세하게 포착하고 있다....\n\n',
           style: exampleTextSpanStyle(context),
         ),
       ],
@@ -363,8 +434,7 @@ class palette_screen_next_mmung extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '소설 속 주인공',
         ),
       ],
@@ -373,6 +443,8 @@ class palette_screen_next_mmung extends StatelessWidget {
 }
 
 class palette_screen_next_yang extends StatelessWidget {
+  const palette_screen_next_yang({super.key});
+
   @override
   Widget build(BuildContext context) {
     return PaletteScreen(
@@ -418,8 +490,7 @@ class palette_screen_next_yang extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '손뜨개질 동아리 친구',
         ),
       ],
@@ -428,6 +499,8 @@ class palette_screen_next_yang extends StatelessWidget {
 }
 
 class palette_screen_next_pooh extends StatelessWidget {
+  const palette_screen_next_pooh({super.key});
+
   @override
   Widget build(BuildContext context) {
     return PaletteScreen(
@@ -462,8 +535,7 @@ class palette_screen_next_pooh extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '동화 속 친구',
         ),
       ],
@@ -472,6 +544,8 @@ class palette_screen_next_pooh extends StatelessWidget {
 }
 
 class palette_screen_next_Thoreau extends StatelessWidget {
+  const palette_screen_next_Thoreau({super.key});
+
   @override
   Widget build(BuildContext context) {
     return PaletteScreen(
@@ -506,8 +580,7 @@ class palette_screen_next_Thoreau extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '청취자',
         ),
       ],
@@ -516,6 +589,8 @@ class palette_screen_next_Thoreau extends StatelessWidget {
 }
 
 class palette_screen_next_leesangv2 extends StatelessWidget {
+  const palette_screen_next_leesangv2({super.key});
+
   @override
   Widget build(BuildContext context) {
     return PaletteScreen(
@@ -550,8 +625,7 @@ class palette_screen_next_leesangv2 extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '동생',
         ),
       ],
@@ -560,6 +634,8 @@ class palette_screen_next_leesangv2 extends StatelessWidget {
 }
 
 class palette_screen_next_alsoubet extends StatelessWidget {
+  const palette_screen_next_alsoubet({super.key});
+
   @override
   Widget build(BuildContext context) {
     return PaletteScreen(
@@ -594,8 +670,7 @@ class palette_screen_next_alsoubet extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '맥주병 속 편지 주인',
         ),
       ],
@@ -604,6 +679,8 @@ class palette_screen_next_alsoubet extends StatelessWidget {
 }
 
 class palette_screen_next_dongja extends StatelessWidget {
+  const palette_screen_next_dongja({super.key});
+
   @override
   Widget build(BuildContext context) {
     return PaletteScreen(
@@ -638,8 +715,7 @@ class palette_screen_next_dongja extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '손님',
         ),
       ],
@@ -648,6 +724,8 @@ class palette_screen_next_dongja extends StatelessWidget {
 }
 
 class palette_screen_next_jang extends StatelessWidget {
+  const palette_screen_next_jang({super.key});
+
   @override
   Widget build(BuildContext context) {
     return PaletteScreen(
@@ -682,8 +760,7 @@ class palette_screen_next_jang extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '나그네',
         ),
       ],
@@ -692,6 +769,8 @@ class palette_screen_next_jang extends StatelessWidget {
 }
 
 class palette_screen_next_yeonhwa extends StatelessWidget {
+  const palette_screen_next_yeonhwa({super.key});
+
   @override
   Widget build(BuildContext context) {
     return PaletteScreen(
@@ -726,8 +805,7 @@ class palette_screen_next_yeonhwa extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '동네 주민',
         ),
       ],
@@ -736,6 +814,8 @@ class palette_screen_next_yeonhwa extends StatelessWidget {
 }
 
 class palette_screen_next_halmae extends StatelessWidget {
+  const palette_screen_next_halmae({super.key});
+
   @override
   Widget build(BuildContext context) {
     return PaletteScreen(
@@ -770,8 +850,7 @@ class palette_screen_next_halmae extends StatelessWidget {
         SizedBox(
           width: 8,
         ),
-        RelationImage(
-          imagePath: 'assets/images/R_Location_circle.png',
+        RelationImage2(
           label: '손주',
         ),
       ],
