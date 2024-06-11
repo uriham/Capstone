@@ -96,7 +96,23 @@ class _BookReadState extends State<ChapReaderPage> {
         body: Stack(
           children: [
             SmartRefresher(
-              enablePullDown: false,
+              enablePullDown: true,
+              onRefresh: () async {
+                // 밑에 있는놈 담당
+                await Future.delayed(const Duration(milliseconds: 1000));
+                if (chapterIndex != 0) {
+                  Chapter nextChapter =
+                      widget.character.chapters[chapterIndex - 1];
+                  Navigator.of(context)
+                      .pushReplacement(MaterialPageRoute(builder: (ctx) {
+                    return ChapReaderPage(
+                        chap: nextChapter, character: widget.character);
+                  }));
+                  _refreshController.loadComplete();
+                } else {
+                  _refreshController.loadComplete();
+                }
+              },
               onLoading: () async {
                 // 밑에 있는놈 담당
                 await Future.delayed(const Duration(milliseconds: 1000));
@@ -116,6 +132,11 @@ class _BookReadState extends State<ChapReaderPage> {
               },
               controller: _refreshController,
               enablePullUp: true,
+              header: const ClassicHeader(
+                completeDuration: Duration(milliseconds: 300),
+                releaseText: '드래그 해서 이전 페이지',
+                refreshingText: 'Loadging',
+              ),
               footer: const ClassicFooter(
                 spacing: 3,
                 loadingText: 'Loading',
