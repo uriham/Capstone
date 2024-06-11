@@ -48,6 +48,14 @@ class _TutorialScreenState extends State<TutorialScreen> {
     }
   }
 
+  void _navigateToMyProfile() {
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
+      return MyProfile(
+        userName: _userName,
+      );
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,6 +68,9 @@ class _TutorialScreenState extends State<TutorialScreen> {
               setState(() {
                 _currentPage = page;
               });
+              if (page == 3) {
+                _navigateToMyProfile();
+              }
             },
             children: [
               _buildTutorialPage('assets/images/startpage01.png'),
@@ -91,8 +102,8 @@ class _TutorialScreenState extends State<TutorialScreen> {
                 children: List.generate(4, (index) {
                   return Container(
                     margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                    width: 4.0,
-                    height: 4.0,
+                    width: 8.0,
+                    height: 8.0, // 점의 크기 확대
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: _currentPage == index ? Colors.white : Colors.grey,
