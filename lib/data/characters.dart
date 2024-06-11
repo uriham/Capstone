@@ -15,6 +15,7 @@ List<Character> charList = [
       blue: 111,
       chapters: [
         Chapter(
+          date: DateTime.utc(2024, 03, 26),
           chImg:
               'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 2',
@@ -32,6 +33,7 @@ List<Character> charList = [
       blue: 102,
       chapters: [
         Chapter(
+          date: DateTime.utc(2024, 03, 26),
           chImg: 'https://picsum.photos/250?image=9',
           title: 'Chapter 1',
           text:
@@ -51,6 +53,7 @@ List<Character> charList = [
 드디어 숙제를 끝내고 잠자리에 들었다. 오늘 하루는 꽤 피곤했지만,''',
         ),
         Chapter(
+          date: DateTime.utc(2024, 03, 25),
           chImg:
               'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 2',
@@ -68,6 +71,7 @@ List<Character> charList = [
       blue: 130,
       chapters: [
         Chapter(
+          date: DateTime.utc(2024, 03, 26),
           chImg:
               'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 1',
@@ -85,6 +89,7 @@ List<Character> charList = [
       blue: 117,
       chapters: [
         Chapter(
+          date: DateTime.utc(2024, 03, 26),
           chImg:
               'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 1',
@@ -102,6 +107,7 @@ List<Character> charList = [
       blue: 58,
       chapters: [
         Chapter(
+          date: DateTime.utc(2024, 03, 26),
           chImg:
               'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 1',
@@ -119,6 +125,7 @@ List<Character> charList = [
       blue: 187,
       chapters: [
         Chapter(
+          date: DateTime.utc(2024, 03, 26),
           chImg:
               'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 1',
@@ -135,6 +142,7 @@ List<Character> charList = [
       blue: 85,
       chapters: [
         Chapter(
+          date: DateTime.utc(2024, 03, 26),
           chImg:
               'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 1',
@@ -151,6 +159,7 @@ List<Character> charList = [
       blue: 79,
       chapters: [
         Chapter(
+          date: DateTime.utc(2024, 03, 26),
           chImg:
               'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 1',
@@ -167,6 +176,7 @@ List<Character> charList = [
       blue: 93,
       chapters: [
         Chapter(
+          date: DateTime.utc(2024, 03, 26),
           chImg:
               'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 1',
@@ -183,6 +193,7 @@ List<Character> charList = [
       blue: 81,
       chapters: [
         Chapter(
+          date: DateTime.utc(2024, 03, 26),
           chImg:
               'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 1',
@@ -199,6 +210,7 @@ List<Character> charList = [
       blue: 178,
       chapters: [
         Chapter(
+          date: DateTime.utc(2024, 03, 26),
           chImg:
               'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
           title: 'Chapter 1',

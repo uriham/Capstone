@@ -66,7 +66,10 @@ class _BookCoverScreenState extends ConsumerState<BookCoverScreen> {
     ref.read(bookProvider.notifier).addChapter(
         widget.nowFilter,
         Chapter(
-            chImg: bookInfo[0], title: bookTitle, text: bookInfo[1])); // 책 생성
+            chImg: bookInfo[0],
+            title: bookTitle,
+            text: bookInfo[1],
+            date: widget.selectedDiary.date)); // 책 생성
     final myCharacter =
         ref.read(bookProvider.notifier).getCharacter(widget.nowFilter);
     Navigator.of(context).pushReplacement(MaterialPageRoute(
