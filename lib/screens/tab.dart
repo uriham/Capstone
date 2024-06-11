@@ -127,9 +127,17 @@ class _TapScreenState extends ConsumerState<TabScreen> {
                   );
                 }));
               },
-              child: const Icon(
-                Icons.circle_outlined,
-                size: 41,
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                    color: const Color(0xFF717171),
+                    shape: BoxShape.circle,
+                    border: Border.all(width: 1, color: Colors.white),
+                    image: DecorationImage(
+                        image: AssetImage(
+                            userInfo.imgPath)) // 선택한 이미지가 있을 때만 이미지 표시
+                    ),
               ),
             ),
             const SizedBox(
