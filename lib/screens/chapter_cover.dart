@@ -79,7 +79,7 @@ class _ChapCoverScreenState extends State<ChapCoverScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: const EdgeInsets.only(top: 10),
+                margin: const EdgeInsets.only(top: 60),
                 height: 600,
                 decoration: BoxDecoration(
                   // border: Border.all(
@@ -90,8 +90,8 @@ class _ChapCoverScreenState extends State<ChapCoverScreen> {
                     colors: [whiteOp, Colors.white.withOpacity(0.0)],
                     stops: const [0.1, 0.9],
                     center: Alignment.center,
-                    radius: 0.4,
-                    focalRadius: 1.1,
+                    radius: 0.75,
+                    focalRadius: 0.8,
                   ),
                 ),
                 child: SizedBox(
@@ -126,10 +126,9 @@ class _ChapCoverScreenState extends State<ChapCoverScreen> {
                 controller: _pageController,
                 count: widget.char.chapters.length,
                 effect: const ScrollingDotsEffect(
-                  dotHeight: 10,
-                  dotWidth: 10,
+                  dotHeight: 6,
+                  dotWidth: 6,
                   activeDotColor: Colors.white,
-                  //dotColor: Color.fromARGB(1, 217, 217, 217),
                   spacing: 8,
                 ),
               )

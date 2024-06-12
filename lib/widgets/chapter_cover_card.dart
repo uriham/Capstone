@@ -24,8 +24,8 @@ class ChapterCoverCard extends StatelessWidget {
           Column(
             children: [
               Container(
-                width: 238,
-                height: 360,
+                width: 218,
+                height: 340,
                 decoration: BoxDecoration(
                     //border: Border.all(color: Colors.white),
                     borderRadius: const BorderRadius.all(Radius.circular(20)),

@@ -21,13 +21,13 @@ class _CharCoverCardState extends State<CharCoverCard> {
   final chapController = PageController(viewportFraction: 1.0, keepPage: true);
 
   bool _animate = false;
-  double _opacity = 0.0;
+  final double _opacity = 0.0;
 
   @override
   void initState() {
     super.initState();
 
-    Future.delayed(Duration(microseconds: 100), () {
+    Future.delayed(const Duration(microseconds: 100), () {
       setState(() {
         _animate = true;
       });
@@ -68,7 +68,7 @@ class _CharCoverCardState extends State<CharCoverCard> {
                       color: Colors.black.withOpacity(0.3),
                       spreadRadius: 2,
                       blurRadius: 4,
-                      offset: Offset(1, 2),
+                      offset: const Offset(1, 2),
                     )
                   ],
                 ),
