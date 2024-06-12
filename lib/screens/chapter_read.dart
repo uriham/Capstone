@@ -34,7 +34,6 @@ class _BookReadState extends State<ChapReaderPage> {
   final FontStyle _fontStyle = FontStyle.normal;
   double _fontSize = 16.0;
   double _fontHeight = 2;
-  final Color _textColor = Colors.black;
 
   void _sizeInc() {
     setState(() {
@@ -85,6 +84,27 @@ class _BookReadState extends State<ChapReaderPage> {
     });
   }
 
+  Color _selectedColor = Colors.white;
+  Color _cstmColor = Colors.black;
+  Color _backgroundColor = Colors.black; // 최종 적용된 배경색
+  Color _textColor = Colors.white; // 최종 적용된 텍스트 색상
+  void _changeColor(Color color) {
+    setState(() {
+      _selectedColor = color;
+      _cstmColor = (color == Colors.black ||
+              color == const Color.fromARGB(255, 44, 44, 44))
+          ? Colors.white
+          : Colors.black;
+    });
+  }
+
+  void _applyColor() {
+    setState(() {
+      _backgroundColor = _selectedColor;
+      _textColor = _cstmColor;
+    });
+  }
+
   bool areSameDay(DateTime date1, DateTime date2) {
     return date1.day == date2.day && date1.month == date2.month;
   }
@@ -109,6 +129,7 @@ class _BookReadState extends State<ChapReaderPage> {
       child: GestureDetector(
         onTap: _readSetBarVisibility,
         child: Scaffold(
+          backgroundColor: _backgroundColor,
           body: Stack(
             children: [
               SmartRefresher(
@@ -164,6 +185,7 @@ class _BookReadState extends State<ChapReaderPage> {
                     //physics: const BouncingScrollPhysics(),
                     slivers: <Widget>[
                       SliverAppBar(
+                        backgroundColor: Colors.transparent,
                         pinned: _fined,
                         snap: false,
                         floating: false,
@@ -172,11 +194,14 @@ class _BookReadState extends State<ChapReaderPage> {
                         flexibleSpace: ShaderMask(
                           // 이미지 하단 밑 그라데이션
                           shaderCallback: (Rect bound) {
-                            return const LinearGradient(
+                            return LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
-                              colors: [Colors.white, Colors.transparent],
-                              stops: [0.60, 1.0],
+                              colors: [
+                                Colors.white,
+                                _backgroundColor.withOpacity(0)
+                              ],
+                              stops: const [0.65, 0.9],
                             ).createShader(bound);
                           },
                           blendMode: BlendMode.dstIn,
@@ -230,17 +255,21 @@ class _BookReadState extends State<ChapReaderPage> {
                       SliverToBoxAdapter(
                         child: Column(
                           children: [
-                            const SizedBox(height: 50),
+                            const SizedBox(
+                              height: 50,
+                            ),
                             Text(
                               widget.chap.title,
-                              style: const TextStyle(
-                                color: Colors.white,
+                              style: TextStyle(
+                                color: _textColor,
                                 fontSize: 29,
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            const SizedBox(height: 300),
+                            const SizedBox(
+                              height: 300,
+                            ),
                             // Center(
                             //   child: Text(widget.book.date.toString(),
                             //       style: TextStyle(color: Colors.white, fontSize: 22)),
@@ -253,7 +282,7 @@ class _BookReadState extends State<ChapReaderPage> {
                               alignment: Alignment.topLeft,
                               child: Text(widget.chap.text,
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: _textColor,
                                     fontSize: _fontSize,
                                     height: _fontHeight,
                                   )),
@@ -710,16 +739,67 @@ class _BookReadState extends State<ChapReaderPage> {
                         child: Container(
                             child: Column(
                           children: [
-                            Container(
-                              height: 190,
-                              // 배경색
-                            ),
+                            SizedBox(
+                                height: 190,
+                                // 배경색
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Container(
+                                      width: 155,
+                                      height: 95,
+                                      decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(9)),
+                                        color: _selectedColor,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          '가나다라\n012345',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(color: _cstmColor),
+                                        ),
+                                      ),
+                                    ),
+                                    Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              _buildColorButton(Colors.white),
+                                              _buildColorButton(Colors.black),
+                                              _buildColorButton(
+                                                  const Color.fromARGB(
+                                                      255, 44, 44, 44)),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              _buildColorButton(
+                                                  const Color.fromARGB(
+                                                      255, 225, 208, 188)),
+                                              _buildColorButton(
+                                                  const Color.fromARGB(
+                                                      255, 221, 194, 194)),
+                                              _buildColorButton(
+                                                  const Color.fromARGB(
+                                                      255, 172, 204, 208)),
+                                            ],
+                                          )
+                                        ])
+                                  ],
+                                )),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
                                 TextButton(
                                   onPressed: () {
                                     _settingBoxVisibility();
+                                    _applyColor();
                                   },
                                   child: const Text(
                                     "확인",
@@ -747,6 +827,35 @@ class _BookReadState extends State<ChapReaderPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildColorButton(Color color) {
+    bool isSelected = color == _selectedColor;
+    return GestureDetector(
+      onTap: () {
+        _changeColor(color);
+      },
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            margin: const EdgeInsets.all(10.0),
+            width: 25,
+            height: 25,
+            decoration: BoxDecoration(
+              color: color,
+              //shape: BoxShape.rectangle,
+              borderRadius: const BorderRadius.all(Radius.circular(5)),
+            ),
+          ),
+          if (isSelected)
+            Icon(
+              Icons.check,
+              color: _cstmColor,
+            ),
+        ],
       ),
     );
   }

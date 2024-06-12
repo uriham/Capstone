@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:capstone/screens/tab.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:capstone/screens/myprofile_screen.dart';
 
 final theme = ThemeData.dark().copyWith(
   scaffoldBackgroundColor: Colors.black,
