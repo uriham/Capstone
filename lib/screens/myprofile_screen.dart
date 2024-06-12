@@ -343,15 +343,35 @@ class Start01 extends StatelessWidget {
                       height: 46,
                       child: GestureDetector(
                         onTap: () {
-                          onStartSelected(userName, selectedImage);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => TabScreen(
-                                selectedImage: selectedImage,
+                          if (userName.isEmpty) {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text('Diarizm'),
+                                  content: const Text('이름을 입력해주세요!'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('확인'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          } else {
+                            onStartSelected(userName, selectedImage);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TabScreen(
+                                  selectedImage: selectedImage,
+                                ),
                               ),
-                            ),
-                          );
+                            );
+                          }
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
