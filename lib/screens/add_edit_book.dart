@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:capstone/providers/diary_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:capstone/models/diary.dart';
+import 'package:capstone/screens/read_diary_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 
@@ -87,7 +88,32 @@ class _AddEditBookScreenState extends ConsumerState<AddEditBookScreen> {
           leading: IconButton(
             icon: SvgPicture.asset('assets/images/C_E_back_ic.svg'),
             onPressed: () {
-              Navigator.pop(context);
+              showDialog(
+                  context: context,
+                  builder: (BuildContext ctx) {
+                    return AlertDialog(
+                      content: const Text(
+                        '저장하시겠습니까?',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      actions: <Widget>[
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(ctx).pop();
+                            widget.diary == null ? _saveDiary() : _editDiary();
+                          },
+                          child: const Text('Okay'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(ctx).pop();
+                          },
+                          child: const Text('Close'),
+                        )
+                      ],
+                    );
+                  });
+              //Navigator.pop(context);
             },
           ),
           title: widget.diary == null
@@ -114,41 +140,12 @@ class _AddEditBookScreenState extends ConsumerState<AddEditBookScreen> {
             IconButton(
                 icon: SvgPicture.asset('assets/images/D_Mybook_ic.svg'),
                 onPressed: () {
-                  // 읽기 모드로?
+                  // 읽기 모드로
+                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+                    return ReadDiaryScreen(
+                        todayDiary: widget.diary!, index: widget.index!);
+                  }));
                 }),
-            IconButton(
-              icon: const Icon(Icons.save), // 여기 뭐하지
-              onPressed: () {
-                // 저장 버튼 눌렀을 때 수행할 동작
-                showDialog(
-                    context: context,
-                    builder: (BuildContext ctx) {
-                      return AlertDialog(
-                        content: const Text(
-                          '저장하시겠습니까?',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        actions: <Widget>[
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(ctx).pop();
-                              widget.diary == null
-                                  ? _saveDiary()
-                                  : _editDiary();
-                            },
-                            child: const Text('Okay'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(ctx).pop();
-                            },
-                            child: const Text('Close'),
-                          )
-                        ],
-                      );
-                    });
-              },
-            ),
           ],
         ),
         body: Padding(

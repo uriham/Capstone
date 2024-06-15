@@ -31,31 +31,76 @@ class _BookReadState extends State<ChapReaderPage> {
   bool _isSettingBoxVisible = false;
   bool _fined = false;
 
-  final FontStyle _fontStyle = FontStyle.normal;
+  final List<String> _fonts = ['KoPubWorldDotum_Pro', 'KoPubWorldBatang_Pro'];
+  int _currentIndex = 0;
   double _fontSize = 16.0;
-  double _fontHeight = 2;
+  double _fontHeight = 2.0;
+
+  int _previousIndex = 0;
+  double _previousFontSize = 16.0;
+  double _previousFontHeight = 2.0;
+
+  void _savePreviousState() {
+    _previousIndex = _currentIndex;
+    _previousFontSize = _fontSize;
+    _previousFontHeight = _fontHeight;
+  }
+
+  void _previousFont() {
+    setState(() {
+      _savePreviousState();
+      _currentIndex = (_currentIndex - 1 + _fonts.length) % _fonts.length;
+    });
+  }
+
+  void _nextFont() {
+    setState(() {
+      _savePreviousState();
+      _currentIndex = (_currentIndex + 1) % _fonts.length;
+    });
+  }
 
   void _sizeInc() {
     setState(() {
+      _savePreviousState();
       _fontSize += 1;
     });
   }
 
   void _sizeDec() {
     setState(() {
+      _savePreviousState();
       _fontSize -= 1;
     });
   }
 
   void _heightInc() {
     setState(() {
+      _savePreviousState();
       _fontHeight += 0.5;
     });
   }
 
   void _heightDec() {
     setState(() {
+      _savePreviousState();
       _fontHeight -= 0.5;
+    });
+  }
+
+  void _resetSettings() {
+    setState(() {
+      _currentIndex = 0;
+      _fontSize = 16.0;
+      _fontHeight = 2.0;
+    });
+  }
+
+  void _cancelButton() {
+    setState(() {
+      _currentIndex = _previousIndex;
+      _fontSize = _previousFontSize;
+      _fontHeight = _previousFontHeight;
     });
   }
 
@@ -88,6 +133,7 @@ class _BookReadState extends State<ChapReaderPage> {
   Color _cstmColor = Colors.black;
   Color _backgroundColor = Colors.black; // 최종 적용된 배경색
   Color _textColor = Colors.white; // 최종 적용된 텍스트 색상
+
   void _changeColor(Color color) {
     setState(() {
       _selectedColor = color;
@@ -283,6 +329,7 @@ class _BookReadState extends State<ChapReaderPage> {
                               child: Text(widget.chap.text,
                                   style: TextStyle(
                                     color: _textColor,
+                                    fontFamily: _fonts[_currentIndex],
                                     fontSize: _fontSize,
                                     height: _fontHeight,
                                   )),
@@ -346,7 +393,7 @@ class _BookReadState extends State<ChapReaderPage> {
                             ),
                             IconButton(
                               icon: const Icon(Icons.chevron_left),
-                              onPressed: () {},
+                              onPressed: _previousFont,
                             ),
                             Container(
                               width: 150,
@@ -365,18 +412,18 @@ class _BookReadState extends State<ChapReaderPage> {
                                   ]),
                               alignment: Alignment.center,
                               child: Text(
-                                '$_fontStyle',
-                                style: const TextStyle(
+                                _fonts[_currentIndex],
+                                style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 15,
-                                  fontFamily: 'KoPubWorldDotum_Pro',
+                                  fontFamily: _fonts[_currentIndex],
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
                             ),
                             IconButton(
                               icon: const Icon(Icons.chevron_right),
-                              onPressed: () {},
+                              onPressed: _nextFont,
                             ),
                           ],
                         ),
@@ -517,35 +564,37 @@ class _BookReadState extends State<ChapReaderPage> {
                               onPressed: () {},
                             ),
                             Container(
-                              width: 150,
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(50.0)),
-                                  color:
-                                      const Color.fromARGB(118, 109, 109, 109),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.7),
-                                      spreadRadius: -10,
-                                      blurRadius: 5,
-                                      offset: const Offset(0, 7),
-                                    )
-                                  ]),
-                              alignment: Alignment.center,
-                              child: const Text(
-                                '초기화',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontFamily: 'KoPubWorldDotum_Pro',
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ),
+                                width: 150,
+                                decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(50.0)),
+                                    color: const Color.fromARGB(
+                                        118, 109, 109, 109),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.7),
+                                        spreadRadius: -10,
+                                        blurRadius: 5,
+                                        offset: const Offset(0, 7),
+                                      )
+                                    ]),
+                                alignment: Alignment.center,
+                                child: TextButton(
+                                  onPressed: () {},
+                                  child: const Text(
+                                    '초기화',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontFamily: 'KoPubWorldDotum_Pro',
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                )),
                             IconButton(
                               icon: const Icon(Icons.add,
                                   color: Colors.transparent),
-                              onPressed: () {},
+                              onPressed: _resetSettings,
                             ),
                           ],
                         ),
@@ -565,6 +614,7 @@ class _BookReadState extends State<ChapReaderPage> {
                             TextButton(
                               onPressed: () {
                                 _controlBoxVisibility();
+                                _cancelButton();
                               },
                               child: const Text(
                                 "취소",
