@@ -206,26 +206,24 @@ class ExampleSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
-          padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
+          padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
           child: Text(
             title,
             style: exampleTitleStyle(context),
           ),
         ),
         Padding(
-          padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
           child: Container(
-            color: Color(0xFF1A1A1A),
+            color: const Color(0xFF1A1A1A),
             child: Padding(
               padding: const EdgeInsets.all(10),
-              child: Flexible(
-                child: Text.rich(
-                  TextSpan(
-                    children: textSpans,
-                  ),
-                  textAlign: TextAlign.start,
-                  style: exampleTextSpanStyle(context),
+              child: Text.rich(
+                TextSpan(
+                  children: textSpans,
                 ),
+                textAlign: TextAlign.start,
+                style: exampleTextSpanStyle(context),
               ),
             ),
           ),
