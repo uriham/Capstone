@@ -113,7 +113,6 @@ class _AddEditBookScreenState extends ConsumerState<AddEditBookScreen> {
                       ],
                     );
                   });
-              //Navigator.pop(context);
             },
           ),
           title: widget.diary == null
