@@ -151,47 +151,49 @@ class _AddEditBookScreenState extends ConsumerState<AddEditBookScreen> {
             ),
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              widget.diary == null
-                  ? formatter2.format(DateTime.now())
-                  : formatter2.format(widget.diary!.date),
-              style: const TextStyle(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                widget.diary == null
+                    ? formatter2.format(DateTime.now())
+                    : formatter2.format(widget.diary!.date),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w600,
+                ),
+                textAlign: TextAlign.left,
+              ),
+              Container(
+                width: double.infinity,
+                height: 2,
                 color: Colors.white,
-                fontSize: 22,
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w600,
               ),
-              textAlign: TextAlign.left,
-            ),
-            Container(
-              width: double.infinity,
-              height: 2,
-              color: Colors.white,
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            TextField(
-              maxLines: null,
-              keyboardType: TextInputType.multiline,
-              controller: _textController,
-              style:
-                  const TextStyle(color: Colors.white, fontSize: 16, height: 2),
-              decoration: const InputDecoration(
-                border: InputBorder.none,
+              const SizedBox(
+                height: 30,
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-          ]),
+              TextField(
+                maxLines: null,
+                keyboardType: TextInputType.multiline,
+                controller: _textController,
+                style: const TextStyle(
+                    color: Colors.white, fontSize: 16, height: 2),
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+            ]),
+          ),
         ),
       ),
     );

@@ -147,11 +147,10 @@ class _BookReadState extends State<ChapReaderPage> {
                     }));
                     _refreshController.loadComplete();
                   } else {
-                    _refreshController.loadComplete();
+                    _refreshController.refreshCompleted();
                   }
                 },
                 onLoading: () async {
-                  // 밑에 있는놈 담당
                   await Future.delayed(const Duration(milliseconds: 1000));
                   if (chapterIndex != -1 &&
                       chapterIndex < widget.character.chapters.length - 1) {
@@ -170,7 +169,8 @@ class _BookReadState extends State<ChapReaderPage> {
                 controller: _refreshController,
                 enablePullUp: true,
                 header: const ClassicHeader(
-                  completeDuration: Duration(milliseconds: 300),
+                  completeDuration: Duration(milliseconds: 100),
+                  canTwoLevelText: '올리기',
                   releaseText: '드래그 해서 이전 페이지',
                   refreshingText: 'Loadging',
                 ),
