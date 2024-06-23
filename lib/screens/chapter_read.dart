@@ -412,7 +412,7 @@ class _BookReadState extends State<ChapReaderPage> {
                                   ]),
                               alignment: Alignment.center,
                               child: Text(
-                                _fonts[_currentIndex],
+                                _currentIndex == 0 ? '바탕체' : '돋움체',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 15,
@@ -565,21 +565,11 @@ class _BookReadState extends State<ChapReaderPage> {
                             ),
                             Container(
                                 width: 150,
-                                decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(50.0)),
-                                    color: const Color.fromARGB(
-                                        118, 109, 109, 109),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.7),
-                                        spreadRadius: -10,
-                                        blurRadius: 5,
-                                        offset: const Offset(0, 7),
-                                      )
-                                    ]),
                                 alignment: Alignment.center,
-                                child: TextButton(
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color.fromARGB(
+                                          118, 109, 109, 109)),
                                   onPressed: () {},
                                   child: const Text(
                                     '초기화',

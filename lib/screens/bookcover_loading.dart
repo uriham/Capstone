@@ -94,7 +94,8 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
     final text = await chain.invoke({'text': content, 'name': username});
     //print(text.toString());
     final executor = AgentExecutor(agent: agent);
-    final url = await executor.run(keyword);
+    final url =
+        await executor.run('$keyword,In Monet stylein an oil painting style');
     print(url);
 
     return [url, text.toString()];
