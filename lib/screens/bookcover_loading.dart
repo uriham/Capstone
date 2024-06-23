@@ -9,35 +9,6 @@ import 'package:langchain/langchain.dart';
 import 'package:langchain_openai/langchain_openai.dart';
 import 'package:capstone/data/prompts.dart';
 import 'dart:async';
-import 'dart:ui' as ui;
-
-class MyPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    // 그라데이션 페인트 생성
-    final Paint paint = Paint()
-      ..shader = ui.Gradient.linear(
-        const Offset(0, 0),
-        Offset(size.width, size.height),
-        [Colors.purpleAccent, Colors.purple],
-      );
-
-    // 사다리꼴 모양 그리기
-    final path = Path()
-      ..moveTo(size.width, 0)
-      ..lineTo(size.width, size.height)
-      ..lineTo(0, size.height)
-      ..close();
-
-    // 캔버스에 모양 그리기
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
-}
 
 class BookCoverLoading extends ConsumerStatefulWidget {
   const BookCoverLoading(
@@ -123,7 +94,8 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
     final text = await chain.invoke({'text': content, 'name': username});
     //print(text.toString());
     final executor = AgentExecutor(agent: agent);
-    final url = await executor.run(keyword);
+    final url =
+        await executor.run('$keyword,In Monet stylein an oil painting style');
     print(url);
 
     return [url, text.toString()];
@@ -360,7 +332,7 @@ class _ArrowRotationAnimationState extends State<_ArrowRotationAnimation>
     );
   }
 }
-
+/*
 class _LoadingText extends StatefulWidget {
   @override
   _LoadingTextState createState() => _LoadingTextState();
@@ -417,3 +389,4 @@ class _LoadingTextState extends State<_LoadingText> {
     );
   }
 }
+*/
