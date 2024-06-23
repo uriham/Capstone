@@ -259,6 +259,18 @@ class _BookReadState extends State<ChapReaderPage> {
                               height: 50,
                             ),
                             Text(
+                              widget.chap.formattedDate,
+                              style: TextStyle(
+                                color: _textColor,
+                                fontSize: 29,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 50,
+                            ),
+                            Text(
                               widget.chap.title,
                               style: TextStyle(
                                 color: _textColor,

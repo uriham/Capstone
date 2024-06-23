@@ -53,7 +53,7 @@ class _LoadingTextState extends State<LoadingText> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 250.0,
+      width: double.infinity,
       child: DefaultTextStyle(
         style: const TextStyle(
           fontSize: 18.0,

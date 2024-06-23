@@ -278,9 +278,12 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
                 //     painter: ShapePainter(),
                 //   ),
                 // ),
-                const Center(
-                  //child: _LoadingText(),
-                  child: LoadingText(),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
+                  child: Center(
+                    //child: _LoadingText(),
+                    child: LoadingText(),
+                  ),
                 ),
               ],
             );
