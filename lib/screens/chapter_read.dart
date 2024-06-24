@@ -259,19 +259,11 @@ class _BookReadState extends State<ChapReaderPage> {
                           ),
                         ),
                         actions: [
-                          IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  isCheck = !isCheck;
-                                });
-                              },
-                              icon: isCheck
-                                  ? SvgPicture.asset(
-                                      "assets/images/R_Bookmark0_ic.svg")
-                                  : SvgPicture.asset(
-                                      "assets/images/R_Bookmark1_ic.svg")),
                           PopupMenuButton(
-                            icon: const Icon(Icons.more_vert),
+                            icon: const Icon(
+                              Icons.more_vert,
+                              color: Colors.white,
+                            ),
                             itemBuilder: (BuildContext context) => [
                               // PopupMenuItem(
                               //   child: ListTile(
@@ -281,11 +273,11 @@ class _BookReadState extends State<ChapReaderPage> {
                               //   ),
                               // ),
                               PopupMenuItem<String>(
-                                child: Container(
-                                    color: Colors.transparent,
-                                    // leading: SvgPicture.asset(
-                                    //     'assets/images/E_R_PDF_ic.svg'),
-                                    child: const Text('PDF로 내보내기')),
+                                child: ListTile(
+                                    //color: Colors.transparent,
+                                    leading: SvgPicture.asset(
+                                        'assets/images/E_R_PDF_ic.svg'),
+                                    title: const Text('PDF로 내보내기')),
                               ),
                               PopupMenuItem(
                                 child: ListTile(
@@ -364,7 +356,7 @@ class _BookReadState extends State<ChapReaderPage> {
                     width: MediaQuery.of(context).size.width,
                     height: 256,
                     decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 0, 0, 0),
+                        color: Color(0xFF0E0E0E),
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(50.0),
                           topRight: Radius.circular(50.0),
@@ -630,7 +622,7 @@ class _BookReadState extends State<ChapReaderPage> {
                         width: MediaQuery.of(context).size.width,
                         height: 256,
                         decoration: const BoxDecoration(
-                            color: Colors.black,
+                            color: Color(0xFF0E0E0E),
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(50.0),
                               topRight: Radius.circular(50.0),
@@ -771,7 +763,7 @@ class _BookReadState extends State<ChapReaderPage> {
                         width: MediaQuery.of(context).size.width,
                         height: 256,
                         decoration: const BoxDecoration(
-                            color: Colors.black,
+                            color: Color(0xFF0E0E0E),
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(50.0),
                               topRight: Radius.circular(50.0),

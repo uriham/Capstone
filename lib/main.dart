@@ -6,15 +6,17 @@ import 'package:capstone/screens/tab.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 final theme = ThemeData.dark().copyWith(
-  scaffoldBackgroundColor: Colors.black,
-  appBarTheme: const AppBarTheme().copyWith(
-    backgroundColor: Colors.black,
-  ),
-  cardTheme: const CardTheme().copyWith(
-    color: const Color.fromARGB(1, 255, 255, 255),
-  ),
-  textTheme: GoogleFonts.latoTextTheme(),
-);
+    scaffoldBackgroundColor: Colors.black,
+    appBarTheme: const AppBarTheme().copyWith(
+      backgroundColor: Colors.black,
+    ),
+    cardTheme: const CardTheme().copyWith(
+      color: const Color.fromARGB(1, 255, 255, 255),
+    ),
+    textTheme: GoogleFonts.latoTextTheme(),
+    popupMenuTheme: PopupMenuThemeData(
+      color: Colors.black.withOpacity(0.6000000238418579),
+    ));
 
 void main() {
   initializeDateFormatting('ko_KR')

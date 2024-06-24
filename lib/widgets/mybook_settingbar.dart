@@ -21,7 +21,7 @@ class BookSettingBar extends StatelessWidget {
             width: 390, // Width of the container
             height: 50, // Height of the container
             decoration: ShapeDecoration(
-              color: const Color(0xFF5D5D5D),
+              color: Colors.white.withOpacity(0.10000000149011612),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25),
               ),
