@@ -215,7 +215,9 @@ class ExampleSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
           child: Container(
-            color: const Color(0xFF1A1A1A),
+            decoration: BoxDecoration(
+              color: const Color(0xFF1A1A1A),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Text.rich(
@@ -406,7 +408,7 @@ class palette_screen_next_mmung extends StatelessWidget {
       exampleTextSpans: [
         TextSpan(
           text:
-              '"초봄이라 날씨가 쌀쌀했다. 한숨을 쉬니 하얗게 올라오는 입김들을 보니 조금은 머리가 차분해 지는 기분이었다."\n\n늘 이맘때 쯤이면 소설 한 권을 들고 조용한 공원을 찾곤 한다. 그곳에서 다른 사람들의 이야기를 읽으며, 그들의 생각과 감정을 이해하려 노력한다. 이것이 내가 문학을 통해 세상을 바라보는 방식이다. 각자의 삶에서 빛나는 순간들을 발견하는 것, 그것이 내가 문학에 빠진 이유다.이 짧은 문장에서도, 저자는 계절의 변화와 인간의 내적 감정을 섬세하게 포착하고 있다....\n\n',
+              '"초봄이라 날씨가 쌀쌀했다. 한숨을 쉬니 하얗게 올라오는 입김들을 보니 조금은 머리가 차분해 지는 기분이었다."\n\n늘 이맘때 쯤이면 소설 한 권을 들고 조용한 공원을 찾곤 한다. 그곳에서 다른 사람들의 이야기를 읽으며, 그들의 생각과 감정을 이해하려 노력한다. 이것이 내가 문학을 통해 세상을 바라보는 방식이다. 각자의 삶에서 빛나는 순간들을 발견하는 것, 그것이 내가 문학에 빠진 이유다.이 짧은 문장에서도, 저자는 계절의 변화와 인간의 내적 감정을 섬세하게 포착하고 있다....',
           style: exampleTextSpanStyle(context),
         ),
       ],
