@@ -217,6 +217,8 @@ class ExampleSection extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               color: const Color(0xFF1A1A1A),
+              borderRadius:
+                  BorderRadius.circular(10), // Adjust the radius as needed
             ),
             child: Padding(
               padding: const EdgeInsets.all(10),
