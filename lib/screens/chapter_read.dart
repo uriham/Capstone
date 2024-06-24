@@ -1,3 +1,4 @@
+import 'package:capstone/screens/palette_screen_next.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ import 'package:capstone/widgets/mybook_settingbar.dart';
 import 'package:capstone/widgets/photo_hero.dart';
 import 'package:capstone/screens/chapter_cover.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:scroll_date_picker/scroll_date_picker.dart';
+import 'package:wheel_picker/wheel_picker.dart';
 import 'package:capstone/models/chapter.dart';
 
 class ChapReaderPage extends StatefulWidget {
@@ -161,6 +162,21 @@ class _BookReadState extends State<ChapReaderPage> {
   Widget build(BuildContext context) {
     int chapterIndex = widget.character.chapters
         .indexWhere((chapter) => chapter.text == widget.chap.text);
+
+    const textStyle = TextStyle(fontSize: 15.0, height: 1.5);
+    final wheelStyle = WheelPickerStyle(
+      size: 200,
+      itemExtent: textStyle.fontSize! * textStyle.height!,
+      squeeze: 1.25, //항목 압축 정도
+      diameterRatio: .8, //휠 픽커 직경 비율
+      surroundingOpacity: .25, //휠 픽커 주변 항목 투명도
+      magnification: 1.2, //중앙 항목 확대 비율
+    );
+
+    Widget itemBuilder(BuildContext context, String title) {
+      return Text("$title".padLeft(2, '0'), style: textStyle);
+    }
+
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
@@ -265,13 +281,6 @@ class _BookReadState extends State<ChapReaderPage> {
                               color: Colors.white,
                             ),
                             itemBuilder: (BuildContext context) => [
-                              // PopupMenuItem(
-                              //   child: ListTile(
-                              //     leading: SvgPicture.asset(
-                              //         'assets/images/E_R_Full screen_ic.svg'),
-                              //     title: Text('전체 화면'),
-                              //   ),
-                              // ),
                               PopupMenuItem<String>(
                                 child: ListTile(
                                     //color: Colors.transparent,
@@ -632,54 +641,24 @@ class _BookReadState extends State<ChapReaderPage> {
                           children: [
                             SizedBox(
                               height: 190,
-                              // 달력
+                              // 챕터 리스트
                               child: SizedBox(
                                 width: 200,
                                 height: 180,
-                                // child: ScrollWheelDatePicker(
-                                //   theme: CurveDatePickerTheme(
-                                //     wheelPickerHeight: 200.0,
-                                //     overlay: ScrollWheelDatePickerOverlay.line,
-                                //     itemTextStyle: defaultItemTextStyle
-                                //         .copyWith(color: Colors.white),
-                                //     overlayColor: Colors.white,
-                                //     overAndUnderCenterOpacity: 0.2,
-                                //   ),
-                                //   startDate: DateTime(2023, 1, 1),
-                                //   lastDate: DateTime.now(),
-                                // )
-                                child: ScrollDatePicker(
-                                  selectedDate: _selectedDate,
-                                  minimumDate: DateTime(2023, 1, 1),
-                                  locale: const Locale('ko'),
-                                  options: const DatePickerOptions(
-                                    //diameterRatio: 2,
-                                    backgroundColor:
-                                        Color.fromARGB(1, 30, 30, 30),
-                                  ),
-                                  scrollViewOptions:
-                                      const DatePickerScrollViewOptions(
-                                          year: ScrollViewDetailOptions(
-                                            //label: '년',
-                                            margin: EdgeInsets.only(right: 8),
-                                            // textStyle: TextStyle(
-                                            //   color:
-                                            //       Color.fromARGB(164, 255, 255, 255),
-                                            // ),
-                                            // selectedTextStyle: TextStyle(
-                                            //     color: Color.fromARGB(
-                                            //         255, 255, 255, 255)),
-                                          ),
-                                          month: ScrollViewDetailOptions(
-                                            //label: '월',
-                                            margin: EdgeInsets.only(right: 8),
-                                          ),
-                                          day: ScrollViewDetailOptions(
-                                              //label: '일',
-                                              )),
-                                  onDateTimeChanged: (DateTime value) {
+                                child: WheelPicker(
+                                  itemCount: widget.character.chapters.length,
+                                  builder: (context, index) {
+                                    return Text(
+                                        widget.character.chapters[index].title,
+                                        style: textStyle);
+                                  },
+                                  initialIndex: chapterIndex,
+                                  looping: false,
+                                  style: wheelStyle,
+                                  selectedIndexColor: Colors.white,
+                                  onIndexChanged: (index) {
                                     setState(() {
-                                      _selectedDate = value;
+                                      chapterIndex = index;
                                     });
                                   },
                                 ),
@@ -691,43 +670,19 @@ class _BookReadState extends State<ChapReaderPage> {
                                 TextButton(
                                   onPressed: () {
                                     _contentBoxVisibility();
-                                    Chapter? nextChapter = widget
-                                        .character.chapters
-                                        .firstWhereOrNull(
-                                      (chapter) => areSameDay(
-                                          chapter.date, _selectedDate),
-                                    );
-                                    if (nextChapter != null) {
-                                      Navigator.pushReplacement(context,
-                                          MaterialPageRoute(builder: (ctx) {
-                                        return ChapReaderPage(
-                                            chap: nextChapter,
-                                            character: widget.character);
-                                      }));
-                                    } else {
-                                      _contentBoxVisibility();
-                                      showDialog(
-                                          context: context,
-                                          builder: (ctx) {
-                                            return AlertDialog(
-                                              actions: [
-                                                TextButton(
-                                                    onPressed: () {
-                                                      Navigator.of(ctx).pop();
-                                                    },
-                                                    child: const Text(
-                                                      '취소',
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 14),
-                                                    ))
-                                              ],
-                                              title: const Text('오류'),
-                                              content:
-                                                  const Text('해당 날짜의 책은 없습니다.'),
-                                            );
-                                          });
-                                    }
+
+                                    // 해당 제목의 챕터로 이동 !!!!!
+                                    Chapter? nextChapter =
+                                        widget.character.chapters[chapterIndex];
+
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ChapReaderPage(
+                                                    chap: nextChapter,
+                                                    character:
+                                                        widget.character)));
                                   },
                                   child: const Text(
                                     "확인",

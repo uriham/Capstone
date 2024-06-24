@@ -57,6 +57,7 @@ dependencies:
   flutter_svg_provider: ^1.0.7
   flutter_to_pdf: ^0.2.0
   collection: ^1.15.0
+  wheel_picker: ^0.0.4
 
 dev_dependencies:
   flutter_test:
