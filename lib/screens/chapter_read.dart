@@ -156,7 +156,8 @@ class _BookReadState extends State<ChapReaderPage> {
     return date1.day == date2.day && date1.month == date2.month;
   }
 
-  DateTime _selectedDate = DateTime.now();
+  final DateTime _selectedDate = DateTime.now();
+  int nowIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +175,7 @@ class _BookReadState extends State<ChapReaderPage> {
     );
 
     Widget itemBuilder(BuildContext context, String title) {
-      return Text("$title".padLeft(2, '0'), style: textStyle);
+      return Text(title.padLeft(2, '0'), style: textStyle);
     }
 
     return PopScope(
@@ -247,6 +248,14 @@ class _BookReadState extends State<ChapReaderPage> {
                     //physics: const BouncingScrollPhysics(),
                     slivers: <Widget>[
                       SliverAppBar(
+                        automaticallyImplyLeading: false,
+                        leading: IconButton(
+                          icon:
+                              SvgPicture.asset('assets/images/C_E_back_ic.svg'),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
                         backgroundColor: Colors.transparent,
                         pinned: _fined,
                         snap: false,
@@ -276,6 +285,11 @@ class _BookReadState extends State<ChapReaderPage> {
                         ),
                         actions: [
                           PopupMenuButton(
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
+                            color: const Color.fromARGB(255, 0, 0, 0)
+                                .withOpacity(0.54),
                             icon: const Icon(
                               Icons.more_vert,
                               color: Colors.white,
@@ -564,28 +578,39 @@ class _BookReadState extends State<ChapReaderPage> {
                               ),
                               onPressed: () {},
                             ),
-                            Container(
+                            InkWell(
+                              onTap: _resetSettings,
+                              child: Container(
                                 width: 150,
+                                decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(50.0)),
+                                    color: const Color.fromARGB(
+                                        118, 109, 109, 109),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.7),
+                                        spreadRadius: -10,
+                                        blurRadius: 5,
+                                        offset: const Offset(0, 7),
+                                      )
+                                    ]),
                                 alignment: Alignment.center,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: const Color.fromARGB(
-                                          118, 109, 109, 109)),
-                                  onPressed: () {},
-                                  child: const Text(
-                                    '초기화',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                      fontFamily: 'KoPubWorldDotum_Pro',
-                                      fontWeight: FontWeight.w700,
-                                    ),
+                                child: const Text(
+                                  '초기화',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontFamily: 'KoPubWorldDotum_Pro',
+                                    fontWeight: FontWeight.w700,
                                   ),
-                                )),
+                                ),
+                              ),
+                            ),
                             IconButton(
                               icon: const Icon(Icons.add,
                                   color: Colors.transparent),
-                              onPressed: _resetSettings,
+                              onPressed: () {},
                             ),
                           ],
                         ),
@@ -598,17 +623,6 @@ class _BookReadState extends State<ChapReaderPage> {
                               },
                               child: const Text(
                                 "확인",
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                _controlBoxVisibility();
-                                _cancelButton();
-                              },
-                              child: const Text(
-                                "취소",
                                 style: TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.bold),
                               ),
@@ -658,7 +672,7 @@ class _BookReadState extends State<ChapReaderPage> {
                                   selectedIndexColor: Colors.white,
                                   onIndexChanged: (index) {
                                     setState(() {
-                                      chapterIndex = index;
+                                      nowIndex = index;
                                     });
                                   },
                                 ),
@@ -669,20 +683,19 @@ class _BookReadState extends State<ChapReaderPage> {
                               children: <Widget>[
                                 TextButton(
                                   onPressed: () {
-                                    _contentBoxVisibility();
-
-                                    // 해당 제목의 챕터로 이동 !!!!!
-                                    Chapter? nextChapter =
-                                        widget.character.chapters[chapterIndex];
+                                    print(nowIndex);
+                                    Chapter newChapter =
+                                        widget.character.chapters[nowIndex];
 
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 ChapReaderPage(
-                                                    chap: nextChapter,
+                                                    chap: newChapter,
                                                     character:
                                                         widget.character)));
+                                    _contentBoxVisibility();
                                   },
                                   child: const Text(
                                     "확인",

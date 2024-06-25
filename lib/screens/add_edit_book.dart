@@ -135,17 +135,6 @@ class _AddEditBookScreenState extends ConsumerState<AddEditBookScreen> {
                   ),
                 ),
           backgroundColor: Colors.transparent,
-          actions: [
-            IconButton(
-                icon: SvgPicture.asset('assets/images/D_Mybook_ic.svg'),
-                onPressed: () {
-                  // 읽기 모드로
-                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                    return ReadDiaryScreen(
-                        todayDiary: widget.diary!, index: widget.index!);
-                  }));
-                }),
-          ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(16),

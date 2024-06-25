@@ -21,17 +21,6 @@ class ReadDiaryScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(0),
-            child: IconButton(
-              onPressed: () {},
-              icon: SvgPicture.asset(
-                'assets/images/R_Bookmark0_ic.svg',
-                width: 32,
-                height: 32,
-              ),
-            ),
-          ),
           IconButton(
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
@@ -45,10 +34,11 @@ class ReadDiaryScreen extends ConsumerWidget {
             ),
           ),
           PopupMenuButton(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20))),
+            color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.54),
             icon: SvgPicture.asset(
               'assets/images/E_R_M_Kebab Menu_ic.svg',
-              width: 32,
-              height: 32,
             ),
             itemBuilder: (BuildContext context) => [
               PopupMenuItem<String>(
