@@ -1,17 +1,4 @@
 import 'dart:io';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:share_plus/share_plus.dart';
-import 'package:capstone/screens/add_edit_book.dart';
-import 'package:flutter/material.dart';
-import 'package:capstone/models/diary.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:share_plus/share_plus.dart';
-import 'package:intl/intl.dart';
-
 import 'package:capstone/screens/add_edit_book.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone/models/diary.dart';
@@ -45,8 +32,7 @@ class ReadDiaryScreen extends StatelessWidget {
             child: pw.Column(
               mainAxisAlignment: pw.MainAxisAlignment.center,
               children: [
-                pw.Text('Diary Entry by $titleName',
-                    style: pw.TextStyle(fontSize: 20)),
+                pw.Text('$titleName', style: pw.TextStyle(fontSize: 20)),
                 pw.SizedBox(height: 20),
                 pw.Text(diaryText),
               ],

@@ -9,6 +9,12 @@ import 'package:capstone/screens/chapter_cover.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
 import 'package:capstone/models/chapter.dart';
+import 'package:pdf/widgets.dart' as pdfLib;
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+import 'package:share_plus/share_plus.dart'; // Share 기능을 위해 import
+
+import 'package:flutter/services.dart'; // Clipboard 사용을 위해 import
 
 class ChapReaderPage extends StatefulWidget {
   final Chapter chap;
@@ -129,6 +135,14 @@ class _BookReadState extends State<ChapReaderPage> {
     });
   }
 
+  void _copyURLToClipboard() {
+    String url = 'https://example.com'; // Replace with the URL you want to copy
+    Clipboard.setData(ClipboardData(text: url));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('URL이 클립보드에 복사되었습니다.')),
+    );
+  }
+
   Color _selectedColor = Colors.white;
   Color _cstmColor = Colors.black;
   Color _backgroundColor = Colors.black; // 최종 적용된 배경색
@@ -156,6 +170,43 @@ class _BookReadState extends State<ChapReaderPage> {
   }
 
   DateTime _selectedDate = DateTime.now();
+  void _exportToPDF(BuildContext context, String fileName) async {
+    final pdf = pdfLib.Document();
+    pdf.addPage(
+      pdfLib.Page(
+        build: (pdfLib.Context context) {
+          return pdfLib.Column(
+            crossAxisAlignment: pdfLib.CrossAxisAlignment.start,
+            children: [
+              pdfLib.Text(widget.chap.formattedDate,
+                  style: pdfLib.TextStyle(
+                      fontSize: 24, fontWeight: pdfLib.FontWeight.bold)),
+              pdfLib.SizedBox(height: 16),
+              pdfLib.Text(widget.chap.title,
+                  style: pdfLib.TextStyle(
+                      fontSize: 24, fontWeight: pdfLib.FontWeight.bold)),
+              pdfLib.SizedBox(height: 16),
+              pdfLib.Text(widget.chap.text,
+                  style: pdfLib.TextStyle(fontSize: _fontSize)),
+            ],
+          );
+        },
+      ),
+    );
+
+    // Get the directory for documents
+    Directory directory = await getApplicationDocumentsDirectory();
+    String filePath = '${directory.path}/$fileName.pdf';
+
+    // Save the PDF document
+    File file = File(filePath);
+    await file.writeAsBytes(await pdf.save());
+
+    // Show a snackbar indicating the file path where PDF is saved
+
+    // Open share sheet to share the PDF file
+    Share.shareFiles([filePath], text: 'PDF 파일 공유');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -280,22 +331,75 @@ class _BookReadState extends State<ChapReaderPage> {
                               //     title: Text('전체 화면'),
                               //   ),
                               // ),
-                              PopupMenuItem<String>(
-                                child: Container(
-                                    color: Colors.transparent,
-                                    // leading: SvgPicture.asset(
-                                    //     'assets/images/E_R_PDF_ic.svg'),
-                                    child: const Text('PDF로 내보내기')),
+                              PopupMenuItem(
+                                value:
+                                    'export', // add a value to identify the menu item
+                                child: ListTile(
+                                    leading: SvgPicture.asset(
+                                        'assets/images/E_R_PDF_ic.svg'),
+                                    title: const Text('PDF로 내보내기')),
                               ),
                               PopupMenuItem(
+                                value: 'share',
                                 child: ListTile(
                                     leading: SvgPicture.asset(
                                         'assets/images/E_R_Share_ic.svg'),
                                     title: const Text('공유하기')),
                               ),
                             ],
-                            onSelected: (value) {},
-                          )
+                            onSelected: (value) {
+                              if (value == 'export') {
+                                // Show dialog to get file name from user
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    TextEditingController fileNameController =
+                                        TextEditingController();
+                                    return AlertDialog(
+                                      title: Text('PDF 파일 이름 입력'),
+                                      content: TextField(
+                                        controller: fileNameController,
+                                        decoration: InputDecoration(
+                                            hintText: '파일 이름 입력'),
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text('취소'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            String fileName =
+                                                fileNameController.text.trim();
+                                            if (fileName.isNotEmpty) {
+                                              Navigator.pop(
+                                                  context); // Close dialog
+                                              _exportToPDF(context,
+                                                  fileName); // Call PDF export function with file name
+                                            } else {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content:
+                                                      Text('파일 이름을 입력해주세요.'),
+                                                ),
+                                              );
+                                            }
+                                          },
+                                          child: Text('저장'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              } else if (value == 'share') {
+                                // Implement sharing functionality here
+                                _copyURLToClipboard();
+                              }
+                            },
+                          ),
                         ],
                       ),
                       SliverToBoxAdapter(
