@@ -25,7 +25,7 @@ class PhotoHero extends StatelessWidget {
             onTap: onTap,
             child: Image.network(
               photo,
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
             ),
           ),
         ),

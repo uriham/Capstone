@@ -56,10 +56,10 @@ class _LoadingTextState extends State<LoadingText> {
       width: double.infinity,
       child: DefaultTextStyle(
         style: const TextStyle(
-          fontSize: 18.0,
+          fontSize: 21.0,
           fontFamily: 'KoPubWorldDotum_Pro',
           fontWeight: FontWeight.w700,
-          height: 1.2,
+          height: 1.3,
           letterSpacing: 0.72,
         ),
         child: GestureDetector(
@@ -71,7 +71,7 @@ class _LoadingTextState extends State<LoadingText> {
               animatedTexts: [
                 for (int i = 0; i < texts.length; i++)
                   FadeAnimatedText(getNextText(),
-                      duration: const Duration(seconds: 5)),
+                      duration: const Duration(seconds: 6)),
               ],
               onTap: () {
                 print("Tap Event");

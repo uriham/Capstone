@@ -95,7 +95,7 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
     //print(text.toString());
     final executor = AgentExecutor(agent: agent);
     final url =
-        await executor.run('$keyword,In Monet stylein an oil painting style');
+        await executor.run('$keyword,In Monet style, in an oil painting style');
     print(url);
 
     return [url, text.toString()];
@@ -251,7 +251,7 @@ class BookCoverLoadingState extends ConsumerState<BookCoverLoading> {
                 //   ),
                 // ),
                 const Padding(
-                  padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
+                  padding: EdgeInsets.fromLTRB(55, 0, 55, 0),
                   child: Center(
                     //child: _LoadingText(),
                     child: LoadingText(),
