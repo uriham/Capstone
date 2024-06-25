@@ -8,6 +8,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:share_plus/share_plus.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/services.dart'; // Clipboard 사용을 위해 import
 
 final formatter = DateFormat.yMMMd();
 
@@ -56,13 +57,13 @@ class ReadDiaryScreen extends StatelessWidget {
 
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: false, // 사용자가 버튼을 눌러야만 닫힙니다.
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('제목을 입력하세요'),
+          title: const Text('파일 이름을 입력하세요'),
           content: TextField(
             controller: nameController,
-            decoration: const InputDecoration(hintText: '제목'),
+            decoration: const InputDecoration(hintText: 'Diary'),
           ),
           actions: <Widget>[
             TextButton(
@@ -74,15 +75,13 @@ class ReadDiaryScreen extends StatelessWidget {
             TextButton(
               child: const Text('확인'),
               onPressed: () {
-                final String titleName = nameController.text;
-                if (titleName.isNotEmpty) {
-                  Navigator.of(context).pop();
-                  shareDiaryAsPDF(context, todayDiary.text, titleName);
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('제목을 입력해주세요.')),
-                  );
+                String titleName = nameController.text.trim();
+                if (titleName.isEmpty) {
+                  titleName = 'Diary'; // 제목이 비어있을 경우 기본값 'Diary'로 설정
                 }
+                Navigator.of(context).pop(); // 다이얼로그를 닫습니다.
+                shareDiaryAsPDF(
+                    context, todayDiary.text, titleName); // PDF 공유 함수를 호출합니다.
               },
             ),
           ],
@@ -134,7 +133,7 @@ class ReadDiaryScreen extends StatelessWidget {
                       showNameInputDialog(context); // 이름 입력 다이얼로그 호출
                     },
                   ),
-                  title: const Text('PDF로 공유하기'),
+                  title: const Text('PDF로 내보내기'),
                   onTap: () {
                     showNameInputDialog(context); // 이름 입력 다이얼로그 호출
                   },
@@ -145,12 +144,25 @@ class ReadDiaryScreen extends StatelessWidget {
                   leading: IconButton(
                     icon: SvgPicture.asset('assets/images/E_R_Share_ic.svg'),
                     onPressed: () {
-                      // 다른 공유 기능 추가
+                      // 클립보드에 URL 복사
+                      Clipboard.setData(ClipboardData(
+                          text: 'https://example.com')); // 여기에 실제 URL을 삽입
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('URL이 클립보드에 복사되었습니다.')),
+                      );
                     },
                   ),
-                  title: const Text('공유하기'),
+                  title: const Text('URL 복사하기'),
+                  onTap: () {
+                    // 클립보드에 URL 복사
+                    Clipboard.setData(ClipboardData(
+                        text: 'https://example.com')); // 여기에 실제 URL을 삽입
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('URL이 클립보드에 복사되었습니다.')),
+                    );
+                  },
                 ),
-              )
+              ),
             ],
           ),
         ],

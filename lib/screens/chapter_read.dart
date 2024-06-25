@@ -356,11 +356,11 @@ class _BookReadState extends State<ChapReaderPage> {
                                     TextEditingController fileNameController =
                                         TextEditingController();
                                     return AlertDialog(
-                                      title: Text('PDF 파일 이름 입력'),
+                                      title: Text('파일 이름을 입력하세요'),
                                       content: TextField(
                                         controller: fileNameController,
-                                        decoration: InputDecoration(
-                                            hintText: '파일 이름 입력'),
+                                        decoration:
+                                            InputDecoration(hintText: 'Diary'),
                                       ),
                                       actions: [
                                         TextButton(
@@ -373,20 +373,14 @@ class _BookReadState extends State<ChapReaderPage> {
                                           onPressed: () {
                                             String fileName =
                                                 fileNameController.text.trim();
-                                            if (fileName.isNotEmpty) {
-                                              Navigator.pop(
-                                                  context); // Close dialog
-                                              _exportToPDF(context,
-                                                  fileName); // Call PDF export function with file name
-                                            } else {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content:
-                                                      Text('파일 이름을 입력해주세요.'),
-                                                ),
-                                              );
+                                            if (fileName.isEmpty) {
+                                              fileName =
+                                                  'Diary'; // Default to 'Diary' if no input
                                             }
+                                            Navigator.pop(
+                                                context); // Close the dialog
+                                            _exportToPDF(context,
+                                                fileName); // Call PDF export function with file name
                                           },
                                           child: Text('저장'),
                                         ),
