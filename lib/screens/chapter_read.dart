@@ -382,7 +382,7 @@ class _BookReadState extends State<ChapReaderPage> {
                                             _exportToPDF(context,
                                                 fileName); // Call PDF export function with file name
                                           },
-                                          child: Text('저장'),
+                                          child: Text('확인'),
                                         ),
                                       ],
                                     );
